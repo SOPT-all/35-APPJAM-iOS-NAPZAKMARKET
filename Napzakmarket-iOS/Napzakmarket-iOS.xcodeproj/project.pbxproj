@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C693D112D2C33E100758C6A /* SellRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C693D102D2C33E100758C6A /* SellRegisterView.swift */; };
 		D0AA20EB2D2C0A56004CC2E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AA20E52D2C0A56004CC2E6 /* Preview Assets.xcassets */; };
 		D0AA20EC2D2C0A56004CC2E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AA20E72D2C0A56004CC2E6 /* Assets.xcassets */; };
 		D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA20E82D2C0A56004CC2E6 /* ContentView.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6C693D102D2C33E100758C6A /* SellRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellRegisterView.swift; sourceTree = "<group>"; };
 		D0AA20E52D2C0A56004CC2E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D0AA20E72D2C0A56004CC2E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0AA20E82D2C0A56004CC2E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -215,6 +217,7 @@
 			isa = PBXGroup;
 			children = (
 				D0AA21042D2C0BFB004CC2E6 /* RegisterView.swift */,
+				6C693D102D2C33E100758C6A /* SellRegisterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -453,6 +456,7 @@
 				D0AA20FB2D2C0B9A004CC2E6 /* TabbarView.swift in Sources */,
 				D0AA21092D2C0C17004CC2E6 /* DetailView.swift in Sources */,
 				D0AA21052D2C0BFF004CC2E6 /* RegisterView.swift in Sources */,
+				6C693D112D2C33E100758C6A /* SellRegisterView.swift in Sources */,
 				D0AA21182D2C0C7C004CC2E6 /* OnboardingView.swift in Sources */,
 				D0AA210E2D2C0C49004CC2E6 /* SearchView.swift in Sources */,
 				D0AA20FF2D2C0BDB004CC2E6 /* MypageView.swift in Sources */,
