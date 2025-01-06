@@ -19,6 +19,9 @@
 		D0AA21132D2C0C5F004CC2E6 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA21122D2C0C5E004CC2E6 /* HomeView.swift */; };
 		D0AA21182D2C0C7C004CC2E6 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA21172D2C0C78004CC2E6 /* OnboardingView.swift */; };
 		D0AA211D2D2C0C9C004CC2E6 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA211C2D2C0C99004CC2E6 /* SplashView.swift */; };
+		D0AA21222D2C10CC004CC2E6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D0AA21212D2C10CC004CC2E6 /* Moya */; };
+		D0AA21252D2C10E5004CC2E6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D0AA21242D2C10E5004CC2E6 /* Kingfisher */; };
+		D0AA21282D2C1169004CC2E6 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = D0AA21272D2C1169004CC2E6 /* Lottie */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +45,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D0AA21252D2C10E5004CC2E6 /* Kingfisher in Frameworks */,
+				D0AA21222D2C10CC004CC2E6 /* Moya in Frameworks */,
+				D0AA21282D2C1169004CC2E6 /* Lottie in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +386,9 @@
 			);
 			name = "Napzakmarket-iOS";
 			packageProductDependencies = (
+				D0AA21212D2C10CC004CC2E6 /* Moya */,
+				D0AA21242D2C10E5004CC2E6 /* Kingfisher */,
+				D0AA21272D2C1169004CC2E6 /* Lottie */,
 			);
 			productName = "Napzakmarket-iOS";
 			productReference = D0C2A8F62D2AA38E00C8616B /* Napzakmarket-iOS.app */;
@@ -409,6 +418,11 @@
 			);
 			mainGroup = D0C2A8ED2D2AA38E00C8616B;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				D0AA21202D2C10CC004CC2E6 /* XCRemoteSwiftPackageReference "Moya" */,
+				D0AA21232D2C10E5004CC2E6 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				D0AA21262D2C1169004CC2E6 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = D0C2A8F72D2AA38E00C8616B /* Products */;
 			projectDirPath = "";
@@ -649,6 +663,51 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		D0AA21202D2C10CC004CC2E6 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+		D0AA21232D2C10E5004CC2E6 /* XCRemoteSwiftPackageReference "Kingfisher" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/onevcat/Kingfisher.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 8.1.3;
+			};
+		};
+		D0AA21262D2C1169004CC2E6 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		D0AA21212D2C10CC004CC2E6 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0AA21202D2C10CC004CC2E6 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+		D0AA21242D2C10E5004CC2E6 /* Kingfisher */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0AA21232D2C10E5004CC2E6 /* XCRemoteSwiftPackageReference "Kingfisher" */;
+			productName = Kingfisher;
+		};
+		D0AA21272D2C1169004CC2E6 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = D0AA21262D2C1169004CC2E6 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = D0C2A8EE2D2AA38E00C8616B /* Project object */;
 }
