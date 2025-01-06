@@ -78,6 +78,7 @@ struct SellRegisterView: View {
                             .padding(.bottom, 12)
                         
                         TextField("제목을 적어주세요.", text: $title)
+                            .maxLength(50, text: $title)
                             .padding(.horizontal, 14)
                             .padding(.vertical, 11)
                             .background {
@@ -101,6 +102,17 @@ struct SellRegisterView: View {
                 }
             }
         }
+    }
+}
+
+extension TextField {
+    func maxLength(_ length: Int, text: Binding<String>) -> some View {
+        self
+            .onChange(of: text.wrappedValue, { oldValue, newValue in
+                if newValue.count > length {
+                    text.wrappedValue = String(newValue.prefix(length))
+                }
+            })
     }
 }
 
