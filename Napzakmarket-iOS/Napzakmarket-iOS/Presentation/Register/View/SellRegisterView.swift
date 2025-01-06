@@ -40,6 +40,28 @@ struct SellRegisterView: View {
                     .padding(20)
                     
                     
+                    // MARK: - 장르
+                    
+                    HStack(alignment: .center) {
+                        NavigationLink {
+                            Text("장르 뷰")
+                        } label: {
+                            HStack{
+                                Text("장르")
+                                    .foregroundStyle(.black)
+                                    .font(.system(size: 16))
+                                Spacer()
+                                Image(systemName: "chevron.right")
+                                    .foregroundStyle(.gray)
+                            }
+                        }
+                        
+                        Spacer()
+                    }
+                    .padding(20)
+
+                    
+                    
                 }
             }
         }
