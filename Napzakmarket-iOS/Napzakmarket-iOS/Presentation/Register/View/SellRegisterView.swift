@@ -105,17 +105,6 @@ struct SellRegisterView: View {
     }
 }
 
-extension TextField {
-    func maxLength(_ length: Int, text: Binding<String>) -> some View {
-        self
-            .onChange(of: text.wrappedValue, { oldValue, newValue in
-                if newValue.count > length {
-                    text.wrappedValue = String(newValue.prefix(length))
-                }
-            })
-    }
-}
-
 #Preview {
     SellRegisterView()
 }
