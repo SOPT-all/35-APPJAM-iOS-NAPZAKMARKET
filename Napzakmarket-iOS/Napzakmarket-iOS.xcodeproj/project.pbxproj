@@ -22,6 +22,9 @@
 		D0AA21222D2C10CC004CC2E6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D0AA21212D2C10CC004CC2E6 /* Moya */; };
 		D0AA21252D2C10E5004CC2E6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D0AA21242D2C10E5004CC2E6 /* Kingfisher */; };
 		D0AA21282D2C1169004CC2E6 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = D0AA21272D2C1169004CC2E6 /* Lottie */; };
+		D0AA21322D2CFF0E004CC2E6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA212F2D2CFF0E004CC2E6 /* Pretendard-Bold.otf */; };
+		D0AA21332D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA21312D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf */; };
+		D0AA21342D2CFF0E004CC2E6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA21302D2CFF0E004CC2E6 /* Pretendard-Medium.otf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,6 +40,10 @@
 		D0AA21122D2C0C5E004CC2E6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D0AA21172D2C0C78004CC2E6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D0AA211C2D2C0C99004CC2E6 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		D0AA212F2D2CFF0E004CC2E6 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		D0AA21302D2CFF0E004CC2E6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		D0AA21312D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		D0AA21372D2D00A3004CC2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0C2A8F62D2AA38E00C8616B /* Napzakmarket-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Napzakmarket-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -74,6 +81,7 @@
 		D0AA20EA2D2C0A56004CC2E6 /* Napzakmarket-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D0AA21372D2D00A3004CC2E6 /* Info.plist */,
 				D0AA20E42D2C0A56004CC2E6 /* Application */,
 				D0AA20EF2D2C0A8E004CC2E6 /* Global */,
 				D0AA20F52D2C0B03004CC2E6 /* Network */,
@@ -349,6 +357,9 @@
 		D0AA211F2D2C0CB9004CC2E6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				D0AA212F2D2CFF0E004CC2E6 /* Pretendard-Bold.otf */,
+				D0AA21302D2CFF0E004CC2E6 /* Pretendard-Medium.otf */,
+				D0AA21312D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -440,6 +451,9 @@
 			files = (
 				D0AA20EB2D2C0A56004CC2E6 /* Preview Assets.xcassets in Resources */,
 				D0AA20EC2D2C0A56004CC2E6 /* Assets.xcassets in Resources */,
+				D0AA21322D2CFF0E004CC2E6 /* Pretendard-Bold.otf in Resources */,
+				D0AA21332D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf in Resources */,
+				D0AA21342D2CFF0E004CC2E6 /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -595,6 +609,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Napzakmarket-iOS/Application/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Napzakmarket-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -623,6 +638,7 @@
 				DEVELOPMENT_ASSET_PATHS = "\"Napzakmarket-iOS/Application/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Napzakmarket-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
