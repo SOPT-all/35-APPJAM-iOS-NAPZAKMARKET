@@ -10,6 +10,8 @@ import SwiftUI
 struct SellRegisterView: View {
     @State private var title = ""
     @State private var description = ""
+    @State private var descriptionPlaceholder = "자세히 작성하면 더 빠르고 원활한 거래를 할 수 있어요."
+    + "\n예) 출시 연도, 사이즈, 한정판 여부, 네고 여부 등"
     
     var body: some View {
         NavigationStack {
@@ -40,7 +42,7 @@ struct SellRegisterView: View {
                         .clipShape(.rect(cornerRadius: 12))
                         .padding(.top, 12)
                     }
-                    .padding(20)
+                    .padding(.vertical, 20)
                     
                     
                     // MARK: - 장르
@@ -61,7 +63,7 @@ struct SellRegisterView: View {
                         
                         Spacer()
                     }
-                    .padding(20)
+                    .padding(.vertical, 20)
 
                     
                     // MARK: - 구분선
@@ -69,7 +71,6 @@ struct SellRegisterView: View {
                     Divider()
                         .frame(height: 1)
                         .background(.gray)
-                        .padding(.horizontal, 20)
                     
                     
                     // MARK: - 제목
@@ -96,7 +97,6 @@ struct SellRegisterView: View {
                         .padding(.top, 4)
                         
                     }
-                    .padding(.horizontal, 20)
                     .padding(.vertical, 35)
                     
                     
@@ -106,12 +106,24 @@ struct SellRegisterView: View {
                         Text("설명")
                             .padding(.bottom, 12)
                         
-                        TextEditor(text: $description)
-                            .frame(width: 335, height: 132)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(.gray, lineWidth: 1)
-                            )                        
+                        ZStack(alignment: .topLeading){
+                            TextEditor(text: $description)
+                                .maxLength(250, text: $description)
+                                .padding(.horizontal, 14)
+                                .padding(.vertical, 11)
+                            
+                            if description.isEmpty {
+                                Text(descriptionPlaceholder)
+                                    .foregroundStyle(.gray)
+                                    .padding(.horizontal, 20)
+                                    .padding(.vertical, 19)
+                            }
+                        }
+                        .frame(height: 132)
+                        .overlay {
+                            RoundedRectangle(cornerRadius: 12)
+                                .stroke(.gray, lineWidth: 1)
+                        }
                         
                         HStack {
                             Spacer()
@@ -122,15 +134,15 @@ struct SellRegisterView: View {
                         .padding(.top, 4)
                         
                     }
-                    .padding(.horizontal, 20)
-                    
-                    
                     
                     
                     
                     
                 }
+                .padding(.horizontal, 20)
+                
             }
+            
         }
     }
 }
