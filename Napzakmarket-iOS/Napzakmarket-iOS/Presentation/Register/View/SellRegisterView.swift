@@ -13,6 +13,18 @@ struct SellRegisterView: View {
     @State private var selectedOption = ""
     @State private var price = ""
     
+    // 택배비 포함
+    @State private var deliveryChargeFree = true
+    
+    // 일반 택배
+    @State private var normalDelivery = false
+    @State private var normalDeliveryCharge = ""
+    
+    // 반값/알뜰 택배
+    @State private var halfDelivery = false
+    @State private var halfDeliveryCharge = ""
+    
+    
     // 설명 placeholder
     private let descriptionPlaceholder = "자세히 작성하면 더 빠르고 원활한 거래를 할 수 있어요."
     + "\n예) 출시 연도, 사이즈, 한정판 여부, 네고 여부 등"
@@ -178,49 +190,178 @@ struct SellRegisterView: View {
 //                        
 //                    }
 //                    .padding(.horizontal, 20)
-
+//
+//                    
+//                    // MARK: - 섹션 구분선
+//                    
+//                    Rectangle()
+//                        .fill(Color.gray.opacity(0.1))
+//                        .frame(height: 8)
+//                        .padding(.vertical, 40)
+//                    
+//                    
+//                    // MARK: - 가격
+//                    
+//                    VStack(alignment: .leading) {
+//                        Text("가격")
+//                            .padding(.bottom, 12)
+//                        
+//                        HStack{
+//                            TextField("0", text: $price)
+//                                .onChange(of: price) { oldValue, newValue in
+//                                    price = stringToPrice(input: newValue)
+//                                }
+//                                
+//                            Text("원")
+//                                .foregroundColor(.gray)
+//                        }
+//                        .padding(.horizontal, 14)
+//                        .padding(.vertical, 11)
+//                        .overlay {
+//                            RoundedRectangle(cornerRadius: 12)
+//                                .stroke(.gray, lineWidth: 1)
+//                        }
+//
+//                    }
+//                    .padding(.horizontal, 20)
                     
-                    // MARK: - 섹션 구분선
                     
-                    Rectangle()
-                        .fill(Color.gray.opacity(0.1))
-                        .frame(height: 8)
-                        .padding(.vertical, 40)
+                    // MARK: - 배송비
                     
-                    
-                    // MARK: - 가격
-                    
-                    VStack(alignment: .leading) {
-                        Text("가격")
-                            .padding(.bottom, 12)
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text("배송비")
                         
                         HStack{
-                            TextField("0", text: $price)
-                                .onChange(of: price) { oldValue, newValue in
-                                    price = stringToPrice(input: newValue)
+                            Button {
+                                deliveryChargeFree = true
+                            } label: {
+                                Text("포함")
+                                    .frame(maxWidth: .infinity, minHeight: 40)
+                                    .clipShape(.rect(cornerRadius: 12))
+                                    .background(deliveryChargeFree ? .white : .clear)
+                                    .clipShape(.rect(cornerRadius: 12))
+                                    .foregroundStyle(deliveryChargeFree ? .black : .gray)
+                            }
+                            
+                            Button {
+                                deliveryChargeFree = false
+                            } label: {
+                                Text("별도")
+                                    .frame(maxWidth: .infinity, minHeight: 40)
+                                    .background(deliveryChargeFree ? .clear : .white)
+                                    .clipShape(.rect(cornerRadius: 12))
+                                    .foregroundStyle(deliveryChargeFree ? .gray : .black)
+                            }
+
+                        }
+                        .padding(3)
+                        .background(.gray.opacity(0.2))
+                        .clipShape(.rect(cornerRadius: 12))
+                        
+                        if !deliveryChargeFree {
+                            
+                            // 일반 택배
+                            VStack {
+                                HStack {
+                                    Image(systemName: normalDelivery ? "checkmark.square.fill" : "square")
+                                        .foregroundColor(normalDelivery ? .purple : .gray)
+                                    
+                                    Text("일반 택배")
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: normalDelivery ? "chevron.up" : "chevron.down")
+                                        .foregroundColor(.gray)
+                                }
+                                .onTapGesture {
+                                    normalDelivery.toggle()
                                 }
                                 
-                            Text("원")
-                                .foregroundColor(.gray)
-                        }
-                        .padding(.horizontal, 14)
-                        .padding(.vertical, 11)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(.gray, lineWidth: 1)
+                                if normalDelivery {
+                                    VStack {
+                                        HStack {
+                                            TextField("0", text: $normalDeliveryCharge)
+                                                .onChange(of: normalDeliveryCharge) { oldValue, newValue in
+                                                    normalDeliveryCharge = stringToPrice(input: newValue)
+                                                }
+                                            
+                                            Text("원")
+                                                .foregroundColor(.gray)
+                                        }
+                                        .padding(.horizontal, 15)
+                                        .padding(.vertical, 11)
+                                        .background(Color.gray.opacity(0.1))
+                                        .clipShape(.rect(cornerRadius: 10))
+                                    }
+                                }
+                                
+                            }
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 20)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(.gray, lineWidth: 1)
+                            }
+                            
+                            // 알뜰/반값 택배
+                            VStack {
+                                HStack {
+                                    Image(systemName: halfDelivery ? "checkmark.square.fill" : "square")
+                                        .foregroundColor(halfDelivery ? .purple : .gray)
+                                    
+                                    Text("알뜰/반값 택배")
+                                    
+                                    Spacer()
+                                    
+                                    Image(systemName: halfDelivery ? "chevron.up" : "chevron.down")
+                                        .foregroundColor(.gray)
+                                }
+                                .onTapGesture {
+                                    halfDelivery.toggle()
+                                }
+                                
+                                if halfDelivery {
+                                    VStack {
+                                        HStack {
+                                            TextField("0", text: $halfDeliveryCharge)
+                                                .onChange(of: halfDeliveryCharge) { oldValue, newValue in
+                                                    halfDeliveryCharge = stringToPrice(input: newValue)
+                                                }
+                                            
+                                            Text("원")
+                                                .foregroundColor(.gray)
+                                        }
+                                        .padding(.horizontal, 15)
+                                        .padding(.vertical, 11)
+                                        .background(Color.gray.opacity(0.1))
+                                        .clipShape(.rect(cornerRadius: 10))
+                                    }
+                                }
+                                
+                            }
+                            .padding(.horizontal, 15)
+                            .padding(.vertical, 20)
+                            .overlay {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(.gray, lineWidth: 1)
+                            }
+                            
                         }
 
                     }
-                    .padding(.horizontal, 20)
-                    
                     
                     
                 }
+                .padding(.horizontal, 20)
+                .padding(.vertical, 35)
+                
+                
             }
-            .scrollIndicators(.hidden)
-            
         }
+        .scrollIndicators(.hidden)
+        
     }
+    
     
     // MARK: - 3자리마다 쉼표 추가 함수
     private func stringToPrice(input: String) -> String {
