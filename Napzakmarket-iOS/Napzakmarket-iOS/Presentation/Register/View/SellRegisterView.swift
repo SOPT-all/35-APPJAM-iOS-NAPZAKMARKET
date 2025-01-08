@@ -37,6 +37,23 @@ struct SellRegisterView: View {
 
     var body: some View {
         NavigationStack {
+            HStack{
+                Button {
+                    print("뒤로가기 버튼")
+                } label: {
+                    Image(systemName: "multiply")
+                }
+                .foregroundStyle(.black)
+                
+                Spacer()
+                Text("팔아요 등록")
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.vertical, 5)
+            
+            Divider()
+            
             ScrollView {
                 VStack(alignment: .leading) {
                     
@@ -365,7 +382,7 @@ struct SellRegisterView: View {
             .background(.gray.opacity(1))
             .clipShape(.rect(cornerRadius: 12))
             .padding(.horizontal, 20)
-            .padding(.vertical, 20)
+            .padding(.vertical, 5)
             
         }
         .scrollIndicators(.hidden)
