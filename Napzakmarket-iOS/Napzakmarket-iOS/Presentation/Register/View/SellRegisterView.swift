@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SellRegisterView: View {
     @State private var title = ""
+    @State private var description = ""
     
     var body: some View {
         NavigationStack {
@@ -97,6 +98,35 @@ struct SellRegisterView: View {
                     }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 35)
+                    
+                    
+                    // MARK: - 설명
+                    
+                    VStack(alignment: .leading) {
+                        Text("설명")
+                            .padding(.bottom, 12)
+                        
+                        TextEditor(text: $description)
+                            .frame(width: 335, height: 132)
+                            .overlay(
+                                RoundedRectangle(cornerRadius: 12)
+                                    .stroke(.gray, lineWidth: 1)
+                            )                        
+                        
+                        HStack {
+                            Spacer()
+                            Text("\(description.count) / 250")
+                                .font(.system(size: 12))
+                                .foregroundStyle(.gray)
+                        }
+                        .padding(.top, 4)
+                        
+                    }
+                    .padding(.horizontal, 20)
+                    
+                    
+                    
+                    
                     
                     
                 }
