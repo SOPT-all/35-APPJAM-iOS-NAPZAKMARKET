@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3CF80C2F2D2C3DAB00E8DE1F /* ExtraView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80C2E2D2C3D9500E8DE1F /* ExtraView.swift */; };
+		3CF80CE72D302EC500E8DE1F /* TabbarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80CE62D302EBE00E8DE1F /* TabbarModel.swift */; };
 		D0AA20EB2D2C0A56004CC2E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AA20E52D2C0A56004CC2E6 /* Preview Assets.xcassets */; };
 		D0AA20EC2D2C0A56004CC2E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AA20E72D2C0A56004CC2E6 /* Assets.xcassets */; };
 		D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA20E82D2C0A56004CC2E6 /* ContentView.swift */; };
@@ -25,6 +27,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3CF80C2E2D2C3D9500E8DE1F /* ExtraView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtraView.swift; sourceTree = "<group>"; };
+		3CF80CE62D302EBE00E8DE1F /* TabbarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarModel.swift; sourceTree = "<group>"; };
 		D0AA20E52D2C0A56004CC2E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D0AA20E72D2C0A56004CC2E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0AA20E82D2C0A56004CC2E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -166,6 +170,7 @@
 		D0AA20F82D2C0B83004CC2E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3CF80C2E2D2C3D9500E8DE1F /* ExtraView.swift */,
 				D0AA20FA2D2C0B96004CC2E6 /* TabbarView.swift */,
 			);
 			path = View;
@@ -174,6 +179,7 @@
 		D0AA20F92D2C0B8A004CC2E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3CF80CE62D302EBE00E8DE1F /* TabbarModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -451,6 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0AA20FB2D2C0B9A004CC2E6 /* TabbarView.swift in Sources */,
+				3CF80CE72D302EC500E8DE1F /* TabbarModel.swift in Sources */,
 				D0AA21092D2C0C17004CC2E6 /* DetailView.swift in Sources */,
 				D0AA21052D2C0BFF004CC2E6 /* RegisterView.swift in Sources */,
 				D0AA21182D2C0C7C004CC2E6 /* OnboardingView.swift in Sources */,
@@ -458,6 +465,7 @@
 				D0AA20FF2D2C0BDB004CC2E6 /* MypageView.swift in Sources */,
 				D0AA21132D2C0C5F004CC2E6 /* HomeView.swift in Sources */,
 				D0AA211D2D2C0C9C004CC2E6 /* SplashView.swift in Sources */,
+				3CF80C2F2D2C3DAB00E8DE1F /* ExtraView.swift in Sources */,
 				D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */,
 				D0AA20EE2D2C0A56004CC2E6 /* Napzakmarket_iOSApp.swift in Sources */,
 			);
