@@ -25,6 +25,7 @@
 		D0AA21322D2CFF0E004CC2E6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA212F2D2CFF0E004CC2E6 /* Pretendard-Bold.otf */; };
 		D0AA21332D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA21312D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf */; };
 		D0AA21342D2CFF0E004CC2E6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA21302D2CFF0E004CC2E6 /* Pretendard-Medium.otf */; };
+		D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA21352D2CFF99004CC2E6 /* FontLiterial.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -43,6 +44,7 @@
 		D0AA212F2D2CFF0E004CC2E6 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
 		D0AA21302D2CFF0E004CC2E6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
 		D0AA21312D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		D0AA21352D2CFF99004CC2E6 /* FontLiterial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterial.swift; sourceTree = "<group>"; };
 		D0AA21372D2D00A3004CC2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0C2A8F62D2AA38E00C8616B /* Napzakmarket-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Napzakmarket-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -114,6 +116,7 @@
 		D0AA20F12D2C0AAE004CC2E6 /* Literals */ = {
 			isa = PBXGroup;
 			children = (
+				D0AA21352D2CFF99004CC2E6 /* FontLiterial.swift */,
 			);
 			path = Literals;
 			sourceTree = "<group>";
@@ -474,6 +477,7 @@
 				D0AA211D2D2C0C9C004CC2E6 /* SplashView.swift in Sources */,
 				D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */,
 				D0AA20EE2D2C0A56004CC2E6 /* Napzakmarket_iOSApp.swift in Sources */,
+				D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
