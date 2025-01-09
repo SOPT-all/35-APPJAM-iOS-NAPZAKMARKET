@@ -37,8 +37,9 @@ enum Transparency: String {
     case white20 = "FFFFFF"
 }
 
-enum Gradient: String {
-    case gradient1FirstColor, gradient1SecondColor = "FFFFFF"
+enum Gradient {
+    case gradient1FirstColor
+    case gradient1SecondColor
 }
 
 extension Color {
@@ -78,10 +79,10 @@ extension Color {
         switch color {
         case .gradient1FirstColor:
             let opacity = 0.0
-            return Color(hex: color.rawValue, opacity: opacity)
+            return Color(hex: "FFFFFF", opacity: opacity)
         case .gradient1SecondColor:
             let opacity = 100.0
-            return Color(hex: color.rawValue, opacity: opacity)
+            return Color(hex: "FFFFFF", opacity: opacity)
         }
     }
 }
