@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		D07B6F282D30001700500B92 /* NapzakTextStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B6F272D30000900500B92 /* NapzakTextStyleModifier.swift */; };
+		D07B6F2A2D30017E00500B92 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B6F292D30017B00500B92 /* View+.swift */; };
 		D0AA20EB2D2C0A56004CC2E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AA20E52D2C0A56004CC2E6 /* Preview Assets.xcassets */; };
 		D0AA20EC2D2C0A56004CC2E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AA20E72D2C0A56004CC2E6 /* Assets.xcassets */; };
 		D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA20E82D2C0A56004CC2E6 /* ContentView.swift */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		D07B6F272D30000900500B92 /* NapzakTextStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NapzakTextStyleModifier.swift; sourceTree = "<group>"; };
+		D07B6F292D30017B00500B92 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		D0AA20E52D2C0A56004CC2E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D0AA20E72D2C0A56004CC2E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0AA20E82D2C0A56004CC2E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -131,6 +135,7 @@
 		D0AA20F32D2C0ABE004CC2E6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				D07B6F292D30017B00500B92 /* View+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -138,6 +143,7 @@
 		D0AA20F42D2C0AC6004CC2E6 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				D07B6F272D30000900500B92 /* NapzakTextStyleModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -475,9 +481,11 @@
 				D0AA20FF2D2C0BDB004CC2E6 /* MypageView.swift in Sources */,
 				D0AA21132D2C0C5F004CC2E6 /* HomeView.swift in Sources */,
 				D0AA211D2D2C0C9C004CC2E6 /* SplashView.swift in Sources */,
+				D07B6F2A2D30017E00500B92 /* View+.swift in Sources */,
 				D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */,
 				D0AA20EE2D2C0A56004CC2E6 /* Napzakmarket_iOSApp.swift in Sources */,
 				D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */,
+				D07B6F282D30001700500B92 /* NapzakTextStyleModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
