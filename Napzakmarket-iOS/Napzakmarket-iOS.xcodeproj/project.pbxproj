@@ -10,6 +10,9 @@
 		6C693D112D2C33E100758C6A /* SellRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C693D102D2C33E100758C6A /* SellRegisterView.swift */; };
 		6C693D132D2D7C2600758C6A /* TextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C693D122D2D7C2600758C6A /* TextField+.swift */; };
 		6C693D152D2E4D9200758C6A /* TextEditor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C693D142D2E4D9200758C6A /* TextEditor+.swift */; };
+		D07A11F82D301BF400749962 /* ColorLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A11F72D301BE300749962 /* ColorLiteral.swift */; };
+		D07B6F282D30001700500B92 /* NapzakTextStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B6F272D30000900500B92 /* NapzakTextStyleModifier.swift */; };
+		D07B6F2A2D30017E00500B92 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B6F292D30017B00500B92 /* View+.swift */; };
 		D0AA20EB2D2C0A56004CC2E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AA20E52D2C0A56004CC2E6 /* Preview Assets.xcassets */; };
 		D0AA20EC2D2C0A56004CC2E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AA20E72D2C0A56004CC2E6 /* Assets.xcassets */; };
 		D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA20E82D2C0A56004CC2E6 /* ContentView.swift */; };
@@ -25,12 +28,19 @@
 		D0AA21222D2C10CC004CC2E6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D0AA21212D2C10CC004CC2E6 /* Moya */; };
 		D0AA21252D2C10E5004CC2E6 /* Kingfisher in Frameworks */ = {isa = PBXBuildFile; productRef = D0AA21242D2C10E5004CC2E6 /* Kingfisher */; };
 		D0AA21282D2C1169004CC2E6 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = D0AA21272D2C1169004CC2E6 /* Lottie */; };
+		D0AA21322D2CFF0E004CC2E6 /* Pretendard-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA212F2D2CFF0E004CC2E6 /* Pretendard-Bold.otf */; };
+		D0AA21332D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA21312D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf */; };
+		D0AA21342D2CFF0E004CC2E6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA21302D2CFF0E004CC2E6 /* Pretendard-Medium.otf */; };
+		D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA21352D2CFF99004CC2E6 /* FontLiterial.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6C693D102D2C33E100758C6A /* SellRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellRegisterView.swift; sourceTree = "<group>"; };
 		6C693D122D2D7C2600758C6A /* TextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+.swift"; sourceTree = "<group>"; };
 		6C693D142D2E4D9200758C6A /* TextEditor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextEditor+.swift"; sourceTree = "<group>"; };
+		D07A11F72D301BE300749962 /* ColorLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiteral.swift; sourceTree = "<group>"; };
+		D07B6F272D30000900500B92 /* NapzakTextStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NapzakTextStyleModifier.swift; sourceTree = "<group>"; };
+		D07B6F292D30017B00500B92 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
 		D0AA20E52D2C0A56004CC2E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		D0AA20E72D2C0A56004CC2E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0AA20E82D2C0A56004CC2E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -43,6 +53,11 @@
 		D0AA21122D2C0C5E004CC2E6 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		D0AA21172D2C0C78004CC2E6 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; sourceTree = "<group>"; };
 		D0AA211C2D2C0C99004CC2E6 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
+		D0AA212F2D2CFF0E004CC2E6 /* Pretendard-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.otf"; sourceTree = "<group>"; };
+		D0AA21302D2CFF0E004CC2E6 /* Pretendard-Medium.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.otf"; sourceTree = "<group>"; };
+		D0AA21312D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.otf"; sourceTree = "<group>"; };
+		D0AA21352D2CFF99004CC2E6 /* FontLiterial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FontLiterial.swift; sourceTree = "<group>"; };
+		D0AA21372D2D00A3004CC2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0C2A8F62D2AA38E00C8616B /* Napzakmarket-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Napzakmarket-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -80,6 +95,7 @@
 		D0AA20EA2D2C0A56004CC2E6 /* Napzakmarket-iOS */ = {
 			isa = PBXGroup;
 			children = (
+				D0AA21372D2D00A3004CC2E6 /* Info.plist */,
 				D0AA20E42D2C0A56004CC2E6 /* Application */,
 				D0AA20EF2D2C0A8E004CC2E6 /* Global */,
 				D0AA20F52D2C0B03004CC2E6 /* Network */,
@@ -112,6 +128,8 @@
 		D0AA20F12D2C0AAE004CC2E6 /* Literals */ = {
 			isa = PBXGroup;
 			children = (
+				D07A11F72D301BE300749962 /* ColorLiteral.swift */,
+				D0AA21352D2CFF99004CC2E6 /* FontLiterial.swift */,
 			);
 			path = Literals;
 			sourceTree = "<group>";
@@ -128,6 +146,7 @@
 			children = (
 				6C693D122D2D7C2600758C6A /* TextField+.swift */,
 				6C693D142D2E4D9200758C6A /* TextEditor+.swift */,
+				D07B6F292D30017B00500B92 /* View+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -135,6 +154,7 @@
 		D0AA20F42D2C0AC6004CC2E6 /* Modifiers */ = {
 			isa = PBXGroup;
 			children = (
+				D07B6F272D30000900500B92 /* NapzakTextStyleModifier.swift */,
 			);
 			path = Modifiers;
 			sourceTree = "<group>";
@@ -358,6 +378,9 @@
 		D0AA211F2D2C0CB9004CC2E6 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				D0AA212F2D2CFF0E004CC2E6 /* Pretendard-Bold.otf */,
+				D0AA21302D2CFF0E004CC2E6 /* Pretendard-Medium.otf */,
+				D0AA21312D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf */,
 			);
 			path = Fonts;
 			sourceTree = "<group>";
@@ -449,6 +472,9 @@
 			files = (
 				D0AA20EB2D2C0A56004CC2E6 /* Preview Assets.xcassets in Resources */,
 				D0AA20EC2D2C0A56004CC2E6 /* Assets.xcassets in Resources */,
+				D0AA21322D2CFF0E004CC2E6 /* Pretendard-Bold.otf in Resources */,
+				D0AA21332D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf in Resources */,
+				D0AA21342D2CFF0E004CC2E6 /* Pretendard-Medium.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -469,9 +495,13 @@
 				6C693D152D2E4D9200758C6A /* TextEditor+.swift in Sources */,
 				6C693D132D2D7C2600758C6A /* TextField+.swift in Sources */,
 				D0AA21132D2C0C5F004CC2E6 /* HomeView.swift in Sources */,
+				D07A11F82D301BF400749962 /* ColorLiteral.swift in Sources */,
 				D0AA211D2D2C0C9C004CC2E6 /* SplashView.swift in Sources */,
+				D07B6F2A2D30017E00500B92 /* View+.swift in Sources */,
 				D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */,
 				D0AA20EE2D2C0A56004CC2E6 /* Napzakmarket_iOSApp.swift in Sources */,
+				D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */,
+				D07B6F282D30001700500B92 /* NapzakTextStyleModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -608,6 +638,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Napzakmarket-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -637,6 +668,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "Napzakmarket-iOS/Info.plist";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
