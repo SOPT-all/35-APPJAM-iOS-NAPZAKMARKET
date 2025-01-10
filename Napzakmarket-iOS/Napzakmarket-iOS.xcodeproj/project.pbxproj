@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3CF80CEA2D310A7C00E8DE1F /* TabbarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80CE92D310A7C00E8DE1F /* TabbarModel.swift */; };
 		D07A11F82D301BF400749962 /* ColorLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A11F72D301BE300749962 /* ColorLiteral.swift */; };
 		D07B6F282D30001700500B92 /* NapzakTextStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B6F272D30000900500B92 /* NapzakTextStyleModifier.swift */; };
 		D07B6F2A2D30017E00500B92 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B6F292D30017B00500B92 /* View+.swift */; };
@@ -32,6 +33,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3CF80CE92D310A7C00E8DE1F /* TabbarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarModel.swift; sourceTree = "<group>"; };
 		D07A11F72D301BE300749962 /* ColorLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiteral.swift; sourceTree = "<group>"; };
 		D07B6F272D30000900500B92 /* NapzakTextStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NapzakTextStyleModifier.swift; sourceTree = "<group>"; };
 		D07B6F292D30017B00500B92 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
@@ -186,7 +188,6 @@
 		D0AA20F82D2C0B83004CC2E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				3CF80C2E2D2C3D9500E8DE1F /* ExtraView.swift */,
 				D0AA20FA2D2C0B96004CC2E6 /* TabbarView.swift */,
 			);
 			path = View;
@@ -195,7 +196,7 @@
 		D0AA20F92D2C0B8A004CC2E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3CF80CE62D302EBE00E8DE1F /* TabbarModel.swift */,
+				3CF80CE92D310A7C00E8DE1F /* TabbarModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -479,7 +480,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				D0AA20FB2D2C0B9A004CC2E6 /* TabbarView.swift in Sources */,
-				3CF80CE72D302EC500E8DE1F /* TabbarModel.swift in Sources */,
 				D0AA21092D2C0C17004CC2E6 /* DetailView.swift in Sources */,
 				D0AA21052D2C0BFF004CC2E6 /* RegisterView.swift in Sources */,
 				D0AA21182D2C0C7C004CC2E6 /* OnboardingView.swift in Sources */,
@@ -492,6 +492,7 @@
 				D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */,
 				D0AA20EE2D2C0A56004CC2E6 /* Napzakmarket_iOSApp.swift in Sources */,
 				D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */,
+				3CF80CEA2D310A7C00E8DE1F /* TabbarModel.swift in Sources */,
 				D07B6F282D30001700500B92 /* NapzakTextStyleModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -16,11 +16,11 @@ class TabViewModel: ObservableObject {
     
     init() {
         tabs = [
-            TabItem(title: "홈", defaultIcon: "house", selectedIcon: "house.fill", view: AnyView(ExtraView())),
-            TabItem(title: "탐색", defaultIcon: "magnifyingglass", selectedIcon: "magnifyingglass.circle.fill", view: AnyView(ExtraView())),
-            TabItem(title: "등록", defaultIcon: "plus.circle", selectedIcon: "plus.circle.fill", view: AnyView(ExtraView())),
-            TabItem(title: "채팅", defaultIcon: "paperplane", selectedIcon: "paperplane.fill", view: AnyView(ExtraView())),
-            TabItem(title: "마이", defaultIcon: "person", selectedIcon: "person.fill", view: AnyView(MypageView()))
+            TabItem(title: "홈", defaultIcon: "ic_home", selectedIcon: "ic_home_select", view: AnyView(MypageView())),
+            TabItem(title: "탐색", defaultIcon: "ic_look", selectedIcon: "ic_look_select", view: AnyView(MypageView())),
+            TabItem(title: "등록", defaultIcon: "ic_register", selectedIcon: "ic_register_select", view: AnyView(MypageView())),
+            TabItem(title: "채팅", defaultIcon: "ic_chat", selectedIcon: "ic_chat_select", view: AnyView(MypageView())),
+            TabItem(title: "마이", defaultIcon: "ic_my", selectedIcon: "ic_my_select", view: AnyView(MypageView()))
         ]
     }
 }
@@ -37,7 +37,7 @@ struct TabbarView: View {
                     viewModel.tabs[index].view
                         .tabItem {
                             VStack {
-                                Image(systemName: viewModel.visualSelectedTab == index ? viewModel.tabs[index].selectedIcon : viewModel.tabs[index].defaultIcon)
+                                Image(viewModel.selectedTab == index ? viewModel.tabs[index].selectedIcon : viewModel.tabs[index].defaultIcon)
                                 Text(viewModel.tabs[index].title)
                             }
                         }
