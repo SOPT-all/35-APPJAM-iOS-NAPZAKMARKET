@@ -10,8 +10,10 @@ import SwiftUI
 struct SellRegisterView: View {
     @State private var title = ""
     @State private var description = ""
-    @State private var selectedOption = ""
+    @State private var productState = ""
     @State private var price = ""
+    
+    
     
     // 택배비 포함
     @State private var deliveryChargeFree = true
@@ -25,12 +27,7 @@ struct SellRegisterView: View {
     @State private var halfDeliveryCharge = ""
     
     
-    // 설명 placeholder
-    private let descriptionPlaceholder = "자세히 작성하면 더 빠르고 원활한 거래를 할 수 있어요."
-    + "\n예) 출시 연도, 사이즈, 한정판 여부, 네고 여부 등"
-    
-    // 물건 상태
-    private let options = ["미개봉", "아주 좋은 상태", "약간의 사용감", "사용감 있음"]
+
     
     // 최대 금액 100만원
     private let maxPrice: Int = 1_000_000
@@ -51,77 +48,16 @@ struct SellRegisterView: View {
                     RegisterTitle(title: $title)
                     
                     // MARK: - 설명
-                    
-                    VStack(alignment: .leading) {
-                        Text("설명")
-                            .padding(.bottom, 12)
-                        
-                        ZStack(alignment: .topLeading){
-                            TextEditor(text: $description)
-                                .maxLength(250, text: $description)
-                                .padding(.horizontal, 14)
-                                .padding(.vertical, 11)
-                            
-                            if description.isEmpty {
-                                Text(descriptionPlaceholder)
-                                    .foregroundStyle(.gray)
-                                    .padding(.horizontal, 20)
-                                    .padding(.vertical, 19)
-                            }
-                        }
-                        .frame(height: 132)
-                        .overlay {
-                            RoundedRectangle(cornerRadius: 12)
-                                .stroke(.gray, lineWidth: 1)
-                        }
-                        
-                        HStack {
-                            Spacer()
-                            Text("\(description.count) / 250")
-                                .font(.system(size: 12))
-                                .foregroundStyle(.gray)
-                        }
-                        .padding(.top, 4)
-                        
-                    }
-                    .padding(.bottom, 35)
-                    .padding(.horizontal, 20)
-                    
+                    RegisterDescription(description: $description)
                     
                     // MARK: - 상품 상태
+                    RegisterProductState(productState: $productState)
                     
-                    VStack(alignment: .leading) {
-                        Text("상품 상태")
-                            .padding(.bottom, 12)
-                        
-                        LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
-                            ForEach(options, id: \.self) { option in
-                                Button {
-                                    selectedOption = option
-                                } label: {
-                                    Text(option)
-                                        .frame(maxWidth: .infinity, minHeight: 40)
-                                        .foregroundColor(selectedOption == option ? .white : .black)
-                                        .background(selectedOption == option ? .black : .white)
-                                        .clipShape(.rect(cornerRadius: 12))
-                                        .overlay(
-                                            RoundedRectangle(cornerRadius: 12)
-                                                .stroke(.gray, lineWidth: 1))
-                                    
-                                }
-                            }
-                        }
-                        
-                    }
-                    .padding(.horizontal, 20)
-                    
-                    // MARK: - 섹션 구분선
-                    
+                    // MARK: - 가격 구분선
                     Rectangle()
                         .fill(Color.gray.opacity(0.1))
                         .frame(height: 8)
                         .padding(.vertical, 40)
-                    
                     
                     // MARK: - 가격
                     
