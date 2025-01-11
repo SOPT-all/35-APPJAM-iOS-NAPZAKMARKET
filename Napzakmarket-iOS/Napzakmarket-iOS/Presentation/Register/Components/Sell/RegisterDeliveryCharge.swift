@@ -26,9 +26,9 @@ struct RegisterDeliveryCharge: View {
                 } label: {
                     Text("포함")
                         .frame(maxWidth: .infinity, minHeight: 40)
-                        .clipShape(.rect(cornerRadius: 12))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                         .background(deliveryChargeFree ? .white : .clear)
-                        .clipShape(.rect(cornerRadius: 12))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                         .foregroundStyle(deliveryChargeFree ? .black : .gray)
                 }
                 
@@ -38,14 +38,14 @@ struct RegisterDeliveryCharge: View {
                     Text("별도")
                         .frame(maxWidth: .infinity, minHeight: 40)
                         .background(deliveryChargeFree ? .clear : .white)
-                        .clipShape(.rect(cornerRadius: 12))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                         .foregroundStyle(deliveryChargeFree ? .gray : .black)
                 }
                 
             }
             .padding(3)
             .background(.gray.opacity(0.2))
-            .clipShape(.rect(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
             
             if !deliveryChargeFree {
                 
@@ -87,7 +87,7 @@ struct RegisterDeliveryCharge: View {
                             .padding(.horizontal, 15)
                             .padding(.vertical, 11)
                             .background(Color.gray.opacity(0.1))
-                            .clipShape(.rect(cornerRadius: 10))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
                     }
                     
@@ -136,7 +136,7 @@ struct RegisterDeliveryCharge: View {
                             .padding(.horizontal, 15)
                             .padding(.vertical, 11)
                             .background(Color.gray.opacity(0.1))
-                            .clipShape(.rect(cornerRadius: 10))
+                            .clipShape(RoundedRectangle(cornerRadius: 10))
                         }
                     }
                     

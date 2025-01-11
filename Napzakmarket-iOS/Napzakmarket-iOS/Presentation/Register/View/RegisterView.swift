@@ -33,7 +33,7 @@ struct RegisterView: View {
             .frame(maxWidth: .infinity, minHeight: 52)
             .foregroundStyle(.white)
             .background(.gray.opacity(1))
-            .clipShape(.rect(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 20)
             .padding(.vertical, 5)
         }

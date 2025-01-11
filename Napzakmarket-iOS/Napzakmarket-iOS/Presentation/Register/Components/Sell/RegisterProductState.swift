@@ -27,7 +27,7 @@ struct RegisterProductState: View {
                             .frame(maxWidth: .infinity, minHeight: 40)
                             .foregroundColor(productState == option ? .white : .black)
                             .background(productState == option ? .black : .white)
-                            .clipShape(.rect(cornerRadius: 12))
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
                                     .stroke(.gray, lineWidth: 1))

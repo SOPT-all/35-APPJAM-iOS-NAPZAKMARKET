@@ -28,7 +28,7 @@ struct RegisterImage: View {
             .frame(width: 80, height: 80)
             .background(.gray)
             .foregroundStyle(.white)
-            .clipShape(.rect(cornerRadius: 12))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.top, 12)
         }
         .padding(20)
