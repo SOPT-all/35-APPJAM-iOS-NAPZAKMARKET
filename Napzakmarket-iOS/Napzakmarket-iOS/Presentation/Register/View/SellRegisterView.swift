@@ -40,29 +40,12 @@ struct SellRegisterView: View {
             RegisterHeader()
             ScrollView {
                 VStack(alignment: .leading) {
+                    
+                    // MARK: - 상품 이미지
                     RegisterImage()
                     
                     // MARK: - 장르
-                    
-                    HStack(alignment: .center) {
-                        NavigationLink {
-                            Text("장르 뷰")
-                        } label: {
-                            HStack{
-                                Text("장르")
-                                    .foregroundStyle(.black)
-                                    .font(.system(size: 16))
-                                Spacer()
-                                Image(systemName: "chevron.right")
-                                    .foregroundStyle(.gray)
-                            }
-                        }
-                        
-                        Spacer()
-                    }
-                    .padding(.vertical, 20)
-                    .padding(.horizontal, 20)
-                    
+                    RegisterGenre()
                     
                     // MARK: - 구분선
                     
