@@ -25,6 +25,11 @@ struct RegisterGenre: View {
             Spacer()
         }
         .padding(20)
+        
+        Divider()
+            .frame(height: 1)
+            .background(.gray)
+            .padding(.horizontal, 20)
     }
 }
 

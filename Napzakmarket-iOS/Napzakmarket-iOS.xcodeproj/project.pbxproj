@@ -12,6 +12,7 @@
 		6C2D5B642D32AE6200E904C6 /* RegisterHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B632D32AE6200E904C6 /* RegisterHeader.swift */; };
 		6C2D5B662D32B47B00E904C6 /* RegisterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B652D32B47B00E904C6 /* RegisterImage.swift */; };
 		6C2D5B682D32B51200E904C6 /* RegisterGenre.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B672D32B51200E904C6 /* RegisterGenre.swift */; };
+		6C2D5B6A2D32B62000E904C6 /* RegisterTitle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B692D32B62000E904C6 /* RegisterTitle.swift */; };
 		6C693D132D2D7C2600758C6A /* TextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C693D122D2D7C2600758C6A /* TextField+.swift */; };
 		6C693D152D2E4D9200758C6A /* TextEditor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C693D142D2E4D9200758C6A /* TextEditor+.swift */; };
 		D07A11F82D301BF400749962 /* ColorLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A11F72D301BE300749962 /* ColorLiteral.swift */; };
@@ -43,6 +44,7 @@
 		6C2D5B632D32AE6200E904C6 /* RegisterHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterHeader.swift; sourceTree = "<group>"; };
 		6C2D5B652D32B47B00E904C6 /* RegisterImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterImage.swift; sourceTree = "<group>"; };
 		6C2D5B672D32B51200E904C6 /* RegisterGenre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterGenre.swift; sourceTree = "<group>"; };
+		6C2D5B692D32B62000E904C6 /* RegisterTitle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterTitle.swift; sourceTree = "<group>"; };
 		6C693D122D2D7C2600758C6A /* TextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+.swift"; sourceTree = "<group>"; };
 		6C693D142D2E4D9200758C6A /* TextEditor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextEditor+.swift"; sourceTree = "<group>"; };
 		D07A11F72D301BE300749962 /* ColorLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiteral.swift; sourceTree = "<group>"; };
@@ -113,6 +115,7 @@
 				6C2D5B632D32AE6200E904C6 /* RegisterHeader.swift */,
 				6C2D5B652D32B47B00E904C6 /* RegisterImage.swift */,
 				6C2D5B672D32B51200E904C6 /* RegisterGenre.swift */,
+				6C2D5B692D32B62000E904C6 /* RegisterTitle.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -505,6 +508,7 @@
 				6C2D5B662D32B47B00E904C6 /* RegisterImage.swift in Sources */,
 				D0AA20FB2D2C0B9A004CC2E6 /* TabbarView.swift in Sources */,
 				D0AA21092D2C0C17004CC2E6 /* DetailView.swift in Sources */,
+				6C2D5B6A2D32B62000E904C6 /* RegisterTitle.swift in Sources */,
 				D0AA21182D2C0C7C004CC2E6 /* OnboardingView.swift in Sources */,
 				D0AA210E2D2C0C49004CC2E6 /* SearchView.swift in Sources */,
 				D0AA20FF2D2C0BDB004CC2E6 /* MypageView.swift in Sources */,

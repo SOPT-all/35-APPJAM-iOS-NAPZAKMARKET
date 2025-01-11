@@ -47,41 +47,8 @@ struct SellRegisterView: View {
                     // MARK: - 장르
                     RegisterGenre()
                     
-                    // MARK: - 구분선
-                    
-                    Divider()
-                        .frame(height: 1)
-                        .background(.gray)
-                        .padding(.horizontal, 20)
-                    
-                    
                     // MARK: - 제목
-                    
-                    VStack(alignment: .leading) {
-                        Text("제목")
-                            .padding(.bottom, 12)
-                        
-                        TextField("제목을 적어주세요.", text: $title)
-                            .maxLength(50, text: $title)
-                            .padding(.horizontal, 14)
-                            .padding(.vertical, 11)
-                            .background {
-                                RoundedRectangle(cornerRadius: 12)
-                                    .stroke(.gray, lineWidth: 1)
-                            }
-                        
-                        HStack {
-                            Spacer()
-                            Text("\(title.count) / 50")
-                                .font(.system(size: 12))
-                                .foregroundStyle(.gray)
-                        }
-                        .padding(.top, 4)
-                        
-                    }
-                    .padding(.vertical, 35)
-                    .padding(.horizontal, 20)
-                    
+                    RegisterTitle(title: $title)
                     
                     // MARK: - 설명
                     
