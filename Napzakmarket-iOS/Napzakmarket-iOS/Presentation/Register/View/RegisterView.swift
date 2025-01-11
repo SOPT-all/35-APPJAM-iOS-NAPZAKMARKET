@@ -19,7 +19,11 @@ struct RegisterView: View {
                 RegisterBuyHeader()
             }
             
-            SellRegisterView()
+            if RegisterType == "Sell" {
+                SellRegisterView()
+            } else {
+                BuyRegisterView()
+            }
             
             Button(action: {
                 print(("tapped button"))

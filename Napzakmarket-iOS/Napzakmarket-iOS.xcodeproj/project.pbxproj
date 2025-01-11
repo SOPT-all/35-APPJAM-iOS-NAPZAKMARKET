@@ -18,6 +18,7 @@
 		6C2D5B742D32BD8C00E904C6 /* RegisterDeliveryCharge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B732D32BD8C00E904C6 /* RegisterDeliveryCharge.swift */; };
 		6C2D5B7B2D32C2A800E904C6 /* RegisterBuyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B792D32C2A800E904C6 /* RegisterBuyHeader.swift */; };
 		6C2D5B7E2D32C2AA00E904C6 /* RegisterSellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B7C2D32C2AA00E904C6 /* RegisterSellHeader.swift */; };
+		6C2D5B802D32CE7900E904C6 /* BuyRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B7F2D32CE7900E904C6 /* BuyRegisterView.swift */; };
 		6C693D132D2D7C2600758C6A /* TextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C693D122D2D7C2600758C6A /* TextField+.swift */; };
 		6C693D152D2E4D9200758C6A /* TextEditor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C693D142D2E4D9200758C6A /* TextEditor+.swift */; };
 		D07A11F82D301BF400749962 /* ColorLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A11F72D301BE300749962 /* ColorLiteral.swift */; };
@@ -55,6 +56,7 @@
 		6C2D5B732D32BD8C00E904C6 /* RegisterDeliveryCharge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterDeliveryCharge.swift; sourceTree = "<group>"; };
 		6C2D5B792D32C2A800E904C6 /* RegisterBuyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBuyHeader.swift; sourceTree = "<group>"; };
 		6C2D5B7C2D32C2AA00E904C6 /* RegisterSellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSellHeader.swift; sourceTree = "<group>"; };
+		6C2D5B7F2D32CE7900E904C6 /* BuyRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyRegisterView.swift; sourceTree = "<group>"; };
 		6C693D122D2D7C2600758C6A /* TextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+.swift"; sourceTree = "<group>"; };
 		6C693D142D2E4D9200758C6A /* TextEditor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextEditor+.swift"; sourceTree = "<group>"; };
 		D07A11F72D301BE300749962 /* ColorLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiteral.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			children = (
 				6C2D5B5A2D32AD2800E904C6 /* RegisterView.swift */,
 				6C2D5B5B2D32AD2800E904C6 /* SellRegisterView.swift */,
+				6C2D5B7F2D32CE7900E904C6 /* BuyRegisterView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -112,9 +115,9 @@
 		6C2D5B5D2D32AD2800E904C6 /* Register */ = {
 			isa = PBXGroup;
 			children = (
+				6C2D5B582D32AD2800E904C6 /* Model */,
 				6C2D5B622D32ADEE00E904C6 /* Components */,
 				6C2D5B5C2D32AD2800E904C6 /* View */,
-				6C2D5B582D32AD2800E904C6 /* Model */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 				6C2D5B7E2D32C2AA00E904C6 /* RegisterSellHeader.swift in Sources */,
 				6C2D5B702D32B9BE00E904C6 /* RegisterProductState.swift in Sources */,
 				D0AA211D2D2C0C9C004CC2E6 /* SplashView.swift in Sources */,
+				6C2D5B802D32CE7900E904C6 /* BuyRegisterView.swift in Sources */,
 				D07B6F2A2D30017E00500B92 /* View+.swift in Sources */,
 				D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */,
 				6C2D5B742D32BD8C00E904C6 /* RegisterDeliveryCharge.swift in Sources */,
