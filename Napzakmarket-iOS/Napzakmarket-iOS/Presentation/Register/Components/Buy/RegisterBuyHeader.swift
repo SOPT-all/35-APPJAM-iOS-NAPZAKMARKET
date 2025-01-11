@@ -27,7 +27,3 @@ struct RegisterBuyHeader: View {
         Divider()
     }
 }
-
-#Preview {
-    RegisterBuyHeader()
-}
