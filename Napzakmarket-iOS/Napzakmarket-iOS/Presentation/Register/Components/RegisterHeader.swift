@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RegisterHeaderView: View {
+struct RegisterHeader: View {
     var body: some View {
         HStack{
             Button {
@@ -29,5 +29,5 @@ struct RegisterHeaderView: View {
 }
 
 #Preview {
-    RegisterHeaderView()
+    RegisterHeader()
 }
