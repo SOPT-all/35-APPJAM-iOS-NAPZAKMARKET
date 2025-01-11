@@ -10,8 +10,7 @@ import SwiftUI
 struct RegisterSellPrice: View {
     @Binding var price: String
     
-    // 최대 금액 100만원
-    private let maxPrice: Int = 1_000_000
+    private let maxPrice: Int = 1_000_000       // 최대 금액 100만원
     
     var body: some View {
         VStack(alignment: .leading) {
