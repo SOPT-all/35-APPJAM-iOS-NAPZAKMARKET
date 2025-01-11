@@ -20,7 +20,7 @@ struct SellRegisterView: View {
 
     var body: some View {
         NavigationStack {
-            RegisterHeader()
+            RegisterSellHeader()
             ScrollView {
                 VStack(alignment: .leading) {
                     

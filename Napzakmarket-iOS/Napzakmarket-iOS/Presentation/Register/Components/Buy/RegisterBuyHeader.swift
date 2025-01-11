@@ -1,13 +1,13 @@
 //
-//  RegisterHeaderView.swift
+//  RegisterBuyHeader.swift
 //  Napzakmarket-iOS
 //
-//  Created by OneTen on 1/11/25.
+//  Created by OneTen on 1/12/25.
 //
 
 import SwiftUI
 
-struct RegisterHeader: View {
+struct RegisterBuyHeader: View {
     var body: some View {
         HStack{
             Button {
@@ -18,7 +18,7 @@ struct RegisterHeader: View {
             .foregroundStyle(.black)
             
             Spacer()
-            Text("팔아요 등록")
+            Text("구해요 등록")
             Spacer()
         }
         .padding(.horizontal, 20)
@@ -29,5 +29,5 @@ struct RegisterHeader: View {
 }
 
 #Preview {
-    RegisterHeader()
+    RegisterBuyHeader()
 }
