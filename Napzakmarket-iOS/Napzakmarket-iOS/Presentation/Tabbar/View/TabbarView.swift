@@ -44,9 +44,8 @@ struct TabbarView: View {
                 VStack(spacing: 0) {
                     Rectangle()
                         .frame(height: 1)
-                        .foregroundColor(Color(UIColor.systemGray5))
+                        .foregroundStyle(Color.napzakGrayScale(.gray200))
                     
-                    // 탭바
                     HStack {
                         ForEach(0..<viewModel.tabs.count, id: \.self) { index in
                             Spacer()
@@ -85,9 +84,10 @@ struct TabbarView: View {
                         }) {
                             HStack {
                                 Image("ic_sell")
-                                    .foregroundColor(.purple)
                                 Text("팔아요 등록")
-                                    .foregroundColor(.black)
+                                    .font(.napzakFont(.body2SemiBold16))
+                                       .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+                                    .foregroundStyle(Color.napzakGrayScale(.gray900))
                             }
                         }
                         
@@ -99,9 +99,10 @@ struct TabbarView: View {
                         }) {
                             HStack {
                                 Image("ic_buy")
-                                    .foregroundColor(.purple)
                                 Text("구해요 등록")
-                                    .foregroundColor(.black)
+                                    .font(.napzakFont(.body2SemiBold16))
+                                       .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+                                    .foregroundStyle(Color.napzakGrayScale(.gray900))
                             }
                         }
                     }
