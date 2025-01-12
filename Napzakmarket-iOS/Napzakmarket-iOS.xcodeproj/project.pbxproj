@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3CF80CEA2D310A7C00E8DE1F /* TabbarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80CE92D310A7C00E8DE1F /* TabbarModel.swift */; };
+		3CF80CEC2D3433C800E8DE1F /* PreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80CEB2D3433AD00E8DE1F /* PreView.swift */; };
 		D07A11F82D301BF400749962 /* ColorLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A11F72D301BE300749962 /* ColorLiteral.swift */; };
 		D07B6F282D30001700500B92 /* NapzakTextStyleModifier.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B6F272D30000900500B92 /* NapzakTextStyleModifier.swift */; };
 		D07B6F2A2D30017E00500B92 /* View+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07B6F292D30017B00500B92 /* View+.swift */; };
@@ -34,6 +35,7 @@
 
 /* Begin PBXFileReference section */
 		3CF80CE92D310A7C00E8DE1F /* TabbarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabbarModel.swift; sourceTree = "<group>"; };
+		3CF80CEB2D3433AD00E8DE1F /* PreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreView.swift; sourceTree = "<group>"; };
 		D07A11F72D301BE300749962 /* ColorLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiteral.swift; sourceTree = "<group>"; };
 		D07B6F272D30000900500B92 /* NapzakTextStyleModifier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NapzakTextStyleModifier.swift; sourceTree = "<group>"; };
 		D07B6F292D30017B00500B92 /* View+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+.swift"; sourceTree = "<group>"; };
@@ -188,6 +190,7 @@
 		D0AA20F82D2C0B83004CC2E6 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				3CF80CEB2D3433AD00E8DE1F /* PreView.swift */,
 				D0AA20FA2D2C0B96004CC2E6 /* TabbarView.swift */,
 			);
 			path = View;
@@ -489,6 +492,7 @@
 				D07A11F82D301BF400749962 /* ColorLiteral.swift in Sources */,
 				D0AA211D2D2C0C9C004CC2E6 /* SplashView.swift in Sources */,
 				D07B6F2A2D30017E00500B92 /* View+.swift in Sources */,
+				3CF80CEC2D3433C800E8DE1F /* PreView.swift in Sources */,
 				D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */,
 				D0AA20EE2D2C0A56004CC2E6 /* Napzakmarket_iOSApp.swift in Sources */,
 				D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */,
