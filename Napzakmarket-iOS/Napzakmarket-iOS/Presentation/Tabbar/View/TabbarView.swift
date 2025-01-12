@@ -33,7 +33,6 @@ struct TabbarView: View {
     
     var body: some View {
         ZStack {
-            // 현재 선택된 뷰
             viewModel.tabs[viewModel.selectedTab].view
                 .safeAreaInset(edge: .bottom) {
                     Color.clear.frame(height: 90)
@@ -42,13 +41,12 @@ struct TabbarView: View {
             VStack(spacing: 0) {
                 Spacer()
                 
-                // 분리된 탭바 컨테이너
                 VStack(spacing: 0) {
                     Rectangle()
                         .frame(height: 1)
                         .foregroundColor(Color(UIColor.systemGray5))
                     
-                    // 커스텀 탭바
+                    // 탭바
                     HStack {
                         ForEach(0..<viewModel.tabs.count, id: \.self) { index in
                             Spacer()
@@ -78,7 +76,6 @@ struct TabbarView: View {
                         hideBottomSheet()
                     }
                 
-                // 바텀시트 내용
                 VStack {
                     Spacer()
                     VStack(spacing: 12) {
@@ -122,18 +119,16 @@ struct TabbarView: View {
     
     // 탭 터치 핸들러
     private func handleTabTap(_ index: Int) {
-        if index == 2 {  // 등록 탭
+        if index == 2 {
             if isBottomSheetVisible {
-                // 등록 탭이 다시 클릭되면 바텀시트 닫기
                 hideBottomSheet()
             } else {
                 viewModel.lastSelectedTab = viewModel.selectedTab
                 viewModel.isRegisterTabActive = true
                 isBottomSheetVisible = true
             }
-        } else {  // 다른 탭들
+        } else {
             if isBottomSheetVisible {
-                // 다른 탭 클릭 시 바텀시트 닫기
                 hideBottomSheet()
             }
             viewModel.selectedTab = index
@@ -143,9 +138,9 @@ struct TabbarView: View {
     
     // 아이콘 이름 결정
     private func getIconName(for index: Int) -> String {
-        if index == 2 {  // 등록 탭
+        if index == 2 {
             return viewModel.isRegisterTabActive ? viewModel.tabs[index].selectedIcon : viewModel.tabs[index].defaultIcon
-        } else {  // 다른 탭들
+        } else {
             if viewModel.isRegisterTabActive {
                 return viewModel.tabs[index].defaultIcon
             }
