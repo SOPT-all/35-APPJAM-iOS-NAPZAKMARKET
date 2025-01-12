@@ -45,6 +45,8 @@ struct TabbarView: View {
                     Rectangle()
                         .frame(height: 1)
                         .foregroundStyle(Color.napzakGrayScale(.gray200))
+                    Spacer()
+                           .frame(height: 4)
                     
                     HStack {
                         ForEach(0..<viewModel.tabs.count, id: \.self) { index in
@@ -52,7 +54,8 @@ struct TabbarView: View {
                             VStack(spacing: 4) {
                                 Image(getIconName(for: index))
                                 Text(viewModel.tabs[index].title)
-                                    .font(.caption)
+                                    .font(.napzakFont(getTabTextStyle(for: index)))
+                                    .applyNapzakTextStyle(napzakFontStyle: getTabTextStyle(for: index))
                             }
                             .foregroundColor(getTabColor(for: index))
                             .onTapGesture {
@@ -69,8 +72,10 @@ struct TabbarView: View {
             }
 
             if isBottomSheetVisible {
-                Color.black.opacity(0.4)
+                Color.napzakTransparency(.black70)
                     .ignoresSafeArea()
+                    .frame(maxHeight: .infinity, alignment: .top)
+                    .padding(.bottom, 90)
                     .onTapGesture {
                         hideBottomSheet()
                     }
@@ -151,13 +156,13 @@ struct TabbarView: View {
     
     // 탭 색상 결정
     private func getTabColor(for index: Int) -> Color {
-        if index == 2 {  // 등록 탭
-            return viewModel.isRegisterTabActive ? .black : .gray
-        } else {  // 다른 탭들
+        if index == 2 {
+            return viewModel.isRegisterTabActive ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500)
+        } else {
             if viewModel.isRegisterTabActive {
                 return .gray
             }
-            return viewModel.selectedTab == index ? .black : .gray
+            return viewModel.selectedTab == index ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500)
         }
     }
     
@@ -166,6 +171,17 @@ struct TabbarView: View {
         viewModel.isRegisterTabActive = false
         viewModel.selectedTab = viewModel.lastSelectedTab
     }
+    
+    private func getTabTextStyle(for index: Int) -> NapzakFontStyle {
+           if index == 2 {
+               return viewModel.isRegisterTabActive ? .caption1Bold12 : .caption3Medium12
+           } else {  
+               if viewModel.isRegisterTabActive {
+                   return .caption3Medium12
+               }
+               return viewModel.selectedTab == index ? .caption1Bold12 : .caption3Medium12
+           }
+       }
 }
 
 // MARK: - Preview
