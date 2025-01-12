@@ -11,7 +11,7 @@ import SwiftUI
 class TabViewModel: ObservableObject {
     @Published var selectedTab: Int = 0
     @Published var isRegisterTabActive: Bool = false
-    @Published var lastSelectedTab: Int = 0  // 등록 탭 선택 전의 탭을 저장
+    @Published var lastSelectedTab: Int = 0
     
     let tabs: [TabItem]
     
@@ -160,7 +160,6 @@ struct TabbarView: View {
         }
     }
     
-    // 바텀시트 숨기기
     private func hideBottomSheet() {
         isBottomSheetVisible = false
         viewModel.isRegisterTabActive = false
