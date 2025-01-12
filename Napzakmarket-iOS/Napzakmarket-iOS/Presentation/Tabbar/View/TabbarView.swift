@@ -1,5 +1,4 @@
-//
-//  TabbarView.swift
+// //  TabbarView.swift
 //  Napzakmarket-iOS
 //
 //  Created by 박어진 on 1/6/25.
@@ -37,6 +36,9 @@ struct TabbarView: View {
                             VStack {
                                 Image(viewModel.selectedTab == index ? viewModel.tabs[index].selectedIcon : viewModel.tabs[index].defaultIcon)
                                 Text(viewModel.tabs[index].title)
+                                    .font(.napzakFont(viewModel.selectedTab == index ? .caption1Bold12 : .caption3Medium12))
+                                    .applyNapzakTextStyle(napzakFontStyle: viewModel.selectedTab == index ? .caption1Bold12 : .caption3Medium12)
+                                    .foregroundStyle(viewModel.selectedTab == index ? Color.napzakGrayScale(.gray900) : Color.napzakGrayScale(.gray500))
                             }
                         }
                         .tag(index)
