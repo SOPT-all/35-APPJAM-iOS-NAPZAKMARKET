@@ -16,6 +16,9 @@ struct RegisterProductState: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("상품 상태")
+                .font(.napzakFont(.body2SemiBold16))
+                .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+                .foregroundStyle(Color.napzakGrayScale(.gray900))
                 .padding(.bottom, 12)
             
             LazyVGrid(columns: [GridItem(.flexible()), GridItem(.flexible())], spacing: 8) {
@@ -24,13 +27,23 @@ struct RegisterProductState: View {
                         productState = option
                     } label: {
                         Text(option)
+                            .font(.napzakFont(.body6Medium14))
+                            .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                             .frame(maxWidth: .infinity, minHeight: 40)
-                            .foregroundColor(productState == option ? .white : .black)
-                            .background(productState == option ? .black : .white)
+                            .foregroundColor(
+                                productState == option ? .white : Color
+                                    .napzakGrayScale(.gray900)
+                            )
+                            .background(productState == option ? Color
+                                .napzakGrayScale(.gray900) : .white)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
-                                    .stroke(.gray, lineWidth: 1))
+                                    .stroke(
+                                        Color.napzakGrayScale(.gray200),
+                                        lineWidth: 1
+                                    )
+                            )
                         
                     }
                 }
@@ -41,3 +54,6 @@ struct RegisterProductState: View {
     }
 }
 
+#Preview {
+    RegisterView()
+}

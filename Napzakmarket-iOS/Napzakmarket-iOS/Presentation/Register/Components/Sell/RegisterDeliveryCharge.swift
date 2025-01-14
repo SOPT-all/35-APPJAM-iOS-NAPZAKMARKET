@@ -16,7 +16,7 @@ struct RegisterDeliveryCharge: View {
     
     private let normalMaxDeliveryCharge: Int = 30_000   // 최대 금액 3만원
     private let halfMaxDeliveryCharge: Int = 5_000   // 최대 금액 5000원
-
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
             Text("배송비")
@@ -83,8 +83,8 @@ struct RegisterDeliveryCharge: View {
                         HStack {
                             TextField("100~30,000", text: $normalDeliveryCharge)
                                 .onChange(of: normalDeliveryCharge) { oldValue, newValue in
-                                    normalDeliveryCharge =
-                                    newValue.convertPrice(maxPrice: normalMaxDeliveryCharge)
+                                    normalDeliveryCharge = newValue
+                                        .convertPrice(maxPrice: normalMaxDeliveryCharge)
                                 }
                                 .foregroundColor(Color.napzakGrayScale(.gray900))
                             
@@ -131,8 +131,8 @@ struct RegisterDeliveryCharge: View {
                         HStack {
                             TextField("0~5,000", text: $halfDeliveryCharge)
                                 .onChange(of: halfDeliveryCharge) { oldValue, newValue in
-                                    halfDeliveryCharge =
-                                    newValue.convertPrice(maxPrice: halfMaxDeliveryCharge)
+                                    halfDeliveryCharge = newValue
+                                        .convertPrice(maxPrice: halfMaxDeliveryCharge)
                                 }
                                 .foregroundColor(Color.napzakGrayScale(.gray900))
                             
@@ -161,8 +161,4 @@ struct RegisterDeliveryCharge: View {
         }
         .padding(.horizontal, 20)
     }
-}
-
-#Preview {
-    RegisterView()
 }
