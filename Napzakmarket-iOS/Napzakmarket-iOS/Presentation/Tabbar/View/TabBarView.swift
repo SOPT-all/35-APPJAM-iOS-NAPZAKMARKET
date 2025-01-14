@@ -8,6 +8,7 @@
 import SwiftUI
 
 // MARK: - TabViewModel
+
 class TabBarModel: ObservableObject {
     @Published var selectedTab: Int = 0
     @Published var isRegisterTabActive: Bool = false
@@ -27,6 +28,7 @@ class TabBarModel: ObservableObject {
 }
 
 // MARK: - TabbarView
+
 struct TabBarView: View {
     @StateObject private var viewModel = TabBarModel()
     @State private var isBottomSheetVisible = false
