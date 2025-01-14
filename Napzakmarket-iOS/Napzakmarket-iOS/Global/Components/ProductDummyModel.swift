@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProductDummyModel: Hashable {
-    let id: UUID
+    let id: Int
     let isLikeButtonExist: Bool
     var isLiked: Bool
     let genreName: String
@@ -22,7 +22,7 @@ struct ProductDummyModel: Hashable {
 extension ProductDummyModel {
     static let sellDummy = [
         ProductDummyModel(
-            id: .init(),
+            id: 1,
             isLikeButtonExist: true,
             isLiked: true,
             genreName: "산리오",
@@ -33,7 +33,7 @@ extension ProductDummyModel {
             isPriceNegotiable: false
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 2,
             isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
@@ -44,7 +44,7 @@ extension ProductDummyModel {
             isPriceNegotiable: false
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 3,
             isLikeButtonExist: true,
             isLiked: true,
             genreName: "산리오",
@@ -55,7 +55,7 @@ extension ProductDummyModel {
             isPriceNegotiable: false
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 4,
             isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
@@ -66,7 +66,7 @@ extension ProductDummyModel {
             isPriceNegotiable: false
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 5,
             isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
@@ -77,7 +77,7 @@ extension ProductDummyModel {
             isPriceNegotiable: false
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 6,
             isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
@@ -88,7 +88,7 @@ extension ProductDummyModel {
             isPriceNegotiable: false
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 7,
             isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
@@ -102,7 +102,7 @@ extension ProductDummyModel {
     
     static let buyDummy = [
         ProductDummyModel(
-            id: .init(),
+            id: 1,
             isLikeButtonExist: true,
             isLiked: true,
             genreName: "산리오",
@@ -113,7 +113,7 @@ extension ProductDummyModel {
             isPriceNegotiable: false
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 2,
             isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
@@ -124,7 +124,7 @@ extension ProductDummyModel {
             isPriceNegotiable: true
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 3,
             isLikeButtonExist: true,
             isLiked: true,
             genreName: "산리오",
@@ -135,7 +135,7 @@ extension ProductDummyModel {
             isPriceNegotiable: false
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 4,
             isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
@@ -146,7 +146,7 @@ extension ProductDummyModel {
             isPriceNegotiable: true
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 5,
             isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
@@ -157,7 +157,7 @@ extension ProductDummyModel {
             isPriceNegotiable: false
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 6,
             isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
@@ -168,7 +168,7 @@ extension ProductDummyModel {
             isPriceNegotiable: true
         ),
         ProductDummyModel(
-            id: .init(),
+            id: 7,
             isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
