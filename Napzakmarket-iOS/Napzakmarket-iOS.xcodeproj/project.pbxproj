@@ -21,10 +21,7 @@
 		6C2D5B7B2D32C2A800E904C6 /* RegisterBuyHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B792D32C2A800E904C6 /* RegisterBuyHeader.swift */; };
 		6C2D5B7E2D32C2AA00E904C6 /* RegisterSellHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B7C2D32C2AA00E904C6 /* RegisterSellHeader.swift */; };
 		6C2D5B802D32CE7900E904C6 /* BuyRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B7F2D32CE7900E904C6 /* BuyRegisterView.swift */; };
-<<<<<<< HEAD
 		6C3581252D36A532002AEDED /* RegisterSearch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C3581242D36A532002AEDED /* RegisterSearch.swift */; };
-=======
->>>>>>> develop
 		6C693D132D2D7C2600758C6A /* TextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C693D122D2D7C2600758C6A /* TextField+.swift */; };
 		6C693D152D2E4D9200758C6A /* TextEditor+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C693D142D2E4D9200758C6A /* TextEditor+.swift */; };
 		6C71799E2D36118B00481622 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C71799D2D36118B00481622 /* String+.swift */; };
@@ -66,10 +63,7 @@
 		6C2D5B792D32C2A800E904C6 /* RegisterBuyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBuyHeader.swift; sourceTree = "<group>"; };
 		6C2D5B7C2D32C2AA00E904C6 /* RegisterSellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSellHeader.swift; sourceTree = "<group>"; };
 		6C2D5B7F2D32CE7900E904C6 /* BuyRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyRegisterView.swift; sourceTree = "<group>"; };
-<<<<<<< HEAD
 		6C3581242D36A532002AEDED /* RegisterSearch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSearch.swift; sourceTree = "<group>"; };
-=======
->>>>>>> develop
 		6C693D122D2D7C2600758C6A /* TextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+.swift"; sourceTree = "<group>"; };
 		6C693D142D2E4D9200758C6A /* TextEditor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextEditor+.swift"; sourceTree = "<group>"; };
 		6C71799D2D36118B00481622 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
