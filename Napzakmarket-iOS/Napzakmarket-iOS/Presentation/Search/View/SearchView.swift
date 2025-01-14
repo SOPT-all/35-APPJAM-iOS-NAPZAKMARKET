@@ -134,7 +134,8 @@ extension SearchView {
                                 sellProducts[i].isLiked.toggle() :
                                 buyProducts[i].isLiked.toggle()
                             },
-                            product: products[i]
+                            product: products[i],
+                            isLikeButtonExist: true
                         )
                     }
                 }

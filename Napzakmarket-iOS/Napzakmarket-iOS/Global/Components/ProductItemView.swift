@@ -18,6 +18,7 @@ struct ProductItemView: View {
     
     let toggleLike: () -> Void
     let product: ProductDummyModel
+    let isLikeButtonExist: Bool
     
     //MARK: - Main Body
     
@@ -51,7 +52,7 @@ extension ProductItemView {
                         .frame(width: 47, height: 27)
                 }
                 Spacer()
-                if product.isLikeButtonExist {
+                if isLikeButtonExist {
                     likeButton
                 }
             }

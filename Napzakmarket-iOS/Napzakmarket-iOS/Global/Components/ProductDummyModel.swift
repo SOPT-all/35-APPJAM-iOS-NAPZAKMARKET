@@ -9,7 +9,6 @@ import SwiftUI
 
 struct ProductDummyModel: Hashable {
     let id: Int
-    let isLikeButtonExist: Bool
     var isLiked: Bool
     let genreName: String
     let productName: String
@@ -23,7 +22,6 @@ extension ProductDummyModel {
     static let sellDummy = [
         ProductDummyModel(
             id: 1,
-            isLikeButtonExist: true,
             isLiked: true,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -34,7 +32,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 2,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -45,7 +42,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 3,
-            isLikeButtonExist: true,
             isLiked: true,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -56,7 +52,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 4,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -67,7 +62,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 5,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -78,7 +72,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 6,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -89,7 +82,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 7,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -103,7 +95,6 @@ extension ProductDummyModel {
     static let buyDummy = [
         ProductDummyModel(
             id: 1,
-            isLikeButtonExist: true,
             isLiked: true,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -114,7 +105,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 2,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -125,7 +115,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 3,
-            isLikeButtonExist: true,
             isLiked: true,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -136,7 +125,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 4,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -147,7 +135,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 5,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -158,7 +145,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 6,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -169,7 +155,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 7,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -180,7 +165,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 8,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
@@ -191,7 +175,6 @@ extension ProductDummyModel {
         ),
         ProductDummyModel(
             id: 9,
-            isLikeButtonExist: true,
             isLiked: false,
             genreName: "산리오",
             productName: "딸기 마이멜로디 마스코트 인형",
