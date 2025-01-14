@@ -1,0 +1,12 @@
+{
+  "images" : [
+    {
+      "filename" : "img_profile_md.svg",
+      "idiom" : "universal"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}
