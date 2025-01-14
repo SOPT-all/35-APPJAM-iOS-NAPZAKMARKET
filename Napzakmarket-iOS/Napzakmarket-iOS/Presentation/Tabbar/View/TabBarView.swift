@@ -196,9 +196,3 @@ struct TabBarView: View {
     }
 }
 
-// MARK: - Preview
-struct TabbarView_Previews: PreviewProvider {
-    static var previews: some View {
-        TabBarView()
-    }
-}
