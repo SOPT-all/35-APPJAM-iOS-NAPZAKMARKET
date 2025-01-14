@@ -12,6 +12,7 @@ struct BuyRegisterView: View {
     @State private var description = ""
     @State private var genre = ""
     @State private var price = ""
+    @State private var suggestPrice = false
 
     var body: some View {
         ScrollView {
@@ -36,7 +37,7 @@ struct BuyRegisterView: View {
                     .padding(.vertical, 40)
                 
                 // MARK: - 가격
-                RegisterSellPrice(price: $price)
+                RegisterBuyPrice(price: $price, suggestPrice: $suggestPrice)
 
             }
             .padding(.bottom, 67)
@@ -45,7 +46,6 @@ struct BuyRegisterView: View {
 
 }
 
-
 #Preview {
-    BuyRegisterView()
+    TabBarView()
 }
