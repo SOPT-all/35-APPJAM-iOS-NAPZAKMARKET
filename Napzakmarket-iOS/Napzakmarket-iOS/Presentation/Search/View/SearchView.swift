@@ -12,16 +12,16 @@ struct SearchView: View {
     //MARK: - Property Wrappers
     
     @State var selectedIndex = 0
-
+    @State var sellProducts = ProductDummyModel.sellDummy
+    @State var buyProducts = ProductDummyModel.buyDummy
+    
     //MARK: - Properties
     
-    private let sellProducts = ProductDummyModel.sellDummy
-    private let buyProducts = ProductDummyModel.buyDummy
     private let columns = [
         GridItem(.flexible(), spacing: 15),
         GridItem(.flexible(), spacing: 15)
     ]
-        
+    
     //MARK: - Main Body
     
     var body: some View {
@@ -65,8 +65,15 @@ extension SearchView {
         ScrollView(showsIndicators: false) {
             LazyVGrid(columns: columns, spacing: 20) {
                 let products = selectedIndex == 0 ? sellProducts : buyProducts
-                ForEach(products, id: \.self) { product in
-                    ProductItemView(product: product)
+                ForEach(products.indices, id: \.self) { i in
+                    ProductItemView(
+                        toggleLike: {
+                            products == sellProducts ?
+                            sellProducts[i].isLiked.toggle() :
+                            buyProducts[i].isLiked.toggle()
+                        },
+                        product: products[i]
+                    )
                 }
             }
         }

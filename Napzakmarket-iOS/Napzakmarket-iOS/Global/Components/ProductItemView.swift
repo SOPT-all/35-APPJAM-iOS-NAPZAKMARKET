@@ -16,6 +16,7 @@ struct ProductItemView: View {
     
     //MARK: - Properties
     
+    let toggleLike: () -> Void
     let product: ProductDummyModel
     
     //MARK: - Main Body
@@ -60,6 +61,7 @@ extension ProductItemView {
     private var likeButton: some View {
         Button {
             print("Like Button tapped")
+            toggleLike()
         } label: {
             product.isLiked ? Image(.icnHeartListSelect) : Image(.icnHeartList)
         }
