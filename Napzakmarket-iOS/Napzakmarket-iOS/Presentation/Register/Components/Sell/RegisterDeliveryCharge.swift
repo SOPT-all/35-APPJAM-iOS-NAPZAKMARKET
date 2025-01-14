@@ -73,7 +73,7 @@ struct RegisterDeliveryCharge: View {
                         Spacer()
                         
                         Image(systemName: normalDelivery ? "chevron.up" : "chevron.down")
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color.napzakGrayScale(.gray400))
                     }
                     .onTapGesture {
                         normalDelivery.toggle()
@@ -122,7 +122,7 @@ struct RegisterDeliveryCharge: View {
                         Spacer()
                         
                         Image(systemName: halfDelivery ? "chevron.up" : "chevron.down")
-                            .foregroundColor(.gray)
+                            .foregroundColor(Color.napzakGrayScale(.gray400))
                     }
                     .onTapGesture {
                         halfDelivery.toggle()
