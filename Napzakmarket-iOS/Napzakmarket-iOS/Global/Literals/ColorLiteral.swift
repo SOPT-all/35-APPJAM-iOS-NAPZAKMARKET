@@ -52,7 +52,7 @@ extension Color {
         self.init(.sRGB, red: red, green: green, blue: blue, opacity: opacity)
     }
     
-    static func napzakPuple(_ color: Purple) -> Color {
+    static func napzakPurple(_ color: Purple) -> Color {
         return Color(hex: color.rawValue)
     }
     
