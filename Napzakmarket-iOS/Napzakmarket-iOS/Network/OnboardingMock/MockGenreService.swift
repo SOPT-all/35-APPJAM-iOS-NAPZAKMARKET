@@ -36,4 +36,19 @@ final class MockGenreService {
         return genres
     }
     
+    func fetchGenresFiltered(by query: String) async throws -> [Genre] {
+        let allGenres = try await fetchGenres()
+        
+        guard !query.isEmpty else {
+            return allGenres
+        }
+        
+        let filteredGenres = allGenres.filter { genre in
+            genre.name.localizedCaseInsensitiveContains(query)
+        }
+        
+        print("검색어: \(query), 검색 결과: \(filteredGenres.count)개")
+        return filteredGenres
+    }
+    
 }
