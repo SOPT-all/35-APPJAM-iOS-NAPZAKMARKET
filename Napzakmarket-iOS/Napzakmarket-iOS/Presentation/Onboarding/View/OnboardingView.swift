@@ -87,7 +87,7 @@ extension OnboardingView {
                         .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                         .foregroundStyle(Color.napzakGrayScale(.white))
                         .frame(maxWidth: .infinity, minHeight: 52)
-                        .background(selectedGenres.isEmpty ? Color.napzakGrayScale(.gray400) : Color.napzakPuple(.purple30) )
+                        .background(selectedGenres.isEmpty ? Color.napzakGrayScale(.gray400) : Color.napzakPurple(.purple30) )
                         .cornerRadius(12)
                 }
                 .disabled(selectedGenres.isEmpty)

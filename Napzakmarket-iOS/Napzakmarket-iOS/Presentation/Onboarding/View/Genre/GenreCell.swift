@@ -59,7 +59,7 @@ extension GenreCell {
                 if isSelected {
                     Image(systemName: "checkmark.square.fill")
                         .resizable()
-                        .foregroundStyle(Color.napzakPuple(.purple30))
+                        .foregroundStyle(Color.napzakPurple(.purple30))
                         .frame(width: 16, height: 16)
                         .transition(.scale.combined(with: .opacity))
                         .padding([.top, .trailing], 10)
@@ -78,7 +78,7 @@ extension GenreCell {
                 .font(.napzakFont(.body2SemiBold16))
                 .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                 .foregroundColor(
-                    isSelected ? .napzakPuple(.purple30) : .napzakGrayScale(.gray900)
+                    isSelected ? .napzakPurple(.purple30) : .napzakGrayScale(.gray900)
                 )
                 .lineLimit(1)
         }

@@ -17,7 +17,7 @@ struct GenreChip: View {
             Text(name)
                 .font(.napzakFont(.body4Bold14))
                 .applyNapzakTextStyle(napzakFontStyle: .body4Bold14)
-                .foregroundStyle(Color.napzakPuple(.purple30))
+                .foregroundStyle(Color.napzakPurple(.purple30))
             
             Button {
                 withAnimation {
