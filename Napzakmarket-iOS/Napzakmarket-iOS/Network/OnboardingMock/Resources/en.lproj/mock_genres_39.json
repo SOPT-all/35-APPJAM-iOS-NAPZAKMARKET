@@ -1,11 +1,3 @@
-/* 
-  mock_genres_39.json
-  Napzakmarket-iOS
-
-  Created by 조호근 on 1/11/25.
-  
-*/
-
 {
     "status": 200,
     "message": "조회 요청이 성공했습니다.",
