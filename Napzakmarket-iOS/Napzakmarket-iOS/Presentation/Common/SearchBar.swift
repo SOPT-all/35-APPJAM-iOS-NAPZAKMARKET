@@ -19,7 +19,6 @@ struct SearchBar: View {
             TextField(placeholder, text: $text)
                 .font(.napzakFont(.body5SemiBold14))
                 .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                .background(Color(.systemRed))
                 .focused($isFocused)
             
             HStack(spacing: 4) {
@@ -62,7 +61,6 @@ extension SearchBar {
             Image(systemName: systemName)
                 .foregroundStyle(Color.napzakGrayScale(.gray600))
                 .padding(4.5)
-                .background(Color.yellow)
         }
     }
     

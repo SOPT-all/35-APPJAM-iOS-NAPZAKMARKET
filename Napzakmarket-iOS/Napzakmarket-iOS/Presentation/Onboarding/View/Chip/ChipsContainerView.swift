@@ -23,7 +23,6 @@ struct ChipsContainerView: View {
             
             ChipListView(selectedGenres: $selectedGenres)
         }
-        .background(.yellow)
         .frame(height: 40)
         .padding(.bottom, 30)
     }

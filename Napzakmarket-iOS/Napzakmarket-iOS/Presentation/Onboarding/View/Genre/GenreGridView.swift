@@ -40,7 +40,6 @@ struct GenreGridView: View {
                 }
             }
         }
-        .background(.green)
     }
     
 }
