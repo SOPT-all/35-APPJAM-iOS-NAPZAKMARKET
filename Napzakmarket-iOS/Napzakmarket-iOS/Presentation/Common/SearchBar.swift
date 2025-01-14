@@ -47,6 +47,7 @@ struct SearchBar: View {
         .padding(12)
         .background(Color.napzakGrayScale(.gray100))
         .cornerRadius(12)
+        .padding(.bottom, 16)
         .animation(.easeInOut(duration: 0.3), value: text.isEmpty)
     }
     
@@ -65,10 +66,4 @@ extension SearchBar {
         }
     }
     
-}
-
-#Preview {
-    @Previewable @State var text: String = ""
-    
-    SearchBar(placeholder: "원하는 장르를 직접 입력해 검색해보세요.", text: $text)
 }
