@@ -7,183 +7,193 @@
 
 import SwiftUI
 
-// MARK: - TabViewModel
-
-class TabBarModel: ObservableObject {
-    @Published var selectedTab: Int = 0
-    @Published var isRegisterTabActive: Bool = false
-    @Published var lastSelectedTab: Int = 0
-    
-    let tabs: [TabItem]
-    
-    init() {
-        tabs = [
-            TabItem(title: "홈", defaultIcon: "ic_home", selectedIcon: "ic_home_select", view: AnyView(PreView())),
-            TabItem(title: "탐색", defaultIcon: "ic_look", selectedIcon: "ic_look_select", view: AnyView(PreView())),
-            TabItem(title: "등록", defaultIcon: "ic_register", selectedIcon: "ic_register_select", view: AnyView(EmptyView())),
-            TabItem(title: "채팅", defaultIcon: "ic_chat", selectedIcon: "ic_chat_select", view: AnyView(PreView())),
-            TabItem(title: "마이", defaultIcon: "ic_my", selectedIcon: "ic_my_select", view: AnyView(PreView()))
-        ]
-    }
-}
-
-// MARK: - TabbarView
-
 struct TabBarView: View {
-    @StateObject private var viewModel = TabBarModel()
+    
+    // MARK: - Properties
+    
+    @State private var selectedTab: Int = 0
+    @State private var isRegisterTabActive: Bool = false
+    @State private var lastSelectedTab: Int = 0
     @State private var isBottomSheetVisible = false
     
+    private let tabs: [TabItem] = TabItem.getDefaultTabs()
+    
+    // MARK: - Body
     var body: some View {
         ZStack {
-            viewModel.tabs[viewModel.selectedTab].view
-                .safeAreaInset(edge: .bottom) {
-                    Color.clear.frame(height: 90)
-                }
-            
-            VStack(spacing: 0) {
-                Spacer()
-                
-                VStack(spacing: 0) {
-                    Rectangle()
-                        .frame(height: 1)
-                        .foregroundStyle(Color.napzakGrayScale(.gray200))
-                    Spacer()
-                           .frame(height: 4)
-                    
-                    HStack {
-                        ForEach(0..<viewModel.tabs.count, id: \.self) { index in
-                            Spacer()
-                            VStack(spacing: 4) {
-                                Image(getIconName(for: index))
-                                Text(viewModel.tabs[index].title)
-                                    .font(.napzakFont(getTabTextStyle(for: index)))
-                                    .applyNapzakTextStyle(napzakFontStyle: getTabTextStyle(for: index))
-                            }
-                            .foregroundColor(getTabColor(for: index))
-                            .onTapGesture {
-                                handleTabTap(index)
-                            }
-                            .padding(.bottom, 8)
-                            Spacer()
-                        }
-                    }
-                    .frame(height: 82)
-                }
-                .frame(height: 90)
-                .background(Color.white)
-            }
-
+            mainContent
+            tabBarStack
             if isBottomSheetVisible {
-                Color.napzakTransparency(.black70)
-                    .ignoresSafeArea()
-                    .frame(maxHeight: .infinity, alignment: .top)
-                    .padding(.bottom, 90)
-                    .onTapGesture {
-                        hideBottomSheet()
-                    }
-                
-                VStack {
-                    Spacer()
-                    VStack(spacing: 12) {
-                        Button(action: {
-                            print("팔아요 등록 클릭")
-                            hideBottomSheet()
-                        }) {
-                            HStack {
-                                Image("ic_sell")
-                                Text("팔아요 등록")
-                                    .font(.napzakFont(.body2SemiBold16))
-                                       .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
-                                    .foregroundStyle(Color.napzakGrayScale(.gray900))
-                            }
-                        }
-                        
-                        Divider()
-                        
-                        Button(action: {
-                            print("구해요 등록 클릭")
-                            hideBottomSheet()
-                        }) {
-                            HStack {
-                                Image("ic_buy")
-                                Text("구해요 등록")
-                                    .font(.napzakFont(.body2SemiBold16))
-                                       .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
-                                    .foregroundStyle(Color.napzakGrayScale(.gray900))
-                            }
-                        }
-                    }
-                    .padding(.horizontal, 12)
-                    .padding(.vertical, 15)
-                    .frame(width: 160)
-                    .background(Color.white)
-                    .cornerRadius(12)
-                    .padding(.bottom, 104)
-                }
+                bottomSheetOverlay
+                bottomSheetContent
             }
         }
         .edgesIgnoringSafeArea(.bottom)
     }
     
-    // 탭 터치 핸들러
+    // MARK: - View Components
+    
+    private var mainContent: some View {
+        tabs[selectedTab].view
+            .safeAreaInset(edge: .bottom) {
+                Color.clear.frame(height: 90)
+            }
+    }
+    
+    private var tabBarStack: some View {
+        VStack(spacing: 0) {
+            Spacer()
+            tabBar
+        }
+    }
+    
+    private var tabBar: some View {
+        VStack(spacing: 0) {
+            tabBarDivider
+            tabBarButtons
+        }
+        .frame(height: 90)
+        .background(Color.white)
+    }
+    
+    private var tabBarDivider: some View {
+        VStack(spacing: 0) {
+            Rectangle()
+                .frame(height: 1)
+                .foregroundStyle(Color.napzakGrayScale(.gray200))
+            Spacer()
+                .frame(height: 4)
+        }
+    }
+    
+    private var tabBarButtons: some View {
+        HStack {
+            ForEach(0..<tabs.count, id: \.self) { index in
+                Spacer()
+                tabButton(for: index)
+                Spacer()
+            }
+        }
+        .frame(height: 82.0)
+    }
+    
+    private func tabButton(for index: Int) -> some View {
+        VStack(spacing: 3) {
+            Image(getIconName(for: index))
+            Text(tabs[index].title)
+                .font(.napzakFont(getTabTextStyle(for: index)))
+                .applyNapzakTextStyle(napzakFontStyle: getTabTextStyle(for: index))
+        }
+        .foregroundColor(getTabColor(for: index))
+        .onTapGesture {
+            handleTabTap(index)
+        }
+        .padding(.bottom, 30)
+    }
+    
+    private var bottomSheetOverlay: some View {
+        Color.napzakTransparency(.black70)
+            .ignoresSafeArea()
+            .frame(maxHeight: .infinity, alignment: .top)
+            .padding(.bottom, 90)
+            .onTapGesture {
+                hideBottomSheet()
+            }
+    }
+    
+    private var bottomSheetContent: some View {
+        VStack {
+            Spacer()
+            VStack(spacing: 12) {
+                registerButton(type: "팔아요", icon: "ic_sell")
+                Divider()
+                registerButton(type: "구해요", icon: "ic_buy")
+            }
+            .padding(.horizontal, 12)
+            .padding(.vertical, 15)
+            .frame(width: 160)
+            .background(Color.white)
+            .cornerRadius(12)
+            .padding(.bottom, 104)
+        }
+    }
+    
+    private func registerButton(type: String, icon: String) -> some View {
+        Button(action: {
+            print("\(type) 등록 클릭")
+            hideBottomSheet()
+        }) {
+            HStack {
+                Image(icon)
+                Text("\(type) 등록")
+                    .font(.napzakFont(.body2SemiBold16))
+                    .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+                    .foregroundStyle(Color.napzakGrayScale(.gray900))
+            }
+        }
+    }
+    
+    // MARK: - Helper Methods
+    
     private func handleTabTap(_ index: Int) {
         if index == 2 {
-            if isBottomSheetVisible {
-                hideBottomSheet()
-            } else {
-                viewModel.lastSelectedTab = viewModel.selectedTab
-                viewModel.isRegisterTabActive = true
-                isBottomSheetVisible = true
-            }
+            handleRegisterTab()
         } else {
-            if isBottomSheetVisible {
-                hideBottomSheet()
-            }
-            viewModel.selectedTab = index
-            viewModel.isRegisterTabActive = false
+            handleNormalTab(index)
         }
     }
     
-    // 아이콘 이름 결정
-    private func getIconName(for index: Int) -> String {
-        if index == 2 {
-            return viewModel.isRegisterTabActive ? viewModel.tabs[index].selectedIcon : viewModel.tabs[index].defaultIcon
+    private func handleRegisterTab() {
+        if isBottomSheetVisible {
+            hideBottomSheet()
         } else {
-            if viewModel.isRegisterTabActive {
-                return viewModel.tabs[index].defaultIcon
-            }
-            return viewModel.selectedTab == index ? viewModel.tabs[index].selectedIcon : viewModel.tabs[index].defaultIcon
+            showBottomSheet()
         }
     }
     
-    // 탭 색상 결정
-    private func getTabColor(for index: Int) -> Color {
-        if index == 2 {
-            return viewModel.isRegisterTabActive ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500)
-        } else {
-            if viewModel.isRegisterTabActive {
-                return .gray
-            }
-            return viewModel.selectedTab == index ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500)
+    private func handleNormalTab(_ index: Int) {
+        if isBottomSheetVisible {
+            hideBottomSheet()
         }
+        selectedTab = index
+        isRegisterTabActive = false
+    }
+    
+    private func showBottomSheet() {
+        lastSelectedTab = selectedTab
+        isRegisterTabActive = true
+        isBottomSheetVisible = true
     }
     
     private func hideBottomSheet() {
         isBottomSheetVisible = false
-        viewModel.isRegisterTabActive = false
-        viewModel.selectedTab = viewModel.lastSelectedTab
+        isRegisterTabActive = false
+        selectedTab = lastSelectedTab
+    }
+    
+    private func getIconName(for index: Int) -> String {
+        if index == 2 {
+            return isRegisterTabActive ? tabs[index].selectedIcon : tabs[index].defaultIcon
+        }
+        return isRegisterTabActive ? tabs[index].defaultIcon :
+               (selectedTab == index ? tabs[index].selectedIcon : tabs[index].defaultIcon)
+    }
+    
+    private func getTabColor(for index: Int) -> Color {
+        if index == 2 {
+            return isRegisterTabActive ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500)
+        }
+        return isRegisterTabActive ? .gray :
+               (selectedTab == index ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500))
     }
     
     private func getTabTextStyle(for index: Int) -> NapzakFontStyle {
-           if index == 2 {
-               return viewModel.isRegisterTabActive ? .caption1Bold12 : .caption3Medium12
-           } else {  
-               if viewModel.isRegisterTabActive {
-                   return .caption3Medium12
-               }
-               return viewModel.selectedTab == index ? .caption1Bold12 : .caption3Medium12
-           }
-       }
+        if index == 2 {
+            return isRegisterTabActive ? .caption1Bold12 : .caption3Medium12
+        }
+        return isRegisterTabActive ? .caption3Medium12 :
+               (selectedTab == index ? .caption1Bold12 : .caption3Medium12)
+    }
 }
 
 // MARK: - Preview
