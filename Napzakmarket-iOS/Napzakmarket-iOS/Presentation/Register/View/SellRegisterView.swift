@@ -10,6 +10,7 @@ import SwiftUI
 struct SellRegisterView: View {
     @State private var title = ""
     @State private var description = ""
+    @State private var genre = ""
     @State private var productState = ""
     @State private var price = ""
     @State private var deliveryChargeFree = true        // 배달비 여부
@@ -26,7 +27,7 @@ struct SellRegisterView: View {
                 RegisterImage()
                 
                 // MARK: - 장르
-                RegisterGenre()
+                RegisterGenre(genre: $genre)
                 
                 // MARK: - 제목
                 RegisterTitle(title: $title)
@@ -39,7 +40,7 @@ struct SellRegisterView: View {
                 
                 // MARK: - 가격 구분선
                 Rectangle()
-                    .fill(Color.gray.opacity(0.1))
+                    .fill(Color.napzakGrayScale(.gray50))
                     .frame(height: 8)
                     .padding(.vertical, 40)
                 

@@ -10,6 +10,7 @@ import SwiftUI
 struct BuyRegisterView: View {
     @State private var title = ""
     @State private var description = ""
+    @State private var genre = ""
     @State private var price = ""
 
     var body: some View {
@@ -20,7 +21,7 @@ struct BuyRegisterView: View {
                 RegisterImage()
                 
                 // MARK: - 장르
-                RegisterGenre()
+                RegisterGenre(genre: $genre)
                 
                 // MARK: - 제목
                 RegisterTitle(title: $title)
