@@ -12,7 +12,8 @@ struct RegisterGenre: View {
     
     var body: some View {
         NavigationLink {
-            Text("장르 뷰")
+            RegisterSearch(genre: $genre)
+                
         } label: {
             HStack {
                 Text("장르")

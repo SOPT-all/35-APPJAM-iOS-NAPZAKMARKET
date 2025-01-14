@@ -34,7 +34,7 @@ struct BuyRegisterView: View {
                 Rectangle()
                     .fill(Color.gray.opacity(0.1))
                     .frame(height: 8)
-                    .padding(.vertical, 40)
+                    .padding(.bottom, 40)
                 
                 // MARK: - 가격
                 RegisterBuyPrice(price: $price, suggestPrice: $suggestPrice)
