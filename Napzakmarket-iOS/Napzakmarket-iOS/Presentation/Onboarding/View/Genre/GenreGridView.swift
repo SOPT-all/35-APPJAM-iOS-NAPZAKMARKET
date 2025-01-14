@@ -41,9 +41,6 @@ struct GenreGridView: View {
             }
         }
         .background(.green)
-        .onAppear {
-            print("현재 genres 개수: \(genres.count)") // 디버깅용
-        }
     }
     
 }

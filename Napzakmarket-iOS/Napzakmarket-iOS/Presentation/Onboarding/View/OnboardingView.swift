@@ -108,7 +108,3 @@ extension OnboardingView {
     }
      
 }
-
-#Preview {
-    OnboardingView(isOnboardingComplete: .constant(false))
-}

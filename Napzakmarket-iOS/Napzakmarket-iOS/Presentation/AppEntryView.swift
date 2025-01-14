@@ -20,7 +20,3 @@ struct AppEntryView: View {
     }
     
 }
-
-#Preview {
-    AppEntryView()
-}
