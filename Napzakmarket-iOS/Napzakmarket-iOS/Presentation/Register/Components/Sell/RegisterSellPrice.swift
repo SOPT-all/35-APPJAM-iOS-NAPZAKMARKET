@@ -15,17 +15,28 @@ struct RegisterSellPrice: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("가격")
+                .font(.napzakFont(.body2SemiBold16))
+                .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+                .foregroundStyle(Color.napzakGrayScale(.gray900))
                 .padding(.bottom, 12)
             
-            HStack{
+            HStack(alignment: .center, spacing: 2){
                 TextField("0", text: $price)
+                    .keyboardType(.numberPad)
+                    .font(.napzakFont(.body3Medium16))
+                    .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
+                    .foregroundStyle(Color.napzakGrayScale(.gray900))
                     .onChange(of: price) { oldValue, newValue in
                         price = convertPrice(input: newValue)
                     }
                 
                 Text("원")
-                    .foregroundColor(.gray)
+                    .font(.napzakFont(.body3Medium16))
+                    .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
+                    .foregroundStyle(Color.napzakGrayScale(.gray600))
             }
+            .frame(minWidth: 291)
+            .frame(height: 22)
             .padding(.horizontal, 14)
             .padding(.vertical, 11)
             .overlay {
@@ -54,5 +65,8 @@ extension RegisterSellPrice {
         formatter.numberStyle = .decimal
         return formatter.string(from: limitedPrice as NSNumber) ?? ""
     }
-    
+}
+
+#Preview {
+    RegisterView()
 }

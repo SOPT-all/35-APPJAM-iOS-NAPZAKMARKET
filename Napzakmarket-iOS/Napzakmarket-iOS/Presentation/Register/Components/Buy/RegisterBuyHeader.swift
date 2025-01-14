@@ -15,7 +15,7 @@ struct RegisterBuyHeader: View {
             } label: {
                 Image(systemName: "multiply")
             }
-            .foregroundStyle(.black)
+            .foregroundStyle(Color.napzakGrayScale(.gray900))
             
             Spacer()
             
