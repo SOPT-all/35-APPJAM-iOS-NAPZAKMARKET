@@ -31,11 +31,13 @@ struct RegisterView: View {
                 Text("등록하기")
             })
             .frame(maxWidth: .infinity, minHeight: 52)
+            .font(.napzakFont(.body1Bold16))
+            .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
             .foregroundStyle(.white)
-            .background(.gray.opacity(1))
+            .background(Color.napzakGrayScale(.gray400))
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 20)
-            .padding(.vertical, 5)
+            .padding(.vertical, 1)
         }
         .scrollIndicators(.hidden)
     }
