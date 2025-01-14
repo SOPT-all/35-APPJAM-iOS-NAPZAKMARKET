@@ -59,7 +59,7 @@ struct MyPageView: View {
                                 }
                             }
                             .padding(20)
-                            .frame(width: 335)
+                            .frame(width: 360)
                             .background(Color.napzakGrayScale(.white))
                             .cornerRadius(12)
                             .overlay(
