@@ -8,10 +8,12 @@
 import SwiftUI
 
 struct RegisterBuyHeader: View {
+    @Environment(\.dismiss) private var dismiss
+
     var body: some View {
         HStack{
             Button {
-                print("뒤로가기 버튼")
+                dismiss()
             } label: {
                 Image(systemName: "multiply")
             }

@@ -33,7 +33,3 @@ struct RegisterGenre: View {
             .padding(.horizontal, 20)
     }
 }
-
-#Preview {
-    RegisterView()
-}

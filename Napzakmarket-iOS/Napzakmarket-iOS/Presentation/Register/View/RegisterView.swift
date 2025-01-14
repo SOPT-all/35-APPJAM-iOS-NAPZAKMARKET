@@ -9,17 +9,17 @@ import SwiftUI
 
 struct RegisterView: View {
     // 뷰 불러올 때 Sell 이냐 Buy냐로 구분해서 보여주면 될 듯 나중에 탭바에서 Boolean값으로 바인딩 받아오기
-    private var RegisterType = "Sell"
+    @Binding var registerType: Bool
     
     var body: some View {
         NavigationStack {
-            if RegisterType == "Sell" {
+            if registerType {
                 RegisterSellHeader()
             } else {
                 RegisterBuyHeader()
             }
             
-            if RegisterType == "Sell" {
+            if registerType {
                 SellRegisterView()
             } else {
                 BuyRegisterView()
@@ -41,8 +41,4 @@ struct RegisterView: View {
         }
         .scrollIndicators(.hidden)
     }
-}
-
-#Preview {
-    RegisterView()
 }

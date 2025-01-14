@@ -8,15 +8,17 @@
 import SwiftUI
 
 struct RegisterSellHeader: View {
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         HStack{
             Button {
-                print("뒤로가기 버튼")
+                dismiss()
             } label: {
                 Image(systemName: "multiply")
             }
-            .foregroundStyle(.black)
-            
+            .foregroundStyle(Color.napzakGrayScale(.gray900))
+
             Spacer()
             Text("팔아요 등록")
                 .font(.napzakFont(.title5SemiBold18))
