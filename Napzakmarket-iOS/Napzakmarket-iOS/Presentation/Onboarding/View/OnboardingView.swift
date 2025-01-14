@@ -12,7 +12,7 @@ struct OnboardingView: View {
     @Binding var isOnboardingComplete: Bool
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack(alignment: .leading, spacing: 0) {
             TitleView()
             
             SearchBar(
@@ -25,19 +25,27 @@ struct OnboardingView: View {
                 }
             }
             
-            ChipsContainerView(
-                selectedGenres: .init(
-                    get: { genreModel.selectedGenres.map { $0.name } },
-                    set: { newNames in
-                        genreModel.removeSelection(newNames )
-                    }
+            if !genreModel.selectedGenres.isEmpty {
+                ChipsContainerView(
+                    selectedGenres: .init(
+                        get: { genreModel.selectedGenres.map { $0.name } },
+                        set: { newNames in
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                genreModel.removeSelection(newNames)
+                            }
+                        }
+                    )
                 )
-            )
+                .transition(.opacity)
+                .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
+            }
             
             GenreGridView(
                 genres: $genreModel.genres,
                 selectedGenres: $genreModel.selectedGenres
             )
+            .transition(.opacity)
+            .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
             
             FinalActionsView(
                 isOnboardingComplete: $isOnboardingComplete,
@@ -95,7 +103,7 @@ extension OnboardingView {
                 Button {
                     isOnboardingComplete = true
                 } label: {
-                    Text("선택완료! 시작하기")
+                    Text("나중에 설정할래요")
                         .font(.napzakFont(.body2SemiBold16))
                         .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                         .foregroundStyle(Color.napzakGrayScale(.gray500))
@@ -107,4 +115,8 @@ extension OnboardingView {
         }
     }
      
+}
+
+#Preview {
+    OnboardingView(isOnboardingComplete: .constant(false))
 }

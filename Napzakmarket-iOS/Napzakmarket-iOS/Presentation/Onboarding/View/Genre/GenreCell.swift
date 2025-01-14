@@ -59,7 +59,10 @@ extension GenreCell {
                 if isSelected {
                     Image(systemName: "checkmark.square.fill")
                         .resizable()
-                        .foregroundStyle(Color.napzakPurple(.purple30))
+                        .foregroundStyle(
+                            Color.napzakGrayScale(.white),
+                            Color.napzakPurple(.purple30)
+                        )
                         .frame(width: 16, height: 16)
                         .transition(.scale.combined(with: .opacity))
                         .padding([.top, .trailing], 10)
