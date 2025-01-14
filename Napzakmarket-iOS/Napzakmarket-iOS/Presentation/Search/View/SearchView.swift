@@ -110,7 +110,7 @@ extension SearchView {
                     Text("\(products.count)개")
                         .font(.napzakFont(.body5SemiBold14))
                         .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                        .foregroundStyle(Color.napzakPuple(.purple30))
+                        .foregroundStyle(Color.napzakPurple(.purple30))
                     Spacer()
                     Button {
                         print("정렬 버튼 선택")

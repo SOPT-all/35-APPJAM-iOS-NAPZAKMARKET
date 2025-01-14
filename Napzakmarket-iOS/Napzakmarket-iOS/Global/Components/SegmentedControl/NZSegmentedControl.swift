@@ -57,10 +57,10 @@ extension NZSegmentedControl {
                         Text(tabs[i])
                             .font(selectedIndex == i ? .napzakFont(.title5SemiBold18) : .napzakFont(.title6Medium18))
                             .applyNapzakTextStyle(napzakFontStyle: .title5SemiBold18)
-                            .foregroundStyle(selectedIndex == i ? Color.napzakPuple(.purple30): Color.napzakGrayScale(.gray300))
+                            .foregroundStyle(selectedIndex == i ? Color.napzakPurple(.purple30): Color.napzakGrayScale(.gray300))
                         Divider()
                             .frame(height: 2)
-                            .overlay(selectedIndex == i ? Color.napzakPuple(.purple30): Color.napzakGrayScale(.gray300))
+                            .overlay(selectedIndex == i ? Color.napzakPurple(.purple30): Color.napzakGrayScale(.gray300))
                     }
                 }
             }
