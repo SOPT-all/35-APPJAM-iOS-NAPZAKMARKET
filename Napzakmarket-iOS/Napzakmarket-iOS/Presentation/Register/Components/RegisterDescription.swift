@@ -16,33 +16,45 @@ struct RegisterDescription: View {
     var body: some View {
         VStack(alignment: .leading) {
             Text("설명")
+                .font(.napzakFont(.body2SemiBold16))
+                .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+                .foregroundStyle(Color.napzakGrayScale(.gray900))
                 .padding(.bottom, 12)
             
             ZStack(alignment: .topLeading){
                 TextEditor(text: $description)
                     .maxLength(250, text: $description)
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 11)
+                    .foregroundStyle(Color.napzakGrayScale(.gray900))
+                    .padding(.horizontal, 8)
+                    .padding(.vertical, 3)
                 
                 if description.isEmpty {
                     Text(descriptionPlaceholder)
-                        .foregroundStyle(.gray)
-                        .padding(.horizontal, 20)
-                        .padding(.vertical, 19)
+                        .foregroundStyle(Color.napzakGrayScale(.gray400))
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 11)
                 }
             }
-            .frame(height: 132)
+            .font(.napzakFont(.body6Medium14))
+            .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
+            .frame(height: 182)
             .overlay {
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(.gray, lineWidth: 1)
+                    .stroke(Color.napzakGrayScale(.gray200), lineWidth: 1)
             }
             
-            HStack {
+            HStack(spacing: 0) {
                 Spacer()
-                Text("\(description.count) / 250")
-                    .font(.system(size: 12))
-                    .foregroundStyle(.gray)
+                Text(description.count.description)
+                    .foregroundStyle(description.count == 0
+                                     ? Color.napzakGrayScale(.gray400)
+                                     : Color.napzakGrayScale(.gray900))
+                
+                Text("/250")
+                    .foregroundStyle(Color.napzakGrayScale(.gray400))
             }
+            .font(.napzakFont(.caption3Medium12))
+            .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
             .padding(.top, 4)
             
         }

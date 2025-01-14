@@ -87,6 +87,7 @@ struct RegisterDeliveryCharge: View {
                                         .convertPrice(maxPrice: normalMaxDeliveryCharge)
                                 }
                                 .foregroundColor(Color.napzakGrayScale(.gray900))
+                                .keyboardType(.decimalPad)
                             
                             Text("원")
                                 .foregroundColor(Color.napzakGrayScale(.gray600))
@@ -135,6 +136,7 @@ struct RegisterDeliveryCharge: View {
                                         .convertPrice(maxPrice: halfMaxDeliveryCharge)
                                 }
                                 .foregroundColor(Color.napzakGrayScale(.gray900))
+                                .keyboardType(.decimalPad)
                             
                             Text("원")
                                 .foregroundColor(Color.napzakGrayScale(.gray600))

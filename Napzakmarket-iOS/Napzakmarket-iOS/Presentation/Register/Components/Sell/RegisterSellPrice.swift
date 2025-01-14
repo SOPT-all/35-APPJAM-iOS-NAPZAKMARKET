@@ -22,7 +22,7 @@ struct RegisterSellPrice: View {
             
             HStack(alignment: .center, spacing: 2){
                 TextField("0", text: $price)
-                    .keyboardType(.numberPad)
+                    .keyboardType(.decimalPad)
                     .font(.napzakFont(.body3Medium16))
                     .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -40,7 +40,7 @@ struct RegisterSellPrice: View {
             .padding(.vertical, 11)
             .overlay {
                 RoundedRectangle(cornerRadius: 12)
-                    .stroke(.gray, lineWidth: 1)
+                    .stroke(Color.napzakGrayScale(.gray200), lineWidth: 1)
             }
             
         }

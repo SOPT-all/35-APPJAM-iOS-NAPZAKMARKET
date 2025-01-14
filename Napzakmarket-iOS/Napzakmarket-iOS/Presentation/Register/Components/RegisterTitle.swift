@@ -49,7 +49,3 @@ struct RegisterTitle: View {
         
     }
 }
-
-#Preview {
-    SellRegisterView()
-}
