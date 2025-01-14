@@ -15,8 +15,9 @@ struct RegisterBuyHeader: View {
             Button {
                 dismiss()
             } label: {
-                Image(systemName: "multiply")
+                Image(systemName: "xmark")
             }
+            .frame(width: 24, height: 24)
             .foregroundStyle(Color.napzakGrayScale(.gray900))
             
             Spacer()

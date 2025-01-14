@@ -41,7 +41,3 @@ struct RegisterImage: View {
         
     }
 }
-
-#Preview {
-    RegisterImage()
-}

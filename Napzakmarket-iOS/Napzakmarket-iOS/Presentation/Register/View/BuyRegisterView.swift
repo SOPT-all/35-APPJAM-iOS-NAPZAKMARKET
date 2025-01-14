@@ -18,19 +18,19 @@ struct BuyRegisterView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 
-                // MARK: - 상품 이미지
+                // 상품 이미지
                 RegisterImage()
                 
-                // MARK: - 장르
+                // 장르
                 RegisterGenre(genre: $genre)
                 
-                // MARK: - 제목
+                // 제목
                 RegisterTitle(title: $title)
                 
-                // MARK: - 설명
+                // 설명
                 RegisterDescription(description: $description)
                 
-                // MARK: - 가격 구분선
+                // 가격 구분선
                 Rectangle()
                     .fill(Color.gray.opacity(0.1))
                     .frame(height: 8)
