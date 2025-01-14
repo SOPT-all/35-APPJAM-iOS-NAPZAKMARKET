@@ -19,6 +19,10 @@ struct RegisterSellHeader: View {
             
             Spacer()
             Text("팔아요 등록")
+                .font(.napzakFont(.title5SemiBold18))
+                .applyNapzakTextStyle(napzakFontStyle: .title5SemiBold18)
+                .foregroundStyle(Color.napzakGrayScale(.gray900))
+            
             Spacer()
         }
         .padding(.horizontal, 20)
