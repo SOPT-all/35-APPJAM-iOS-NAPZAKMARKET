@@ -71,14 +71,9 @@ struct RegisterDeliveryCharge: View {
                         VStack {
                             HStack {
                                 TextField("0", text: $normalDeliveryCharge)
-                                    .onChange(
-                                        of: normalDeliveryCharge
-                                    ) {
-                                        oldValue,
-                                        newValue in
-                                        normalDeliveryCharge = convertPrice(
-                                            input: newValue
-                                        )
+                                    .onChange(of: normalDeliveryCharge) { oldValue, newValue in
+                                        normalDeliveryCharge =
+                                        newValue.convertPrice(maxPrice: maxDeliveryCharge)
                                     }
                                 
                                 Text("원")
@@ -120,14 +115,9 @@ struct RegisterDeliveryCharge: View {
                         VStack {
                             HStack {
                                 TextField("0", text: $halfDeliveryCharge)
-                                    .onChange(
-                                        of: halfDeliveryCharge
-                                    ) {
-                                        oldValue,
-                                        newValue in
-                                        halfDeliveryCharge = convertPrice(
-                                            input: newValue
-                                        )
+                                    .onChange(of: halfDeliveryCharge) { oldValue, newValue in
+                                        halfDeliveryCharge =
+                                        newValue.convertPrice(maxPrice: maxDeliveryCharge)
                                     }
                                 
                                 Text("원")
@@ -154,21 +144,3 @@ struct RegisterDeliveryCharge: View {
         .padding(.horizontal, 20)
     }
 }
-
-extension RegisterDeliveryCharge {
-    // MARK: - 문자열을 금액 형태로 바꿔주는 함수
-    private func convertPrice(input: String) -> String {
-        // 숫자만 남기기
-        let filteredPrice = input.filter { $0.isNumber }
-        guard let price = Int(filteredPrice) else { return "" }
-        
-        // 최대 금액 제한
-        let limitedPrice = min(price, maxDeliveryCharge)
-        
-        // 숫자를 3자리마다 쉼표로 구분
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter.string(from: limitedPrice as NSNumber) ?? ""
-    }
-}
-

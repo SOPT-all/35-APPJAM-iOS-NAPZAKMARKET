@@ -27,7 +27,7 @@ struct RegisterSellPrice: View {
                     .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
                     .onChange(of: price) { oldValue, newValue in
-                        price = convertPrice(input: newValue)
+                        price = newValue.convertPrice(maxPrice: maxPrice)
                     }
                 
                 Text("원")
@@ -47,23 +47,6 @@ struct RegisterSellPrice: View {
         }
         .padding(.bottom, 35)
         .padding(.horizontal, 20)
-    }
-}
-
-extension RegisterSellPrice {
-    // MARK: - 문자열을 금액 형태로 바꿔주는 함수
-    private func convertPrice(input: String) -> String {
-        // 숫자만 남기기
-        let filteredPrice = input.filter { $0.isNumber }
-        guard let price = Int(filteredPrice) else { return "" }
-        
-        // 최대 금액 제한
-        let limitedPrice = min(price, maxPrice)
-        
-        // 숫자를 3자리마다 쉼표로 구분
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        return formatter.string(from: limitedPrice as NSNumber) ?? ""
     }
 }
 
