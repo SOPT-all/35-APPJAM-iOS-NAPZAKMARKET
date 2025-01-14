@@ -177,6 +177,28 @@ extension ProductDummyModel {
             uploadTime: "3시간 전",
             productType: .buy,
             isPriceNegotiable: false
+        ),
+        ProductDummyModel(
+            id: 8,
+            isLikeButtonExist: true,
+            isLiked: false,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .buy,
+            isPriceNegotiable: false
+        ),
+        ProductDummyModel(
+            id: 9,
+            isLikeButtonExist: true,
+            isLiked: false,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .buy,
+            isPriceNegotiable: false
         )
     ]
 }
