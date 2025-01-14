@@ -81,12 +81,14 @@ extension SearchView {
                     .frame(width: 69, height: 33)
             }
             
-            Button {
-                print("미개봉 필터 선택")
-            } label: {
-                Image(.chipUnopen)
-                    .resizable()
-                    .frame(width: 59, height: 33)
+            if selectedIndex == 0 {
+                Button {
+                    print("미개봉 필터 선택")
+                } label: {
+                    Image(.chipUnopen)
+                        .resizable()
+                        .frame(width: 59, height: 33)
+                }
             }
             Spacer()
 
