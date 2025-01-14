@@ -8,7 +8,7 @@
 import SwiftUI
 
 // MARK: - TabViewModel
-class TabViewModel: ObservableObject {
+class TabBarModel: ObservableObject {
     @Published var selectedTab: Int = 0
     @Published var isRegisterTabActive: Bool = false
     @Published var lastSelectedTab: Int = 0
@@ -18,17 +18,17 @@ class TabViewModel: ObservableObject {
     init() {
         tabs = [
             TabItem(title: "홈", defaultIcon: "ic_home", selectedIcon: "ic_home_select", view: AnyView(PreView())),
-            TabItem(title: "탐색", defaultIcon: "ic_look", selectedIcon: "ic_look_select", view: AnyView(MypageView())),
+            TabItem(title: "탐색", defaultIcon: "ic_look", selectedIcon: "ic_look_select", view: AnyView(PreView())),
             TabItem(title: "등록", defaultIcon: "ic_register", selectedIcon: "ic_register_select", view: AnyView(EmptyView())),
-            TabItem(title: "채팅", defaultIcon: "ic_chat", selectedIcon: "ic_chat_select", view: AnyView(MypageView())),
-            TabItem(title: "마이", defaultIcon: "ic_my", selectedIcon: "ic_my_select", view: AnyView(MypageView()))
+            TabItem(title: "채팅", defaultIcon: "ic_chat", selectedIcon: "ic_chat_select", view: AnyView(PreView())),
+            TabItem(title: "마이", defaultIcon: "ic_my", selectedIcon: "ic_my_select", view: AnyView(PreView()))
         ]
     }
 }
 
 // MARK: - TabbarView
-struct TabbarView: View {
-    @StateObject private var viewModel = TabViewModel()
+struct TabBarView: View {
+    @StateObject private var viewModel = TabBarModel()
     @State private var isBottomSheetVisible = false
     
     var body: some View {
@@ -187,6 +187,6 @@ struct TabbarView: View {
 // MARK: - Preview
 struct TabbarView_Previews: PreviewProvider {
     static var previews: some View {
-        TabbarView()
+        TabBarView()
     }
 }

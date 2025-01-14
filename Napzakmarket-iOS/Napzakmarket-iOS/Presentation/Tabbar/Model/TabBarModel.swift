@@ -5,7 +5,6 @@
 //  Created by 어진 on 1/10/25.
 //
 
-import Foundation
 import SwiftUI
 
 struct TabItem: Identifiable {
