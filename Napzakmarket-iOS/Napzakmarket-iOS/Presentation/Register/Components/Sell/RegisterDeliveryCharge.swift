@@ -82,7 +82,7 @@ struct RegisterDeliveryCharge: View {
                     if normalDelivery {
                         HStack {
                             TextField("100~30,000", text: $normalDeliveryCharge)
-                                .onChange(of: normalDeliveryCharge) { oldValue, newValue in
+                                .onChange(of: normalDeliveryCharge) { newValue in
                                     normalDeliveryCharge = newValue
                                         .convertPrice(maxPrice: normalMaxDeliveryCharge)
                                 }
@@ -131,7 +131,7 @@ struct RegisterDeliveryCharge: View {
                     if halfDelivery {
                         HStack {
                             TextField("0~5,000", text: $halfDeliveryCharge)
-                                .onChange(of: halfDeliveryCharge) { oldValue, newValue in
+                                .onChange(of: halfDeliveryCharge) { newValue in
                                     halfDeliveryCharge = newValue
                                         .convertPrice(maxPrice: halfMaxDeliveryCharge)
                                 }
