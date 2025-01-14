@@ -35,7 +35,6 @@ struct RegisterSellPrice: View {
                     .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
                     .foregroundStyle(Color.napzakGrayScale(.gray600))
             }
-            .frame(minWidth: 291)
             .frame(height: 22)
             .padding(.horizontal, 14)
             .padding(.vertical, 11)
@@ -48,4 +47,8 @@ struct RegisterSellPrice: View {
         .padding(.bottom, 35)
         .padding(.horizontal, 20)
     }
+}
+
+#Preview {
+    RegisterView()
 }
