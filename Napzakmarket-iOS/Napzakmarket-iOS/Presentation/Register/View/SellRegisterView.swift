@@ -23,31 +23,31 @@ struct SellRegisterView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 
-                // MARK: - 상품 이미지
+                // 상품 이미지
                 RegisterImage()
                 
-                // MARK: - 장르
+                // 장르
                 RegisterGenre(genre: $genre)
                 
-                // MARK: - 제목
+                // 제목
                 RegisterTitle(title: $title)
                 
-                // MARK: - 설명
+                // 설명
                 RegisterDescription(description: $description)
                 
-                // MARK: - 상품 상태
+                // 상품 상태
                 RegisterProductState(productState: $productState)
                 
-                // MARK: - 가격 구분선
+                // 가격 구분선
                 Rectangle()
                     .fill(Color.napzakGrayScale(.gray50))
                     .frame(height: 8)
                     .padding(.vertical, 40)
                 
-                // MARK: - 가격
+                // 가격
                 RegisterSellPrice(price: $price)
 
-                // MARK: - 배송비
+                // 배송비
                 RegisterDeliveryCharge(
                     deliveryChargeFree: $deliveryChargeFree,
                     normalDelivery: $normalDelivery,

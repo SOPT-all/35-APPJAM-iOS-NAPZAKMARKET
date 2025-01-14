@@ -42,7 +42,3 @@ struct RegisterView: View {
         .scrollIndicators(.hidden)
     }
 }
-
-#Preview {
-    RegisterView()
-}

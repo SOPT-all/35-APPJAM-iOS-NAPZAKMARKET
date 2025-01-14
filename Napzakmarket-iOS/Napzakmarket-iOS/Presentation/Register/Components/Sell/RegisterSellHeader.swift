@@ -13,10 +13,11 @@ struct RegisterSellHeader: View {
             Button {
                 print("뒤로가기 버튼")
             } label: {
-                Image(systemName: "multiply")
+                Image(systemName: "xmark")
             }
-            .foregroundStyle(.black)
-            
+            .frame(width: 24, height: 24)
+            .foregroundStyle(Color.napzakGrayScale(.gray900))
+
             Spacer()
             Text("팔아요 등록")
                 .font(.napzakFont(.title5SemiBold18))

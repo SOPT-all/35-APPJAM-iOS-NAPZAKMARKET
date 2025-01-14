@@ -13,8 +13,9 @@ struct RegisterBuyHeader: View {
             Button {
                 print("뒤로가기 버튼")
             } label: {
-                Image(systemName: "multiply")
+                Image(systemName: "xmark")
             }
+            .frame(width: 24, height: 24)
             .foregroundStyle(Color.napzakGrayScale(.gray900))
             
             Spacer()
