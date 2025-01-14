@@ -1,0 +1,8 @@
+<svg width="28" height="28" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="ic_chat_select">
+<path id="Union" fill-rule="evenodd" clip-rule="evenodd" d="M10 4C6.68629 4 4 6.6863 4 10V15.15C4 18.4637 6.68629 21.15 10 21.15H15.576L17.1972 24.3528C17.5559 25.0613 18.5577 25.0892 18.9552 24.4017L21.4763 20.0409C23.0038 18.9533 24 17.168 24 15.15V10C24 6.68629 21.3137 4 18 4H10Z" fill="#262626"/>
+<circle id="Ellipse 3" cx="10" cy="12.5751" r="1" fill="#C0A1FF"/>
+<circle id="Ellipse 4" cx="14" cy="12.5751" r="1" fill="#C0A1FF"/>
+<circle id="Ellipse 5" cx="18" cy="12.5751" r="1" fill="#C0A1FF"/>
+</g>
+</svg>
