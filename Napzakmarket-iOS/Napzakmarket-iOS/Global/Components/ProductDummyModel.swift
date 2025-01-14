@@ -10,7 +10,7 @@ import SwiftUI
 struct ProductDummyModel: Hashable {
     let id: UUID
     let isLikeButtonExist: Bool
-    let isLiked: Bool
+    var isLiked: Bool
     let genreName: String
     let productName: String
     let price: String
@@ -20,7 +20,98 @@ struct ProductDummyModel: Hashable {
 }
 
 extension ProductDummyModel {
-    static let dummy = [
+    static let sellDummy = [
+        ProductDummyModel(
+            id: .init(),
+            isLikeButtonExist: true,
+            isLiked: true,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .sell,
+            isPriceNegotiable: false
+        ),
+        ProductDummyModel(
+            id: .init(),
+            isLikeButtonExist: true,
+            isLiked: false,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .sell,
+            isPriceNegotiable: false
+        ),
+        ProductDummyModel(
+            id: .init(),
+            isLikeButtonExist: true,
+            isLiked: true,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .sell,
+            isPriceNegotiable: false
+        ),
+        ProductDummyModel(
+            id: .init(),
+            isLikeButtonExist: true,
+            isLiked: false,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .sell,
+            isPriceNegotiable: false
+        ),
+        ProductDummyModel(
+            id: .init(),
+            isLikeButtonExist: true,
+            isLiked: false,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .sell,
+            isPriceNegotiable: false
+        ),
+        ProductDummyModel(
+            id: .init(),
+            isLikeButtonExist: true,
+            isLiked: false,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .sell,
+            isPriceNegotiable: false
+        ),
+        ProductDummyModel(
+            id: .init(),
+            isLikeButtonExist: true,
+            isLiked: false,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .sell,
+            isPriceNegotiable: false
+        )
+    ]
+    
+    static let buyDummy = [
+        ProductDummyModel(
+            id: .init(),
+            isLikeButtonExist: true,
+            isLiked: true,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .buy,
+            isPriceNegotiable: false
+        ),
         ProductDummyModel(
             id: .init(),
             isLikeButtonExist: true,
@@ -30,7 +121,29 @@ extension ProductDummyModel {
             price: "35,000원",
             uploadTime: "3시간 전",
             productType: .buy,
+            isPriceNegotiable: true
+        ),
+        ProductDummyModel(
+            id: .init(),
+            isLikeButtonExist: true,
+            isLiked: true,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .buy,
             isPriceNegotiable: false
+        ),
+        ProductDummyModel(
+            id: .init(),
+            isLikeButtonExist: true,
+            isLiked: false,
+            genreName: "산리오",
+            productName: "딸기 마이멜로디 마스코트 인형",
+            price: "35,000원",
+            uploadTime: "3시간 전",
+            productType: .buy,
+            isPriceNegotiable: true
         ),
         ProductDummyModel(
             id: .init(),
@@ -52,40 +165,7 @@ extension ProductDummyModel {
             price: "35,000원",
             uploadTime: "3시간 전",
             productType: .buy,
-            isPriceNegotiable: false
-        ),
-        ProductDummyModel(
-            id: .init(),
-            isLikeButtonExist: true,
-            isLiked: false,
-            genreName: "산리오",
-            productName: "딸기 마이멜로디 마스코트 인형",
-            price: "35,000원",
-            uploadTime: "3시간 전",
-            productType: .buy,
-            isPriceNegotiable: false
-        ),
-        ProductDummyModel(
-            id: .init(),
-            isLikeButtonExist: true,
-            isLiked: false,
-            genreName: "산리오",
-            productName: "딸기 마이멜로디 마스코트 인형",
-            price: "35,000원",
-            uploadTime: "3시간 전",
-            productType: .buy,
-            isPriceNegotiable: false
-        ),
-        ProductDummyModel(
-            id: .init(),
-            isLikeButtonExist: true,
-            isLiked: false,
-            genreName: "산리오",
-            productName: "딸기 마이멜로디 마스코트 인형",
-            price: "35,000원",
-            uploadTime: "3시간 전",
-            productType: .buy,
-            isPriceNegotiable: false
+            isPriceNegotiable: true
         ),
         ProductDummyModel(
             id: .init(),
