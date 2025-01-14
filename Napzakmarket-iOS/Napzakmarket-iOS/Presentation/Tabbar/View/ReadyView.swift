@@ -11,7 +11,19 @@ struct ReadyView: View {
     @Environment(\.dismiss) private var dismiss
     
     var body: some View {
-        NavigationView {
+        VStack {
+            HStack {
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image("ic_back")
+                        .foregroundStyle(Color.napzakGrayScale(.gray900))
+                }
+                Spacer()
+            }
+            .padding(.horizontal, 20)
+            .padding(.top, 16)
+            
             VStack {
                 Image("img_ready")
                     .resizable()
@@ -31,21 +43,7 @@ struct ReadyView: View {
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-            .navigationBarBackButtonHidden(true)
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button(action: {
-                        dismiss()
-                    }) {
-                        Image(systemName: "chevron.left")
-                            .foregroundStyle(Color.napzakGrayScale(.gray900))
-                    }
-                }
-            }
         }
+        .navigationBarHidden(true)
     }
-}
-
-#Preview {
-    ReadyView()
 }

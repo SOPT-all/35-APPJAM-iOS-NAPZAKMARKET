@@ -71,18 +71,20 @@ struct MyPageView: View {
                             
                             HStack(spacing: 31) {
                                 ForEach(MyPageModel.allCases, id: \.self) { menu in
-                                    VStack(spacing: 8) {
-                                        Image(menu.iconName)
-                                            .resizable()
-                                            .frame(width: 34, height: 34)
-                                            .padding(10)
-                                            .background(Color.napzakGrayScale(.white))
-                                            .cornerRadius(12)
-                                        Text(menu.title)
-                                            .font(.napzakFont(.body6Medium14))
-                                            .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
-                                            .font(.system(size: 13))
-                                            .foregroundColor(Color.napzakGrayScale(.gray700))
+                                    NavigationLink(destination: ReadyView()) {
+                                        VStack(spacing: 8) {
+                                            Image(menu.iconName)
+                                                .resizable()
+                                                .frame(width: 34, height: 34)
+                                                .padding(10)
+                                                .background(Color.napzakGrayScale(.white))
+                                                .cornerRadius(12)
+                                            Text(menu.title)
+                                                .font(.napzakFont(.body6Medium14))
+                                                .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
+                                                .font(.system(size: 13))
+                                                .foregroundColor(Color.napzakGrayScale(.gray700))
+                                        }
                                     }
                                 }
                             }
@@ -99,6 +101,3 @@ struct MyPageView: View {
     }
 }
 
-#Preview {
-    MyPageView()
-}
