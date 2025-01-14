@@ -13,7 +13,7 @@ struct AppEntryView: View {
     
     var body: some View {
         if isOnboardingComplete {
-            HomeView()
+            TabBarView()
         } else {
             OnboardingView(isOnboardingComplete: $isOnboardingComplete)
         }
