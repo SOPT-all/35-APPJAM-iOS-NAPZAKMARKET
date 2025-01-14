@@ -54,7 +54,7 @@ struct MyPageView: View {
                                         .foregroundColor(.white)
                                         .frame(maxWidth: .infinity)
                                         .frame(height: 44)
-                                        .background(Color.napzakPuple(.purple30))
+                                        .background(Color.napzakPurple(.purple30))
                                         .cornerRadius(12)
                                 }
                             }
