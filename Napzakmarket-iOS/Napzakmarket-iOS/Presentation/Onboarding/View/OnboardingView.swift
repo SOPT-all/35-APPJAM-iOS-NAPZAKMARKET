@@ -13,52 +13,65 @@ struct OnboardingView: View {
     
     @StateObject private var genreModel = GenreModel()
     @Binding var isOnboardingComplete: Bool
+    @FocusState private var isSearchBarFocused: Bool
     
     // MARK: - Main Body
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TitleView()
-            
-            SearchBar(
-                placeholder: "원하는 장르를 직접 입력해 검색해보세요.",
-                text: $genreModel.searchText
-            )
-            .padding(.bottom, 16)
-            .onChange(of: genreModel.searchText) { _ in
-                Task {
-                    try? await genreModel.fetchGenresFiltered()
+            Group {
+                TitleView()
+                
+                SearchBar(
+                    placeholder: "원하는 장르를 직접 입력해 검색해보세요.",
+                    text: $genreModel.searchText,
+                    isSearchBarFocused: _isSearchBarFocused
+                )
+                .onChange(of: genreModel.searchText) { _ in
+                    Task {
+                        try? await genreModel.fetchGenresFiltered()
+                    }
+                }
+                
+                if !genreModel.selectedGenres.isEmpty {
+                    ChipsContainerView(
+                        selectedGenres: .init(
+                            get: { genreModel.selectedGenres.map { $0.name } },
+                            set: { newNames in
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    genreModel.removeSelection(newNames)
+                                }
+                            }
+                        )
+                    )
+                    .transition(.opacity)
+                    .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
                 }
             }
+            .padding(.horizontal, 20)
             
-            if !genreModel.selectedGenres.isEmpty {
-                ChipsContainerView(
-                    selectedGenres: .init(
-                        get: { genreModel.selectedGenres.map { $0.name } },
-                        set: { newNames in
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                genreModel.removeSelection(newNames)
-                            }
-                        }
-                    )
+            VStack(spacing: 0) {
+                GenreGridView(
+                    genres: $genreModel.genres,
+                    selectedGenres: $genreModel.selectedGenres
                 )
                 .transition(.opacity)
                 .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
+                .onTapGesture {
+                    if isSearchBarFocused {
+                        isSearchBarFocused = false
+                    }
+                }
+                
+                FinalActionsView(
+                    isOnboardingComplete: $isOnboardingComplete,
+                    selectedGenres: $genreModel.selectedGenres
+                )
             }
-            
-            GenreGridView(
-                genres: $genreModel.genres,
-                selectedGenres: $genreModel.selectedGenres
-            )
-            .transition(.opacity)
-            .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
-            
-            FinalActionsView(
-                isOnboardingComplete: $isOnboardingComplete,
-                selectedGenres: $genreModel.selectedGenres
-            )
         }
-        .padding(.horizontal, 20)
+        .padding(.top, 40)
+        .edgesIgnoringSafeArea(.bottom)
+        .ignoresSafeArea(.keyboard)
         .task {
             try? await genreModel.fetchGenres()
         }
@@ -86,6 +99,7 @@ extension OnboardingView {
                     .font(.napzakFont(.body5SemiBold14))
                     .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                     .foregroundStyle(Color.napzakGrayScale(.gray500))
+                    .frame(height: 20)
             }
             .padding(.bottom, 32)
         }
@@ -126,8 +140,13 @@ extension OnboardingView {
                 }
                 Spacer()
             }
+            .padding(.horizontal, 20)
             .frame(height: 140)
         }
     }
      
+}
+
+#Preview {
+    OnboardingView(isOnboardingComplete: .constant(false))
 }
