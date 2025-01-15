@@ -28,7 +28,7 @@ struct RegisterImage: View {
                 HStack{
                     PhotosPicker(
                         selection: $photosPickerItem,
-                        maxSelectionCount: 10,
+                        maxSelectionCount: 10-images.count,
                         selectionBehavior: .ordered,
                         matching: .images
                     ) {
