@@ -9,6 +9,8 @@ import SwiftUI
 
 struct MarketView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var tabBarState: TabBarStateModel
+
     @State private var tags: [Tag] = MarketMockData.tags
     
     @State private var selectedIndex = 0
@@ -94,6 +96,12 @@ struct MarketView: View {
         }
         .background(Color(.white))
         .navigationBarHidden(true)
+        .onAppear {
+                   tabBarState.isTabBarHidden = true
+               }
+               .onDisappear {
+                   tabBarState.isTabBarHidden = false
+               }
     }
     
     private var filterButtons: some View {
