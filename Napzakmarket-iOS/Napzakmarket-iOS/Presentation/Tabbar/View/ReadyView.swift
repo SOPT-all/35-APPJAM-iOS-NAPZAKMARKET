@@ -18,6 +18,7 @@ struct ReadyView: View {
                 }) {
                     Image("ic_back")
                         .foregroundStyle(Color.napzakGrayScale(.gray900))
+                        .padding(.leading, 20)
                 }
                 Spacer()
             }
@@ -46,4 +47,7 @@ struct ReadyView: View {
         }
         .navigationBarHidden(true)
     }
+}
+#Preview {
+    ReadyView()
 }
