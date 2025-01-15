@@ -24,7 +24,7 @@ struct RegisterImage: View {
                 .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                 .foregroundStyle(Color.napzakGrayScale(.gray600))
             
-            ScrollView(.horizontal) {
+            ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
                     // 사진 선택 버튼
                     PhotosPicker(
@@ -59,6 +59,10 @@ struct RegisterImage: View {
                                 .scaledToFill()
                                 .frame(width: 80, height: 80)
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
+                                .onLongPressGesture {
+                                    let movedImage = images.remove(at: i) // 현재 인덱스의 이미지를 삭제하고 저장
+                                        images.insert(movedImage, at: 0) // 맨 앞으로 삽입
+                                }
                             
                             Image(.icXCircleBlack)
                                 .position(CGPoint(x: 74, y: 6))
