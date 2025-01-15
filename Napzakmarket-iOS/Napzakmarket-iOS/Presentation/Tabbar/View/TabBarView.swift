@@ -118,7 +118,7 @@ struct TabBarView: View {
             .padding(.vertical, 15)
             .frame(width: 160)
             .background(Color.white)
-            .cornerRadius(12)
+            .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.bottom, 104)
         }
     }
