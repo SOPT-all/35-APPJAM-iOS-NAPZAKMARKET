@@ -64,6 +64,9 @@ struct RegisterDeliveryCharge: View {
                 VStack {
                     HStack {
                         Image(normalDelivery ? .icCheckboxSelected : .icCheckbox)
+                            .onTapGesture {
+                                normalDelivery.toggle()
+                            }
                         
                         Text("일반 택배")
                             .font(.napzakFont(.body5SemiBold14))
@@ -74,9 +77,6 @@ struct RegisterDeliveryCharge: View {
                         
                         Image(systemName: normalDelivery ? "chevron.up" : "chevron.down")
                             .foregroundColor(Color.napzakGrayScale(.gray400))
-                    }
-                    .onTapGesture {
-                        normalDelivery.toggle()
                     }
                     
                     if normalDelivery {
@@ -113,6 +113,9 @@ struct RegisterDeliveryCharge: View {
                 VStack {
                     HStack {
                         Image(halfDelivery ? .icCheckboxSelected : .icCheckbox)
+                            .onTapGesture {
+                                halfDelivery.toggle()
+                            }
                         
                         Text("알뜰/반값 택배")
                             .font(.napzakFont(.body5SemiBold14))
@@ -123,9 +126,6 @@ struct RegisterDeliveryCharge: View {
                         
                         Image(systemName: halfDelivery ? "chevron.up" : "chevron.down")
                             .foregroundColor(Color.napzakGrayScale(.gray400))
-                    }
-                    .onTapGesture {
-                        halfDelivery.toggle()
                     }
                     
                     if halfDelivery {
@@ -163,4 +163,9 @@ struct RegisterDeliveryCharge: View {
         }
         .padding(.horizontal, 20)
     }
+}
+
+#Preview {
+    @State var registerType = true
+    RegisterView(registerType: $registerType)
 }

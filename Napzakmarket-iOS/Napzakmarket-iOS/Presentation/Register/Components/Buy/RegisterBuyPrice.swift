@@ -31,6 +31,7 @@ struct RegisterBuyPrice: View {
                     
                     TextField("000", text: $price)
                         .maxLength(3, text: $price)
+                        .keyboardType(.decimalPad)
                         .multilineTextAlignment(TextAlignment.trailing)
                         .font(.napzakFont(.body3Medium16))
                         .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
