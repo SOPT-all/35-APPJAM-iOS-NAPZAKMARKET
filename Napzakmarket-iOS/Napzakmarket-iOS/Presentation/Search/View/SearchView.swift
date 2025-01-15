@@ -12,8 +12,8 @@ struct SearchView: View {
     //MARK: - Property Wrappers
     
     @State var selectedIndex = 0
-    @State var sellProducts = ProductDummyModel.sellDummy
-    @State var buyProducts = ProductDummyModel.buyDummy
+    @State var sellProducts = ProductModel.sellDummyList()
+    @State var buyProducts = ProductModel.buyDummyList()
     
     //MARK: - Properties
     
@@ -129,16 +129,20 @@ extension SearchView {
                 .frame(height: 56)
 
                 LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(products.indices, id: \.self) { i in
-                        ProductItemView(
-                            toggleLike: {
-                                products == sellProducts ?
-                                sellProducts[i].isLiked.toggle() :
-                                buyProducts[i].isLiked.toggle()
-                            },
-                            product: products[i],
-                            isLikeButtonExist: true
-                        )
+                    if selectedIndex == 0 {
+                        ForEach(sellProducts) { product in
+                            ProductItemView(
+                                product: product,
+                                isLikeButtonExist: true
+                            )
+                        }
+                    } else if selectedIndex == 1 {
+                        ForEach(buyProducts) { product in
+                            ProductItemView(
+                                product: product,
+                                isLikeButtonExist: true
+                            )
+                        }
                     }
                 }
             }

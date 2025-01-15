@@ -14,10 +14,10 @@ enum ProductType {
 
 struct ProductItemView: View {
     
+    @ObservedObject var product: ProductModel
+    
     //MARK: - Properties
     
-    let toggleLike: () -> Void
-    let product: ProductDummyModel
     let isLikeButtonExist: Bool
     
     //MARK: - Main Body
@@ -62,7 +62,7 @@ extension ProductItemView {
     private var likeButton: some View {
         Button {
             print("Like Button tapped")
-            toggleLike()
+            product.toggleLike()
         } label: {
             product.isLiked ? Image(.icnHeartListSelect) : Image(.icnHeartList)
         }
