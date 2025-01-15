@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct MarketView: View {
+    @Environment(\.dismiss) private var dismiss
+    
     @State private var selectedTab = "팔아요"
     @State private var tags: [Tag] = MarketMockData.tags
     
@@ -27,7 +29,7 @@ struct MarketView: View {
             // 배경색
             Color.napzakGrayScale(.gray300)
                 .edgesIgnoringSafeArea(.top)
-                .frame(height: 138)
+                .frame(height: 120)
             
             // 배경 이미지
             HStack(alignment: .center, spacing: 0) {
@@ -35,13 +37,13 @@ struct MarketView: View {
                 Image("img_market_bg_character")
                     .resizable()
                     .frame(width: 138, height: 111, alignment: .trailing)
-                    .padding(.top, 27)
+                    .padding(.top, 9)
             }
             
             // 네비게이션 바
             HStack {
                 Button(action: {
-                    // 뒤로가기 액션
+                    dismiss()
                 }) {
                     Image("ic_back")
                         .foregroundColor(Color.napzakGrayScale(.gray900))
