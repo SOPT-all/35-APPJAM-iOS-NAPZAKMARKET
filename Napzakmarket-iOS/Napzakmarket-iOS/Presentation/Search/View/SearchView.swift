@@ -11,9 +11,11 @@ struct SearchView: View {
     
     //MARK: - Property Wrappers
     
-    @State var selectedIndex = 0
     @State var sellProducts = ProductModel.sellDummyList()
     @State var buyProducts = ProductModel.buyDummyList()
+    @State var selectedTabIndex = 0
+    @State var selectedSortOption: SortOption = .latest
+    @State var sortModalViewIsPresented = false
     
     //MARK: - Properties
     
@@ -25,15 +27,33 @@ struct SearchView: View {
     //MARK: - Main Body
     
     var body: some View {
-        VStack(spacing: 0) {
-            searchButton
-            NZSegmentedControl(
-                selectedIndex: $selectedIndex,
-                tabs: ["팔아요", "구해요"],
-                spacing: 15
-            )
-            filterButtons
-            productScrollView
+        ZStack {
+            VStack(spacing: 0) {
+                searchButton
+                NZSegmentedControl(
+                    selectedIndex: $selectedTabIndex,
+                    tabs: ["팔아요", "구해요"],
+                    spacing: 15
+                )
+                filterButtons
+                productScrollView
+            }
+            
+            ZStack(alignment: .bottom) {
+                if sortModalViewIsPresented {
+                    Color.napzakTransparency(.black70)
+                        .onTapGesture {
+                            sortModalViewIsPresented = false
+                        }
+                    
+                    SortModalView(
+                        sortModalViewIsPresented: $sortModalViewIsPresented,
+                        selectedSortOption: $selectedSortOption
+                    )
+                }
+            }
+            .ignoresSafeArea(.all)
+            .animation(.interactiveSpring(), value: sortModalViewIsPresented)
         }
     }
 }
@@ -81,7 +101,7 @@ extension SearchView {
                     .frame(width: 69, height: 33)
             }
             
-            if selectedIndex == 0 {
+            if selectedTabIndex == 0 {
                 Button {
                     print("미개봉 필터 선택")
                 } label: {
@@ -98,55 +118,63 @@ extension SearchView {
     }
     
     private var productScrollView: some View {
-        ScrollView(showsIndicators: false) {
-            let products = selectedIndex == 0 ? sellProducts : buyProducts
-
-            VStack(spacing: 0) {
-                HStack(spacing: 4) {
-                    Text("상품")
-                        .font(.napzakFont(.body5SemiBold14))
-                        .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                        .foregroundStyle(Color.napzakGrayScale(.gray900))
-                    Text("\(products.count)개")
-                        .font(.napzakFont(.body5SemiBold14))
-                        .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                        .foregroundStyle(Color.napzakPurple(.purple30))
-                    Spacer()
-                    Button {
-                        print("정렬 버튼 선택")
-                    } label: {
-                        HStack(spacing: 0) {
-                            Text("최신순")
-                                .font(.napzakFont(.caption3Medium12))
-                                .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                                .foregroundStyle(Color.napzakGrayScale(.gray600))
-                            Image(.iconDownSmGray)
-                                .resizable()
-                                .frame(width: 16, height: 16)
+        ScrollViewReader { proxy in
+            ScrollView(showsIndicators: false) {
+                let products = selectedTabIndex == 0 ? sellProducts : buyProducts
+                
+                VStack(spacing: 0) {
+                    HStack(spacing: 4) {
+                        Text("상품")
+                            .font(.napzakFont(.body5SemiBold14))
+                            .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+                            .foregroundStyle(Color.napzakGrayScale(.gray900))
+                        Text("\(products.count)개")
+                            .font(.napzakFont(.body5SemiBold14))
+                            .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+                            .foregroundStyle(Color.napzakPurple(.purple30))
+                        Spacer()
+                        Button {
+                            print("정렬 버튼 선택")
+                            sortModalViewIsPresented = true
+                        } label: {
+                            HStack(spacing: 0) {
+                                Text("\(selectedSortOption.rawValue)")
+                                    .font(.napzakFont(.caption3Medium12))
+                                    .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                                    .foregroundStyle(Color.napzakGrayScale(.gray600))
+                                Image(.iconDownSmGray)
+                                    .resizable()
+                                    .frame(width: 16, height: 16)
+                            }
                         }
                     }
-                }
-                .frame(height: 56)
-
-                LazyVGrid(columns: columns, spacing: 20) {
-                    if selectedIndex == 0 {
-                        ForEach(sellProducts) { product in
-                            ProductItemView(
-                                product: product,
-                                isLikeButtonExist: true
-                            )
-                        }
-                    } else if selectedIndex == 1 {
-                        ForEach(buyProducts) { product in
-                            ProductItemView(
-                                product: product,
-                                isLikeButtonExist: true
-                            )
+                    .frame(height: 56)
+                    .id("header")
+                    
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        if selectedTabIndex == 0 {
+                            ForEach(sellProducts) { product in
+                                ProductItemView(
+                                    product: product,
+                                    isLikeButtonExist: true
+                                )
+                            }
+                        } else if selectedTabIndex == 1 {
+                            ForEach(buyProducts) { product in
+                                ProductItemView(
+                                    product: product,
+                                    isLikeButtonExist: true
+                                )
+                            }
                         }
                     }
                 }
             }
+            .padding(.horizontal, 20)
+            .onChange(of: selectedTabIndex) { _ in
+                selectedSortOption = .latest
+                proxy.scrollTo("header", anchor: .top)
+            }
         }
-        .padding(.horizontal, 20)
     }
 }
