@@ -1,17 +1,17 @@
 //
-//  MyPageModel.swift
+//  MyPageFeature.swift
 //  Napzakmarket-iOS
 //
 //  Created by 박어진 on 1/14/25.
 //
 
-import Foundation
-
-enum MyPageModel: CaseIterable {
+enum MyPageFeature: CaseIterable, Identifiable {
     case purchase
     case favorite
     case review
     case recent
+    
+    var id: Self { self } 
     
     var title: String {
         switch self {
