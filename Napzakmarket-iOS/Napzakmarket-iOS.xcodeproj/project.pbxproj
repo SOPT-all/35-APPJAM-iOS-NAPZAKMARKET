@@ -67,7 +67,6 @@
 		6C2D5B792D32C2A800E904C6 /* RegisterBuyHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBuyHeader.swift; sourceTree = "<group>"; };
 		6C2D5B7C2D32C2AA00E904C6 /* RegisterSellHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterSellHeader.swift; sourceTree = "<group>"; };
 		6C2D5B7F2D32CE7900E904C6 /* BuyRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BuyRegisterView.swift; sourceTree = "<group>"; };
-		6C693D102D2C33E100758C6A /* SellRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellRegisterView.swift; sourceTree = "<group>"; };
 		6C693D122D2D7C2600758C6A /* TextField+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextField+.swift"; sourceTree = "<group>"; };
 		6C693D142D2E4D9200758C6A /* TextEditor+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "TextEditor+.swift"; sourceTree = "<group>"; };
 		6C71799D2D36118B00481622 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
@@ -106,14 +105,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		3CD89B2E2D36BA26005ADC1F /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				6C693D102D2C33E100758C6A /* SellRegisterView.swift */,
-			);
-			name = "Recovered References";
-			sourceTree = "<group>";
-		};
 		6C2D5B582D32AD2800E904C6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
@@ -468,7 +459,6 @@
 			children = (
 				D0AA20EA2D2C0A56004CC2E6 /* Napzakmarket-iOS */,
 				D0C2A8F72D2AA38E00C8616B /* Products */,
-				3CD89B2E2D36BA26005ADC1F /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
