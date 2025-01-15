@@ -376,9 +376,8 @@
 		D0AA21002D2C0BE6004CC2E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				3CF80DC12D3697C000E8DE1F /* MyPageFeature.swift */,
 				3CD89B402D36CC9A005ADC1F /* MarketModel.swift */,
-				3CF80DC12D3697C000E8DE1F /* MyPageModel.swift */,
+				3CF80DC12D3697C000E8DE1F /* MyPageFeature.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -619,7 +618,7 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1600;
-				LastUpgradeCheck = 1600;
+				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					D0C2A8F52D2AA38E00C8616B = {
 						CreatedOnToolsVersion = 16.0;
@@ -679,13 +678,9 @@
 				D6F528A92D363B3300D1F7A8 /* ChipsContainerView.swift in Sources */,
 				D6C675112D32AD1700DE6B4D /* MockGenreService.swift in Sources */,
 				6C2D5B662D32B47B00E904C6 /* RegisterImage.swift in Sources */,
-				D0AA20FB2D2C0B9A004CC2E6 /* TabBarView.swift in Sources */,
-				D0AA21092D2C0C17004CC2E6 /* DetailView.swift in Sources */,
 				3CF80DC22D3697C900E8DE1F /* MyPageFeature.swift in Sources */,
 				6C2D5B6A2D32B62000E904C6 /* RegisterTitle.swift in Sources */,
-				D0AA210E2D2C0C49004CC2E6 /* SearchView.swift in Sources */,
 				D02CAB612D34EBAB00B0D93F /* NZSegmentedControl.swift in Sources */,
-				6C693D152D2E4D9200758C6A /* TextEditor+.swift in Sources */,
 				6C2D5B7B2D32C2A800E904C6 /* RegisterBuyHeader.swift in Sources */,
 				3CD89B412D36CCA2005ADC1F /* MarketModel.swift in Sources */,
 				6C693D132D2D7C2600758C6A /* TextField+.swift in Sources */,

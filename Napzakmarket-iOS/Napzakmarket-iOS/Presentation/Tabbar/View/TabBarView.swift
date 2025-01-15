@@ -10,6 +10,7 @@ import SwiftUI
 struct TabBarView: View {
     
     // MARK: - Properties
+    
     @State private var selectedTab: Int = 0
     @State private var isRegisterTabActive: Bool = false
     @State private var lastSelectedTab: Int = 0
@@ -19,6 +20,7 @@ struct TabBarView: View {
     private let tabs: [TabItem] = TabItem.getDefaultTabs()
     
     // MARK: - Body
+    
     var body: some View {
         ZStack {
             mainContent
@@ -33,7 +35,6 @@ struct TabBarView: View {
         .edgesIgnoringSafeArea(.bottom)
     }
     
-    // MARK: - View Components
     private var mainContent: some View {
         tabs[selectedTab].view
             .safeAreaInset(edge: .bottom) {
@@ -41,7 +42,7 @@ struct TabBarView: View {
                     Color.clear.frame(height: 90)
                 }
             }
-            .environmentObject(TabBarStateModel(isTabBarHidden: $isTabBarHidden))  // 환경 객체 추가
+            .environmentObject(TabBarStateModel(isTabBarHidden: $isTabBarHidden))
     }
     
     private var tabBarStack: some View {
@@ -137,7 +138,6 @@ struct TabBarView: View {
         }
     }
     
-    // MARK: - Helper Methods
     private func handleTabTap(_ index: Int) {
         if index == 2 {
             handleRegisterTab()

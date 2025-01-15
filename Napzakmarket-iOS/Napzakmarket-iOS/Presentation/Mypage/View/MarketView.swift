@@ -215,4 +215,5 @@ struct MarketView: View {
 
 #Preview {
     MarketView()
+        .environmentObject(TabBarStateModel(isTabBarHidden: .constant(false)))
 }
