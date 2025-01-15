@@ -10,9 +10,12 @@ import Kingfisher
 
 struct GenreCell: View {
     
+    // MARK: - Properties
+    
     let genre: Genre
     @Binding var isSelected: Bool
     
+    // MARK: - Main Body
     
     var body: some View {
         VStack(spacing: 6) {
@@ -30,9 +33,16 @@ struct GenreCell: View {
 
 extension GenreCell {
     
+    // MARK: - UI
+    
     private struct GenreImageView: View {
+        
+        // MARK: - Properties
+        
         let imageUrl: String?
         let isSelected: Bool
+        
+        // MARK: - Main Body
         
         var body: some View {
             ZStack(alignment: .topTrailing) {
@@ -73,8 +83,13 @@ extension GenreCell {
     }
     
     private struct GenreTextView: View {
+        
+        // MARK: - Properties
+        
         let name: String
         let isSelected: Bool
+        
+        // MARK: - Main Body
         
         var body: some View {
             Text(name)

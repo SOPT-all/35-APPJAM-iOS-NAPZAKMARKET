@@ -9,8 +9,12 @@ import SwiftUI
 
 struct GenreChip: View {
     
+    // MARK: - Properties
+    
     let name: String
     @Binding var selectedGenres: [String]
+    
+    // MARK: - Main Body
     
     var body: some View {
         HStack(spacing: 4) {

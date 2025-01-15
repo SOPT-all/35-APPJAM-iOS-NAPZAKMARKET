@@ -9,9 +9,13 @@ import Foundation
 
 final class MockGenreService {
     
+    // MARK: - Properties
+    
     static let shared = MockGenreService()
     
     private init() {}
+    
+    // MARK: - Func
     
     func fetchGenres() async throws -> [Genre] {
         guard let url = Bundle.main.url(forResource: "mock_genres_39", withExtension: "json") else {

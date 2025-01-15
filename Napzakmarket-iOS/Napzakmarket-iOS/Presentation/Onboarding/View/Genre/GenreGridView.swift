@@ -9,6 +9,8 @@ import SwiftUI
 
 struct GenreGridView: View {
     
+    // MARK: - Properties
+    
     @Binding var genres: [Genre]
     @Binding var selectedGenres: [Genre]
     
@@ -17,6 +19,8 @@ struct GenreGridView: View {
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
+    
+    // MARK: - Properties
     
     var body: some View {
         ScrollView {

@@ -9,7 +9,11 @@ import SwiftUI
 
 struct AppEntryView: View {
     
+    // MARK: - Properties
+    
     @State private var isOnboardingComplete: Bool = false
+    
+    // MARK: - Main Body
     
     var body: some View {
         if isOnboardingComplete {

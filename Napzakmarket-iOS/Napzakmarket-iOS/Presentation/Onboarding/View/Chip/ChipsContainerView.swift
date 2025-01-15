@@ -9,7 +9,11 @@ import SwiftUI
 
 struct ChipsContainerView: View {
     
+    // MARK: - Properties
+    
     @Binding var selectedGenres: [String]
+    
+    // MARK: - Main Body
     
     var body: some View {
         HStack(spacing: 6) {
@@ -31,8 +35,15 @@ struct ChipsContainerView: View {
 
 extension ChipsContainerView {
     
+    // MARK: - UI
+    
     private struct ChipListView: View {
+        
+        // MARK: - Properties
+        
         @Binding var selectedGenres: [String]
+        
+        // MARK: - Main Body
         
         var body: some View {
             ScrollView(.horizontal, showsIndicators: false) {
@@ -42,7 +53,7 @@ extension ChipsContainerView {
                     }
                 }
             }
-        }
+        } 
     }
     
 }

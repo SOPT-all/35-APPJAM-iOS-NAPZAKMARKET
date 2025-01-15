@@ -8,8 +8,13 @@
 import SwiftUI
 
 struct OnboardingView: View {
+    
+    // MARK: - Properties
+    
     @StateObject private var genreModel = GenreModel()
     @Binding var isOnboardingComplete: Bool
+    
+    // MARK: - Main Body
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
@@ -56,13 +61,17 @@ struct OnboardingView: View {
         .task {
             try? await genreModel.fetchGenres()
         }
-        
     }
+    
 }
 
 extension OnboardingView {
     
+    // MARK: - UI
+    
     private struct TitleView: View {
+        
+        // MARK: - Main Body
         
         var body: some View {
             VStack(alignment: .leading, spacing: 12) {
@@ -82,8 +91,13 @@ extension OnboardingView {
     }
     
     private struct FinalActionsView: View {
+        
+        // MARK: - Properties
+        
         @Binding var isOnboardingComplete: Bool
         @Binding var selectedGenres: [Genre]
+        
+        // MARK: - Main Body
         
         var body: some View {
             VStack(spacing: 0) {
@@ -115,8 +129,4 @@ extension OnboardingView {
         }
     }
      
-}
-
-#Preview {
-    OnboardingView(isOnboardingComplete: .constant(false))
 }

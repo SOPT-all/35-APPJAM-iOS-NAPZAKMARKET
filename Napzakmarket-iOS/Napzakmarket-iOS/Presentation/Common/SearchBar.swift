@@ -9,10 +9,14 @@ import SwiftUI
 
 struct SearchBar: View {
     
+    // MARK: - Properties
+    
     let placeholder: String
     
     @Binding var text: String
     @FocusState private var isFocused: Bool
+    
+    // MARK: - Main Body
     
     var body: some View {
         HStack(spacing: 12) {
@@ -54,14 +58,22 @@ struct SearchBar: View {
 
 extension SearchBar {
     
+    // MARK: - UI
+    
     private struct Icon: View {
+        
+        // MARK: - Properties
+        
         let systemName: String
+        
+        // MARK: - Main Body
         
         var body: some View {
             Image(systemName: systemName)
                 .foregroundStyle(Color.napzakGrayScale(.gray600))
                 .padding(4.5)
         }
+        
     }
     
 }

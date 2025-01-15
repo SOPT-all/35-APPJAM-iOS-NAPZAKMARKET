@@ -10,6 +10,8 @@ import Foundation
 @MainActor
 final class GenreModel: ObservableObject {
     
+    // MARK: - Properties
+    
     @Published var genres: [Genre] = []
     @Published var selectedGenres: [Genre] = []
     @Published var searchText: String = ""
@@ -19,6 +21,8 @@ final class GenreModel: ObservableObject {
     init(service: MockGenreService = .shared) {
         self.service = service
     }
+    
+    // MARK: - Func
     
     func fetchGenres() async throws {
         do {
