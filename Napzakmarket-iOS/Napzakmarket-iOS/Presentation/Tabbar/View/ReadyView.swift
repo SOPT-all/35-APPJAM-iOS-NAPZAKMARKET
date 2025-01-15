@@ -32,15 +32,18 @@ struct ReadyView: View {
                     .frame(width: 142, height: 148)
                     .padding(.leading, -21)
                     .padding(.bottom, 20)
+                    .offset(y: -50)
                 
                 VStack(spacing: 6) {
                     Text("준비중이에요")
                         .font(.napzakFont(.title3SemiBold20))
                         .foregroundStyle(Color.napzakGrayScale(.gray800))
+                        .offset(y: -60)
 
                     Text("조금만 기다려주세요!")
                         .font(.napzakFont(.body6Medium14))
                         .foregroundStyle(Color.napzakGrayScale(.gray600))
+                        .offset(y: -60)
                 }
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
