@@ -64,7 +64,8 @@ struct RegisterSearch: View {
                 .padding(.horizontal, 20)
             
             List {
-                ForEach(list, id: \.self) { item in
+                ForEach(list.filter({"\($0)".contains(self.text) || self.text.isEmpty}),
+                        id: \.self) { item in
                     HStack{
                         Text(item)
                             .font(.napzakFont(.body5SemiBold14))
@@ -75,6 +76,7 @@ struct RegisterSearch: View {
                     }
                     .padding(.vertical, 20)
                     .onTapGesture {
+                        genre = item
                         dismiss()
                     }
                 }
@@ -103,74 +105,6 @@ struct RegisterSearch: View {
             }
         }
 
-        
-        
-        
-        
-        
+
     }
-}
-
-#Preview {
-    @State var registerType = true
-    RegisterView(registerType: $registerType)
-}
-
-
-struct SearchBar: View {
-    
-    let placeholder: String
-    
-    @Binding var text: String
-    @FocusState private var isFocused: Bool
-    
-    var body: some View {
-        HStack(spacing: 12) {
-            TextField(placeholder, text: $text)
-                .font(.napzakFont(.body5SemiBold14))
-                .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                .focused($isFocused)
-            
-            HStack(spacing: 4) {
-                if !text.isEmpty {
-                    Button{
-                        text = ""
-                    } label: {
-                        Icon(systemName: "xmark.circle.fill")
-                    }
-                    .transition(.scale.combined(with: .opacity))
-                }
-                
-                Button {
-                    if text.isEmpty {
-                        isFocused = true
-                    } else {
-                        // TODO: 엔터 역할
-                        print("돋보기 Tapped: \(text)")
-                    }
-                } label: {
-                    Icon(systemName: "magnifyingglass")
-                }
-            }
-        }
-        .padding(12)
-        .background(Color.napzakGrayScale(.gray100))
-        .cornerRadius(12)
-        .animation(.easeInOut(duration: 0.3), value: text.isEmpty)
-    }
-    
-}
-
-extension SearchBar {
-    
-    private struct Icon: View {
-        let systemName: String
-        
-        var body: some View {
-            Image(systemName: systemName)
-                .foregroundStyle(Color.napzakGrayScale(.gray600))
-                .padding(4.5)
-        }
-    }
-    
 }

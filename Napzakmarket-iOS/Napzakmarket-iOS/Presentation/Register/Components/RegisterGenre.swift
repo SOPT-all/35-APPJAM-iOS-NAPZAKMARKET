@@ -20,6 +20,8 @@ struct RegisterGenre: View {
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
                 Spacer()
                 Text(genre)
+                    .foregroundStyle(Color.napzakPurple(.purple30))
+                
                 Image(systemName: "chevron.right")
                     .foregroundStyle(Color.napzakGrayScale(.gray400))
             }

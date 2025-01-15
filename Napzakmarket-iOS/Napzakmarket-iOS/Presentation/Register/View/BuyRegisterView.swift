@@ -45,7 +45,3 @@ struct BuyRegisterView: View {
     }
 
 }
-
-#Preview {
-    TabBarView()
-}

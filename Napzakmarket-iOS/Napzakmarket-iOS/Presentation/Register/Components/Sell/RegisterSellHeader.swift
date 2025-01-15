@@ -34,8 +34,3 @@ struct RegisterSellHeader: View {
         Divider()
     }
 }
-
-#Preview {
-    @State var asd = true
-    RegisterView(registerType: $asd)
-}

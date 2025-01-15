@@ -68,7 +68,3 @@ struct RegisterBuyPrice: View {
         .padding(.horizontal, 20)
     }
 }
-
-#Preview {
-    TabBarView()
-}
