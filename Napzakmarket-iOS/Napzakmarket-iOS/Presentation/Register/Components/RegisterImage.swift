@@ -25,7 +25,8 @@ struct RegisterImage: View {
                 .foregroundStyle(Color.napzakGrayScale(.gray600))
             
             ScrollView(.horizontal) {
-                HStack{
+                HStack {
+                    // 사진 선택 버튼
                     PhotosPicker(
                         selection: $photosPickerItem,
                         maxSelectionCount: 10-images.count,
@@ -49,18 +50,18 @@ struct RegisterImage: View {
                         .background(Color.napzakGrayScale(.gray100))
                         .foregroundStyle(Color.napzakGrayScale(.gray500))
                         .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .padding(.top, 12)
                     }
                     
                     ForEach(0..<images.count, id: \.self) { i in
                         Image(uiImage: images[i])
                             .resizable()
-                            .scaledToFit()
+                            .scaledToFill()
                             .frame(width: 80, height: 80)
                             .clipShape(RoundedRectangle(cornerRadius: 12))
-                        
                     }
                 }
+                .padding(.top, 12)
+
             }
             
         }
