@@ -35,7 +35,7 @@ struct MarketView: View {
             .padding(.bottom, -15)
            
             if selectedIndex == 2 {
-                ReadyView()
+                ReadyComponent()
                     .navigationBarHidden(true)
             } else {
                 filterButtons
