@@ -31,7 +31,7 @@ struct ReadyView: View {
                     .scaledToFit()
                     .frame(width: 142, height: 148)
                     .padding(.leading, -21)
-                    .padding(.bottom, 10)
+                    .padding(.bottom, 20)
                 
                 VStack(spacing: 6) {
                     Text("준비중이에요")
@@ -48,6 +48,7 @@ struct ReadyView: View {
         .navigationBarHidden(true)
     }
 }
+
 #Preview {
     ReadyView()
 }
