@@ -58,12 +58,11 @@ extension GenreCell {
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 100, height: 100)
-                        .cornerRadius(12)
-                    
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                 } else {
                     Color.napzakGrayScale(.gray300)
                         .frame(width: 100, height: 100)
-                        .cornerRadius(12)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 
                 if isSelected {

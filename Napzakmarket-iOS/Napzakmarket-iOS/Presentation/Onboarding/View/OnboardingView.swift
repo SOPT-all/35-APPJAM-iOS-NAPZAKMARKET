@@ -110,7 +110,7 @@ extension OnboardingView {
                         .foregroundStyle(Color.napzakGrayScale(.white))
                         .frame(maxWidth: .infinity, minHeight: 52)
                         .background(selectedGenres.isEmpty ? Color.napzakGrayScale(.gray400) : Color.napzakPurple(.purple30) )
-                        .cornerRadius(12)
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
                 }
                 .disabled(selectedGenres.isEmpty)
                 
