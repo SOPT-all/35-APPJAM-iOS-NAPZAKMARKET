@@ -61,13 +61,7 @@ struct RegisterImage: View {
                                 .clipShape(RoundedRectangle(cornerRadius: 12))
                                 .onLongPressGesture {
                                     let movedImage = images.remove(at: i) // 현재 인덱스의 이미지를 삭제하고 저장
-                                        images.insert(movedImage, at: 0) // 맨 앞으로 삽입
-                                }
-                            
-                            Image(.icXCircleBlack)
-                                .position(CGPoint(x: 74, y: 6))
-                                .onTapGesture {
-                                    images.remove(at: i)
+                                    images.insert(movedImage, at: 0) // 맨 앞으로 삽입
                                 }
                             
                             if i == 0 {
@@ -80,10 +74,24 @@ struct RegisterImage: View {
                                         .padding(.vertical, 2)
                                         .background(Color.napzakTransparency(.black70))
                                         .foregroundStyle(.white)
-                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                                        .clipShape(
+                                            .rect(
+                                                bottomLeadingRadius: 12,
+                                                bottomTrailingRadius: 12
+                                            )
+                                        )
                                 }
                             }
-
+                            
+                            Image(.icXCircleBlack)
+                                .frame(width: 24, height: 24)
+                                .position(CGPoint(x: 74, y: 8))
+                                .highPriorityGesture(
+                                    TapGesture().onEnded {
+                                        images.remove(at: i)
+                                    }
+                                )
+                            
                         }
                     }
                 }
@@ -111,6 +119,6 @@ struct RegisterImage: View {
 
 #Preview {
     SellRegisterView()
-//    RegisterImage()
-//    TabBarView()
+    //    RegisterImage()
+    //    TabBarView()
 }
