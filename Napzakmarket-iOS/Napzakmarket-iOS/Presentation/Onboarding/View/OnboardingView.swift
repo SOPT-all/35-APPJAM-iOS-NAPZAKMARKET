@@ -24,6 +24,7 @@ struct OnboardingView: View {
                 placeholder: "원하는 장르를 직접 입력해 검색해보세요.",
                 text: $genreModel.searchText
             )
+            .padding(.bottom, 16)
             .onChange(of: genreModel.searchText) { _ in
                 Task {
                     try? await genreModel.fetchGenresFiltered()
