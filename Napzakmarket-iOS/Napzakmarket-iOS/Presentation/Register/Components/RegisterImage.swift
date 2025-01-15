@@ -53,15 +53,23 @@ struct RegisterImage: View {
                     }
                     
                     ForEach(0..<images.count, id: \.self) { i in
-                        Image(uiImage: images[i])
-                            .resizable()
-                            .scaledToFill()
-                            .frame(width: 80, height: 80)
-                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                        ZStack{
+                            Image(uiImage: images[i])
+                                .resizable()
+                                .scaledToFill()
+                                .frame(width: 80, height: 80)
+                                .clipShape(RoundedRectangle(cornerRadius: 12))
+                            
+                            Image(.icXCircleBlack)
+                                .position(CGPoint(x: 74, y: 6))
+                                .onTapGesture {
+                                    images.remove(at: i)
+                                }
+
+                        }
                     }
                 }
                 .padding(.top, 12)
-
             }
             
         }
