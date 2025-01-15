@@ -10,11 +10,11 @@ import SwiftUI
 struct TabBarView: View {
     
     // MARK: - Properties
-    
     @State private var selectedTab: Int = 0
     @State private var isRegisterTabActive: Bool = false
     @State private var lastSelectedTab: Int = 0
     @State private var isBottomSheetVisible = false
+    @State private var isTabBarHidden: Bool = false  // 추가된 상태 변수
     
     private let tabs: [TabItem] = TabItem.getDefaultTabs()
     
@@ -22,7 +22,9 @@ struct TabBarView: View {
     var body: some View {
         ZStack {
             mainContent
-            tabBarStack
+            if !isTabBarHidden {  // 조건 추가
+                tabBarStack
+            }
             if isBottomSheetVisible {
                 bottomSheetOverlay
                 bottomSheetContent
@@ -32,12 +34,14 @@ struct TabBarView: View {
     }
     
     // MARK: - View Components
-    
     private var mainContent: some View {
         tabs[selectedTab].view
             .safeAreaInset(edge: .bottom) {
-                Color.clear.frame(height: 90)
+                if !isTabBarHidden {  // 조건 추가
+                    Color.clear.frame(height: 90)
+                }
             }
+            .environmentObject(TabBarStateModel(isTabBarHidden: $isTabBarHidden))  // 환경 객체 추가
     }
     
     private var tabBarStack: some View {
@@ -134,7 +138,6 @@ struct TabBarView: View {
     }
     
     // MARK: - Helper Methods
-    
     private func handleTabTap(_ index: Int) {
         if index == 2 {
             handleRegisterTab()
@@ -176,7 +179,7 @@ struct TabBarView: View {
             return isRegisterTabActive ? tabs[index].selectedIcon : tabs[index].defaultIcon
         }
         return isRegisterTabActive ? tabs[index].defaultIcon :
-               (selectedTab == index ? tabs[index].selectedIcon : tabs[index].defaultIcon)
+        (selectedTab == index ? tabs[index].selectedIcon : tabs[index].defaultIcon)
     }
     
     private func getTabColor(for index: Int) -> Color {
@@ -184,7 +187,7 @@ struct TabBarView: View {
             return isRegisterTabActive ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500)
         }
         return isRegisterTabActive ? .gray :
-               (selectedTab == index ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500))
+        (selectedTab == index ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500))
     }
     
     private func getTabTextStyle(for index: Int) -> NapzakFontStyle {
@@ -192,7 +195,15 @@ struct TabBarView: View {
             return isRegisterTabActive ? .caption1Bold12 : .caption3Medium12
         }
         return isRegisterTabActive ? .caption3Medium12 :
-               (selectedTab == index ? .caption1Bold12 : .caption3Medium12)
+        (selectedTab == index ? .caption1Bold12 : .caption3Medium12)
     }
 }
 
+// 상태 관리를 위한 환경 객체
+class TabBarStateModel: ObservableObject {
+    @Binding var isTabBarHidden: Bool
+    
+    init(isTabBarHidden: Binding<Bool>) {
+        _isTabBarHidden = isTabBarHidden
+    }
+}
