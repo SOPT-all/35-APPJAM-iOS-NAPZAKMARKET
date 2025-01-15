@@ -58,7 +58,7 @@ extension SearchView {
         }
         .frame(height: 44)
         .background(Color.napzakGrayScale(.gray100))
-        .cornerRadius(12)
+        .clipShape(RoundedRectangle(cornerRadius: 12))
         .padding(.horizontal, 20)
     }
     
