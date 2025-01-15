@@ -55,13 +55,13 @@ struct MyPageView: View {
                                         .frame(maxWidth: .infinity)
                                         .frame(height: 44)
                                         .background(Color.napzakPurple(.purple30))
-                                        .cornerRadius(12)
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
                                 }
                             }
                             .padding(20)
                             .frame(width: 360)
                             .background(Color.napzakGrayScale(.white))
-                            .cornerRadius(12)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
                             .overlay(
                                 RoundedRectangle(cornerRadius: 12)
                                     .inset(by: 0.5)
@@ -70,7 +70,7 @@ struct MyPageView: View {
                             .padding(.top, 20)
                             
                             HStack(spacing: 31) {
-                                ForEach(MyPageFeature.allCases, id: \.self) { menu in
+                                ForEach(MyPageFeature.allCases) { menu in
                                     NavigationLink(destination: ReadyView()) {
                                         VStack(spacing: 8) {
                                             Image(menu.iconName)
@@ -78,7 +78,7 @@ struct MyPageView: View {
                                                 .frame(width: 34, height: 34)
                                                 .padding(10)
                                                 .background(Color.napzakGrayScale(.white))
-                                                .cornerRadius(12)
+                                                .clipShape(RoundedRectangle(cornerRadius: 12))
                                             Text(menu.title)
                                                 .font(.napzakFont(.body6Medium14))
                                                 .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
@@ -99,5 +99,9 @@ struct MyPageView: View {
             .navigationBarHidden(true)
         }
     }
+}
+
+#Preview {
+    MyPageView()
 }
 
