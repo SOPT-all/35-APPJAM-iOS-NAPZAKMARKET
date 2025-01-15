@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import PhotosUI
 
 struct RegisterImage: View {
+    @State private var images: [UIImage] = []
+    @State private var photosPickerItem: [PhotosPickerItem] = []
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text("상품 이미지")
@@ -20,24 +24,65 @@ struct RegisterImage: View {
                 .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                 .foregroundStyle(Color.napzakGrayScale(.gray600))
             
-            Button {
-                print("버튼 눌림")
-            } label: {
-                VStack(alignment: .center){
-                    Image(.icPhoto)
-                    Text("0/10")
+            ScrollView(.horizontal) {
+                HStack{
+                    PhotosPicker(
+                        selection: $photosPickerItem,
+                        maxSelectionCount: 10,
+                        selectionBehavior: .ordered,
+                        matching: .images
+                    ) {
+                        VStack(alignment: .center){
+                            Image(.icPhoto)
+                            
+                            HStack(spacing: 0) {
+                                Text(images.count.description)
+                                Text("/10")
+                            }
+                            .font(.napzakFont(.caption3Medium12))
+                            .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                            .foregroundStyle(Color.napzakGrayScale(.gray500))
+                        }
+                        .frame(width: 80, height: 80)
+                        .font(.napzakFont(.caption2SemiBold12))
+                        .applyNapzakTextStyle(napzakFontStyle: .caption2SemiBold12)
+                        .background(Color.napzakGrayScale(.gray100))
+                        .foregroundStyle(Color.napzakGrayScale(.gray500))
+                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                        .padding(.top, 12)
+                    }
+                    
+                    ForEach(0..<images.count, id: \.self) { i in
+                        Image(uiImage: images[i])
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 80, height: 80)
+                            .clipShape(RoundedRectangle(cornerRadius: 12))
+                        
+                    }
                 }
             }
-            .frame(width: 80, height: 80)
-            .font(.napzakFont(.caption2SemiBold12))
-            .applyNapzakTextStyle(napzakFontStyle: .caption2SemiBold12)
-            .background(Color.napzakGrayScale(.gray100))
-            .foregroundStyle(Color.napzakGrayScale(.gray500))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .padding(.top, 12)
+            
         }
         .padding(20)
-        
+        .onChange(of: photosPickerItem) { _ in
+            Task {
+                for item in photosPickerItem {
+                    if let data = try? await item.loadTransferable(type: Data.self) {
+                        if let image = UIImage(data: data) {
+                            images.append(image)
+                        }
+                    }
+                }
+                
+                photosPickerItem.removeAll()
+            }
+        }
         
     }
+}
+
+#Preview {
+//    RegisterImage()
+    TabBarView()
 }
