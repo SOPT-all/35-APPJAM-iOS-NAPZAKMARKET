@@ -70,7 +70,7 @@ struct MyPageView: View {
                             .padding(.top, 20)
                             
                             HStack(spacing: 31) {
-                                ForEach(MyPageModel.allCases, id: \.self) { menu in
+                                ForEach(MyPageFeature.allCases, id: \.self) { menu in
                                     NavigationLink(destination: ReadyView()) {
                                         VStack(spacing: 8) {
                                             Image(menu.iconName)
