@@ -164,8 +164,3 @@ struct RegisterDeliveryCharge: View {
         .padding(.horizontal, 20)
     }
 }
-
-#Preview {
-    @State var registerType = true
-    RegisterView(registerType: $registerType)
-}
