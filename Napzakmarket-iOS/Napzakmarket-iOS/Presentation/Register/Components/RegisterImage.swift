@@ -65,6 +65,20 @@ struct RegisterImage: View {
                                 .onTapGesture {
                                     images.remove(at: i)
                                 }
+                            
+                            if i == 0 {
+                                VStack{
+                                    Spacer()
+                                    Text("대표")
+                                        .font(.napzakFont(.caption3Medium12))
+                                        .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                                        .frame(maxWidth: .infinity)
+                                        .padding(.vertical, 2)
+                                        .background(Color.napzakTransparency(.black70))
+                                        .foregroundStyle(.white)
+                                        .clipShape(RoundedRectangle(cornerRadius: 12))
+                                }
+                            }
 
                         }
                     }
@@ -92,6 +106,7 @@ struct RegisterImage: View {
 }
 
 #Preview {
+    SellRegisterView()
 //    RegisterImage()
-    TabBarView()
+//    TabBarView()
 }
