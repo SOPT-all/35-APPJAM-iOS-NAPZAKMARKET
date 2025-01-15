@@ -43,7 +43,10 @@ struct GenreGridView: View {
                     )
                 }
             }
+            .padding(.horizontal, 20)
+            .padding(.bottom, 70)
         }
+        .padding(.top, 30)
     }
     
 }
