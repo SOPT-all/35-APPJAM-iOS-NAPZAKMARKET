@@ -84,14 +84,13 @@ struct RegisterImage: View {
                                 }
                             }
                             
-                            Image(.icXCircleBlack)
-                                .frame(width: 24, height: 24)
-                                .position(CGPoint(x: 74, y: 8))
-                                .highPriorityGesture(
-                                    TapGesture().onEnded {
-                                        images.remove(at: i)
-                                    }
-                                )
+                            Button(action: {
+                                images.remove(at: i)
+                            }, label: {
+                                Image(.icXCircleBlack)
+                            })
+                            .frame(width: 24, height: 24)
+                            .position(CGPoint(x: 74, y: 8))
                             
                         }
                     }
@@ -116,4 +115,8 @@ struct RegisterImage: View {
         }
         
     }
+}
+
+#Preview {
+    TabBarView()
 }
