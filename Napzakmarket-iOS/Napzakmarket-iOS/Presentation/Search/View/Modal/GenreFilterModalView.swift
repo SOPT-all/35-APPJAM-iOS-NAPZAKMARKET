@@ -11,11 +11,12 @@ struct GenreFilterModalView: View {
     
     //MARK: - Property Wrappers
     
+    @State var inputText: String = ""
     @Binding var selectedGenres: [GenreSearchModel]
     @Binding var selectedGenreStrings: [String]
     @Binding var filterModalViewIsPresented: Bool
-    @State var inputText: String = ""
     @GestureState private var translation: CGFloat = .zero
+    @EnvironmentObject private var tabBarState: TabBarStateModel
     
     //MARK: - Properties
     
@@ -58,6 +59,12 @@ struct GenreFilterModalView: View {
                     }
                 })
         )
+        .onAppear {
+            tabBarState.isTabBarHidden = true
+        }
+        .onDisappear {
+            tabBarState.isTabBarHidden = false
+        }
     }
 }
 
@@ -167,6 +174,5 @@ extension GenreFilterModalView {
         .padding(.top, 20)
         .padding(.horizontal, 20)
         .padding(.bottom, 35)
-//        .disabled(selectedGenreStrings.isEmpty)
     }
 }

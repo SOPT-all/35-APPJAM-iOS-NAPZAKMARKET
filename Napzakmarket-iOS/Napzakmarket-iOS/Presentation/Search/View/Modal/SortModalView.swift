@@ -21,6 +21,7 @@ struct SortModalView: View {
     @Binding var sortModalViewIsPresented: Bool
     @Binding var selectedSortOption: SortOption
     @GestureState private var translation: CGFloat = .zero
+    @EnvironmentObject private var tabBarState: TabBarStateModel
     
     //MARK: - Properties
     
@@ -57,6 +58,12 @@ struct SortModalView: View {
                     }
                 })
         )
+        .onAppear {
+            tabBarState.isTabBarHidden = true
+        }
+        .onDisappear {
+            tabBarState.isTabBarHidden = false
+        }
     }
 }
 
