@@ -59,21 +59,14 @@ struct TabBarView: View {
     
     private var tabBar: some View {
         VStack(spacing: 0) {
-            tabBarDivider
+            Divider()
+                .frame(height: 1)
+                .foregroundStyle(Color.napzakGrayScale(.gray200))
+            Spacer(minLength:8)
             tabBarButtons
         }
         .frame(height: 90)
         .background(Color.white)
-    }
-    
-    private var tabBarDivider: some View {
-        VStack(spacing: 0) {
-            Rectangle()
-                .frame(height: 1)
-                .foregroundStyle(Color.napzakGrayScale(.gray200))
-            Spacer()
-                .frame(height: 4)
-        }
     }
     
     private var tabBarButtons: some View {
@@ -105,7 +98,7 @@ struct TabBarView: View {
         Color.napzakTransparency(.black70)
             .ignoresSafeArea()
             .frame(maxHeight: .infinity, alignment: .top)
-            .padding(.bottom, 90)
+            .padding(.bottom, 89)
             .onTapGesture {
                 hideBottomSheet()
             }
@@ -209,4 +202,8 @@ struct TabBarView: View {
         return isRegisterTabActive ? .caption3Medium12 :
         (selectedTab == index ? .caption1Bold12 : .caption3Medium12)
     }
+}
+
+#Preview {
+    TabBarView()
 }
