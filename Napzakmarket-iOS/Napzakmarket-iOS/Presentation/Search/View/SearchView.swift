@@ -15,7 +15,10 @@ struct SearchView: View {
     @State var buyProducts = ProductModel.buyDummyList()
     @State var selectedTabIndex = 0
     @State var selectedSortOption: SortOption = .latest
+    @State var selectedGenres: [GenreSearchModel] = []
+    @State var selectedGenreStrings: [String] = []
     @State var sortModalViewIsPresented = false
+    @State var filterModalViewIsPresented = false
     
     //MARK: - Properties
     
@@ -49,6 +52,17 @@ struct SearchView: View {
                     SortModalView(
                         sortModalViewIsPresented: $sortModalViewIsPresented,
                         selectedSortOption: $selectedSortOption
+                    )
+                } else if filterModalViewIsPresented {
+                    Color.napzakTransparency(.black70)
+                        .onTapGesture {
+                            filterModalViewIsPresented = false
+                        }
+                    
+                    GenreFilterModalView(
+                        selectedGenres: $selectedGenres,
+                        selectedGenreStrings: $selectedGenreStrings,
+                        filterModalViewIsPresented: $filterModalViewIsPresented
                     )
                 }
             }
@@ -86,10 +100,27 @@ extension SearchView {
         HStack(alignment: .center, spacing: 6) {
             Button {
                 print("장르 필터 선택")
+                filterModalViewIsPresented = true
             } label: {
-                Image(.chipGenre)
-                    .resizable()
-                    .frame(width: 67, height: 33)
+                if selectedGenres.isEmpty {
+                    Image(.chipGenre)
+                        .resizable()
+                        .frame(width: 67, height: 33)
+                } else {
+                    HStack(spacing: 4) {
+                        Text(selectedGenres.count == 1 ? "\(selectedGenres[0].genreName)" : "\(selectedGenres[0].genreName) 외 \(selectedGenres.count - 1)")
+                            .font(.napzakFont(.caption2SemiBold12))
+                            .applyNapzakTextStyle(napzakFontStyle: .caption2SemiBold12)
+                            .foregroundStyle(Color.napzakGrayScale(.white))
+                        Image(.iconDownSmWhite)
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 8)
+                    .background(Color.napzakGrayScale(.gray900))
+                    .clipShape(RoundedRectangle(cornerRadius: 100))
+                }
             }
             .padding(.leading, 20)
 
