@@ -7,6 +7,30 @@
 
 import SwiftUI
 
+struct ReadyComponent: View {
+    var body: some View {
+        VStack(spacing: 20) {
+            Image("img_ready")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 142, height: 128)
+                .padding(.leading, -21)
+            
+            VStack(spacing: 6) {
+                Text("준비중이에요")
+                    .font(.napzakFont(.title3SemiBold20))
+                    .foregroundStyle(Color.napzakGrayScale(.gray800))
+                    .padding(.top, -10)
+
+                Text("조금만 기다려주세요!")
+                    .font(.napzakFont(.body6Medium14))
+                    .foregroundStyle(Color.napzakGrayScale(.gray600))
+            }
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+    }
+}
+
 struct ReadyView: View {
     @Environment(\.dismiss) private var dismiss
     
@@ -16,33 +40,13 @@ struct ReadyView: View {
                 Button(action: {
                     dismiss()
                 }) {
-                    Image("ic_back")
-                        .foregroundStyle(Color.napzakGrayScale(.gray900))
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(Color.napzakGrayScale(.gray900))
+                        .frame(width: 48, height: 48)
                 }
                 Spacer()
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 16)
-            
-            VStack {
-                Image("img_ready")
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 142, height: 148)
-                    .padding(.leading, -21)
-                    .padding(.bottom, 10)
-                
-                VStack(spacing: 6) {
-                    Text("준비중이에요")
-                        .font(.napzakFont(.title3SemiBold20))
-                        .foregroundStyle(Color.napzakGrayScale(.gray800))
-
-                    Text("조금만 기다려주세요!")
-                        .font(.napzakFont(.body6Medium14))
-                        .foregroundStyle(Color.napzakGrayScale(.gray600))
-                }
-            }
-            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            ReadyComponent()
         }
         .navigationBarHidden(true)
     }
