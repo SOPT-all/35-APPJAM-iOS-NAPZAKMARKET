@@ -66,6 +66,5 @@ struct RegisterBuyPrice: View {
                     .foregroundStyle(Color.napzakGrayScale(.gray700))
             }
         }
-        .padding(.horizontal, 20)
     }
 }

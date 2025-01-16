@@ -44,7 +44,5 @@ struct RegisterSellPrice: View {
             }
             
         }
-        .padding(.bottom, 35)
-        .padding(.horizontal, 20)
     }
 }

@@ -39,7 +39,6 @@ struct RegisterGenre: View {
 
             }
         }
-        .padding(20)
         
         
     }

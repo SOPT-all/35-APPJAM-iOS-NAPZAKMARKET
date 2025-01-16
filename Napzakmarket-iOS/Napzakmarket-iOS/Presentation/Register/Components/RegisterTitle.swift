@@ -44,8 +44,6 @@ struct RegisterTitle: View {
             .padding(.top, 4)
             
         }
-        .padding(.vertical, 35)
-        .padding(.horizontal, 20)
         
     }
 }

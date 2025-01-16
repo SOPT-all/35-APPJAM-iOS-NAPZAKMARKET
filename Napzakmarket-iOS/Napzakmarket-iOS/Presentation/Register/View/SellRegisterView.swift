@@ -26,27 +26,39 @@ struct SellRegisterView: View {
                 
                 // 상품 이미지
                 RegisterImage(images: $images)
-                
+                    .padding(.top, 15)
+                    .padding(.bottom, 40)
+                    .padding(.horizontal, 20)
+
                 // 장르
                 RegisterGenre(genre: $genre)
-                
+                    .padding(.bottom, 35)
+                    .padding(.horizontal, 20)
+
                 // 제목
                 RegisterTitle(title: $title)
-                
+                    .padding(.bottom, 35)
+                    .padding(.horizontal, 20)
+
                 // 설명
                 RegisterDescription(description: $description)
-                
+                    .padding(.bottom, 35)
+                    .padding(.horizontal, 20)
+
                 // 상품 상태
                 RegisterProductState(productState: $productState)
-                
+                    .padding(.bottom, 40)
+                    .padding(.horizontal, 20)
+
                 // 가격 구분선
                 Rectangle()
                     .fill(Color.napzakGrayScale(.gray50))
                     .frame(height: 8)
-                    .padding(.vertical, 40)
                 
                 // 가격
                 RegisterSellPrice(price: $price)
+                    .padding(.vertical, 35)
+                    .padding(.horizontal, 20)
 
                 // 배송비
                 RegisterDeliveryCharge(
@@ -56,7 +68,8 @@ struct SellRegisterView: View {
                     halfDelivery: $halfDelivery,
                     halfDeliveryCharge: $halfDeliveryCharge
                 )
-                
+                .padding(.horizontal, 20)
+
             }
             .padding(.bottom, 67)
         }

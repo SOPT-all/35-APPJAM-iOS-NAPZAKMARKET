@@ -21,16 +21,24 @@ struct BuyRegisterView: View {
                 
                 // 상품 이미지
                 RegisterImage(images: $images)
-
+                    .padding(.top, 15)
+                    .padding(.bottom, 40)
+                    .padding(.horizontal, 20)
                 
                 // 장르
                 RegisterGenre(genre: $genre)
+                    .padding(.bottom, 35)
+                    .padding(.horizontal, 20)
                 
                 // 제목
                 RegisterTitle(title: $title)
+                    .padding(.bottom, 35)
+                    .padding(.horizontal, 20)
                 
                 // 설명
                 RegisterDescription(description: $description)
+                    .padding(.bottom, 40)
+                    .padding(.horizontal, 20)
                 
                 // 가격 구분선
                 Rectangle()
@@ -40,9 +48,10 @@ struct BuyRegisterView: View {
                 
                 // MARK: - 가격
                 RegisterBuyPrice(price: $price, suggestPrice: $suggestPrice)
+                    .padding(.horizontal, 20)
 
             }
-            .padding(.bottom, 67)
+            .padding(.bottom, 38)
         }
     }
 

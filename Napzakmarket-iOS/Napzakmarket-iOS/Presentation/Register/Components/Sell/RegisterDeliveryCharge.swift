@@ -161,6 +161,5 @@ struct RegisterDeliveryCharge: View {
             }
             
         }
-        .padding(.horizontal, 20)
     }
 }

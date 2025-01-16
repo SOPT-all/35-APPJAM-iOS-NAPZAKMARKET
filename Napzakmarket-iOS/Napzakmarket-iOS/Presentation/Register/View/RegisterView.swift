@@ -42,7 +42,7 @@ struct RegisterView: View {
             )
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 20)
-            .padding(.vertical, 35)
+            .padding(.bottom, 35)
         }
         .scrollIndicators(.hidden)
     }

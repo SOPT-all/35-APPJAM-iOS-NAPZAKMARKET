@@ -99,7 +99,6 @@ struct RegisterImage: View {
             }
             
         }
-        .padding(20)
         .onChange(of: photosPickerItem) { _ in
             Task {
                 for item in photosPickerItem {

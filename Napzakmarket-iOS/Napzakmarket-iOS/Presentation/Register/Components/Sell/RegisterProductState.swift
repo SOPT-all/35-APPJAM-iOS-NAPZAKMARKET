@@ -50,6 +50,5 @@ struct RegisterProductState: View {
             }
             
         }
-        .padding(.horizontal, 20)
     }
 }
