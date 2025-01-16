@@ -15,7 +15,7 @@ struct TabBarView: View {
     @State private var isRegisterTabActive: Bool = false
     @State private var lastSelectedTab: Int = 0
     @State private var isBottomSheetVisible = false
-    @State private var isTabBarHidden: Bool = false  // 추가된 상태 변수
+    @State private var isTabBarHidden: Bool = false
     @State private var modalRegister = false
     @State var registerType = false
     
@@ -26,7 +26,7 @@ struct TabBarView: View {
     var body: some View {
         ZStack {
             mainContent
-            if !isTabBarHidden {  // 조건 추가
+            if !isTabBarHidden {
                 tabBarStack
             }
             if isBottomSheetVisible {
@@ -43,7 +43,7 @@ struct TabBarView: View {
     private var mainContent: some View {
         tabs[selectedTab].view
             .safeAreaInset(edge: .bottom) {
-                if !isTabBarHidden {  // 조건 추가
+                if !isTabBarHidden {
                     Color.clear.frame(height: 90)
                 }
             }
