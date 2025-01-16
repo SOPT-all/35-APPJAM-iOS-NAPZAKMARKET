@@ -32,44 +32,50 @@ struct SearchView: View {
     //MARK: - Main Body
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
-                searchButton
-                NZSegmentedControl(
-                    selectedIndex: $selectedTabIndex,
-                    tabs: ["팔아요", "구해요"],
-                    spacing: 15
-                )
-                filterButtons
-                productScrollView
-            }
-            
-            ZStack(alignment: .bottom) {
-                if sortModalViewIsPresented {
-                    Color.napzakTransparency(.black70)
-                        .onTapGesture {
-                            sortModalViewIsPresented = false
-                        }
-                    
-                    SortModalView(
-                        sortModalViewIsPresented: $sortModalViewIsPresented,
-                        selectedSortOption: $selectedSortOption
+        GeometryReader { geometry in
+            ZStack {
+                VStack(spacing: 0) {
+                    searchButton
+                    NZSegmentedControl(
+                        selectedIndex: $selectedTabIndex,
+                        tabs: ["팔아요", "구해요"],
+                        spacing: 15
                     )
-                } else if filterModalViewIsPresented {
-                    Color.napzakTransparency(.black70)
-                        .onTapGesture {
-                            filterModalViewIsPresented = false
-                        }
-                    
-                    GenreFilterModalView(
-                        selectedGenres: $selectedGenres,
-                        selectedGenreStrings: $selectedGenreStrings,
-                        filterModalViewIsPresented: $filterModalViewIsPresented
-                    )
+                    filterButtons
+                    productScrollView
                 }
+                .ignoresSafeArea(edges: [.horizontal, .bottom])
+                
+                ZStack(alignment: .bottom) {
+                    if sortModalViewIsPresented {
+                        Color.napzakTransparency(.black70)
+                            .onTapGesture {
+                                sortModalViewIsPresented = false
+                            }
+                        
+                        SortModalView(
+                            sortModalViewIsPresented: $sortModalViewIsPresented,
+                            selectedSortOption: $selectedSortOption
+                        )
+                    } else if filterModalViewIsPresented {
+                        Color.napzakTransparency(.black70)
+                            .onTapGesture {
+                                filterModalViewIsPresented = false
+                            }
+                        
+                        GenreFilterModalView(
+                            selectedGenres: $selectedGenres,
+                            selectedGenreStrings: $selectedGenreStrings,
+                            filterModalViewIsPresented: $filterModalViewIsPresented
+                        )
+                    }
+                }
+                .ignoresSafeArea(.all)
+                .animation(.interactiveSpring(), value: sortModalViewIsPresented)
+                .animation(.interactiveSpring(), value: filterModalViewIsPresented)
             }
-            .ignoresSafeArea(.all)
-            .animation(.interactiveSpring(), value: sortModalViewIsPresented)
+            .ignoresSafeArea(.keyboard)
+            .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
 }
