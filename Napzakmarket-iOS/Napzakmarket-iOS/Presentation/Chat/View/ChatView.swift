@@ -10,6 +10,7 @@ import SwiftUI
 struct ChatView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var messageText: String = ""
+    let isSelling: Bool // true for 팔아요, false for 구해요
     
     var body: some View {
         VStack(spacing: 0) {
@@ -23,7 +24,6 @@ struct ChatView: View {
 }
 
 // MARK: - 네비게이션바
-
 private extension ChatView {
     var navigationBar: some View {
         VStack(spacing: 0) {
@@ -53,7 +53,6 @@ private extension ChatView {
 }
 
 // MARK: - 상품정보
-
 private extension ChatView {
     var productInfoHeader: some View {
         VStack(spacing: 0) {
@@ -63,21 +62,35 @@ private extension ChatView {
                     .frame(width: 54, height: 54)
                 
                 VStack(alignment: .leading, spacing: 4) {
-                    HStack{
-                        Text("팔아요")
-                            .font(.napzakFont(.body4Bold14))
-                            .applyNapzakTextStyle(napzakFontStyle: .body4Bold14)
-                            .foregroundColor(Color.napzakPurple(.purple30))
-                        
+                    HStack {
+                        if !isSelling {
+                            Text("구해요")
+                                .font(.napzakFont(.body4Bold14))
+                                .applyNapzakTextStyle(napzakFontStyle: .body4Bold14)
+                                .foregroundColor(Color.napzakGrayScale(.gray900))
+                        }
+                        else {
+                            Text("팔아요")
+                                .font(.napzakFont(.body4Bold14))
+                                .applyNapzakTextStyle(napzakFontStyle: .body4Bold14)
+                                .foregroundColor(Color.napzakPurple(.purple30))
+                        }
                         Text("딸기 마이멜로디 마스코트 인형")
                             .font(.napzakFont(.body6Medium14))
                             .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                             .foregroundColor(Color.napzakGrayScale(.gray900))
                     }
-                    Text("35,000원")
-                        .font(.napzakFont(.body1Bold16))
-                        .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
-                        .foregroundColor(Color.napzakGrayScale(.gray900))
+                    
+                    HStack(spacing: 4) {
+                        if !isSelling {
+                            Image("img_tag_price_sm")
+                                .frame(width: 51, height: 23)
+                        }
+                        Text("35,000원")
+                            .font(.napzakFont(.body1Bold16))
+                            .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                            .foregroundColor(Color.napzakGrayScale(.gray900))
+                    }
                 }
                 Spacer()
             }
@@ -90,7 +103,6 @@ private extension ChatView {
 }
 
 // MARK: - 채팅들어갈 부분
-
 private extension ChatView {
     var chatContent: some View {
         ZStack {
@@ -109,36 +121,36 @@ private extension ChatView {
     }
 }
 
-// MARK: - 매새지 input바
-
-var messageInputView: some View {
-    VStack(spacing: 0) {
-        Divider()
-            .padding(.top, 16)
-        
-        HStack(spacing: 14) {
-            Button(action: {
-            }) {
-                Image(systemName: "plus")
-                    .foregroundColor(.gray)
-                    .frame(width: 13, height: 13)
-            }
+// MARK: - 메시지 input바
+private extension ChatView {
+    var messageInputView: some View {
+        VStack(spacing: 0) {
+            Divider()
+                .padding(.top, 16)
             
-            .frame(width: 40, height: 40)
-            .background(Color.napzakGrayScale(.gray100))
-            .clipShape(RoundedRectangle(cornerRadius: 30))
-            
-            TextField("메시지를 입력하세요", text: .constant(""))
-                .font(.napzakFont(.body6Medium14))
-                .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
-                .foregroundColor(Color.napzakGrayScale(.gray400))
-                .padding(.horizontal, 14)
-                .padding(.vertical, 42)
+            HStack(spacing: 14) {
+                Button(action: {
+                }) {
+                    Image(systemName: "plus")
+                        .foregroundColor(.gray)
+                        .frame(width: 13, height: 13)
+                }
+                .frame(width: 40, height: 40)
                 .background(Color.napzakGrayScale(.gray100))
-                .frame(width: 287, height: 42)
-                .clipShape(RoundedRectangle(cornerRadius: 100))
+                .clipShape(RoundedRectangle(cornerRadius: 30))
+                
+                TextField("메시지를 입력하세요", text: .constant(""))
+                    .font(.napzakFont(.body6Medium14))
+                    .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
+                    .foregroundColor(Color.napzakGrayScale(.gray400))
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 42)
+                    .background(Color.napzakGrayScale(.gray100))
+                    .frame(width: 287, height: 42)
+                    .clipShape(RoundedRectangle(cornerRadius: 100))
+            }
+            .padding(.vertical, 16)
+            .background(Color.white)
         }
-        .padding(.vertical, 16)
-        .background(Color.white)
     }
 }
