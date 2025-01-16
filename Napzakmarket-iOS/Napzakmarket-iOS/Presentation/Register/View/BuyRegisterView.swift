@@ -15,23 +15,23 @@ struct BuyRegisterView: View {
             VStack(alignment: .leading) {
                 
                 // 상품 이미지
-                RegisterImage(images: $registerModel.images)
+                RegisterImage(images: $registerModel.registerInfo.images)
                     .padding(.top, 15)
                     .padding(.bottom, 40)
                     .padding(.horizontal, 20)
                 
                 // 장르
-                RegisterGenre(genre: $registerModel.genre)
+                RegisterGenre(genre: $registerModel.registerInfo.genre)
                     .padding(.bottom, 35)
                     .padding(.horizontal, 20)
                 
                 // 제목
-                RegisterTitle(title: $registerModel.title)
+                RegisterTitle(title: $registerModel.registerInfo.title)
                     .padding(.bottom, 35)
                     .padding(.horizontal, 20)
                 
                 // 설명
-                RegisterDescription(description: $registerModel.description)
+                RegisterDescription(description: $registerModel.registerInfo.description)
                     .padding(.bottom, 40)
                     .padding(.horizontal, 20)
                 
@@ -42,7 +42,7 @@ struct BuyRegisterView: View {
                     .padding(.bottom, 40)
                 
                 // MARK: - 가격
-                RegisterBuyPrice(price: $registerModel.price, suggestPrice: $registerModel.suggestPrice)
+                RegisterBuyPrice(price: $registerModel.registerInfo.price, suggestPrice: $registerModel.registerInfo.suggestPrice)
                     .padding(.horizontal, 20)
 
             }

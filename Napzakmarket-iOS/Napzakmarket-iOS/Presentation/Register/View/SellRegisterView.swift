@@ -15,28 +15,28 @@ struct SellRegisterView: View {
             VStack(alignment: .leading) {
                 
                 // 상품 이미지
-                RegisterImage(images: $registerModel.images)
+                RegisterImage(images: $registerModel.registerInfo.images)
                     .padding(.top, 15)
                     .padding(.bottom, 40)
                     .padding(.horizontal, 20)
 
                 // 장르
-                RegisterGenre(genre: $registerModel.genre)
+                RegisterGenre(genre: $registerModel.registerInfo.genre)
                     .padding(.bottom, 35)
                     .padding(.horizontal, 20)
 
                 // 제목
-                RegisterTitle(title: $registerModel.title)
+                RegisterTitle(title: $registerModel.registerInfo.title)
                     .padding(.bottom, 35)
                     .padding(.horizontal, 20)
 
                 // 설명
-                RegisterDescription(description: $registerModel.description)
+                RegisterDescription(description: $registerModel.registerInfo.description)
                     .padding(.bottom, 35)
                     .padding(.horizontal, 20)
 
                 // 상품 상태
-                RegisterProductState(productState: $registerModel.productState)
+                RegisterProductState(productState: $registerModel.registerInfo.productState)
                     .padding(.bottom, 40)
                     .padding(.horizontal, 20)
 
@@ -46,17 +46,17 @@ struct SellRegisterView: View {
                     .frame(height: 8)
                 
                 // 가격
-                RegisterSellPrice(price: $registerModel.price)
+                RegisterSellPrice(price: $registerModel.registerInfo.price)
                     .padding(.vertical, 35)
                     .padding(.horizontal, 20)
 
                 // 배송비
                 RegisterDeliveryCharge(
-                    deliveryChargeFree: $registerModel.deliveryChargeFree,
-                    normalDelivery: $registerModel.normalDelivery,
-                    normalDeliveryCharge: $registerModel.normalDeliveryCharge,
-                    halfDelivery: $registerModel.halfDelivery,
-                    halfDeliveryCharge: $registerModel.halfDeliveryCharge
+                    deliveryChargeFree: $registerModel.registerInfo.deliveryChargeFree,
+                    normalDelivery: $registerModel.registerInfo.normalDelivery,
+                    normalDeliveryCharge: $registerModel.registerInfo.normalDeliveryCharge,
+                    halfDelivery: $registerModel.registerInfo.halfDelivery,
+                    halfDeliveryCharge: $registerModel.registerInfo.halfDeliveryCharge
                 )
                 .padding(.horizontal, 20)
 
