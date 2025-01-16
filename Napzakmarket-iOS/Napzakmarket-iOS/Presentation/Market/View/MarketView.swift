@@ -209,8 +209,3 @@ struct MarketView: View {
         .padding(.horizontal, 16)
     }
 }
-
-#Preview {
-    MarketView()
-        .environmentObject(TabBarStateModel(isTabBarHidden: .constant(false)))
-}
