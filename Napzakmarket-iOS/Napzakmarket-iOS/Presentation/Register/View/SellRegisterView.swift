@@ -60,10 +60,7 @@ struct SellRegisterView: View {
             }
             .padding(.bottom, 67)
         }
+        
     }
 
-}
-
-#Preview {
-    TabBarView()
 }

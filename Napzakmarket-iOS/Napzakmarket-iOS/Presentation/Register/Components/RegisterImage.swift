@@ -117,7 +117,3 @@ struct RegisterImage: View {
         
     }
 }
-
-#Preview {
-    TabBarView()
-}
