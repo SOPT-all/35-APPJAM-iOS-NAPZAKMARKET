@@ -15,29 +15,39 @@ struct TabBarView: View {
     @State private var isRegisterTabActive: Bool = false
     @State private var lastSelectedTab: Int = 0
     @State private var isBottomSheetVisible = false
+    @State private var isTabBarHidden: Bool = false
+    @State private var modalRegister = false
+    @State var registerType = false
     
     private let tabs: [TabItem] = TabItem.getDefaultTabs()
     
     // MARK: - Body
+    
     var body: some View {
         ZStack {
             mainContent
-            tabBarStack
+            if !isTabBarHidden {
+                tabBarStack
+            }
             if isBottomSheetVisible {
                 bottomSheetOverlay
                 bottomSheetContent
             }
         }
         .edgesIgnoringSafeArea(.bottom)
+        .fullScreenCover(isPresented: $modalRegister) {
+            RegisterView(registerType: $registerType)
+        }
     }
-    
-    // MARK: - View Components
     
     private var mainContent: some View {
         tabs[selectedTab].view
             .safeAreaInset(edge: .bottom) {
-                Color.clear.frame(height: 90)
+                if !isTabBarHidden {
+                    Color.clear.frame(height: 90)
+                }
             }
+            .environmentObject(TabBarStateModel(isTabBarHidden: $isTabBarHidden))
     }
     
     private var tabBarStack: some View {
@@ -49,21 +59,14 @@ struct TabBarView: View {
     
     private var tabBar: some View {
         VStack(spacing: 0) {
-            tabBarDivider
+            Divider()
+                .frame(height: 1)
+                .foregroundStyle(Color.napzakGrayScale(.gray200))
+            Spacer(minLength:8)
             tabBarButtons
         }
         .frame(height: 90)
         .background(Color.white)
-    }
-    
-    private var tabBarDivider: some View {
-        VStack(spacing: 0) {
-            Rectangle()
-                .frame(height: 1)
-                .foregroundStyle(Color.napzakGrayScale(.gray200))
-            Spacer()
-                .frame(height: 4)
-        }
     }
     
     private var tabBarButtons: some View {
@@ -95,7 +98,7 @@ struct TabBarView: View {
         Color.napzakTransparency(.black70)
             .ignoresSafeArea()
             .frame(maxHeight: .infinity, alignment: .top)
-            .padding(.bottom, 90)
+            .padding(.bottom, 89)
             .onTapGesture {
                 hideBottomSheet()
             }
@@ -121,6 +124,13 @@ struct TabBarView: View {
     private func registerButton(type: String, icon: String) -> some View {
         Button(action: {
             print("\(type) 등록 클릭")
+            
+            if type == "팔아요" {
+                registerType = true
+            } else {
+                registerType = false
+            }
+            modalRegister.toggle()
             hideBottomSheet()
         }) {
             HStack {
@@ -132,8 +142,6 @@ struct TabBarView: View {
             }
         }
     }
-    
-    // MARK: - Helper Methods
     
     private func handleTabTap(_ index: Int) {
         if index == 2 {
@@ -176,7 +184,7 @@ struct TabBarView: View {
             return isRegisterTabActive ? tabs[index].selectedIcon : tabs[index].defaultIcon
         }
         return isRegisterTabActive ? tabs[index].defaultIcon :
-               (selectedTab == index ? tabs[index].selectedIcon : tabs[index].defaultIcon)
+        (selectedTab == index ? tabs[index].selectedIcon : tabs[index].defaultIcon)
     }
     
     private func getTabColor(for index: Int) -> Color {
@@ -184,7 +192,7 @@ struct TabBarView: View {
             return isRegisterTabActive ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500)
         }
         return isRegisterTabActive ? .gray :
-               (selectedTab == index ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500))
+        (selectedTab == index ? .napzakGrayScale(.gray900) : .napzakGrayScale(.gray500))
     }
     
     private func getTabTextStyle(for index: Int) -> NapzakFontStyle {
@@ -192,7 +200,10 @@ struct TabBarView: View {
             return isRegisterTabActive ? .caption1Bold12 : .caption3Medium12
         }
         return isRegisterTabActive ? .caption3Medium12 :
-               (selectedTab == index ? .caption1Bold12 : .caption3Medium12)
+        (selectedTab == index ? .caption1Bold12 : .caption3Medium12)
     }
 }
 
+#Preview {
+    TabBarView()
+}

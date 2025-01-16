@@ -8,12 +8,14 @@
 import SwiftUI
 
 struct RegisterSellHeader: View {
+    @Environment(\.dismiss) private var dismiss
+    
     var body: some View {
         HStack{
             Button {
-                print("뒤로가기 버튼")
+                dismiss()
             } label: {
-                Image(systemName: "xmark")
+                Image(systemName: "multiply")
             }
             .frame(width: 24, height: 24)
             .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -32,4 +34,3 @@ struct RegisterSellHeader: View {
         Divider()
     }
 }
-

@@ -12,13 +12,16 @@ struct RegisterGenre: View {
     
     var body: some View {
         NavigationLink {
-            Text("장르 뷰")
+            RegisterSearch(genre: $genre)
+                
         } label: {
             HStack {
                 Text("장르")
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
                 Spacer()
                 Text(genre)
+                    .foregroundStyle(Color.napzakPurple(.purple30))
+                
                 Image(systemName: "chevron.right")
                     .foregroundStyle(Color.napzakGrayScale(.gray400))
             }
