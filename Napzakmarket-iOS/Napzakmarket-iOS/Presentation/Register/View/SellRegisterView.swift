@@ -8,45 +8,35 @@
 import SwiftUI
 
 struct SellRegisterView: View {
-    @State private var images: [UIImage] = []
-    @State private var title = ""
-    @State private var description = ""
-    @State private var genre = ""
-    @State private var productState = ""
-    @State private var price = ""
-    @State private var deliveryChargeFree = true        // 배달비 여부
-    @State private var normalDelivery = false           // 일반 배달비 선택 여부
-    @State private var normalDeliveryCharge = ""        // 일반 배달비 금액
-    @State private var halfDelivery = false             // 알뜰,반값 배달비 선택 여부
-    @State private var halfDeliveryCharge = ""          // 알뜰,반값 배달비 금액
+    @ObservedObject var registerModel: RegisterModel
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
                 
                 // 상품 이미지
-                RegisterImage(images: $images)
+                RegisterImage(images: $registerModel.images)
                     .padding(.top, 15)
                     .padding(.bottom, 40)
                     .padding(.horizontal, 20)
 
                 // 장르
-                RegisterGenre(genre: $genre)
+                RegisterGenre(genre: $registerModel.genre)
                     .padding(.bottom, 35)
                     .padding(.horizontal, 20)
 
                 // 제목
-                RegisterTitle(title: $title)
+                RegisterTitle(title: $registerModel.title)
                     .padding(.bottom, 35)
                     .padding(.horizontal, 20)
 
                 // 설명
-                RegisterDescription(description: $description)
+                RegisterDescription(description: $registerModel.description)
                     .padding(.bottom, 35)
                     .padding(.horizontal, 20)
 
                 // 상품 상태
-                RegisterProductState(productState: $productState)
+                RegisterProductState(productState: $registerModel.productState)
                     .padding(.bottom, 40)
                     .padding(.horizontal, 20)
 
@@ -56,17 +46,17 @@ struct SellRegisterView: View {
                     .frame(height: 8)
                 
                 // 가격
-                RegisterSellPrice(price: $price)
+                RegisterSellPrice(price: $registerModel.price)
                     .padding(.vertical, 35)
                     .padding(.horizontal, 20)
 
                 // 배송비
                 RegisterDeliveryCharge(
-                    deliveryChargeFree: $deliveryChargeFree,
-                    normalDelivery: $normalDelivery,
-                    normalDeliveryCharge: $normalDeliveryCharge,
-                    halfDelivery: $halfDelivery,
-                    halfDeliveryCharge: $halfDeliveryCharge
+                    deliveryChargeFree: $registerModel.deliveryChargeFree,
+                    normalDelivery: $registerModel.normalDelivery,
+                    normalDeliveryCharge: $registerModel.normalDeliveryCharge,
+                    halfDelivery: $registerModel.halfDelivery,
+                    halfDeliveryCharge: $registerModel.halfDeliveryCharge
                 )
                 .padding(.horizontal, 20)
 

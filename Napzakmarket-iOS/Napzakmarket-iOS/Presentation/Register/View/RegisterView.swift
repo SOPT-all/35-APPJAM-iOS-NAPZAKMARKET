@@ -21,7 +21,6 @@ enum RegisterType: String {
 
 struct RegisterView: View {
     var registerType: RegisterType
-    
     @StateObject private var registerModel = RegisterModel()
 
     var body: some View {
@@ -29,10 +28,10 @@ struct RegisterView: View {
             switch registerType {
             case .sell:
                 RegisterSellHeader()
-                SellRegisterView()
+                SellRegisterView(registerModel: registerModel)
             case .buy:
                 RegisterBuyHeader()
-                BuyRegisterView()
+                BuyRegisterView(registerModel: registerModel)
             }
             
             Button(action: {
@@ -44,11 +43,18 @@ struct RegisterView: View {
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity, minHeight: 52)
             }
-            .background(
-                registerModel.filledRegisterInfo
-                ? Color.napzakPurple(.purple30)
-                : Color.napzakGrayScale(.gray400)
-            )
+            .background(content: {
+                switch registerType {
+                case .sell:
+                    registerModel.sellValidate()
+                    ? Color.napzakPurple(.purple30)
+                    : Color.napzakGrayScale(.gray400)
+                case .buy:
+                    registerModel.buyValidate()
+                    ? Color.napzakPurple(.purple30)
+                    : Color.napzakGrayScale(.gray400)
+                }
+            })
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 20)
             .padding(.bottom, 35)

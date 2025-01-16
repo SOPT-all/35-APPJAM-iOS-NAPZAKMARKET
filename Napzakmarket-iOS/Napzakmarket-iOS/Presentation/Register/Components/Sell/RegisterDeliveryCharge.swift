@@ -66,6 +66,7 @@ struct RegisterDeliveryCharge: View {
                         Image(normalDelivery ? .icCheckboxSelected : .icCheckbox)
                             .onTapGesture {
                                 normalDelivery.toggle()
+                                normalDeliveryCharge = ""
                             }
                         
                         Text("일반 택배")
@@ -115,6 +116,7 @@ struct RegisterDeliveryCharge: View {
                         Image(halfDelivery ? .icCheckboxSelected : .icCheckbox)
                             .onTapGesture {
                                 halfDelivery.toggle()
+                                halfDeliveryCharge = ""
                             }
                         
                         Text("알뜰/반값 택배")

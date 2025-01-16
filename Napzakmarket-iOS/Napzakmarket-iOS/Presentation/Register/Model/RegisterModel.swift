@@ -7,32 +7,39 @@
 
 import SwiftUI
 
-struct RegisterInfo {
-    // 공통 데이터
-    var images: [UIImage] = []
-    var title: String = ""
-    var description: String = ""
-    var genre: String = ""
-    var price: String = ""
-    
-    // 판매 등록글 사용 데이터
-    var productState: String = ""
-    var deliveryChargeFree: Bool = true             // 배달비 여부
-    var normalDelivery: Bool = false                // 일반 배달비 선택 여부
-    var normalDeliveryCharge: String = ""           // 일반 배달비 금액
-    var halfDelivery: Bool = false                  // 알뜰,반값 배달비 선택 여부
-    var halfDeliveryCharge: String = ""             // 알뜰,반값 배달비 금액
-    
-    // 구매 등록글 사용 데이터
-    var suggestPrice: Bool = false
-}
-
 final class RegisterModel: ObservableObject {
-    @State var filledRegisterInfo: Bool = false     // 변수명 뭔가뭔가임... 흠
-    @State var registerInfo = RegisterInfo()
+    @Published var images: [UIImage] = []
+    @Published var title: String = ""
+    @Published var description: String = ""
+    @Published var genre: String = ""
+    @Published var productState: String = ""
+    @Published var price: String = ""
+    @Published var deliveryChargeFree: Bool = true
+    @Published var normalDelivery: Bool = false
+    @Published var normalDeliveryCharge: String = ""
+    @Published var halfDelivery: Bool = false
+    @Published var halfDeliveryCharge: String = ""
+    @Published var suggestPrice: Bool = false
     
     // MARK: - 유효성 검사 및 버튼 활성화 로직
     
+    func sellValidate() -> Bool {
+        return !images.isEmpty &&
+        !title.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !description.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !genre.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !productState.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !price.trimmingCharacters(in: .whitespaces).isEmpty &&
+        (deliveryChargeFree || !normalDeliveryCharge.isEmpty || !halfDeliveryCharge.isEmpty)
+    }
+    
+    func buyValidate() -> Bool {
+        return !images.isEmpty &&
+        !title.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !description.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !genre.trimmingCharacters(in: .whitespaces).isEmpty &&
+        !price.trimmingCharacters(in: .whitespaces).isEmpty
+    }
     
     
     // MARK: - 등록정보 REQUEST POST 로직
