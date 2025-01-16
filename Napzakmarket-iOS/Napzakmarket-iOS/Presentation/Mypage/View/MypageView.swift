@@ -97,7 +97,7 @@ struct MyPageView: View {
     // MARK: - 내마켓보기 버튼
     
     private var marketButton: some View {
-        NavigationLink(destination: PreView()) {
+        NavigationLink(destination: MarketView()) {
             Text("내 마켓 보기")
                 .font(.napzakFont(.body1Bold16))
                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
@@ -109,7 +109,7 @@ struct MyPageView: View {
         }
     }
     
-    // MARK: - 메뉴드
+    // MARK: - 메뉴들
     
     private var menuSection: some View {
         HStack(spacing: 31) {
