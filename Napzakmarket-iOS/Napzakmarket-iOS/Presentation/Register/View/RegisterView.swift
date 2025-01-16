@@ -7,34 +7,43 @@
 
 import SwiftUI
 
+enum RegisterType: String {
+    case sell
+    case buy
+    
+    var displayName: String {
+        switch self {
+        case .sell: return "팔아요"
+        case .buy: return "구해요"
+        }
+    }
+}
+
 struct RegisterView: View {
-    @Binding var registerType: Bool
+    var registerType: RegisterType
     
     @StateObject private var registerModel = RegisterModel()
-    
+
     var body: some View {
         NavigationStack {
-            if registerType {
+            switch registerType {
+            case .sell:
                 RegisterSellHeader()
-            } else {
-                RegisterBuyHeader()
-            }
-            
-            if registerType {
                 SellRegisterView()
-            } else {
+            case .buy:
+                RegisterBuyHeader()
                 BuyRegisterView()
             }
             
             Button(action: {
-                print(("tapped button"))
-            }, label: {
+                print("등록 버튼 클릭")
+            }) {
                 Text("등록하기")
                     .font(.napzakFont(.body1Bold16))
                     .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity, minHeight: 52)
-            })
+            }
             .background(
                 registerModel.filledRegisterInfo
                 ? Color.napzakPurple(.purple30)
@@ -46,4 +55,8 @@ struct RegisterView: View {
         }
         .scrollIndicators(.hidden)
     }
+}
+
+#Preview {
+    TabBarView()
 }
