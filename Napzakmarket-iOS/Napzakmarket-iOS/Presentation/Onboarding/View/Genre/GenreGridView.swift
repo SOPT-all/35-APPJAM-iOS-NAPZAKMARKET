@@ -44,7 +44,6 @@ struct GenreGridView: View {
                         )
                     }
                 }
-                .padding(.horizontal, 20)
                 .padding(.top, 32)
                 .padding(.bottom, 70)
             }
