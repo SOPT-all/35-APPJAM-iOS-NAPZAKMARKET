@@ -168,28 +168,27 @@ struct MarketView: View {
     }
    
     private var profileSection: some View {
-        VStack(spacing: 12) {
+        VStack(spacing: 0) {
             Image("img_profile_md")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 88, height: 88)
                 .overlay(Circle().stroke(Color.white, lineWidth: 4))
-                .padding(.top, -63)
-           
+                .padding(.top, -55)
+            
             Text("아요핑들")
                 .font(.napzakFont(.title2Bold20))
                 .applyNapzakTextStyle(napzakFontStyle: .title2Bold20)
                 .foregroundStyle(Color.napzakGrayScale(.gray900))
-                .padding(.top, -8)
-           
+                .padding(.top, 6)
+            
             tagListView
-                .padding(.top, -5)
-           
+                .padding(.top, 8)
+            
             Text("마이멜로디, 시나모롤 제일 좋아합니다 :) 해당 장르 상품들 판매 및 제시 채팅 언제든 환영합니다!")
                 .multilineTextAlignment(.center)
                 .padding(.horizontal, 20)
-                .padding(.vertical, 12)
-                .padding(.top, -12)
+                .padding(.top, 12)
                 .font(.napzakFont(.caption3Medium12))
                 .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                 .foregroundStyle(Color.napzakGrayScale(.gray700))
