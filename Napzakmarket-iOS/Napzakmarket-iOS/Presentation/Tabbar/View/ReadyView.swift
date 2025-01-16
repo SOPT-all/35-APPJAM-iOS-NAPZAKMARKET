@@ -9,14 +9,12 @@ import SwiftUI
 
 struct ReadyComponent: View {
     var body: some View {
-        VStack {
+        VStack(spacing: 20) {
             Image("img_ready")
                 .resizable()
                 .scaledToFit()
                 .frame(width: 142, height: 128)
                 .padding(.leading, -21)
-                .padding(.bottom, 20)
-                .padding(.top, -60)
             
             VStack(spacing: 6) {
                 Text("준비중이에요")
