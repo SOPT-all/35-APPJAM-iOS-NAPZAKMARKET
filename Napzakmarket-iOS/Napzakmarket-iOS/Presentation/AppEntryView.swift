@@ -11,16 +11,25 @@ struct AppEntryView: View {
     
     // MARK: - Properties
     
-    @State private var isOnboardingComplete: Bool = false
+    @EnvironmentObject var appState: AppState
     
     // MARK: - Main Body
     
     var body: some View {
-        if isOnboardingComplete {
-            TabBarView()
-        } else {
-            OnboardingView(isOnboardingComplete: $isOnboardingComplete)
+        Group {
+            switch appState.currentScreen {
+            case .splash:
+                SplashView()
+                    .transition(.opacity)
+            case .onboarding:
+                OnboardingView()
+                    .transition(.opacity)
+            case .main:
+                TabBarView()
+                    .transition(.opacity)
+            }
         }
+        .animation(.easeInOut, value: appState.currentScreen)
     }
     
 }

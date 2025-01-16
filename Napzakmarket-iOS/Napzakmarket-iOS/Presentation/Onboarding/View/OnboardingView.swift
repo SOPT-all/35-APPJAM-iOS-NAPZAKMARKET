@@ -10,8 +10,8 @@ import SwiftUI
 struct OnboardingView: View {
     
     // MARK: - Properties
+    @EnvironmentObject var appState: AppState
     @StateObject private var genreModel = GenreModel()
-    @Binding var isOnboardingComplete: Bool
     @FocusState private var isSearchBarFocused: Bool
     
     // MARK: - Main Body
@@ -66,7 +66,7 @@ struct OnboardingView: View {
                 }
                 
                 FinalActionsView(
-                    isOnboardingComplete: $isOnboardingComplete,
+                    appState: appState,
                     selectedGenres: $genreModel.selectedGenres
                 )
             }
@@ -112,7 +112,7 @@ extension OnboardingView {
         
         // MARK: - Properties
         
-        @Binding var isOnboardingComplete: Bool
+        @ObservedObject var appState: AppState
         @Binding var selectedGenres: [Genre]
         
         // MARK: - Main Body
@@ -120,7 +120,7 @@ extension OnboardingView {
         var body: some View {
             VStack(spacing: 0) {
                 Button {
-                    isOnboardingComplete = true
+                    appState.moveToMain()
                 } label: {
                     Text("선택완료! 시작하기")
                         .font(.napzakFont(.body1Bold16))
@@ -133,7 +133,7 @@ extension OnboardingView {
                 .disabled(selectedGenres.isEmpty)
                 
                 Button {
-                    isOnboardingComplete = true
+                    appState.moveToMain()
                 } label: {
                     Text("나중에 설정할래요")
                         .font(.napzakFont(.body2SemiBold16))
@@ -148,8 +148,4 @@ extension OnboardingView {
         }
     }
      
-}
-
-#Preview {
-    OnboardingView(isOnboardingComplete: .constant(false))
 }
