@@ -109,7 +109,7 @@ struct MyPageView: View {
         }
     }
     
-    // MARK: - 메뉴드
+    // MARK: - 메뉴들
     
     private var menuSection: some View {
         HStack(spacing: 31) {
