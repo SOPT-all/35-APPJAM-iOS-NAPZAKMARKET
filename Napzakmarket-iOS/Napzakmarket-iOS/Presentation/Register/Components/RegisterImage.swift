@@ -10,6 +10,7 @@ import PhotosUI
 
 struct RegisterImage: View {
     @State private var images: [UIImage] = []
+    
     @State private var photosPickerItem: [PhotosPickerItem] = []
     
     var body: some View {
@@ -118,7 +119,7 @@ struct RegisterImage: View {
 }
 
 #Preview {
-    SellRegisterView()
-    //    RegisterImage()
+//    SellRegisterView()
+        RegisterImage()
     //    TabBarView()
 }

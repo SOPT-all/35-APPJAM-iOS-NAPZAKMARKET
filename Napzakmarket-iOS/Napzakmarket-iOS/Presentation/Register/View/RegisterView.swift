@@ -37,7 +37,7 @@ struct RegisterView: View {
             .background(Color.napzakGrayScale(.gray400))
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 20)
-            .padding(.vertical, 1)
+            .padding(.vertical, 35)
         }
         .scrollIndicators(.hidden)
     }
