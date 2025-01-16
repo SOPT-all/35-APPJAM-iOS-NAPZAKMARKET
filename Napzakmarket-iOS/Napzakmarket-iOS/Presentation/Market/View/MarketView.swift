@@ -155,14 +155,15 @@ struct MarketView: View {
                 Button(action: {
                     dismiss()
                 }) {
-                    Image("ic_back")
+                    Image(systemName: "chevron.backward")
                         .foregroundColor(Color.napzakGrayScale(.gray900))
-                        .padding(.leading, 20)
+                        .frame(width: 48, height: 48)
+                        
                 }
                 Spacer()
             }
-            .padding(.horizontal, 16)
-            .padding(.vertical, 12)
+//            .padding(.horizontal, 16)
+//            .padding(.vertical, 12)
         }
         .frame(maxWidth: .infinity)
     }
