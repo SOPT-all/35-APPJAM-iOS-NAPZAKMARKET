@@ -50,7 +50,6 @@ struct SearchBar: View {
         .padding(12)
         .background(Color.napzakGrayScale(.gray100))
         .clipShape(RoundedRectangle(cornerRadius: 12))
-        .padding(.bottom, 16)
         .animation(.easeInOut(duration: 0.3), value: text.isEmpty)
     }
     

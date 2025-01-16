@@ -15,6 +15,8 @@ struct TabBarView: View {
     @State private var isRegisterTabActive: Bool = false
     @State private var lastSelectedTab: Int = 0
     @State private var isBottomSheetVisible = false
+    @State private var modalRegister = false
+    @State var registerType = false
     
     private let tabs: [TabItem] = TabItem.getDefaultTabs()
     
@@ -29,6 +31,9 @@ struct TabBarView: View {
             }
         }
         .edgesIgnoringSafeArea(.bottom)
+        .fullScreenCover(isPresented: $modalRegister) {
+            RegisterView(registerType: $registerType)
+        }
     }
     
     // MARK: - View Components
@@ -121,6 +126,13 @@ struct TabBarView: View {
     private func registerButton(type: String, icon: String) -> some View {
         Button(action: {
             print("\(type) 등록 클릭")
+            
+            if type == "팔아요" {
+                registerType = true
+            } else {
+                registerType = false
+            }
+            modalRegister.toggle()
             hideBottomSheet()
         }) {
             HStack {
@@ -195,4 +207,3 @@ struct TabBarView: View {
                (selectedTab == index ? .caption1Bold12 : .caption3Medium12)
     }
 }
-
