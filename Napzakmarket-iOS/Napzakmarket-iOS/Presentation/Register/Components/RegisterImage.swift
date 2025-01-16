@@ -9,7 +9,7 @@ import SwiftUI
 import PhotosUI
 
 struct RegisterImage: View {
-    @State private var images: [UIImage] = []
+    @Binding var images: [UIImage]
     
     @State private var photosPickerItem: [PhotosPickerItem] = []
     
@@ -119,7 +119,5 @@ struct RegisterImage: View {
 }
 
 #Preview {
-//    SellRegisterView()
-        RegisterImage()
-    //    TabBarView()
+    TabBarView()
 }

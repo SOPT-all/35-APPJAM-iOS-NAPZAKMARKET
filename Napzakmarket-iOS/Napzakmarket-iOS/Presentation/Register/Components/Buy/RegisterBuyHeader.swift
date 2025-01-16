@@ -42,8 +42,3 @@ struct RegisterBuyHeader: View {
         Divider()
     }
 }
-
-#Preview {
-    @State var state = false
-    RegisterView(registerType: $state)
-}

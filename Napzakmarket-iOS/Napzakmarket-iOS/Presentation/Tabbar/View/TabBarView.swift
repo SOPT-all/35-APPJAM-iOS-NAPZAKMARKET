@@ -124,9 +124,7 @@ struct TabBarView: View {
     }
     
     private func registerButton(type: String, icon: String) -> some View {
-        Button(action: {
-            print("\(type) 등록 클릭")
-            
+        Button(action: {            
             if type == "팔아요" {
                 registerType = true
             } else {
