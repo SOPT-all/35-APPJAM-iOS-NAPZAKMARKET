@@ -31,17 +31,16 @@ struct SortModalView: View {
     //MARK: - Main Body
     
     var body: some View {
-        VStack {
+        VStack(spacing: 13) {
             dragArea
             OptionList
         }
-        .frame(height: modalHeight)
-        .padding(.bottom, 35)
         .background(
             Rectangle()
                 .fill(.white)
                 .clipShape(.rect(topLeadingRadius: 20, topTrailingRadius: 20))
         )
+        .frame(height: modalHeight)
         .transition(.opacity.combined(with: .move(edge: .bottom)))
         .offset(y: translation)
         .gesture(
@@ -72,43 +71,45 @@ extension SortModalView {
     //MARK: - UI Properties
     
     private var dragArea: some View {
-        HStack(alignment: .center) {
-            Spacer()
-            Image(.iconDragIndicator)
-                .resizable()
-                .frame(width: 36, height: 4)
-            Spacer()
-        }
-        .frame(height: 27)
+        Image(.iconDragIndicator)
+            .resizable()
+            .frame(width: 36, height: 4)
+            .padding(.top, 10)
     }
     
     private var OptionList: some View {
-        ForEach(sortOptions, id: \.self) { option in
-            HStack {
-                Text("\(option.rawValue)")
-                    .font(.napzakFont(.title5SemiBold18))
-                    .applyNapzakTextStyle(napzakFontStyle: .title5SemiBold18)
-                    .foregroundStyle(option == selectedSortOption ? Color.napzakPurple(.purple30) : Color.napzakGrayScale(.gray900))
-                Spacer()
-                if option == selectedSortOption {
-                    Image(.iconCheck)
-                        .resizable()
-                        .frame(width: 24, height: 24)
+        LazyVGrid(columns: [GridItem(.flexible())], spacing: 0) {
+            ForEach(sortOptions, id: \.self) { option in
+                VStack(spacing: 0) {
+                    Spacer()
+                    HStack {
+                        Text("\(option.rawValue)")
+                            .font(.napzakFont(.title5SemiBold18))
+                            .applyNapzakTextStyle(napzakFontStyle: .title5SemiBold18)
+                            .foregroundStyle(option == selectedSortOption ? Color.napzakPurple(.purple30) : Color.napzakGrayScale(.gray900))
+                        Spacer()
+                        if option == selectedSortOption {
+                            Image(.iconCheck)
+                                .resizable()
+                                .frame(width: 24, height: 24)
+                        }
+                    }
+                    .contentShape(Rectangle())
+                    .onTapGesture {
+                        selectedSortOption = option
+                        sortModalViewIsPresented = false
+                    }
+                    Spacer()
+                    if option != sortOptions.last {
+                        Divider()
+                            .frame(height: 1)
+                            .foregroundStyle(Color.napzakGrayScale(.gray100))
+                    }
                 }
             }
             .frame(height: 60)
-            .contentShape(Rectangle())
-            .onTapGesture {
-                selectedSortOption = option
-                sortModalViewIsPresented = false
-            }
-            
-            if option != sortOptions.last {
-                Divider()
-                    .frame(height: 1)
-                    .foregroundStyle(Color.napzakGrayScale(.gray100))
-            }
+            .padding(.horizontal, 20)
         }
-        .padding(.horizontal, 20)
+        .padding(.bottom, 35)
     }
 }
