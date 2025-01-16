@@ -26,3 +26,12 @@ extension TabItem {
         ]
     }
 }
+
+// 상태 관리를 위한 환경 객체
+class TabBarStateModel: ObservableObject {
+    @Binding var isTabBarHidden: Bool
+    
+    init(isTabBarHidden: Binding<Bool>) {
+        _isTabBarHidden = isTabBarHidden
+    }
+}
