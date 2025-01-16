@@ -10,7 +10,6 @@ import SwiftUI
 struct OnboardingView: View {
     
     // MARK: - Properties
-    
     @StateObject private var genreModel = GenreModel()
     @Binding var isOnboardingComplete: Bool
     @FocusState private var isSearchBarFocused: Bool
@@ -32,30 +31,33 @@ struct OnboardingView: View {
                         try? await genreModel.fetchGenresFiltered()
                     }
                 }
-                
-                if !genreModel.selectedGenres.isEmpty {
-                    ChipsContainerView(
-                        selectedGenres: .init(
-                            get: { genreModel.selectedGenres.map { $0.name } },
-                            set: { newNames in
-                                withAnimation(.easeInOut(duration: 0.3)) {
-                                    genreModel.removeSelection(newNames)
-                                }
-                            }
-                        )
-                    )
-                    .transition(.opacity)
-                    .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
-                }
             }
             .padding(.horizontal, 20)
+            .background(Color.napzakGrayScale(.white))
+            .zIndex(1)
+            
+            ZStack(alignment: .top) {
+                ChipsContainerView(
+                    selectedGenres: .init(
+                        get: { genreModel.selectedGenres.map { $0.name } },
+                        set: { newNames in
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                genreModel.removeSelection(newNames)
+                            }
+                        }
+                    )
+                )
+                .padding(.horizontal, 20)
+                .frame(height: genreModel.selectedGenres.isEmpty ? 0 : nil, alignment: .top)
+                .offset(y: genreModel.selectedGenres.isEmpty ? -60 : 0)
+                    .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
+            }
             
             VStack(spacing: 0) {
                 GenreGridView(
                     genres: $genreModel.genres,
                     selectedGenres: $genreModel.selectedGenres
                 )
-                .transition(.opacity)
                 .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
                 .onTapGesture {
                     if isSearchBarFocused {
@@ -68,6 +70,7 @@ struct OnboardingView: View {
                     selectedGenres: $genreModel.selectedGenres
                 )
             }
+            .padding(.horizontal, 20)
         }
         .padding(.top, 40)
         .edgesIgnoringSafeArea(.bottom)

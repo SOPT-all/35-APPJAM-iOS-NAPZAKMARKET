@@ -72,7 +72,6 @@ struct GenreGridView: View {
             .padding(.top, 30)
             .allowsHitTesting(false)
         }
-        .background(Color.white)
     }
     
 }
