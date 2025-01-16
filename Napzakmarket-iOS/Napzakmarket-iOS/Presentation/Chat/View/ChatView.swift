@@ -37,7 +37,7 @@ private extension ChatView {
                         .frame(width: 48, height: 48)
                 }
                 
-                Text("납작한 외계인")
+                Text("납작한 아요들")
                     .font(.napzakFont(.title5SemiBold18))
                     .applyNapzakTextStyle(napzakFontStyle: .title5SemiBold18)
                     .foregroundColor(Color.napzakGrayScale(.gray900))
@@ -77,7 +77,7 @@ private extension ChatView {
                                 .applyNapzakTextStyle(napzakFontStyle: .body4Bold14)
                                 .foregroundColor(Color.napzakPurple(.purple30))
                         }
-                        Text("딸기 마이멜로디 마스코트 인형")
+                        Text("꿈에 나올까 무서운 빼꼼인형 ㅜㅜ")
                             .font(.napzakFont(.body6Medium14))
                             .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                             .foregroundColor(Color.napzakGrayScale(.gray900))
