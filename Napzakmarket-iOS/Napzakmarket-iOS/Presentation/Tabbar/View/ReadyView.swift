@@ -51,7 +51,3 @@ struct ReadyView: View {
         .navigationBarHidden(true)
     }
 }
-
-#Preview {
-    ReadyView()
-}
