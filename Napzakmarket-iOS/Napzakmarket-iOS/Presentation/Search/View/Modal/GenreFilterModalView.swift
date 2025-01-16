@@ -79,9 +79,10 @@ extension GenreFilterModalView {
             Image(.iconDragIndicator)
                 .resizable()
                 .frame(width: 36, height: 4)
+                .padding(.top, 10)
+                .padding(.bottom, 31)
             Spacer()
         }
-        .frame(height: 45)
         .padding(.horizontal, 20)
     }
     
