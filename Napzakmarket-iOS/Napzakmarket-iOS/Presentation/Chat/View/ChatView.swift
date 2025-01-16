@@ -10,7 +10,7 @@ import SwiftUI
 struct ChatView: View {
     @Environment(\.dismiss) private var dismiss
     @State private var messageText: String = ""
-    let isSelling: Bool // true for 팔아요, false for 구해요
+    let isSelling: Bool // true for 팔아요, false for 구해요!
     
     var body: some View {
         VStack(spacing: 0) {
@@ -24,6 +24,7 @@ struct ChatView: View {
 }
 
 // MARK: - 네비게이션바
+
 private extension ChatView {
     var navigationBar: some View {
         VStack(spacing: 0) {
@@ -53,6 +54,7 @@ private extension ChatView {
 }
 
 // MARK: - 상품정보
+
 private extension ChatView {
     var productInfoHeader: some View {
         VStack(spacing: 0) {
@@ -103,6 +105,7 @@ private extension ChatView {
 }
 
 // MARK: - 채팅들어갈 부분
+
 private extension ChatView {
     var chatContent: some View {
         ZStack {
@@ -122,6 +125,7 @@ private extension ChatView {
 }
 
 // MARK: - 메시지 input바
+
 private extension ChatView {
     var messageInputView: some View {
         VStack(spacing: 0) {
