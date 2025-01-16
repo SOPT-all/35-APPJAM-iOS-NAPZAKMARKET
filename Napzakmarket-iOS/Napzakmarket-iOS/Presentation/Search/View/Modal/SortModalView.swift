@@ -34,6 +34,7 @@ struct SortModalView: View {
             dragArea
             OptionList
         }
+        .frame(height: modalHeight)
         .padding(.bottom, 35)
         .background(
             Rectangle()
