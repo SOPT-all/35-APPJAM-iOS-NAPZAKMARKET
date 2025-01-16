@@ -16,6 +16,8 @@ struct TabBarView: View {
     @State private var lastSelectedTab: Int = 0
     @State private var isBottomSheetVisible = false
     @State private var isTabBarHidden: Bool = false  // 추가된 상태 변수
+    @State private var modalRegister = false
+    @State var registerType = false
     
     private let tabs: [TabItem] = TabItem.getDefaultTabs()
     
@@ -33,6 +35,9 @@ struct TabBarView: View {
             }
         }
         .edgesIgnoringSafeArea(.bottom)
+        .fullScreenCover(isPresented: $modalRegister) {
+            RegisterView(registerType: $registerType)
+        }
     }
     
     private var mainContent: some View {
@@ -126,6 +131,13 @@ struct TabBarView: View {
     private func registerButton(type: String, icon: String) -> some View {
         Button(action: {
             print("\(type) 등록 클릭")
+            
+            if type == "팔아요" {
+                registerType = true
+            } else {
+                registerType = false
+            }
+            modalRegister.toggle()
             hideBottomSheet()
         }) {
             HStack {
