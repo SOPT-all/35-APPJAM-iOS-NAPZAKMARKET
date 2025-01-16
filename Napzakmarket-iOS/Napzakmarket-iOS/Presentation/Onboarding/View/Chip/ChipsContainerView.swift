@@ -27,8 +27,7 @@ struct ChipsContainerView: View {
             
             ChipListView(selectedGenres: $selectedGenres)
         }
-        .frame(height: 40)
-        .padding(.bottom, 30)
+        .frame(height: 35)
     }
     
 }
@@ -52,6 +51,7 @@ extension ChipsContainerView {
                         GenreChip(name: genre, selectedGenres: $selectedGenres)
                     }
                 }
+                .padding(.trailing, 20)
             }
         } 
     }
