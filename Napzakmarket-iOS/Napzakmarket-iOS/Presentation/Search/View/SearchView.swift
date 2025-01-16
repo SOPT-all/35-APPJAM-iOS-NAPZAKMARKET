@@ -19,6 +19,8 @@ struct SearchView: View {
     @State var selectedGenreStrings: [String] = []
     @State var sortModalViewIsPresented = false
     @State var filterModalViewIsPresented = false
+    @State var isSoldoutFilterOn = false
+    @State var isUnopenFilterOn = false
     
     //MARK: - Properties
     
@@ -126,8 +128,9 @@ extension SearchView {
 
             Button {
                 print("품절 제외 필터 선택")
+                isSoldoutFilterOn.toggle()
             } label: {
-                Image(.chipSoldout)
+                Image(isSoldoutFilterOn ? .chipSoldoutSelect : .chipSoldout)
                     .resizable()
                     .frame(width: 69, height: 33)
             }
@@ -135,8 +138,9 @@ extension SearchView {
             if selectedTabIndex == 0 {
                 Button {
                     print("미개봉 필터 선택")
+                    isUnopenFilterOn.toggle()
                 } label: {
-                    Image(.chipUnopen)
+                    Image(isUnopenFilterOn ? .chipUnopenSelect : .chipUnopen)
                         .resizable()
                         .frame(width: 59, height: 33)
                 }
