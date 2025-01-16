@@ -40,15 +40,12 @@ struct ReadyView: View {
                 Button(action: {
                     dismiss()
                 }) {
-                    Image("ic_back")
-                        .foregroundStyle(Color.napzakGrayScale(.gray900))
-                        .padding(.leading, 20)
+                    Image(systemName: "chevron.backward")
+                        .foregroundColor(Color.napzakGrayScale(.gray900))
+                        .frame(width: 48, height: 48)
                 }
                 Spacer()
             }
-            .padding(.horizontal, 20)
-            .padding(.top, 16)
-            
             ReadyComponent()
         }
         .navigationBarHidden(true)
