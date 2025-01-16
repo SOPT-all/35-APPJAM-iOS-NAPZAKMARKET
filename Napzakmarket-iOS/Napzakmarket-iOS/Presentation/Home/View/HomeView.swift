@@ -12,7 +12,3 @@ struct HomeView: View {
         Text("HomeView!")
     }
 }
-
-#Preview {
-    HomeView()
-}
