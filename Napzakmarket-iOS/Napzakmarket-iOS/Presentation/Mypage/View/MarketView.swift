@@ -32,8 +32,9 @@ struct MarketView: View {
                 tabs: ["팔아요", "구해요", "후기"],
                 spacing: 15
             )
-            .frame(height: 46)
-            .padding(.top, 20)
+            .padding(.vertical, -65)
+            .padding(.top, 70)
+            .padding(.bottom, -15)
            
             if selectedIndex == 2 {
                 ReadyComponent()
