@@ -81,7 +81,7 @@ extension Color {
             let opacity = 0.0
             return Color(hex: "FFFFFF", opacity: opacity)
         case .gradient1SecondColor:
-            let opacity = 100.0
+            let opacity = 1.0
             return Color(hex: "FFFFFF", opacity: opacity)
         }
     }
