@@ -87,11 +87,17 @@ private extension ChatView {
                         if !isSelling {
                             Image("img_tag_price_sm")
                                 .frame(width: 51, height: 23)
+                            Text("333원")
+                                .font(.napzakFont(.body1Bold16))
+                                .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                                .foregroundColor(Color.napzakGrayScale(.gray900))
                         }
-                        Text("35,000원")
-                            .font(.napzakFont(.body1Bold16))
-                            .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
-                            .foregroundColor(Color.napzakGrayScale(.gray900))
+                        else{
+                           Text("100,000원대")
+                               .font(.napzakFont(.body1Bold16))
+                               .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                               .foregroundColor(Color.napzakGrayScale(.gray900))
+                       }
                     }
                 }
                 Spacer()
