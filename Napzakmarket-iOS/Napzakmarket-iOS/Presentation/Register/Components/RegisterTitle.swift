@@ -19,6 +19,8 @@ struct RegisterTitle: View {
     }
 }
 
+// MARK: - Subviews
+
 extension RegisterTitle {
     
     private var titleSection: some View {
