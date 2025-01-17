@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct RegisterView: View {
-    // 뷰 불러올 때 Sell 이냐 Buy냐로 구분해서 보여주면 될 듯 나중에 탭바에서 Boolean값으로 바인딩 받아오기
     @Binding var registerType: Bool
+    
+    @StateObject private var registerModel = RegisterModel()
     
     var body: some View {
         NavigationStack {
@@ -34,10 +35,14 @@ struct RegisterView: View {
                     .foregroundStyle(.white)
                     .frame(maxWidth: .infinity, minHeight: 52)
             })
-            .background(Color.napzakGrayScale(.gray400))
+            .background(
+                registerModel.filledRegisterInfo
+                ? Color.napzakPurple(.purple30)
+                : Color.napzakGrayScale(.gray400)
+            )
             .clipShape(RoundedRectangle(cornerRadius: 12))
             .padding(.horizontal, 20)
-            .padding(.vertical, 1)
+            .padding(.vertical, 35)
         }
         .scrollIndicators(.hidden)
     }
