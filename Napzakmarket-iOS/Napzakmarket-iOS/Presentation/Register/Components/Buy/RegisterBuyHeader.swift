@@ -19,7 +19,7 @@ struct RegisterBuyHeader: View {
     }
 }
 
-// MARK: - Subviews and Functions
+// MARK: - Subviews
 
 extension RegisterBuyHeader {
     
