@@ -12,33 +12,45 @@ struct ProductDetailView: View {
     //MARK: - Property Wrappers
     
     @State var currentPage: Int = 0
+    @State var showToast = false
     
     //MARK: - Properties
     
-    
+    @ObservedObject var product = ProductDetailModel.dummyBuyProductDetail()
     
     //MARK: - Main Body
     
     var body: some View {
-        VStack(spacing: 0) {
-            navigarionBar
-            ScrollView {
-                VStack(alignment: .leading, spacing: 0) {
-                    productImagePageView
-                    productInfo
-                    divider
-                    productDescription
-                    productConditions
-                    divider
-                    productDeliveryFee
-                    Divider()
-                        .frame(height: 8)
-                        .overlay(Color.napzakGrayScale(.gray50))
-                    marketInfo
+        ZStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                navigarionBar
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        productImagePageView
+                        productInfo
+                        divider
+                        productDescription
+                        if product.productDetail.productType == .sell {
+                            productConditions
+                            divider
+                            productDeliveryFee
+                        }
+                        Divider()
+                            .frame(height: 8)
+                            .overlay(Color.napzakGrayScale(.gray50))
+                        marketInfo
+                    }
+                }
+                if showToast {
+                    toastView
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .zIndex(1)
+                        .animation(.spring(), value: showToast)
                 }
             }
             bottomView
         }
+        .ignoresSafeArea(edges: [.bottom])
     }
 }
 
@@ -54,6 +66,7 @@ extension ProductDetailView {
                 Image(.icBack)
                     .resizable()
                     .frame(width: 48, height: 48)
+                    .padding(.top, 4)
             }
             Spacer()
         }
@@ -64,10 +77,10 @@ extension ProductDetailView {
     
     private var productImagePageView: some View {
         TabView(selection: $currentPage) {
-            ForEach(0..<5) { index in
+            ForEach(product.productPhotoList.indices, id: \.self) { i in
                 //Image 리소스로 변경 예정핑!!!!!ㅋ
                 Rectangle()
-                    .fill(index % 2 == 0 ? .red : .blue)
+                    .fill(i % 2 == 0 ? .red : .blue)
             }
         }
         .tabViewStyle(PageTabViewStyle())
@@ -76,9 +89,14 @@ extension ProductDetailView {
     
     private var header: some View {
         HStack(alignment: .center, spacing: 0) {
-            Image(.imgTagSell)
+            switch product.productDetail.productType {
+            case .buy:
+                Image(.imgTagBuy)
+            case .sell:
+                Image(.imgTagSell)
+            }
             Spacer()
-            Text("1시간 전")
+            Text("\(product.productDetail.uploadTime)")
                 .font(.napzakFont(.caption3Medium12))
                 .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                 .foregroundStyle(Color.napzakGrayScale(.gray500))
@@ -88,14 +106,14 @@ extension ProductDetailView {
                 .padding(.horizontal, 7)
             Image(.icView)
                 .padding(.trailing, 2)
-            Text("27")
+            Text("\(product.productDetail.viewCount)")
                 .font(.napzakFont(.caption3Medium12))
                 .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                 .foregroundStyle(Color.napzakGrayScale(.gray500))
                 .padding(.trailing, 4)
             Image(.icHeartSm)
                 .padding(.trailing, 2)
-            Text("444444")
+            Text("\(product.productDetail.interestCount)")
                 .font(.napzakFont(.caption3Medium12))
                 .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                 .foregroundStyle(Color.napzakGrayScale(.gray500))
@@ -106,20 +124,25 @@ extension ProductDetailView {
     private var productInfo: some View {
         VStack(alignment: .leading, spacing: 0){
             header
-            Text("산리오")
+            Text("\(product.productDetail.genreName)")
                 .font(.napzakFont(.body1Bold16))
                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                 .foregroundStyle(Color.napzakGrayScale(.gray900))
                 .padding(.bottom, 4)
-            Text("딸기 마이멜로디 마스코트 인형")
+            Text("\(product.productDetail.productName)")
                 .font(.napzakFont(.title6Medium18))
                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                 .foregroundStyle(Color.napzakGrayScale(.gray800))
                 .padding(.bottom, 16)
-            Text("35,000원")
-                .font(.napzakFont(.title2Bold20))
-                .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
-                .foregroundStyle(Color.napzakGrayScale(.gray900))
+            HStack(spacing: 8){
+                if product.productDetail.isPriceNegotiable {
+                    Image(.imgTagPriceLg)
+                }
+                Text(product.productDetail.productType == .sell ?  "\(String(product.productDetail.price).convertPrice(maxPrice: 1_000_000))원" : "\(String(product.productDetail.price).convertPrice(maxPrice: 1_000_000))원대" )
+                    .font(.napzakFont(.title2Bold20))
+                    .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                    .foregroundStyle(Color.napzakGrayScale(.gray900))
+            }
         }
         .padding(.top, 20)
         .padding(.horizontal, 20)
@@ -133,13 +156,13 @@ extension ProductDetailView {
     }
     
     private var productDescription: some View {
-        Text("딸기 마멜 인형 판매합니다!\n일본에서 출시되자마자 인기 많았던 딸기 마스코트 인형입니다. 개봉 후 장식장에만 보관해놨어요!\n편하게 둘러보시고 채팅 주세요! (남은 수량: 1개)".forceCharWrapping)
+        Text("\(product.productDetail.description)".forceCharWrapping)
             .font(.napzakFont(.body3Medium16))
             .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
             .foregroundStyle(Color.napzakGrayScale(.gray900))
             .multilineTextAlignment(.leading)
             .padding(.horizontal, 20)
-            .padding(.bottom, 35)
+            .padding(.bottom, 31)
     }
     
     private var productConditions: some View {
@@ -149,7 +172,16 @@ extension ProductDetailView {
                 .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                 .foregroundStyle(Color.napzakGrayScale(.gray800))
             Spacer()
-            Image(.imgDetailConditionUnopen)
+            switch product.productDetail.productCondition {
+            case .unopened:
+                Image(.imgDetailConditionUnopen)
+            case .excellent:
+                Image(.imgDetailConditionGood)
+            case .slightlyUsed:
+                Image(.imgDetailConditionLightuse)
+            case .used:
+                Image(.imgDetailConditionHeavyuse)
+            }
         }
         .padding(.horizontal, 20)
     }
@@ -161,28 +193,41 @@ extension ProductDetailView {
                 .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                 .foregroundStyle(Color.napzakGrayScale(.gray800))
             Spacer()
-            Text("일반")
-                .font(.napzakFont(.body6Medium14))
-                .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
-                .foregroundStyle(Color.napzakGrayScale(.gray700))
-                .padding(.trailing, 6)
-            Text("3,800원")
-                .font(.napzakFont(.body2SemiBold16))
-                .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
-                .foregroundStyle(Color.napzakGrayScale(.gray900))
-            Rectangle()
-                .fill(Color.napzakGrayScale(.gray200))
-                .frame(width: 1, height: 14)
-                .padding(.horizontal, 13)
-            Text("반값/알뜰")
-                .font(.napzakFont(.body6Medium14))
-                .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
-                .foregroundStyle(Color.napzakGrayScale(.gray700))
-                .padding(.trailing, 6)
-            Text("1,800원")
-                .font(.napzakFont(.body2SemiBold16))
-                .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
-                .foregroundStyle(Color.napzakGrayScale(.gray900))
+            if product.productDetail.isDeliveryIncluded {
+                Text("포함")
+                    .font(.napzakFont(.body2SemiBold16))
+                    .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+                    .foregroundStyle(Color.napzakGrayScale(.gray900))
+            } else {
+                if product.productDetail.standardDeliveryFee != 0 {
+                    Text("일반")
+                        .font(.napzakFont(.body6Medium14))
+                        .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
+                        .foregroundStyle(Color.napzakGrayScale(.gray700))
+                        .padding(.trailing, 6)
+                    Text("\(String(product.productDetail.standardDeliveryFee).convertPrice(maxPrice: 1_000_000))원")
+                        .font(.napzakFont(.body2SemiBold16))
+                        .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+                        .foregroundStyle(Color.napzakGrayScale(.gray900))
+                }
+                if product.productDetail.standardDeliveryFee != 0 && product.productDetail.halfDeliveryFee != 0{
+                    Rectangle()
+                        .fill(Color.napzakGrayScale(.gray200))
+                        .frame(width: 1, height: 14)
+                        .padding(.horizontal, 13)
+                }
+                if product.productDetail.standardDeliveryFee != 0 {
+                    Text("반값/알뜰")
+                        .font(.napzakFont(.body6Medium14))
+                        .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
+                        .foregroundStyle(Color.napzakGrayScale(.gray700))
+                        .padding(.trailing, 6)
+                    Text("\(String(product.productDetail.standardDeliveryFee).convertPrice(maxPrice: 1_000_000))원")
+                        .font(.napzakFont(.body2SemiBold16))
+                        .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+                        .foregroundStyle(Color.napzakGrayScale(.gray900))
+                }
+            }
         }
         .padding(.horizontal, 20)
         .padding(.bottom, 31)
@@ -198,8 +243,8 @@ extension ProductDetailView {
                 Image(.imgProfileSm)
                     .resizable()
                     .frame(width: 50, height: 50)
-                VStack {
-                    Text("납작한 박어진")
+                VStack(alignment: .leading) {
+                    Text("\(product.storeInfo.nickname)")
                         .font(.napzakFont(.body1Bold16))
                         .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                         .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -209,7 +254,7 @@ extension ProductDetailView {
                             .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                             .foregroundStyle(Color.napzakGrayScale(.gray700))
                             .padding(.trailing, 2)
-                        Text("5개")
+                        Text("\(product.storeInfo.totalProducts)개")
                             .font(.napzakFont(.caption3Medium12))
                             .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                             .foregroundStyle(Color.napzakPurple(.purple30))
@@ -222,7 +267,7 @@ extension ProductDetailView {
                             .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                             .foregroundStyle(Color.napzakGrayScale(.gray700))
                             .padding(.trailing, 2)
-                        Text("3건")
+                        Text("\(product.storeInfo.totalTransactions)건")
                             .font(.napzakFont(.caption3Medium12))
                             .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                             .foregroundStyle(Color.napzakPurple(.purple30))
@@ -232,19 +277,23 @@ extension ProductDetailView {
         }
         .padding(.top, 31)
         .padding(.horizontal, 20)
-        .padding(.bottom, 85)
+        .padding(.bottom, 192)
     }
     
     private var bottomView: some View {
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 0) {
             Divider()
                 .frame(height: 1)
                 .overlay(Color.napzakGrayScale(.gray200))
             HStack(spacing: 16) {
                 Button {
                     print("좋아요 버튼 선택")
+                    product.toggleLike()
+                    if product.isInterested {
+                        showToastMessage()
+                    }
                 } label: {
-                    Image(.btnDetailLike)
+                    product.isInterested ? Image(.btnDetailLikeSelect) : Image(.btnDetailLike)
                 }
                 Button {
                     print("채팅하기 버튼 선택")
@@ -267,6 +316,41 @@ extension ProductDetailView {
             .padding(.top, 20)
             .padding(.horizontal, 20)
             .padding(.bottom, 35)
+        }
+        .background(Color.napzakGrayScale(.white))
+    }
+    
+    private var toastView: some View {
+        ZStack {
+            HStack(alignment: .center, spacing: 8) {
+                Image(.icHeartToast)
+                Text("상품을 찜했어요!")
+                    .font(.napzakFont(.body6Medium14))
+                    .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
+                    .foregroundStyle(Color.napzakGrayScale(.white))
+                Spacer()
+            }
+            .frame(height: 44)
+            .padding(.leading, 20)
+        }
+        .background(
+            RoundedRectangle(cornerRadius: 12)
+                .fill(Color.napzakTransparency(.black70))
+        )
+        .padding(.horizontal, 20)
+        .padding(.bottom, 113)
+    }
+    
+    //MARK: - Private Func
+    
+    private func showToastMessage() {
+        withAnimation {
+            showToast = true
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+            withAnimation {
+                showToast = false
+            }
         }
     }
 }
