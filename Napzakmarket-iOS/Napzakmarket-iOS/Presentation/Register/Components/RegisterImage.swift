@@ -15,104 +15,136 @@ struct RegisterImage: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("상품 이미지")
-                .font(.napzakFont(.body2SemiBold16))
-                .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
-                .foregroundStyle(Color.napzakGrayScale(.gray900))
-            
-            Text("다양한 상품 이미지를 등록하면 판매 확률이 올라가요!")
-                .font(.napzakFont(.body6Medium14))
-                .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
-                .foregroundStyle(Color.napzakGrayScale(.gray600))
-            
-            ScrollView(.horizontal, showsIndicators: false) {
-                HStack {
-                    // 사진 선택 버튼
-                    PhotosPicker(
-                        selection: $photosPickerItem,
-                        maxSelectionCount: 10-images.count,
-                        selectionBehavior: .ordered,
-                        matching: .images
-                    ) {
-                        VStack(alignment: .center){
-                            Image(.icPhoto)
-                            
-                            HStack(spacing: 0) {
-                                Text(images.count.description)
-                                Text("/10")
-                            }
-                            .font(.napzakFont(.caption3Medium12))
-                            .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                            .foregroundStyle(Color.napzakGrayScale(.gray500))
-                        }
-                        .frame(width: 80, height: 80)
-                        .font(.napzakFont(.caption2SemiBold12))
-                        .applyNapzakTextStyle(napzakFontStyle: .caption2SemiBold12)
-                        .background(Color.napzakGrayScale(.gray100))
-                        .foregroundStyle(Color.napzakGrayScale(.gray500))
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                    }
-                    
-                    ForEach(0..<images.count, id: \.self) { i in
-                        ZStack{
-                            Image(uiImage: images[i])
-                                .resizable()
-                                .scaledToFill()
-                                .frame(width: 80, height: 80)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .onLongPressGesture {
-                                    let movedImage = images.remove(at: i) // 현재 인덱스의 이미지를 삭제하고 저장
-                                    images.insert(movedImage, at: 0) // 맨 앞으로 삽입
-                                }
-                            
-                            if i == 0 {
-                                VStack{
-                                    Spacer()
-                                    Text("대표")
-                                        .font(.napzakFont(.caption3Medium12))
-                                        .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                                        .frame(maxWidth: .infinity)
-                                        .padding(.vertical, 2)
-                                        .background(Color.napzakTransparency(.black70))
-                                        .foregroundStyle(.white)
-                                        .clipShape(
-                                            .rect(
-                                                bottomLeadingRadius: 12,
-                                                bottomTrailingRadius: 12
-                                            )
-                                        )
-                                }
-                            }
-                            
-                            Button(action: {
-                                images.remove(at: i)
-                            }, label: {
-                                Image(.icXCircleBlack)
-                            })
-                            .frame(width: 24, height: 24)
-                            .position(CGPoint(x: 74, y: 8))
-                            
-                        }
-                    }
-                }
-                .padding(.top, 12)
-            }
-            
+            titleSection
+            descriptionSection
+            imageScrollSection
         }
         .onChange(of: photosPickerItem) { _ in
-            Task {
-                for item in photosPickerItem {
-                    if let data = try? await item.loadTransferable(type: Data.self) {
-                        if let image = UIImage(data: data) {
-                            images.append(image)
-                        }
+            handlePhotoPickerChange()
+        }
+    }
+}
+
+// MARK: - Subviews and Functions
+
+extension RegisterImage {
+    
+    private var titleSection: some View {
+        Text("상품 이미지")
+            .font(.napzakFont(.body2SemiBold16))
+            .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+            .foregroundStyle(Color.napzakGrayScale(.gray900))
+    }
+    
+    private var descriptionSection: some View {
+        Text("다양한 상품 이미지를 등록하면 판매 확률이 올라가요!")
+            .font(.napzakFont(.body6Medium14))
+            .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
+            .foregroundStyle(Color.napzakGrayScale(.gray600))
+    }
+    
+    private var imageScrollSection: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack {
+                photoPickerButton
+                
+                ForEach(0..<images.count, id: \.self) { index in
+                    imageItemView(for: index)
+                }
+            }
+            .padding(.top, 12)
+        }
+    }
+    
+    private var photoPickerButton: some View {
+        PhotosPicker(
+            selection: $photosPickerItem,
+            maxSelectionCount: 10 - images.count,
+            selectionBehavior: .ordered,
+            matching: .images
+        ) {
+            VStack(alignment: .center) {
+                Image(.icPhoto)
+                
+                HStack(spacing: 0) {
+                    Text(images.count.description)
+                    Text("/10")
+                }
+                .font(.napzakFont(.caption3Medium12))
+                .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                .foregroundStyle(Color.napzakGrayScale(.gray500))
+            }
+            .frame(width: 80, height: 80)
+            .background(Color.napzakGrayScale(.gray100))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
+        }
+    }
+    
+    private func imageItemView(for index: Int) -> some View {
+        ZStack {
+            Image(uiImage: images[index])
+                .resizable()
+                .scaledToFill()
+                .frame(width: 80, height: 80)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .onLongPressGesture {
+                    moveImageToFront(at: index)
+                }
+            
+            if index == 0 {
+                representativeBadge
+            }
+            
+            deleteButton(at: index)
+        }
+    }
+    
+    private var representativeBadge: some View {
+        VStack {
+            Spacer()
+            Text("대표")
+                .font(.napzakFont(.caption3Medium12))
+                .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                .frame(maxWidth: .infinity)
+                .padding(.vertical, 2)
+                .background(Color.napzakTransparency(.black70))
+                .foregroundStyle(.white)
+                .clipShape(
+                    .rect(
+                        bottomLeadingRadius: 12,
+                        bottomTrailingRadius: 12
+                    )
+                )
+        }
+    }
+    
+    private func deleteButton(at index: Int) -> some View {
+        Button(action: {
+            images.remove(at: index)
+        }, label: {
+            Image(.icXCircleBlack)
+        })
+        .frame(width: 24, height: 24)
+        .position(CGPoint(x: 74, y: 8))
+    }
+    
+    private func handlePhotoPickerChange() {
+        Task {
+            for item in photosPickerItem {
+                if let data = try? await item.loadTransferable(type: Data.self) {
+                    if let image = UIImage(data: data) {
+                        images.append(image)
                     }
                 }
-                
-                photosPickerItem.removeAll()
             }
+            
+            photosPickerItem.removeAll()
         }
-        
+    }
+    
+    private func moveImageToFront(at index: Int) {
+        let movedImage = images.remove(at: index)
+        images.insert(movedImage, at: 0)
     }
 }
 
