@@ -136,7 +136,7 @@ private extension ChatView {
                 Button(action: {
                 }) {
                     Image(systemName: "plus")
-                        .foregroundColor(.gray)
+                        .foregroundColor(Color.napzakGrayScale(.gray600))
                         .frame(width: 13, height: 13)
                 }
                 .frame(width: 40, height: 40)
