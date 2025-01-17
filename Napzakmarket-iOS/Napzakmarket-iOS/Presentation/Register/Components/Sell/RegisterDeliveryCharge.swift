@@ -19,149 +19,164 @@ struct RegisterDeliveryCharge: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 12) {
-            Text("배송비")
-                .font(.napzakFont(.body2SemiBold16))
-                .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
-                .foregroundStyle(Color.napzakGrayScale(.gray900))
-            
-            HStack{
-                Button {
-                    deliveryChargeFree = true
-                } label: {
-                    Text("포함")
-                        .frame(maxWidth: .infinity, minHeight: 40)
-                        .background(deliveryChargeFree ? .white : .clear)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .foregroundStyle(
-                            deliveryChargeFree ? Color
-                                .napzakGrayScale(.gray900) : Color
-                                .napzakGrayScale(.gray600)
-                        )
-                }
-                
-                Button {
-                    deliveryChargeFree = false
-                } label: {
-                    Text("별도")
-                        .frame(maxWidth: .infinity, minHeight: 40)
-                        .background(deliveryChargeFree ? .clear : .white)
-                        .clipShape(RoundedRectangle(cornerRadius: 12))
-                        .foregroundStyle(
-                            deliveryChargeFree ? Color
-                                .napzakGrayScale(.gray600) : Color
-                                .napzakGrayScale(.gray900)
-                        )
-                }
-                
-            }
-            .padding(3)
-            .background(Color.napzakGrayScale(.gray100))
-            .clipShape(RoundedRectangle(cornerRadius: 12))
+            titleSection
+            selectDeliveryChargeSection
             
             if !deliveryChargeFree {
-                
-                // 일반 택배
-                VStack {
-                    HStack {
-                        Image(normalDelivery ? .icCheckboxSelected : .icCheckbox)
-                            .onTapGesture {
-                                normalDelivery.toggle()
-                                normalDeliveryCharge = ""
-                            }
-                        
-                        Text("일반 택배")
-                            .font(.napzakFont(.body5SemiBold14))
-                            .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                            .foregroundStyle(Color.napzakGrayScale(.gray900))
-                        
-                        Spacer()
-                        
-                        Image(systemName: normalDelivery ? "chevron.up" : "chevron.down")
-                            .foregroundColor(Color.napzakGrayScale(.gray400))
-                    }
-                    
-                    if normalDelivery {
-                        HStack {
-                            TextField("100~30,000", text: $normalDeliveryCharge)
-                                .onChange(of: normalDeliveryCharge) { newValue in
-                                    normalDeliveryCharge = newValue
-                                        .convertPrice(maxPrice: normalMaxDeliveryCharge)
-                                }
-                                .foregroundColor(Color.napzakGrayScale(.gray900))
-                                .keyboardType(.decimalPad)
-                            
-                            Text("원")
-                                .foregroundColor(Color.napzakGrayScale(.gray600))
-                        }
-                        .padding(.vertical, 11)
-                        .padding(.horizontal, 15)
-                        .frame(height: 44)
-                        .background(Color.napzakGrayScale(.gray50))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .font(.napzakFont(.body3Medium16))
-                        .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
-                        .padding(.top, 15)
-                    }
-                    
-                }
-                .padding(15)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.napzakGrayScale(.gray200), lineWidth: 1)
-                }
-                
-                // 알뜰/반값 택배
-                VStack {
-                    HStack {
-                        Image(halfDelivery ? .icCheckboxSelected : .icCheckbox)
-                            .onTapGesture {
-                                halfDelivery.toggle()
-                                halfDeliveryCharge = ""
-                            }
-                        
-                        Text("알뜰/반값 택배")
-                            .font(.napzakFont(.body5SemiBold14))
-                            .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                            .foregroundStyle(Color.napzakGrayScale(.gray900))
-                        
-                        Spacer()
-                        
-                        Image(systemName: halfDelivery ? "chevron.up" : "chevron.down")
-                            .foregroundColor(Color.napzakGrayScale(.gray400))
-                    }
-                    
-                    if halfDelivery {
-                        HStack {
-                            TextField("0~5,000", text: $halfDeliveryCharge)
-                                .onChange(of: halfDeliveryCharge) { newValue in
-                                    halfDeliveryCharge = newValue
-                                        .convertPrice(maxPrice: halfMaxDeliveryCharge)
-                                }
-                                .foregroundColor(Color.napzakGrayScale(.gray900))
-                                .keyboardType(.decimalPad)
-                            
-                            Text("원")
-                                .foregroundColor(Color.napzakGrayScale(.gray600))
-                        }
-                        .padding(.vertical, 11)
-                        .padding(.horizontal, 15)
-                        .frame(height: 44)
-                        .background(Color.napzakGrayScale(.gray50))
-                        .clipShape(RoundedRectangle(cornerRadius: 10))
-                        .font(.napzakFont(.body3Medium16))
-                        .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
-                        .padding(.top, 15)
-                    }
-                    
-                }
-                .padding(15)
-                .overlay {
-                    RoundedRectangle(cornerRadius: 12)
-                        .stroke(Color.napzakGrayScale(.gray200), lineWidth: 1)
-                }
-                
+                normalDeliveryChargeSection
+                halfDeliveryChargeSection
             }
             
+        }
+    }
+}
+
+// MARK: - Subviews
+
+extension RegisterDeliveryCharge {
+    
+    private var titleSection: some View {
+        Text("배송비")
+            .font(.napzakFont(.body2SemiBold16))
+            .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+            .foregroundStyle(Color.napzakGrayScale(.gray900))
+    }
+    
+    private var selectDeliveryChargeSection: some View {
+        HStack{
+            Button {
+                deliveryChargeFree = true
+            } label: {
+                Text("포함")
+                    .frame(maxWidth: .infinity, minHeight: 40)
+                    .background(deliveryChargeFree ? .white : .clear)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .foregroundStyle(
+                        deliveryChargeFree ? Color
+                            .napzakGrayScale(.gray900) : Color
+                            .napzakGrayScale(.gray600)
+                    )
+            }
+            
+            Button {
+                deliveryChargeFree = false
+            } label: {
+                Text("별도")
+                    .frame(maxWidth: .infinity, minHeight: 40)
+                    .background(deliveryChargeFree ? .clear : .white)
+                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                    .foregroundStyle(
+                        deliveryChargeFree ? Color
+                            .napzakGrayScale(.gray600) : Color
+                            .napzakGrayScale(.gray900)
+                    )
+            }
+            
+        }
+        .padding(3)
+        .background(Color.napzakGrayScale(.gray100))
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+    }
+    
+    private var normalDeliveryChargeSection: some View {
+        VStack {
+            HStack {
+                Image(normalDelivery ? .icCheckboxSelected : .icCheckbox)
+                    .onTapGesture {
+                        normalDelivery.toggle()
+                        normalDeliveryCharge = ""
+                    }
+                
+                Text("일반 택배")
+                    .font(.napzakFont(.body5SemiBold14))
+                    .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+                    .foregroundStyle(Color.napzakGrayScale(.gray900))
+                
+                Spacer()
+                
+                Image(systemName: normalDelivery ? "chevron.up" : "chevron.down")
+                    .foregroundColor(Color.napzakGrayScale(.gray400))
+            }
+            
+            if normalDelivery {
+                HStack {
+                    TextField("100~30,000", text: $normalDeliveryCharge)
+                        .onChange(of: normalDeliveryCharge) { newValue in
+                            normalDeliveryCharge = newValue
+                                .convertPrice(maxPrice: normalMaxDeliveryCharge)
+                        }
+                        .foregroundColor(Color.napzakGrayScale(.gray900))
+                        .keyboardType(.decimalPad)
+                    
+                    Text("원")
+                        .foregroundColor(Color.napzakGrayScale(.gray600))
+                }
+                .padding(.vertical, 11)
+                .padding(.horizontal, 15)
+                .frame(height: 44)
+                .background(Color.napzakGrayScale(.gray50))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .font(.napzakFont(.body3Medium16))
+                .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
+                .padding(.top, 15)
+            }
+            
+        }
+        .padding(15)
+        .overlay {
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.napzakGrayScale(.gray200), lineWidth: 1)
+        }
+    }
+    
+    private var halfDeliveryChargeSection: some View {
+        VStack {
+            HStack {
+                Image(halfDelivery ? .icCheckboxSelected : .icCheckbox)
+                    .onTapGesture {
+                        halfDelivery.toggle()
+                        halfDeliveryCharge = ""
+                    }
+                
+                Text("알뜰/반값 택배")
+                    .font(.napzakFont(.body5SemiBold14))
+                    .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+                    .foregroundStyle(Color.napzakGrayScale(.gray900))
+                
+                Spacer()
+                
+                Image(systemName: halfDelivery ? "chevron.up" : "chevron.down")
+                    .foregroundColor(Color.napzakGrayScale(.gray400))
+            }
+            
+            if halfDelivery {
+                HStack {
+                    TextField("0~5,000", text: $halfDeliveryCharge)
+                        .onChange(of: halfDeliveryCharge) { newValue in
+                            halfDeliveryCharge = newValue
+                                .convertPrice(maxPrice: halfMaxDeliveryCharge)
+                        }
+                        .foregroundColor(Color.napzakGrayScale(.gray900))
+                        .keyboardType(.decimalPad)
+                    
+                    Text("원")
+                        .foregroundColor(Color.napzakGrayScale(.gray600))
+                }
+                .padding(.vertical, 11)
+                .padding(.horizontal, 15)
+                .frame(height: 44)
+                .background(Color.napzakGrayScale(.gray50))
+                .clipShape(RoundedRectangle(cornerRadius: 10))
+                .font(.napzakFont(.body3Medium16))
+                .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
+                .padding(.top, 15)
+            }
+            
+        }
+        .padding(15)
+        .overlay {
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.napzakGrayScale(.gray200), lineWidth: 1)
         }
     }
 }
