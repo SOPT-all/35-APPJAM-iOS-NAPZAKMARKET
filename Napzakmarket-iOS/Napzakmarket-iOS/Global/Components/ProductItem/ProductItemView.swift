@@ -19,15 +19,15 @@ struct ProductItemView: View {
     //MARK: - Properties
     
     let isLikeButtonExist: Bool
+    let width: CGFloat
     
     //MARK: - Main Body
     
     var body: some View {
-        VStack(alignment: .leading) {
+        VStack() {
             productMain
             productInfo
         }
-        .frame(height: 254)
     }
 }
 
@@ -40,6 +40,7 @@ extension ProductItemView {
             //추후 Image() 요소로 변경 예정
             Rectangle()
                 .fill(Color.napzakGrayScale(.gray300))
+                .frame(width: width, height: width)
             HStack(alignment: .bottom) {
                 switch product.productType {
                 case .buy:
@@ -56,7 +57,9 @@ extension ProductItemView {
                     likeButton
                 }
             }
+            .frame(maxWidth: .infinity, alignment: .center)
         }
+        .frame(width: width, height: width)
     }
     
     private var likeButton: some View {
@@ -95,5 +98,26 @@ extension ProductItemView {
                 .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                 .foregroundStyle(Color.napzakGrayScale(.gray400))
         }
+        .frame(width: width)
     }
+}
+
+#Preview {
+    let mock = ProductModel(
+        id: 1,
+        isLiked: true,
+        genreName: "산리오",
+        productName: "딸기 마이멜로디 마스코트 인형",
+        price: "35,000원",
+        uploadTime: "3시간 전",
+        productType: .sell,
+        isPriceNegotiable: false
+    )
+    
+    ProductItemView(
+        product: mock,
+        isLikeButtonExist: false,
+        width: 160
+    )
+    .frame(height: 254)
 }
