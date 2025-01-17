@@ -82,6 +82,7 @@ extension ProductItemView {
                 .font(.napzakFont(.body6Medium14))
                 .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                 .foregroundStyle(Color.napzakGrayScale(.gray800))
+                .lineLimit(1)
             HStack {
                 if let isPriceNegotiable = product.isPriceNegotiable {
                     if isPriceNegotiable {

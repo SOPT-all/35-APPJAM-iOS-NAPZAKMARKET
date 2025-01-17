@@ -52,7 +52,7 @@ struct HomeView: View {
                         .padding(.trailing, 20)
                     }
                     
-                    MostLikedProductsView(width: width, products: $buyProducts)
+                    MostLikedProductsView(width: width, products: $sellProducts)
                 }
                 .padding(.top, 50)
                 .padding(.horizontal, 20)
@@ -93,8 +93,7 @@ extension HomeView {
         var body: some View {
             HStack() {
                 Image(.imgLogo)
-                    .padding(.top, 19)
-                    .padding(.bottom, 15)
+                    .padding(.vertical, 15)
                     .padding(.leading, 20)
                 
                 Spacer()
@@ -205,7 +204,6 @@ extension HomeView {
                         )
                     }
                 }
-                .background(Color.blue)
             }
         }
     }
@@ -278,7 +276,6 @@ extension HomeView {
                     )
                 }
             }
-            .background(Color.red)
         }
     }
     
