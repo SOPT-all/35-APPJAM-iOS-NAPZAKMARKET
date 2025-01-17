@@ -14,35 +14,46 @@ struct RegisterSellPrice: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            Text("가격")
-                .font(.napzakFont(.body2SemiBold16))
-                .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+            titleSection
+            inputPriceSection
+        }
+    }
+}
+
+// MARK: - Subviews
+
+extension RegisterSellPrice {
+    
+    private var titleSection : some View {
+        Text("가격")
+            .font(.napzakFont(.body2SemiBold16))
+            .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+            .foregroundStyle(Color.napzakGrayScale(.gray900))
+            .padding(.bottom, 12)
+    }
+    
+    private var inputPriceSection: some View {
+        HStack(alignment: .center, spacing: 2){
+            TextField("0", text: $price)
+                .keyboardType(.decimalPad)
+                .font(.napzakFont(.body3Medium16))
+                .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
                 .foregroundStyle(Color.napzakGrayScale(.gray900))
-                .padding(.bottom, 12)
+                .onChange(of: price) { newValue in
+                    price = newValue.convertPrice(maxPrice: maxPrice)
+                }
             
-            HStack(alignment: .center, spacing: 2){
-                TextField("0", text: $price)
-                    .keyboardType(.decimalPad)
-                    .font(.napzakFont(.body3Medium16))
-                    .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
-                    .foregroundStyle(Color.napzakGrayScale(.gray900))
-                    .onChange(of: price) { newValue in
-                        price = newValue.convertPrice(maxPrice: maxPrice)
-                    }
-                
-                Text("원")
-                    .font(.napzakFont(.body3Medium16))
-                    .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
-                    .foregroundStyle(Color.napzakGrayScale(.gray600))
-            }
-            .frame(height: 22)
-            .padding(.horizontal, 14)
-            .padding(.vertical, 11)
-            .overlay {
-                RoundedRectangle(cornerRadius: 12)
-                    .stroke(Color.napzakGrayScale(.gray200), lineWidth: 1)
-            }
-            
+            Text("원")
+                .font(.napzakFont(.body3Medium16))
+                .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
+                .foregroundStyle(Color.napzakGrayScale(.gray600))
+        }
+        .frame(height: 22)
+        .padding(.horizontal, 14)
+        .padding(.vertical, 11)
+        .overlay {
+            RoundedRectangle(cornerRadius: 12)
+                .stroke(Color.napzakGrayScale(.gray200), lineWidth: 1)
         }
     }
 }
