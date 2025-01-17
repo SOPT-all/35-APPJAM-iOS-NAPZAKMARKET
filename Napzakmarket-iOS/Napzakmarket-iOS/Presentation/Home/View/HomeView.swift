@@ -280,7 +280,3 @@ extension HomeView {
     }
     
 }
-
-#Preview {
-    HomeView()
-}
