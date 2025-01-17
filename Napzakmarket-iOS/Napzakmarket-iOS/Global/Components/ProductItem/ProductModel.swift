@@ -216,4 +216,99 @@ extension ProductModel {
             )
         ]
     }
+    
+    static func recommendedDummyList() -> [ProductModel] {
+        return [
+            ProductModel(
+                id: 1,
+                isLiked: true,
+                genreName: "산리오",
+                productName: "딸기 마이멜로디 마스코트 인형",
+                price: "35,000원",
+                uploadTime: "3시간 전",
+                productType: .sell,
+                isPriceNegotiable: false
+            ),
+            ProductModel(
+                id: 2,
+                isLiked: false,
+                genreName: "산리오",
+                productName: "딸기 마이멜로디 마스코트 인형",
+                price: "35,000원",
+                uploadTime: "3시간 전",
+                productType: .buy,
+                isPriceNegotiable: true
+            ),
+            ProductModel(
+                id: 3,
+                isLiked: true,
+                genreName: "산리오",
+                productName: "딸기 마이멜로디 마스코트 인형",
+                price: "35,000원",
+                uploadTime: "3시간 전",
+                productType: .sell,
+                isPriceNegotiable: false
+            ),
+            ProductModel(
+                id: 4,
+                isLiked: false,
+                genreName: "산리오",
+                productName: "딸기 마이멜로디 마스코트 인형",
+                price: "35,000원",
+                uploadTime: "3시간 전",
+                productType: .buy,
+                isPriceNegotiable: true
+            ),
+            ProductModel(
+                id: 5,
+                isLiked: false,
+                genreName: "산리오",
+                productName: "딸기 마이멜로디 마스코트 인형",
+                price: "35,000원",
+                uploadTime: "3시간 전",
+                productType: .sell,
+                isPriceNegotiable: false
+            ),
+            ProductModel(
+                id: 6,
+                isLiked: false,
+                genreName: "산리오",
+                productName: "딸기 마이멜로디 마스코트 인형",
+                price: "35,000원",
+                uploadTime: "3시간 전",
+                productType: .buy,
+                isPriceNegotiable: true
+            ),
+            ProductModel(
+                id: 7,
+                isLiked: false,
+                genreName: "산리오",
+                productName: "딸기 마이멜로디 마스코트 인형",
+                price: "35,000원",
+                uploadTime: "3시간 전",
+                productType: .sell,
+                isPriceNegotiable: false
+            ),
+            ProductModel(
+                id: 8,
+                isLiked: false,
+                genreName: "산리오",
+                productName: "딸기 마이멜로디 마스코트 인형",
+                price: "35,000원",
+                uploadTime: "3시간 전",
+                productType: .buy,
+                isPriceNegotiable: false
+            ),
+            ProductModel(
+                id: 9,
+                isLiked: false,
+                genreName: "산리오",
+                productName: "딸기 마이멜로디 마스코트 인형",
+                price: "35,000원",
+                uploadTime: "3시간 전",
+                productType: .sell,
+                isPriceNegotiable: false
+            )
+        ]
+    }
 }
