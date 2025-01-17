@@ -10,27 +10,33 @@ import SwiftUI
 struct OnboardingView: View {
     
     // MARK: - Properties
-    
+    @EnvironmentObject var appState: AppState
     @StateObject private var genreModel = GenreModel()
-    @Binding var isOnboardingComplete: Bool
+    @FocusState private var isSearchBarFocused: Bool
     
     // MARK: - Main Body
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            TitleView()
-            
-            SearchBar(
-                placeholder: "원하는 장르를 직접 입력해 검색해보세요.",
-                text: $genreModel.searchText
-            )
-            .onChange(of: genreModel.searchText) { _ in
-                Task {
-                    try? await genreModel.fetchGenresFiltered()
+            Group {
+                TitleView()
+                
+                SearchBar(
+                    placeholder: "원하는 장르를 직접 입력해 검색해보세요.",
+                    text: $genreModel.searchText,
+                    isSearchBarFocused: _isSearchBarFocused
+                )
+                .onChange(of: genreModel.searchText) { _ in
+                    Task {
+                        try? await genreModel.fetchGenresFiltered()
+                    }
                 }
             }
+            .padding(.horizontal, 20)
+            .background(Color.napzakGrayScale(.white))
+            .zIndex(1)
             
-            if !genreModel.selectedGenres.isEmpty {
+            ZStack(alignment: .top) {
                 ChipsContainerView(
                     selectedGenres: .init(
                         get: { genreModel.selectedGenres.map { $0.name } },
@@ -41,23 +47,34 @@ struct OnboardingView: View {
                         }
                     )
                 )
-                .transition(.opacity)
-                .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
+                .padding(.horizontal, 20)
+                .frame(height: genreModel.selectedGenres.isEmpty ? 0 : nil, alignment: .top)
+                .offset(y: genreModel.selectedGenres.isEmpty ? -60 : 0)
+                    .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
             }
             
-            GenreGridView(
-                genres: $genreModel.genres,
-                selectedGenres: $genreModel.selectedGenres
-            )
-            .transition(.opacity)
-            .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
-            
-            FinalActionsView(
-                isOnboardingComplete: $isOnboardingComplete,
-                selectedGenres: $genreModel.selectedGenres
-            )
+            VStack(spacing: 0) {
+                GenreGridView(
+                    genres: $genreModel.genres,
+                    selectedGenres: $genreModel.selectedGenres
+                )
+                .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
+                .onTapGesture {
+                    if isSearchBarFocused {
+                        isSearchBarFocused = false
+                    }
+                }
+                
+                FinalActionsView(
+                    appState: appState,
+                    selectedGenres: $genreModel.selectedGenres
+                )
+            }
+            .padding(.horizontal, 20)
         }
-        .padding(.horizontal, 20)
+        .padding(.top, 40)
+        .edgesIgnoringSafeArea(.bottom)
+        .ignoresSafeArea(.keyboard)
         .task {
             try? await genreModel.fetchGenres()
         }
@@ -85,6 +102,7 @@ extension OnboardingView {
                     .font(.napzakFont(.body5SemiBold14))
                     .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                     .foregroundStyle(Color.napzakGrayScale(.gray500))
+                    .frame(height: 20)
             }
             .padding(.bottom, 32)
         }
@@ -94,7 +112,7 @@ extension OnboardingView {
         
         // MARK: - Properties
         
-        @Binding var isOnboardingComplete: Bool
+        @ObservedObject var appState: AppState
         @Binding var selectedGenres: [Genre]
         
         // MARK: - Main Body
@@ -102,7 +120,7 @@ extension OnboardingView {
         var body: some View {
             VStack(spacing: 0) {
                 Button {
-                    isOnboardingComplete = true
+                    appState.moveToMain()
                 } label: {
                     Text("선택완료! 시작하기")
                         .font(.napzakFont(.body1Bold16))
@@ -115,7 +133,7 @@ extension OnboardingView {
                 .disabled(selectedGenres.isEmpty)
                 
                 Button {
-                    isOnboardingComplete = true
+                    appState.moveToMain()
                 } label: {
                     Text("나중에 설정할래요")
                         .font(.napzakFont(.body2SemiBold16))
@@ -125,6 +143,7 @@ extension OnboardingView {
                 }
                 Spacer()
             }
+            .padding(.horizontal, 20)
             .frame(height: 140)
         }
     }
