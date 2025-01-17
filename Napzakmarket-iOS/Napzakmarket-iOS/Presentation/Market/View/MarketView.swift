@@ -76,18 +76,21 @@ struct MarketView: View {
                                 ForEach(sellProducts) { product in
                                     ProductItemView(
                                         product: product,
-                                        isLikeButtonExist: false
+                                        isLikeButtonExist: false,
+                                        width: 160
                                     )
                                 }
                             } else {
                                 ForEach(buyProducts) { product in
                                     ProductItemView(
                                         product: product,
-                                        isLikeButtonExist: false
+                                        isLikeButtonExist: false,
+                                        width: 160
                                     )
                                 }
                             }
                         }
+                        .frame(height: 254)
                     }
                     .padding(.horizontal, 20)
                 }

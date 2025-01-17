@@ -133,18 +133,21 @@ extension SearchView {
                         ForEach(sellProducts) { product in
                             ProductItemView(
                                 product: product,
-                                isLikeButtonExist: true
+                                isLikeButtonExist: true,
+                                width: 160
                             )
                         }
                     } else if selectedIndex == 1 {
                         ForEach(buyProducts) { product in
                             ProductItemView(
                                 product: product,
-                                isLikeButtonExist: true
+                                isLikeButtonExist: true,
+                                width: 160
                             )
                         }
                     }
                 }
+                .frame(height: 254)
             }
         }
         .padding(.horizontal, 20)
