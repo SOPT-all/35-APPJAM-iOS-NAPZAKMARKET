@@ -216,13 +216,13 @@ extension ProductDetailView {
                         .frame(width: 1, height: 14)
                         .padding(.horizontal, 13)
                 }
-                if product.productDetail.standardDeliveryFee != 0 {
+                if product.productDetail.halfDeliveryFee != 0 {
                     Text("반값/알뜰")
                         .font(.napzakFont(.body6Medium14))
                         .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                         .foregroundStyle(Color.napzakGrayScale(.gray700))
                         .padding(.trailing, 6)
-                    Text("\(String(product.productDetail.standardDeliveryFee).convertPrice(maxPrice: 1_000_000))원")
+                    Text("\(String(product.productDetail.halfDeliveryFee).convertPrice(maxPrice: 1_000_000))원")
                         .font(.napzakFont(.body2SemiBold16))
                         .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                         .foregroundStyle(Color.napzakGrayScale(.gray900))
