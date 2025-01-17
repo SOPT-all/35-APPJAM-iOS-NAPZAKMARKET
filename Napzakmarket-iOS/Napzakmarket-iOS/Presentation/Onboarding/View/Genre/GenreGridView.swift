@@ -23,26 +23,53 @@ struct GenreGridView: View {
     // MARK: - Properties
     
     var body: some View {
-        ScrollView {
-            LazyVGrid(columns: colums, spacing: 20) {
-                ForEach(genres) { genre in
-                    GenreCell(
-                        genre: genre,
-                        isSelected: Binding(
-                            get: { selectedGenres.contains(genre) },
-                            set: { isSelected in
-                                if isSelected {
-                                    if selectedGenres.count < 4 {
-                                        selectedGenres.append(genre)
+        ZStack {
+            ScrollView {
+                LazyVGrid(columns: colums, spacing: 20) {
+                    ForEach(genres) { genre in
+                        GenreCell(
+                            genre: genre,
+                            isSelected: Binding(
+                                get: { selectedGenres.contains(genre) },
+                                set: { isSelected in
+                                    if isSelected {
+                                        if selectedGenres.count < 4 {
+                                            selectedGenres.append(genre)
+                                        }
+                                    } else {
+                                        selectedGenres.removeAll(where: { $0.id == genre.id })
                                     }
-                                } else {
-                                    selectedGenres.removeAll(where: { $0.id == genre.id })
                                 }
-                            }
+                            )
                         )
-                    )
+                    }
                 }
+                .padding(.top, 32)
+                .padding(.bottom, 70)
             }
+            
+            VStack {
+                LinearGradient(
+                    colors: [Color.napzakGradient(.gradient1SecondColor),
+                             Color.napzakGradient(.gradient1FirstColor)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .frame(height: 32)
+                .padding(.top, -30)
+                
+                Spacer()
+                
+                LinearGradient(
+                    colors: [Color.napzakGradient(.gradient1FirstColor),
+                             Color.napzakGradient(.gradient1SecondColor)],
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+                .frame(height: 32)
+            }
+            .padding(.top, 30)
+            .allowsHitTesting(false)
         }
     }
     

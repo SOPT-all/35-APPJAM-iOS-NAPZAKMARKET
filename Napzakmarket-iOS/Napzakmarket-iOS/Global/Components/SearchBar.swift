@@ -14,7 +14,7 @@ struct SearchBar: View {
     let placeholder: String
     
     @Binding var text: String
-    @FocusState private var isFocused: Bool
+    @FocusState var isSearchBarFocused: Bool
     
     // MARK: - Main Body
     
@@ -23,7 +23,7 @@ struct SearchBar: View {
             TextField(placeholder, text: $text)
                 .font(.napzakFont(.body5SemiBold14))
                 .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                .focused($isFocused)
+                .focused($isSearchBarFocused)
             
             HStack(spacing: 4) {
                 if !text.isEmpty {
@@ -37,7 +37,7 @@ struct SearchBar: View {
                 
                 Button {
                     if text.isEmpty {
-                        isFocused = true
+                        isSearchBarFocused = true
                     } else {
                         // TODO: 엔터 역할
                         print("돋보기 Tapped: \(text)")

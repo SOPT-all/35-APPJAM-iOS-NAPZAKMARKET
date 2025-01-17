@@ -48,8 +48,8 @@ struct RegisterDeliveryCharge: View {
                         .clipShape(RoundedRectangle(cornerRadius: 12))
                         .foregroundStyle(
                             deliveryChargeFree ? Color
-                                .napzakGrayScale(.gray900) : Color
-                                .napzakGrayScale(.gray600)
+                                .napzakGrayScale(.gray600) : Color
+                                .napzakGrayScale(.gray900)
                         )
                 }
                 
