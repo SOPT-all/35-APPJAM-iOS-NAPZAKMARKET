@@ -15,24 +15,33 @@ struct RegisterGenre: View {
             RegisterSearch(genre: $genre)
                 
         } label: {
-            HStack {
-                Text("장르")
-                    .foregroundStyle(Color.napzakGrayScale(.gray900))
-                Spacer()
-                Text(genre)
-                    .foregroundStyle(Color.napzakPurple(.purple30))
+            VStack(spacing: 0){
+                HStack(alignment: .center) {
+                    Text("장르")
+                        .foregroundStyle(Color.napzakGrayScale(.gray900))
+                    Spacer()
+                    Text(genre)
+                        .foregroundStyle(Color.napzakPurple(.purple30))
+                    
+                    Image(systemName: "chevron.right")
+                        .foregroundStyle(Color.napzakGrayScale(.gray400))
+                }
+                .font(.napzakFont(.body2SemiBold16))
+                .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
+                .padding(.bottom, 20)
                 
-                Image(systemName: "chevron.right")
-                    .foregroundStyle(Color.napzakGrayScale(.gray400))
+                HStack{
+                    
+                }
+                .frame(maxWidth: .infinity)
+                .frame(height: 1)
+                .background(Color.napzakGrayScale(.gray200))
+
             }
-            .font(.napzakFont(.body2SemiBold16))
-            .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
         }
         .padding(20)
         
-        Divider()
-            .frame(height: 1)
-            .background(Color.napzakGrayScale(.gray200))
-            .padding(.horizontal, 20)
+        
     }
 }
+

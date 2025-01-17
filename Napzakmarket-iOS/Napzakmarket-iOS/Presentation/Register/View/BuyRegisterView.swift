@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct BuyRegisterView: View {
+    @State private var images: [UIImage] = []
     @State private var title = ""
     @State private var description = ""
     @State private var genre = ""
@@ -19,7 +20,8 @@ struct BuyRegisterView: View {
             VStack(alignment: .leading) {
                 
                 // 상품 이미지
-                RegisterImage()
+                RegisterImage(images: $images)
+
                 
                 // 장르
                 RegisterGenre(genre: $genre)

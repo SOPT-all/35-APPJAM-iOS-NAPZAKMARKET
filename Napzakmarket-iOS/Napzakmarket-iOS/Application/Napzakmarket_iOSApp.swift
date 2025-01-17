@@ -9,9 +9,18 @@ import SwiftUI
 
 @main
 struct Napzakmarket_iOSApp: App {
+    
+    // MARK: - Properties
+    
+    @StateObject private var appState = AppState()
+    
+    // MARK: - Main Body
+    
     var body: some Scene {
         WindowGroup {
             AppEntryView()
+                .environmentObject(appState)
         }
     }
+    
 }
