@@ -34,35 +34,38 @@ struct RegisterView: View {
                 BuyRegisterView(registerModel: registerModel)
             }
             
-            Button(action: {
-                print("등록 버튼 클릭")
-            }) {
-                Text("등록하기")
-                    .font(.napzakFont(.body1Bold16))
-                    .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity, minHeight: 52)
-            }
-            .background(content: {
-                switch registerType {
-                case .sell:
-                    registerModel.sellValidate()
-                    ? Color.napzakPurple(.purple30)
-                    : Color.napzakGrayScale(.gray400)
-                case .buy:
-                    registerModel.buyValidate()
-                    ? Color.napzakPurple(.purple30)
-                    : Color.napzakGrayScale(.gray400)
-                }
-            })
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .padding(.horizontal, 20)
-            .padding(.bottom, 35)
+            registerButton
         }
         .scrollIndicators(.hidden)
     }
 }
 
-#Preview {
-    TabBarView()
+extension RegisterView {
+    
+    private var registerButton: some View {
+        Button(action: {
+            print("등록 버튼 클릭")
+        }) {
+            Text("등록하기")
+                .font(.napzakFont(.body1Bold16))
+                .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity, minHeight: 52)
+        }
+        .background(content: {
+            switch registerType {
+            case .sell:
+                registerModel.sellValidate()
+                ? Color.napzakPurple(.purple30)
+                : Color.napzakGrayScale(.gray400)
+            case .buy:
+                registerModel.buyValidate()
+                ? Color.napzakPurple(.purple30)
+                : Color.napzakGrayScale(.gray400)
+            }
+        })
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(.horizontal, 20)
+        .padding(.bottom, 35)
+    }
 }
