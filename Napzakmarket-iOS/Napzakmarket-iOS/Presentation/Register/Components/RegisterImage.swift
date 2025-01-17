@@ -9,10 +9,19 @@ import SwiftUI
 import PhotosUI
 
 struct RegisterImage: View {
-    @Binding var images: [UIImage]
-    
+    @Binding var selectedImages: [UIImage]
     @State private var photosPickerItem: [PhotosPickerItem] = []
     
+    private let maxSelectedCount = 10
+    
+    private var disabled: Bool {
+        selectedImages.count >= maxSelectedCount
+    }
+    
+    private var availableSelectedCount: Int {
+        maxSelectedCount - selectedImages.count
+    }
+        
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             titleSection
@@ -48,7 +57,7 @@ extension RegisterImage {
             HStack {
                 photoPickerButton
                 
-                ForEach(0..<images.count, id: \.self) { index in
+                ForEach(0..<selectedImages.count, id: \.self) { index in
                     imageItemView(for: index)
                 }
             }
@@ -59,7 +68,7 @@ extension RegisterImage {
     private var photoPickerButton: some View {
         PhotosPicker(
             selection: $photosPickerItem,
-            maxSelectionCount: 10 - images.count,
+            maxSelectionCount: availableSelectedCount,
             selectionBehavior: .ordered,
             matching: .images
         ) {
@@ -67,7 +76,7 @@ extension RegisterImage {
                 Image(.icPhoto)
                 
                 HStack(spacing: 0) {
-                    Text(images.count.description)
+                    Text(selectedImages.count.description)
                     Text("/10")
                 }
                 .font(.napzakFont(.caption3Medium12))
@@ -78,11 +87,13 @@ extension RegisterImage {
             .background(Color.napzakGrayScale(.gray100))
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
+        .disabled(disabled)
+
     }
     
     private func imageItemView(for index: Int) -> some View {
         ZStack {
-            Image(uiImage: images[index])
+            Image(uiImage: selectedImages[index])
                 .resizable()
                 .scaledToFill()
                 .frame(width: 80, height: 80)
@@ -120,7 +131,7 @@ extension RegisterImage {
     
     private func deleteButton(at index: Int) -> some View {
         Button(action: {
-            images.remove(at: index)
+            selectedImages.remove(at: index)
         }, label: {
             Image(.icXCircleBlack)
         })
@@ -133,7 +144,7 @@ extension RegisterImage {
             for item in photosPickerItem {
                 if let data = try? await item.loadTransferable(type: Data.self) {
                     if let image = UIImage(data: data) {
-                        images.append(image)
+                        selectedImages.append(image)
                     }
                 }
             }
@@ -143,11 +154,7 @@ extension RegisterImage {
     }
     
     private func moveImageToFront(at index: Int) {
-        let movedImage = images.remove(at: index)
-        images.insert(movedImage, at: 0)
+        let movedImage = selectedImages.remove(at: index)
+        selectedImages.insert(movedImage, at: 0)
     }
-}
-
-#Preview {
-    TabBarView()
 }

@@ -18,8 +18,9 @@ struct Napzakmarket_iOSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            AppEntryView()
-                .environmentObject(appState)
+//            AppEntryView()
+//                .environmentObject(appState)
+            TabBarView()
         }
     }
     

@@ -15,7 +15,7 @@ struct SellRegisterView: View {
             VStack(alignment: .leading) {
                 
                 // 상품 이미지
-                RegisterImage(images: $registerModel.registerInfo.images)
+                RegisterImage(selectedImages: $registerModel.registerInfo.images)
                     .padding(.top, 15)
                     .padding(.bottom, 40)
                     .padding(.horizontal, 20)
