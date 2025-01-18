@@ -132,7 +132,6 @@ struct MyPageView: View {
                 Text(menu.title)
                     .font(.napzakFont(.body6Medium14))
                     .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
-                    .font(.system(size: 13))
                     .foregroundColor(Color.napzakGrayScale(.gray700))
             }
         }
