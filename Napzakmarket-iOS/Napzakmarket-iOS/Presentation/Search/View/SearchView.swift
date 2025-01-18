@@ -15,11 +15,13 @@ struct SearchView: View {
     @State var sellProducts = ProductModel.sellDummyList()
     @State var buyProducts = ProductModel.buyDummyList()
     
+    let width = (UIScreen.main.bounds.width - 55) / 2
+    
     //MARK: - Properties
     
     private let columns = [
         GridItem(.flexible(), spacing: 15),
-        GridItem(.flexible(), spacing: 15)
+        GridItem(.flexible())
     ]
     
     //MARK: - Main Body
@@ -134,7 +136,7 @@ extension SearchView {
                             ProductItemView(
                                 product: product,
                                 isLikeButtonExist: true,
-                                width: 160
+                                width: width
                             )
                         }
                     } else if selectedIndex == 1 {
@@ -142,12 +144,11 @@ extension SearchView {
                             ProductItemView(
                                 product: product,
                                 isLikeButtonExist: true,
-                                width: 160
+                                width: width
                             )
                         }
                     }
                 }
-                .frame(height: 254)
             }
         }
         .padding(.horizontal, 20)

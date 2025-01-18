@@ -16,10 +16,12 @@ struct MarketView: View {
     @State private var selectedIndex = 0
     @State private var sellProducts = ProductModel.sellDummyList()
     @State private var buyProducts = ProductModel.buyDummyList()
+    
+    let width = (UIScreen.main.bounds.width - 55) / 2
    
     private let columns = [
         GridItem(.flexible(), spacing: 15),
-        GridItem(.flexible(), spacing: 15)
+        GridItem(.flexible())
     ]
    
     var body: some View {
@@ -77,7 +79,7 @@ struct MarketView: View {
                                     ProductItemView(
                                         product: product,
                                         isLikeButtonExist: false,
-                                        width: 160
+                                        width: width
                                     )
                                 }
                             } else {
@@ -85,12 +87,11 @@ struct MarketView: View {
                                     ProductItemView(
                                         product: product,
                                         isLikeButtonExist: false,
-                                        width: 160
+                                        width: width
                                     )
                                 }
                             }
                         }
-                        .frame(height: 254)
                     }
                     .padding(.horizontal, 20)
                 }
