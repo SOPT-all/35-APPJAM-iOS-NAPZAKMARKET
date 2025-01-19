@@ -54,7 +54,7 @@ struct RegisterSearch: View {
         "헌터x헌터",
         "화산귀환"
     ]
-    
+        
     var body: some View {
         VStack{
             Divider()
@@ -63,29 +63,7 @@ struct RegisterSearch: View {
             SearchBar(placeholder: "예) 건담, 산리오, 주술회전", text: $text)
                 .padding(.horizontal, 20)
             
-            List {
-                ForEach(list.filter({"\($0)".contains(self.text) || self.text.isEmpty}),
-                        id: \.self) { item in
-                    HStack{
-                        Text(item)
-                            .font(.napzakFont(.body5SemiBold14))
-                            .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                            .foregroundStyle(Color.napzakGrayScale(.gray800))
-                            .frame(maxWidth: .infinity, alignment: .leading)
-                            .background(.white)
-                    }
-                    .padding(.vertical, 20)
-                    .onTapGesture {
-                        genre = item
-                        dismiss()
-                    }
-                }
-                .listRowInsets(.init()) // remove insets
-                
-            }
-            .listStyle(.plain)
-            .environment(\.defaultMinListRowHeight, 0) // reset default row minimum height
-            .padding(.horizontal, 20)
+            listSection
 
         }
         .navigationTitle("장르")
@@ -106,5 +84,36 @@ struct RegisterSearch: View {
         }
 
 
+    }
+}
+
+// MARK: - Subviews
+
+extension RegisterSearch {
+    
+    private var listSection: some View {
+        List {
+            ForEach(list.filter({"\($0)".contains(self.text) || self.text.isEmpty}),
+                    id: \.self) { item in
+                HStack{
+                    Text(item)
+                        .font(.napzakFont(.body5SemiBold14))
+                        .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+                        .foregroundStyle(Color.napzakGrayScale(.gray800))
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                        .background(.white)
+                }
+                .padding(.vertical, 20)
+                .onTapGesture {
+                    genre = item
+                    dismiss()
+                }
+            }
+            .listRowInsets(.init()) // remove insets
+            
+        }
+        .listStyle(.plain)
+        .environment(\.defaultMinListRowHeight, 0) // reset default row minimum height
+        .padding(.horizontal, 20)
     }
 }

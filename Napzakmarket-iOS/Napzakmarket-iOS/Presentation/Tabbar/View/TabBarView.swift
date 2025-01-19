@@ -17,8 +17,8 @@ struct TabBarView: View {
     @State private var isBottomSheetVisible = false
     @State private var isTabBarHidden: Bool = false
     @State private var modalRegister = false
-    @State var registerType = false
-    
+    @State var registerType: RegisterType? = nil
+
     private let tabs: [TabItem] = TabItem.getDefaultTabs()
     
     // MARK: - Body
@@ -36,7 +36,9 @@ struct TabBarView: View {
         }
         .edgesIgnoringSafeArea(.bottom)
         .fullScreenCover(isPresented: $modalRegister) {
-            RegisterView(registerType: $registerType)
+            if let registerType = registerType {
+                RegisterView(registerType: registerType)
+            }
         }
     }
     
@@ -108,9 +110,9 @@ struct TabBarView: View {
         VStack {
             Spacer()
             VStack(spacing: 12) {
-                registerButton(type: "팔아요", icon: "ic_sell")
+                registerButton(type: .sell, icon: "ic_sell")
                 Divider()
-                registerButton(type: "구해요", icon: "ic_buy")
+                registerButton(type: .buy, icon: "ic_buy")
             }
             .padding(.horizontal, 12)
             .padding(.vertical, 15)
@@ -121,19 +123,15 @@ struct TabBarView: View {
         }
     }
     
-    private func registerButton(type: String, icon: String) -> some View {
-        Button(action: {            
-            if type == "팔아요" {
-                registerType = true
-            } else {
-                registerType = false
-            }
+    private func registerButton(type: RegisterType, icon: String) -> some View {
+        Button(action: {
+            registerType = type
             modalRegister.toggle()
             hideBottomSheet()
         }) {
             HStack {
                 Image(icon)
-                Text("\(type) 등록")
+                Text("\(type.displayName) 등록")
                     .font(.napzakFont(.body2SemiBold16))
                     .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -200,8 +198,4 @@ struct TabBarView: View {
         return isRegisterTabActive ? .caption3Medium12 :
         (selectedTab == index ? .caption1Bold12 : .caption3Medium12)
     }
-}
-
-#Preview {
-    TabBarView()
 }

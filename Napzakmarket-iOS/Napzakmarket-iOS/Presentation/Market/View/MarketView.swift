@@ -23,11 +23,14 @@ struct MarketView: View {
     @State private var isSoldoutFilterOn = false
     @State private var isUnopenFilterOn = false
    
+    
+    let width = (UIScreen.main.bounds.width - 55) / 2
+    
     private let columns = [
         GridItem(.flexible(), spacing: 15),
-        GridItem(.flexible(), spacing: 15)
+        GridItem(.flexible())
     ]
-   
+    
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
@@ -76,23 +79,23 @@ struct MarketView: View {
                                     }
                                 }
                             }
-                            .frame(height: 56)
-                            
-                            LazyVGrid(columns: columns, spacing: 20) {
-                                if selectedIndex == 0 {
-                                    ForEach(sellProducts) { product in
-                                        ProductItemView(
-                                            product: product,
-                                            isLikeButtonExist: false
-                                        )
-                                    }
-                                } else {
-                                    ForEach(buyProducts) { product in
-                                        ProductItemView(
-                                            product: product,
-                                            isLikeButtonExist: false
-                                        )
-                                    }
+                        }
+                        
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            if selectedIndex == 0 {
+                                ForEach(sellProducts) { product in
+                                    ProductItemView(
+                                        product: product,
+                                        width: width
+                                    )
+                        .frame(height: 56)
+                                }
+                            } else {
+                                ForEach(buyProducts) { product in
+                                    ProductItemView(
+                                        product: product,
+                                        width: width
+                                    )
                                 }
                             }
                         }
@@ -137,6 +140,14 @@ struct MarketView: View {
             .animation(.interactiveSpring(), value: sortModalViewIsPresented)
             .animation(.interactiveSpring(), value: filterModalViewIsPresented)
         }
+        .background(Color(.white))
+        .navigationBarHidden(true)
+        .onAppear {
+            tabBarState.isTabBarHidden = true
+        }
+        .onDisappear {
+            tabBarState.isTabBarHidden = false
+        }
     }
     
     private var filterButtons: some View {
@@ -165,7 +176,7 @@ struct MarketView: View {
                 }
             }
             .padding(.leading, 20)
-
+            
             Button {
                 isSoldoutFilterOn.toggle()
             } label: {
@@ -188,13 +199,13 @@ struct MarketView: View {
         .frame(height: 53)
         .background(Color.napzakGrayScale(.gray50))
     }
-   
+    
     private var navigationSection: some View {
         ZStack(alignment: .top) {
             Color.napzakGrayScale(.gray200)
                 .edgesIgnoringSafeArea(.top)
                 .frame(height: 138)
-           
+            
             HStack(alignment: .center, spacing: 0) {
                 Spacer()
                 Image("img_market_bg_character")
@@ -202,7 +213,7 @@ struct MarketView: View {
                     .frame(width: 138, height: 111, alignment: .trailing)
                     .padding(.top, 27)
             }
-           
+            
             HStack {
                 Button(action: {
                     dismiss()
@@ -210,13 +221,14 @@ struct MarketView: View {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(Color.napzakGrayScale(.gray900))
                         .frame(width: 48, height: 48)
+                    
                 }
                 Spacer()
             }
         }
         .frame(maxWidth: .infinity)
     }
-   
+    
     private var profileSection: some View {
         VStack(spacing: 0) {
             Image("img_profile_md")
@@ -244,7 +256,7 @@ struct MarketView: View {
                 .foregroundStyle(Color.napzakGrayScale(.gray700))
         }
     }
-   
+    
     private var tagListView: some View {
         HStack(spacing: 6) {
             ForEach(tags) { tag in

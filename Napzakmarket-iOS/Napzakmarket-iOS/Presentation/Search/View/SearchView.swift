@@ -22,11 +22,13 @@ struct SearchView: View {
     @State var isSoldoutFilterOn = false
     @State var isUnopenFilterOn = false
     
+    let width = (UIScreen.main.bounds.width - 55) / 2
+    
     //MARK: - Properties
     
     private let columns = [
         GridItem(.flexible(), spacing: 15),
-        GridItem(.flexible(), spacing: 15)
+        GridItem(.flexible())
     ]
     
     //MARK: - Main Body
@@ -131,7 +133,7 @@ extension SearchView {
                 }
             }
             .padding(.leading, 20)
-
+            
             Button {
                 print("품절 제외 필터 선택")
                 isSoldoutFilterOn.toggle()
@@ -152,7 +154,7 @@ extension SearchView {
                 }
             }
             Spacer()
-
+            
         }
         .frame(height: 53)
         .background(Color.napzakGrayScale(.gray50))
@@ -189,24 +191,24 @@ extension SearchView {
                             }
                         }
                     }
-                    .frame(height: 56)
-                    .id("header")
-                    
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        if selectedTabIndex == 0 {
-                            ForEach(sellProducts) { product in
-                                ProductItemView(
-                                    product: product,
-                                    isLikeButtonExist: true
-                                )
-                            }
-                        } else if selectedTabIndex == 1 {
-                            ForEach(buyProducts) { product in
-                                ProductItemView(
-                                    product: product,
-                                    isLikeButtonExist: true
-                                )
-                            }
+                }
+                .frame(height: 56)
+                .id("header")
+                
+                LazyVGrid(columns: columns, spacing: 20) {
+                    if selectedTabIndex == 0 {
+                        ForEach(sellProducts) { product in
+                            ProductItemView(
+                                product: product,
+                                width: width
+                            )
+                        }
+                    } else if selectedTabIndex == 1 {
+                        ForEach(buyProducts) { product in
+                            ProductItemView(
+                                product: product,
+                                width: width
+                            )
                         }
                     }
                 }
