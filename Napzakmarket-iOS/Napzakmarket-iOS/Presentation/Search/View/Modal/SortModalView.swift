@@ -60,9 +60,6 @@ struct SortModalView: View {
         .onAppear {
             tabBarState.isTabBarHidden = true
         }
-        .onDisappear {
-            tabBarState.isTabBarHidden = false
-        }
     }
 }
 
