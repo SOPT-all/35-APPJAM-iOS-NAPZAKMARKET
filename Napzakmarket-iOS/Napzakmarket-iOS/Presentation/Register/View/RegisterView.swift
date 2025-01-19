@@ -7,43 +7,65 @@
 
 import SwiftUI
 
+enum RegisterType: String {
+    case sell
+    case buy
+    
+    var displayName: String {
+        switch self {
+        case .sell: return "팔아요"
+        case .buy: return "구해요"
+        }
+    }
+}
+
 struct RegisterView: View {
-    @Binding var registerType: Bool
-    
+    var registerType: RegisterType
     @StateObject private var registerModel = RegisterModel()
-    
+
     var body: some View {
         NavigationStack {
-            if registerType {
+            switch registerType {
+            case .sell:
                 RegisterSellHeader()
-            } else {
+                SellRegisterView(registerModel: registerModel)
+            case .buy:
                 RegisterBuyHeader()
+                BuyRegisterView(registerModel: registerModel)
             }
             
-            if registerType {
-                SellRegisterView()
-            } else {
-                BuyRegisterView()
-            }
-            
-            Button(action: {
-                print(("tapped button"))
-            }, label: {
-                Text("등록하기")
-                    .font(.napzakFont(.body1Bold16))
-                    .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
-                    .foregroundStyle(.white)
-                    .frame(maxWidth: .infinity, minHeight: 52)
-            })
-            .background(
-                registerModel.filledRegisterInfo
-                ? Color.napzakPurple(.purple30)
-                : Color.napzakGrayScale(.gray400)
-            )
-            .clipShape(RoundedRectangle(cornerRadius: 12))
-            .padding(.horizontal, 20)
-            .padding(.vertical, 35)
+            registerButton
         }
         .scrollIndicators(.hidden)
+    }
+}
+
+extension RegisterView {
+    
+    private var registerButton: some View {
+        Button(action: {
+            print("등록 버튼 클릭")
+        }) {
+            Text("등록하기")
+                .font(.napzakFont(.body1Bold16))
+                .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                .foregroundStyle(.white)
+                .frame(maxWidth: .infinity, minHeight: 52)
+        }
+        .background(content: {
+            switch registerType {
+            case .sell:
+                registerModel.baseValidate() && registerModel.sellValidate()
+                ? Color.napzakPurple(.purple30)
+                : Color.napzakGrayScale(.gray400)
+            case .buy:
+                registerModel.baseValidate()
+                ? Color.napzakPurple(.purple30)
+                : Color.napzakGrayScale(.gray400)
+            }
+        })
+        .clipShape(RoundedRectangle(cornerRadius: 12))
+        .padding(.horizontal, 20)
+        .padding(.bottom, 35)
     }
 }

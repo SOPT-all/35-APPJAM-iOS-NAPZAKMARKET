@@ -8,55 +8,51 @@
 import SwiftUI
 
 struct SellRegisterView: View {
-    @State private var images: [UIImage] = []
-    @State private var title = ""
-    @State private var description = ""
-    @State private var genre = ""
-    @State private var productState = ""
-    @State private var price = ""
-    @State private var deliveryChargeFree = true        // 배달비 여부
-    @State private var normalDelivery = false           // 일반 배달비 선택 여부
-    @State private var normalDeliveryCharge = ""        // 일반 배달비 금액
-    @State private var halfDelivery = false             // 알뜰,반값 배달비 선택 여부
-    @State private var halfDeliveryCharge = ""          // 알뜰,반값 배달비 금액
+    @ObservedObject var registerModel: RegisterModel
 
     var body: some View {
         ScrollView {
             VStack(alignment: .leading) {
                 
-                // 상품 이미지
-                RegisterImage(images: $images)
-                
-                // 장르
-                RegisterGenre(genre: $genre)
-                
-                // 제목
-                RegisterTitle(title: $title)
-                
-                // 설명
-                RegisterDescription(description: $description)
-                
-                // 상품 상태
-                RegisterProductState(productState: $productState)
-                
+                RegisterImage(selectedImages: $registerModel.registerInfo.images)
+                    .padding(.top, 15)
+                    .padding(.bottom, 40)
+                    .padding(.horizontal, 20)
+
+                RegisterGenre(genre: $registerModel.registerInfo.genre)
+                    .padding(.bottom, 35)
+                    .padding(.horizontal, 20)
+
+                RegisterTitle(title: $registerModel.registerInfo.title)
+                    .padding(.bottom, 35)
+                    .padding(.horizontal, 20)
+
+                RegisterDescription(description: $registerModel.registerInfo.description)
+                    .padding(.bottom, 35)
+                    .padding(.horizontal, 20)
+
+                RegisterProductState(productState: $registerModel.registerInfo.productState)
+                    .padding(.bottom, 40)
+                    .padding(.horizontal, 20)
+
                 // 가격 구분선
                 Rectangle()
                     .fill(Color.napzakGrayScale(.gray50))
                     .frame(height: 8)
-                    .padding(.vertical, 40)
                 
-                // 가격
-                RegisterSellPrice(price: $price)
+                RegisterSellPrice(price: $registerModel.registerInfo.price)
+                    .padding(.vertical, 35)
+                    .padding(.horizontal, 20)
 
-                // 배송비
                 RegisterDeliveryCharge(
-                    deliveryChargeFree: $deliveryChargeFree,
-                    normalDelivery: $normalDelivery,
-                    normalDeliveryCharge: $normalDeliveryCharge,
-                    halfDelivery: $halfDelivery,
-                    halfDeliveryCharge: $halfDeliveryCharge
+                    deliveryChargeFree: $registerModel.registerInfo.deliveryChargeFree,
+                    normalDelivery: $registerModel.registerInfo.normalDelivery,
+                    normalDeliveryCharge: $registerModel.registerInfo.normalDeliveryCharge,
+                    halfDelivery: $registerModel.registerInfo.halfDelivery,
+                    halfDeliveryCharge: $registerModel.registerInfo.halfDeliveryCharge
                 )
-                
+                .padding(.horizontal, 20)
+
             }
             .padding(.bottom, 67)
         }
