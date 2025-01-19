@@ -193,6 +193,7 @@ extension SearchView {
                     }
                 }
                 .frame(height: 56)
+                .id("header")
                 
                 LazyVGrid(columns: columns, spacing: 20) {
                     if selectedTabIndex == 0 {
@@ -209,33 +210,13 @@ extension SearchView {
                                 width: width
                             )
                         }
-                        .frame(height: 56)
-                        .id("header")
-                        
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            if selectedTabIndex == 0 {
-                                ForEach(sellProducts) { product in
-                                    ProductItemView(
-                                        product: product,
-                                        width: width
-                                    )
-                                }
-                            } else if selectedTabIndex == 1 {
-                                ForEach(buyProducts) { product in
-                                    ProductItemView(
-                                        product: product,
-                                        width: width
-                                    )
-                                }
-                            }
-                        }
                     }
                 }
-                .padding(.horizontal, 20)
-                .onChange(of: selectedTabIndex) { _ in
-                    selectedSortOption = .latest
-                    proxy.scrollTo("header", anchor: .top)
-                }
+            }
+            .padding(.horizontal, 20)
+            .onChange(of: selectedTabIndex) { _ in
+                selectedSortOption = .latest
+                proxy.scrollTo("header", anchor: .top)
             }
         }
     }
