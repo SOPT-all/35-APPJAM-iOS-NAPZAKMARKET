@@ -63,9 +63,6 @@ struct GenreFilterModalView: View {
             selectedGenreStrings = selectedGenres.map { $0.genreName }
             tabBarState.isTabBarHidden = true
         }
-        .onDisappear {
-            tabBarState.isTabBarHidden = false
-        }
     }
 }
 
