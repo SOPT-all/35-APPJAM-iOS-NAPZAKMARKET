@@ -46,7 +46,6 @@
 		D0A7361A2D380F1C00EF2CF9 /* GenreFilterModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A736192D380F1400EF2CF9 /* GenreFilterModalView.swift */; };
 		D0A7361C2D381F6800EF2CF9 /* GenreSearchModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0A7361B2D381F6100EF2CF9 /* GenreSearchModel.swift */; };
 		D0AA20EB2D2C0A56004CC2E6 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AA20E52D2C0A56004CC2E6 /* Preview Assets.xcassets */; };
-		D0AA20EC2D2C0A56004CC2E6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D0AA20E72D2C0A56004CC2E6 /* Assets.xcassets */; };
 		D0AA20ED2D2C0A56004CC2E6 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA20E82D2C0A56004CC2E6 /* ContentView.swift */; };
 		D0AA20EE2D2C0A56004CC2E6 /* Napzakmarket_iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA20E92D2C0A56004CC2E6 /* Napzakmarket_iOSApp.swift */; };
 		D0AA21222D2C10CC004CC2E6 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = D0AA21212D2C10CC004CC2E6 /* Moya */; };
@@ -56,11 +55,14 @@
 		D0AA21332D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA21312D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf */; };
 		D0AA21342D2CFF0E004CC2E6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA21302D2CFF0E004CC2E6 /* Pretendard-Medium.otf */; };
 		D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA21352D2CFF99004CC2E6 /* FontLiterial.swift */; };
+		D61342532D3A92B800E65EFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D61342522D3A92B800E65EFD /* Assets.xcassets */; };
 		D0C26EB72D3797A10014EB4C /* SortModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C26EB62D3797980014EB4C /* SortModalView.swift */; };
 		D63F2FCC2D369B9C00C1C7D1 /* AppEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FCB2D369B9C00C1C7D1 /* AppEntryView.swift */; };
 		D63F2FCF2D38D6A300C1C7D1 /* splash(ios).json in Resources */ = {isa = PBXBuildFile; fileRef = D63F2FCE2D38D6A300C1C7D1 /* splash(ios).json */; };
 		D63F2FD12D38D92B00C1C7D1 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FD02D38D92B00C1C7D1 /* SplashView.swift */; };
 		D63F2FD32D38E7BA00C1C7D1 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FD22D38E7BA00C1C7D1 /* AppState.swift */; };
+		D69485512D396A2A000D26E2 /* MarketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D694854C2D396A2A000D26E2 /* MarketModel.swift */; };
+		D69485522D396A2A000D26E2 /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D694854E2D396A2A000D26E2 /* MarketView.swift */; };
 		D6C6750E2D32A5BB00DE6B4D /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C6750D2D32A5BB00DE6B4D /* Genre.swift */; };
 		D6C675112D32AD1700DE6B4D /* MockGenreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C675102D32AD1700DE6B4D /* MockGenreService.swift */; };
 		D6C675132D32B4B900DE6B4D /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C675122D32B4B900DE6B4D /* APIResponse.swift */; };
@@ -113,7 +115,6 @@
 		D0A736192D380F1400EF2CF9 /* GenreFilterModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreFilterModalView.swift; sourceTree = "<group>"; };
 		D0A7361B2D381F6100EF2CF9 /* GenreSearchModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreSearchModel.swift; sourceTree = "<group>"; };
 		D0AA20E52D2C0A56004CC2E6 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		D0AA20E72D2C0A56004CC2E6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D0AA20E82D2C0A56004CC2E6 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		D0AA20E92D2C0A56004CC2E6 /* Napzakmarket_iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Napzakmarket_iOSApp.swift; sourceTree = "<group>"; };
 		D0AA20FA2D2C0B96004CC2E6 /* TabBarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarView.swift; sourceTree = "<group>"; };
@@ -126,10 +127,13 @@
 		D0AA21372D2D00A3004CC2E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		D0C26EB62D3797980014EB4C /* SortModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortModalView.swift; sourceTree = "<group>"; };
 		D0C2A8F62D2AA38E00C8616B /* Napzakmarket-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Napzakmarket-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		D61342522D3A92B800E65EFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D63F2FCB2D369B9C00C1C7D1 /* AppEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryView.swift; sourceTree = "<group>"; };
 		D63F2FCE2D38D6A300C1C7D1 /* splash(ios).json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "splash(ios).json"; sourceTree = "<group>"; };
 		D63F2FD02D38D92B00C1C7D1 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		D63F2FD22D38E7BA00C1C7D1 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
+		D694854C2D396A2A000D26E2 /* MarketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketModel.swift; sourceTree = "<group>"; };
+		D694854E2D396A2A000D26E2 /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		D6C6750D2D32A5BB00DE6B4D /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		D6C675102D32AD1700DE6B4D /* MockGenreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGenreService.swift; sourceTree = "<group>"; };
 		D6C675122D32B4B900DE6B4D /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -334,7 +338,7 @@
 			children = (
 				D63F2FCD2D38D68400C1C7D1 /* Animation */,
 				D0AA211F2D2C0CB9004CC2E6 /* Fonts */,
-				D0AA20E72D2C0A56004CC2E6 /* Assets.xcassets */,
+				D61342522D3A92B800E65EFD /* Assets.xcassets */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -633,6 +637,31 @@
 			path = Core;
 			sourceTree = "<group>";
 		};
+		D694854D2D396A2A000D26E2 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D694854C2D396A2A000D26E2 /* MarketModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D694854F2D396A2A000D26E2 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D694854E2D396A2A000D26E2 /* MarketView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D69485502D396A2A000D26E2 /* Market */ = {
+			isa = PBXGroup;
+			children = (
+				D694854D2D396A2A000D26E2 /* Model */,
+				D694854F2D396A2A000D26E2 /* View */,
+			);
+			path = Market;
+			sourceTree = "<group>";
+		};
 		D6C6750C2D32A50700DE6B4D /* OnboardingMock */ = {
 			isa = PBXGroup;
 			children = (
@@ -758,9 +787,9 @@
 			files = (
 				D0AA20EB2D2C0A56004CC2E6 /* Preview Assets.xcassets in Resources */,
 				D63F2FCF2D38D6A300C1C7D1 /* splash(ios).json in Resources */,
-				D0AA20EC2D2C0A56004CC2E6 /* Assets.xcassets in Resources */,
 				D0AA21322D2CFF0E004CC2E6 /* Pretendard-Bold.otf in Resources */,
 				D0AA21332D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf in Resources */,
+				D61342532D3A92B800E65EFD /* Assets.xcassets in Resources */,
 				D0AA21342D2CFF0E004CC2E6 /* Pretendard-Medium.otf in Resources */,
 				D6C675182D32BC5400DE6B4D /* mock_genres_39.json in Resources */,
 			);
@@ -801,6 +830,8 @@
 				D02CAB5C2D34A9CC00B0D93F /* ProductItemView.swift in Sources */,
 				3CF80CEE2D34357300E8DE1F /* PreView.swift in Sources */,
 				D63F2FD12D38D92B00C1C7D1 /* SplashView.swift in Sources */,
+				D69485512D396A2A000D26E2 /* MarketModel.swift in Sources */,
+				D69485522D396A2A000D26E2 /* MarketView.swift in Sources */,
 				3CF80DC42D36A45300E8DE1F /* ReadyView.swift in Sources */,
 				D07A11F82D301BF400749962 /* ColorLiteral.swift in Sources */,
 				3C4F980E2D3962150070BC7D /* MarketModel.swift in Sources */,
@@ -975,7 +1006,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Napzakmarket-iOS/Application/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9H57LB393L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Napzakmarket-iOS/Info.plist";
@@ -1008,7 +1039,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"Napzakmarket-iOS/Application/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9H57LB393L;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = "Napzakmarket-iOS/Info.plist";
