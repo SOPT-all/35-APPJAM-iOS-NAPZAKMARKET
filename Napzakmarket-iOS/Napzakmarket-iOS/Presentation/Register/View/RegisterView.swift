@@ -55,11 +55,11 @@ extension RegisterView {
         .background(content: {
             switch registerType {
             case .sell:
-                registerModel.sellValidate()
+                registerModel.baseValidate() && registerModel.sellValidate()
                 ? Color.napzakPurple(.purple30)
                 : Color.napzakGrayScale(.gray400)
             case .buy:
-                registerModel.buyValidate()
+                registerModel.baseValidate()
                 ? Color.napzakPurple(.purple30)
                 : Color.napzakGrayScale(.gray400)
             }

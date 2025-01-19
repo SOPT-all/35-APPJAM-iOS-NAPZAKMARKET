@@ -32,23 +32,23 @@ final class RegisterModel: ObservableObject {
     
     // MARK: - 유효성 검사 및 버튼 활성화 로직
     
-    func sellValidate() -> Bool {
-        return !registerInfo.images.isEmpty &&
-        !registerInfo.title.trimmingCharacters(in: .whitespaces).isEmpty &&
-        !registerInfo.description.trimmingCharacters(in: .whitespaces).isEmpty &&
-        !registerInfo.genre.trimmingCharacters(in: .whitespaces).isEmpty &&
-        !registerInfo.productState.trimmingCharacters(in: .whitespaces).isEmpty &&
-        !registerInfo.price.trimmingCharacters(in: .whitespaces).isEmpty &&
-        (registerInfo.deliveryChargeFree || !registerInfo.normalDeliveryCharge.isEmpty || !registerInfo.halfDeliveryCharge.isEmpty)
-    }
-    
-    func buyValidate() -> Bool {
+    // 팔아요, 구해요 상관없이 기본적인 등록 과정의 검증
+    func baseValidate() -> Bool {
         return !registerInfo.images.isEmpty &&
         !registerInfo.title.trimmingCharacters(in: .whitespaces).isEmpty &&
         !registerInfo.description.trimmingCharacters(in: .whitespaces).isEmpty &&
         !registerInfo.genre.trimmingCharacters(in: .whitespaces).isEmpty &&
         !registerInfo.price.trimmingCharacters(in: .whitespaces).isEmpty
     }
+    
+    // 팔아요 등록 과정의 검증
+    func sellValidate() -> Bool {
+        return !registerInfo.productState.trimmingCharacters(in: .whitespaces).isEmpty &&
+        (registerInfo.deliveryChargeFree ||
+         !registerInfo.normalDeliveryCharge.isEmpty ||
+         !registerInfo.halfDeliveryCharge.isEmpty)
+    }
+
     
     
     // MARK: - 등록정보 REQUEST POST 로직
