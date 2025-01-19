@@ -133,7 +133,7 @@ extension SearchView {
                 }
             }
             .padding(.leading, 20)
-
+            
             Button {
                 print("품절 제외 필터 선택")
                 isSoldoutFilterOn.toggle()
@@ -154,7 +154,7 @@ extension SearchView {
                 }
             }
             Spacer()
-
+            
         }
         .frame(height: 53)
         .background(Color.napzakGrayScale(.gray50))
@@ -193,49 +193,49 @@ extension SearchView {
                     }
                 }
                 .frame(height: 56)
-
+                
                 LazyVGrid(columns: columns, spacing: 20) {
-                    if selectedIndex == 0 {
+                    if selectedTabIndex == 0 {
                         ForEach(sellProducts) { product in
                             ProductItemView(
                                 product: product,
-                                isLikeButtonExist: true,
                                 width: width
                             )
                         }
-                    } else if selectedIndex == 1 {
+                    } else if selectedTabIndex == 1 {
                         ForEach(buyProducts) { product in
                             ProductItemView(
                                 product: product,
-                                isLikeButtonExist: true,
                                 width: width
                             )
-                    .frame(height: 56)
-                    .id("header")
-                    
-                    LazyVGrid(columns: columns, spacing: 20) {
-                        if selectedTabIndex == 0 {
-                            ForEach(sellProducts) { product in
-                                ProductItemView(
-                                    product: product,
-                                    isLikeButtonExist: true
-                                )
-                            }
-                        } else if selectedTabIndex == 1 {
-                            ForEach(buyProducts) { product in
-                                ProductItemView(
-                                    product: product,
-                                    isLikeButtonExist: true
-                                )
+                        }
+                        .frame(height: 56)
+                        .id("header")
+                        
+                        LazyVGrid(columns: columns, spacing: 20) {
+                            if selectedTabIndex == 0 {
+                                ForEach(sellProducts) { product in
+                                    ProductItemView(
+                                        product: product,
+                                        width: width
+                                    )
+                                }
+                            } else if selectedTabIndex == 1 {
+                                ForEach(buyProducts) { product in
+                                    ProductItemView(
+                                        product: product,
+                                        width: width
+                                    )
+                                }
                             }
                         }
                     }
                 }
-            }
-            .padding(.horizontal, 20)
-            .onChange(of: selectedTabIndex) { _ in
-                selectedSortOption = .latest
-                proxy.scrollTo("header", anchor: .top)
+                .padding(.horizontal, 20)
+                .onChange(of: selectedTabIndex) { _ in
+                    selectedSortOption = .latest
+                    proxy.scrollTo("header", anchor: .top)
+                }
             }
         }
     }

@@ -18,7 +18,6 @@ struct ProductItemView: View {
     
     //MARK: - Properties
     
-    let isLikeButtonExist: Bool
     let width: CGFloat
     
     //MARK: - Main Body
@@ -53,7 +52,7 @@ extension ProductItemView {
                         .frame(width: 47, height: 27)
                 }
                 Spacer()
-                if isLikeButtonExist {
+                if product.isOwnedByCurrentUser {
                     likeButton
                 }
             }
@@ -112,12 +111,12 @@ extension ProductItemView {
         price: "35,000원",
         uploadTime: "3시간 전",
         productType: .sell,
-        isPriceNegotiable: false
+        isPriceNegotiable: false,
+        isOwnedByCurrentUser: true
     )
     
     ProductItemView(
         product: mock,
-        isLikeButtonExist: false,
         width: 160
     )
     .frame(height: 254)

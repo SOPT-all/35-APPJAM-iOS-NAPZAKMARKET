@@ -199,7 +199,6 @@ extension HomeView {
                         product in
                         ProductItemView(
                             product: product,
-                            isLikeButtonExist: false,
                             width: width - 10
                         )
                     }
@@ -271,7 +270,6 @@ extension HomeView {
                 ForEach(products.prefix(4)) { product in
                     ProductItemView(
                         product: product,
-                        isLikeButtonExist: true,
                         width: width
                     )
                 }

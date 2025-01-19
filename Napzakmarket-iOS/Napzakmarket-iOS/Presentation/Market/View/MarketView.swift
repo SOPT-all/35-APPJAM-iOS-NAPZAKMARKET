@@ -10,7 +10,7 @@ import SwiftUI
 struct MarketView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
-
+    
     @State private var tags: [Tag] = MarketMockData.tags
     
     @State private var selectedIndex = 0
@@ -18,17 +18,17 @@ struct MarketView: View {
     @State private var buyProducts = ProductModel.buyDummyList()
     
     let width = (UIScreen.main.bounds.width - 55) / 2
-   
+    
     private let columns = [
         GridItem(.flexible(), spacing: 15),
         GridItem(.flexible())
     ]
-   
+    
     var body: some View {
         VStack(spacing: 0) {
             navigationSection
             profileSection
-           
+            
             NZSegmentedControl(
                 selectedIndex: $selectedIndex,
                 tabs: ["팔아요", "구해요", "후기"],
@@ -36,7 +36,7 @@ struct MarketView: View {
             )
             .frame(height: 46)
             .padding(.top, 20)
-           
+            
             if selectedIndex == 2 {
                 ReadyComponent()
                     .navigationBarHidden(true)
@@ -78,7 +78,6 @@ struct MarketView: View {
                                 ForEach(sellProducts) { product in
                                     ProductItemView(
                                         product: product,
-                                        isLikeButtonExist: false,
                                         width: width
                                     )
                                 }
@@ -86,7 +85,6 @@ struct MarketView: View {
                                 ForEach(buyProducts) { product in
                                     ProductItemView(
                                         product: product,
-                                        isLikeButtonExist: false,
                                         width: width
                                     )
                                 }
@@ -100,11 +98,11 @@ struct MarketView: View {
         .background(Color(.white))
         .navigationBarHidden(true)
         .onAppear {
-                   tabBarState.isTabBarHidden = true
-               }
-               .onDisappear {
-                   tabBarState.isTabBarHidden = false
-               }
+            tabBarState.isTabBarHidden = true
+        }
+        .onDisappear {
+            tabBarState.isTabBarHidden = false
+        }
     }
     
     private var filterButtons: some View {
@@ -117,7 +115,7 @@ struct MarketView: View {
                     .frame(width: 67, height: 33)
             }
             .padding(.leading, 20)
-
+            
             Button {
                 print("품절 제외 필터 선택")
             } label: {
@@ -140,13 +138,13 @@ struct MarketView: View {
         .frame(height: 53)
         .background(Color.napzakGrayScale(.gray50))
     }
-   
+    
     private var navigationSection: some View {
         ZStack(alignment: .top) {
             Color.napzakGrayScale(.gray200)
                 .edgesIgnoringSafeArea(.top)
                 .frame(height: 138)
-           
+            
             HStack(alignment: .center, spacing: 0) {
                 Spacer()
                 Image("img_market_bg_character")
@@ -154,7 +152,7 @@ struct MarketView: View {
                     .frame(width: 138, height: 111, alignment: .trailing)
                     .padding(.top, 27)
             }
-           
+            
             HStack {
                 Button(action: {
                     dismiss()
@@ -162,14 +160,14 @@ struct MarketView: View {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(Color.napzakGrayScale(.gray900))
                         .frame(width: 48, height: 48)
-                        
+                    
                 }
                 Spacer()
             }
         }
         .frame(maxWidth: .infinity)
     }
-   
+    
     private var profileSection: some View {
         VStack(spacing: 0) {
             Image("img_profile_md")
@@ -197,7 +195,7 @@ struct MarketView: View {
                 .foregroundStyle(Color.napzakGrayScale(.gray700))
         }
     }
-   
+    
     private var tagListView: some View {
         HStack(spacing: 6) {
             ForEach(tags) { tag in
