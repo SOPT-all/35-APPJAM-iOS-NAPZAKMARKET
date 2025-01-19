@@ -79,23 +79,23 @@ struct MarketView: View {
                                     }
                                 }
                             }
-                        }
-                        
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            if selectedIndex == 0 {
-                                ForEach(sellProducts) { product in
-                                    ProductItemView(
-                                        product: product,
-                                        width: width
-                                    )
-                        .frame(height: 56)
-                                }
-                            } else {
-                                ForEach(buyProducts) { product in
-                                    ProductItemView(
-                                        product: product,
-                                        width: width
-                                    )
+                            .frame(height: 56)
+                            
+                            LazyVGrid(columns: columns, spacing: 20) {
+                                if selectedIndex == 0 {
+                                    ForEach(sellProducts) { product in
+                                        ProductItemView(
+                                            product: product,
+                                            width: width
+                                        )
+                                    }
+                                } else {
+                                    ForEach(buyProducts) { product in
+                                        ProductItemView(
+                                            product: product,
+                                            width: width
+                                        )
+                                    }
                                 }
                             }
                         }
@@ -142,12 +142,6 @@ struct MarketView: View {
         }
         .background(Color(.white))
         .navigationBarHidden(true)
-        .onAppear {
-            tabBarState.isTabBarHidden = true
-        }
-        .onDisappear {
-            tabBarState.isTabBarHidden = false
-        }
     }
     
     private var filterButtons: some View {
