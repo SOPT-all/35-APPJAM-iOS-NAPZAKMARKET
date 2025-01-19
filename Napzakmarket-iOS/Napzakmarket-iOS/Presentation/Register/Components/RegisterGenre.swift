@@ -52,7 +52,3 @@ extension RegisterGenre {
             .overlay(Color.napzakGrayScale(.gray200))
     }
 }
-
-#Preview {
-    TabBarView()
-}

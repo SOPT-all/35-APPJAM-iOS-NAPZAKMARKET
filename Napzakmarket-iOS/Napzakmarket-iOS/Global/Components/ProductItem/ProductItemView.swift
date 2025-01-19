@@ -101,23 +101,3 @@ extension ProductItemView {
         .frame(width: width)
     }
 }
-
-#Preview {
-    let mock = ProductModel(
-        id: 1,
-        isLiked: true,
-        genreName: "산리오",
-        productName: "딸기 마이멜로디 마스코트 인형",
-        price: "35,000원",
-        uploadTime: "3시간 전",
-        productType: .sell,
-        isPriceNegotiable: false,
-        isOwnedByCurrentUser: true
-    )
-    
-    ProductItemView(
-        product: mock,
-        width: 160
-    )
-    .frame(height: 254)
-}
