@@ -10,12 +10,18 @@ import SwiftUI
 struct MarketView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
-
+        
     @State private var tags: [Tag] = MarketMockData.tags
-    
     @State private var selectedIndex = 0
     @State private var sellProducts = ProductModel.sellDummyList()
     @State private var buyProducts = ProductModel.buyDummyList()
+    @State private var selectedSortOption: SortOption = .latest
+    @State private var selectedGenres: [GenreSearchModel] = []
+    @State private var selectedGenreStrings: [String] = []
+    @State private var sortModalViewIsPresented = false
+    @State private var filterModalViewIsPresented = false
+    @State private var isSoldoutFilterOn = false
+    @State private var isUnopenFilterOn = false
    
     private let columns = [
         GridItem(.flexible(), spacing: 15),
@@ -23,110 +29,156 @@ struct MarketView: View {
     ]
    
     var body: some View {
-        VStack(spacing: 0) {
-            navigationSection
-            profileSection
-           
-            NZSegmentedControl(
-                selectedIndex: $selectedIndex,
-                tabs: ["팔아요", "구해요", "후기"],
-                spacing: 15
-            )
-            .frame(height: 46)
-            .padding(.top, 20)
-           
-            if selectedIndex == 2 {
-                ReadyComponent()
-                    .navigationBarHidden(true)
-            } else {
-                filterButtons
-                
-                ScrollView(showsIndicators: false) {
-                    let products = selectedIndex == 0 ? sellProducts : buyProducts
+        ZStack {
+            VStack(spacing: 0) {
+                navigationSection
+                profileSection
+               
+                NZSegmentedControl(
+                    selectedIndex: $selectedIndex,
+                    tabs: ["팔아요", "구해요", "후기"],
+                    spacing: 15
+                )
+                .frame(height: 46)
+                .padding(.top, 20)
+               
+                if selectedIndex == 2 {
+                    ReadyComponent()
+                        .navigationBarHidden(true)
+                } else {
+                    filterButtons
                     
-                    VStack(spacing: 0) {
-                        HStack(spacing: 4) {
-                            Text("상품")
-                                .font(.napzakFont(.body5SemiBold14))
-                                .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                                .foregroundStyle(Color.napzakGrayScale(.gray900))
-                            Text("\(products.count)개")
-                                .font(.napzakFont(.body5SemiBold14))
-                                .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                                .foregroundStyle(Color.napzakPurple(.purple30))
-                            Spacer()
-                            Button {
-                                print("정렬 버튼 선택")
-                            } label: {
-                                HStack(spacing: 0) {
-                                    Text("최신순")
-                                        .font(.napzakFont(.caption3Medium12))
-                                        .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                                        .foregroundStyle(Color.napzakGrayScale(.gray600))
-                                    Image(.iconDownSmGray)
-                                        .resizable()
-                                        .frame(width: 16, height: 16)
-                                }
-                            }
-                        }
-                        .frame(height: 56)
+                    ScrollView(showsIndicators: false) {
+                        let products = selectedIndex == 0 ? sellProducts : buyProducts
                         
-                        LazyVGrid(columns: columns, spacing: 20) {
-                            if selectedIndex == 0 {
-                                ForEach(sellProducts) { product in
-                                    ProductItemView(
-                                        product: product,
-                                        isLikeButtonExist: false
-                                    )
+                        VStack(spacing: 0) {
+                            HStack(spacing: 4) {
+                                Text("상품")
+                                    .font(.napzakFont(.body5SemiBold14))
+                                    .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+                                    .foregroundStyle(Color.napzakGrayScale(.gray900))
+                                Text("\(products.count)개")
+                                    .font(.napzakFont(.body5SemiBold14))
+                                    .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+                                    .foregroundStyle(Color.napzakPurple(.purple30))
+                                Spacer()
+                                Button {
+                                    sortModalViewIsPresented = true
+                                } label: {
+                                    HStack(spacing: 0) {
+                                        Text("\(selectedSortOption.rawValue)")
+                                            .font(.napzakFont(.caption3Medium12))
+                                            .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                                            .foregroundStyle(Color.napzakGrayScale(.gray600))
+                                        Image(.iconDownSmGray)
+                                            .resizable()
+                                            .frame(width: 16, height: 16)
+                                    }
                                 }
-                            } else {
-                                ForEach(buyProducts) { product in
-                                    ProductItemView(
-                                        product: product,
-                                        isLikeButtonExist: false
-                                    )
+                            }
+                            .frame(height: 56)
+                            
+                            LazyVGrid(columns: columns, spacing: 20) {
+                                if selectedIndex == 0 {
+                                    ForEach(sellProducts) { product in
+                                        ProductItemView(
+                                            product: product,
+                                            isLikeButtonExist: false
+                                        )
+                                    }
+                                } else {
+                                    ForEach(buyProducts) { product in
+                                        ProductItemView(
+                                            product: product,
+                                            isLikeButtonExist: false
+                                        )
+                                    }
                                 }
                             }
                         }
+                        .padding(.horizontal, 20)
                     }
-                    .padding(.horizontal, 20)
                 }
             }
+            .background(Color(.white))
+            .navigationBarHidden(true)
+            .onAppear {
+                tabBarState.isTabBarHidden = true
+            }
+            .onDisappear {
+                tabBarState.isTabBarHidden = false
+            }
+            
+            ZStack(alignment: .bottom) {
+                if sortModalViewIsPresented {
+                    Color.napzakTransparency(.black70)
+                        .onTapGesture {
+                            sortModalViewIsPresented = false
+                        }
+                    
+                    SortModalView(
+                        sortModalViewIsPresented: $sortModalViewIsPresented,
+                        selectedSortOption: $selectedSortOption
+                    )
+                } else if filterModalViewIsPresented {
+                    Color.napzakTransparency(.black70)
+                        .onTapGesture {
+                            filterModalViewIsPresented = false
+                        }
+                    
+                    GenreFilterModalView(
+                        selectedGenres: $selectedGenres,
+                        selectedGenreStrings: $selectedGenreStrings,
+                        filterModalViewIsPresented: $filterModalViewIsPresented
+                    )
+                }
+            }
+            .ignoresSafeArea(.all)
+            .animation(.interactiveSpring(), value: sortModalViewIsPresented)
+            .animation(.interactiveSpring(), value: filterModalViewIsPresented)
         }
-        .background(Color(.white))
-        .navigationBarHidden(true)
-        .onAppear {
-                   tabBarState.isTabBarHidden = true
-               }
-               .onDisappear {
-                   tabBarState.isTabBarHidden = false
-               }
     }
     
     private var filterButtons: some View {
         HStack(alignment: .center, spacing: 6) {
             Button {
-                print("장르 필터 선택")
+                filterModalViewIsPresented = true
             } label: {
-                Image(.chipGenre)
-                    .resizable()
-                    .frame(width: 67, height: 33)
+                if selectedGenres.isEmpty {
+                    Image(.chipGenre)
+                        .resizable()
+                        .frame(width: 67, height: 33)
+                } else {
+                    HStack(spacing: 4) {
+                        Text(selectedGenres.count == 1 ? "\(selectedGenres[0].genreName)" : "\(selectedGenres[0].genreName) 외 \(selectedGenres.count - 1)")
+                            .font(.napzakFont(.caption2SemiBold12))
+                            .applyNapzakTextStyle(napzakFontStyle: .caption2SemiBold12)
+                            .foregroundStyle(Color.napzakGrayScale(.white))
+                        Image(.iconDownSmWhite)
+                            .resizable()
+                            .frame(width: 16, height: 16)
+                    }
+                    .padding(.horizontal, 14)
+                    .padding(.vertical, 8)
+                    .background(Color.napzakGrayScale(.gray900))
+                    .clipShape(RoundedRectangle(cornerRadius: 100))
+                }
             }
             .padding(.leading, 20)
 
             Button {
-                print("품절 제외 필터 선택")
+                isSoldoutFilterOn.toggle()
             } label: {
-                Image(.chipSoldout)
+                Image(isSoldoutFilterOn ? .chipSoldoutSelect : .chipSoldout)
                     .resizable()
                     .frame(width: 69, height: 33)
             }
             
             if selectedIndex == 0 {
                 Button {
-                    print("미개봉 필터 선택")
+                    isUnopenFilterOn.toggle()
                 } label: {
-                    Image(.chipUnopen)
+                    Image(isUnopenFilterOn ? .chipUnopenSelect : .chipUnopen)
                         .resizable()
                         .frame(width: 59, height: 33)
                 }
@@ -158,7 +210,6 @@ struct MarketView: View {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(Color.napzakGrayScale(.gray900))
                         .frame(width: 48, height: 48)
-                        
                 }
                 Spacer()
             }
