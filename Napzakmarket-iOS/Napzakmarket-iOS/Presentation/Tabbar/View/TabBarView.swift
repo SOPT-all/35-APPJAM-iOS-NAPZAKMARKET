@@ -199,7 +199,3 @@ struct TabBarView: View {
         (selectedTab == index ? .caption1Bold12 : .caption3Medium12)
     }
 }
-
-#Preview {
-    TabBarView()
-}
