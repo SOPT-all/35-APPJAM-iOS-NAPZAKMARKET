@@ -8,12 +8,14 @@
 import Foundation
 
 // MARK: - SellRegisterRequest
+
 struct SellRegisterRequest: Codable {
     let productPhotoList: [ProductPhotoList]?
     let productInfo: ProductInfo?
 }
 
 // MARK: - ProductInfo
+
 struct ProductInfo: Codable {
     let genreID: Int?
     let genreName, title, description, condition: String?
@@ -28,6 +30,7 @@ struct ProductInfo: Codable {
 }
 
 // MARK: - ProductPhotoList
+
 struct ProductPhotoList: Codable {
     let photoURL: String?
     let photoSequence: Int?

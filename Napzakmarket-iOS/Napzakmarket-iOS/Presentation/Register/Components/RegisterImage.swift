@@ -21,7 +21,7 @@ struct RegisterImage: View {
     private var availableSelectedCount: Int {
         maxSelectedCount - selectedImages.count
     }
-        
+    
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             titleSection
@@ -34,7 +34,7 @@ struct RegisterImage: View {
     }
 }
 
-// MARK: - Subviews and Functions
+// MARK: - Subviews
 
 extension RegisterImage {
     
@@ -88,26 +88,7 @@ extension RegisterImage {
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
         .disabled(disabled)
-
-    }
-    
-    private func imageItemView(for index: Int) -> some View {
-        ZStack {
-            Image(uiImage: selectedImages[index])
-                .resizable()
-                .scaledToFill()
-                .frame(width: 80, height: 80)
-                .clipShape(RoundedRectangle(cornerRadius: 12))
-                .onLongPressGesture {
-                    moveImageToFront(at: index)
-                }
-            
-            if index == 0 {
-                representativeBadge
-            }
-            
-            deleteButton(at: index)
-        }
+        
     }
     
     private var representativeBadge: some View {
@@ -126,6 +107,32 @@ extension RegisterImage {
                         bottomTrailingRadius: 12
                     )
                 )
+        }
+    }
+    
+    
+}
+
+// MARK: - Functions
+
+extension RegisterImage {
+    
+    private func imageItemView(for index: Int) -> some View {
+        ZStack {
+            Image(uiImage: selectedImages[index])
+                .resizable()
+                .scaledToFill()
+                .frame(width: 80, height: 80)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .onLongPressGesture {
+                    moveImageToFront(at: index)
+                }
+            
+            if index == 0 {
+                representativeBadge
+            }
+            
+            deleteButton(at: index)
         }
     }
     
@@ -157,4 +164,5 @@ extension RegisterImage {
         let movedImage = selectedImages.remove(at: index)
         selectedImages.insert(movedImage, at: 0)
     }
+    
 }
