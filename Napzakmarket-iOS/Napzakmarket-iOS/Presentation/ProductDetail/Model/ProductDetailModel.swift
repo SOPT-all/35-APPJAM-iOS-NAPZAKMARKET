@@ -30,6 +30,7 @@ struct ProductInfo {
     let halfDeliveryFee: Int
     let isPriceNegotiable: Bool
     let tradeStatus: String
+    let isOwnedByCurrentUser: Bool
 }
 
 struct PhotoInfo {
@@ -107,7 +108,8 @@ extension ProductDetailModel {
                 standardDeliveryFee: 3800,
                 halfDeliveryFee: 1800,
                 isPriceNegotiable: false,
-                tradeStatus: "거래 중"
+                tradeStatus: "거래 중",
+                isOwnedByCurrentUser: true
             ),
             productPhotoList: [
                 PhotoInfo(photoId: 1,
@@ -153,7 +155,8 @@ extension ProductDetailModel {
                 standardDeliveryFee: 3800,
                 halfDeliveryFee: 1800,
                 isPriceNegotiable: true,
-                tradeStatus: "거래 중"
+                tradeStatus: "거래 중",
+                isOwnedByCurrentUser: false
             ),
             productPhotoList: [
                 PhotoInfo(photoId: 1,

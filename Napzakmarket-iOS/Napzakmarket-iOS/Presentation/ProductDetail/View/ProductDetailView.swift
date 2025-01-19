@@ -16,7 +16,7 @@ struct ProductDetailView: View {
     
     //MARK: - Properties
     
-    @ObservedObject var product = ProductDetailModel.dummyBuyProductDetail()
+    @ObservedObject var product = ProductDetailModel.dummySellProductDetail()
     
     //MARK: - Main Body
     
@@ -48,7 +48,9 @@ struct ProductDetailView: View {
                         .animation(.spring(), value: showToast)
                 }
             }
-            bottomView
+            if !product.productDetail.isOwnedByCurrentUser {
+                bottomView
+            }
         }
         .ignoresSafeArea(edges: [.bottom])
     }
@@ -277,7 +279,7 @@ extension ProductDetailView {
         }
         .padding(.top, 31)
         .padding(.horizontal, 20)
-        .padding(.bottom, 192)
+        .padding(.bottom, product.productDetail.isOwnedByCurrentUser ? 85 : 192)
     }
     
     private var bottomView: some View {
