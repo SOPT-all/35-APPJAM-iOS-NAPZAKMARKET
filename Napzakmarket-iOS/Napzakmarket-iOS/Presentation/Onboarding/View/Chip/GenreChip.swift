@@ -37,10 +37,13 @@ struct GenreChip: View {
         }
         .padding(.horizontal, 12)
         .padding(.vertical, 7)
+        .background(Color.napzakGrayScale(.white))
+        .clipShape(RoundedRectangle(cornerRadius: 50))
         .overlay(
             RoundedRectangle(cornerRadius: 50)
                 .stroke(Color.napzakGrayScale(.gray200), lineWidth: 1)
         )
+
     }
     
 }

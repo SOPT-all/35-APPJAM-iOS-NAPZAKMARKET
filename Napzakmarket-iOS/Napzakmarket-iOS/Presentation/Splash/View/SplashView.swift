@@ -41,7 +41,7 @@ struct SplashView: View {
                             appState.moveToOnboarding()
                         }
                     } label: {
-                        Text("선택완료! 시작하기")
+                        Text("납작마켓 시작하기")
                             .font(.napzakFont(.body1Bold16))
                             .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                             .foregroundStyle(Color.napzakGrayScale(.white))

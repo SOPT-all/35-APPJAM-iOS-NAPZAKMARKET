@@ -47,6 +47,7 @@ struct OnboardingView: View {
                         }
                     )
                 )
+                .padding(.top, 16)
                 .padding(.horizontal, 20)
                 .frame(height: genreModel.selectedGenres.isEmpty ? 0 : nil, alignment: .top)
                 .offset(y: genreModel.selectedGenres.isEmpty ? -60 : 0)
