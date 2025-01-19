@@ -55,14 +55,12 @@
 		D0AA21332D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA21312D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf */; };
 		D0AA21342D2CFF0E004CC2E6 /* Pretendard-Medium.otf in Resources */ = {isa = PBXBuildFile; fileRef = D0AA21302D2CFF0E004CC2E6 /* Pretendard-Medium.otf */; };
 		D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA21352D2CFF99004CC2E6 /* FontLiterial.swift */; };
-		D61342532D3A92B800E65EFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D61342522D3A92B800E65EFD /* Assets.xcassets */; };
 		D0C26EB72D3797A10014EB4C /* SortModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C26EB62D3797980014EB4C /* SortModalView.swift */; };
+		D61342532D3A92B800E65EFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D61342522D3A92B800E65EFD /* Assets.xcassets */; };
 		D63F2FCC2D369B9C00C1C7D1 /* AppEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FCB2D369B9C00C1C7D1 /* AppEntryView.swift */; };
 		D63F2FCF2D38D6A300C1C7D1 /* splash(ios).json in Resources */ = {isa = PBXBuildFile; fileRef = D63F2FCE2D38D6A300C1C7D1 /* splash(ios).json */; };
 		D63F2FD12D38D92B00C1C7D1 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FD02D38D92B00C1C7D1 /* SplashView.swift */; };
 		D63F2FD32D38E7BA00C1C7D1 /* AppState.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FD22D38E7BA00C1C7D1 /* AppState.swift */; };
-		D69485512D396A2A000D26E2 /* MarketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D694854C2D396A2A000D26E2 /* MarketModel.swift */; };
-		D69485522D396A2A000D26E2 /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D694854E2D396A2A000D26E2 /* MarketView.swift */; };
 		D6C6750E2D32A5BB00DE6B4D /* Genre.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C6750D2D32A5BB00DE6B4D /* Genre.swift */; };
 		D6C675112D32AD1700DE6B4D /* MockGenreService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C675102D32AD1700DE6B4D /* MockGenreService.swift */; };
 		D6C675132D32B4B900DE6B4D /* APIResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = D6C675122D32B4B900DE6B4D /* APIResponse.swift */; };
@@ -272,6 +270,15 @@
 				6C2D5B6F2D32B9BE00E904C6 /* RegisterProductState.swift */,
 			);
 			path = Sell;
+			sourceTree = "<group>";
+		};
+		D0281BAB2D3D39F8001128EC /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+				D694854C2D396A2A000D26E2 /* MarketModel.swift */,
+				D694854E2D396A2A000D26E2 /* MarketView.swift */,
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		D02CAB5F2D34EB9300B0D93F /* SegmentedControl */ = {
@@ -610,6 +617,7 @@
 			children = (
 				D0AA20EA2D2C0A56004CC2E6 /* Napzakmarket-iOS */,
 				D0C2A8F72D2AA38E00C8616B /* Products */,
+				D0281BAB2D3D39F8001128EC /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -635,31 +643,6 @@
 				D63F2FD22D38E7BA00C1C7D1 /* AppState.swift */,
 			);
 			path = Core;
-			sourceTree = "<group>";
-		};
-		D694854D2D396A2A000D26E2 /* Model */ = {
-			isa = PBXGroup;
-			children = (
-				D694854C2D396A2A000D26E2 /* MarketModel.swift */,
-			);
-			path = Model;
-			sourceTree = "<group>";
-		};
-		D694854F2D396A2A000D26E2 /* View */ = {
-			isa = PBXGroup;
-			children = (
-				D694854E2D396A2A000D26E2 /* MarketView.swift */,
-			);
-			path = View;
-			sourceTree = "<group>";
-		};
-		D69485502D396A2A000D26E2 /* Market */ = {
-			isa = PBXGroup;
-			children = (
-				D694854D2D396A2A000D26E2 /* Model */,
-				D694854F2D396A2A000D26E2 /* View */,
-			);
-			path = Market;
 			sourceTree = "<group>";
 		};
 		D6C6750C2D32A50700DE6B4D /* OnboardingMock */ = {
@@ -830,8 +813,6 @@
 				D02CAB5C2D34A9CC00B0D93F /* ProductItemView.swift in Sources */,
 				3CF80CEE2D34357300E8DE1F /* PreView.swift in Sources */,
 				D63F2FD12D38D92B00C1C7D1 /* SplashView.swift in Sources */,
-				D69485512D396A2A000D26E2 /* MarketModel.swift in Sources */,
-				D69485522D396A2A000D26E2 /* MarketView.swift in Sources */,
 				3CF80DC42D36A45300E8DE1F /* ReadyView.swift in Sources */,
 				D07A11F82D301BF400749962 /* ColorLiteral.swift in Sources */,
 				3C4F980E2D3962150070BC7D /* MarketModel.swift in Sources */,
