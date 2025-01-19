@@ -13,11 +13,10 @@ struct ProductDetailView: View {
     
     @State var currentPage: Int = 0
     @State var showToast = false
-    
-    //MARK: - Properties
-    
-    @ObservedObject var product = ProductDetailModel.dummySellProductDetail()
-    
+    @Environment(\.dismiss) private var dismiss
+    @ObservedObject var product = ProductDetailModel.dummyBuyProductDetail()
+    @EnvironmentObject private var tabBarState: TabBarStateModel
+
     //MARK: - Main Body
     
     var body: some View {
@@ -52,7 +51,14 @@ struct ProductDetailView: View {
                 bottomView
             }
         }
+        .navigationBarHidden(true)
         .ignoresSafeArea(edges: [.bottom])
+        .onAppear {
+            tabBarState.isTabBarHidden = true
+        }
+        .onDisappear() {
+            tabBarState.isTabBarHidden = false
+        }
     }
 }
 
@@ -63,7 +69,7 @@ extension ProductDetailView {
     private var navigarionBar: some View {
         HStack {
             Button {
-                print("back button tapped")
+                dismiss()
             } label: {
                 Image(.icBack)
                     .resizable()

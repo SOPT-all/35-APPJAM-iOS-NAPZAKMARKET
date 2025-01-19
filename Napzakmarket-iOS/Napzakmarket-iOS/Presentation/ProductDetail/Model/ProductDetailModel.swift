@@ -104,12 +104,12 @@ extension ProductDetailModel {
                 interestCount: 4,
                 description: "박어진 판매합니다!\n연남동에서 구매했어요 한정판.. ㅠㅠㅠ 보내기 아깝다.\n마감 임박 빨리 데려가세요... ㄷㄷ ",
                 productCondition: .unopened,
-                isDeliveryIncluded: false,
+                isDeliveryIncluded: true,
                 standardDeliveryFee: 3800,
                 halfDeliveryFee: 1800,
                 isPriceNegotiable: false,
                 tradeStatus: "거래 중",
-                isOwnedByCurrentUser: true
+                isOwnedByCurrentUser: false
             ),
             productPhotoList: [
                 PhotoInfo(photoId: 1,
@@ -156,7 +156,7 @@ extension ProductDetailModel {
                 halfDeliveryFee: 1800,
                 isPriceNegotiable: true,
                 tradeStatus: "거래 중",
-                isOwnedByCurrentUser: false
+                isOwnedByCurrentUser: true
             ),
             productPhotoList: [
                 PhotoInfo(photoId: 1,
