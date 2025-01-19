@@ -126,8 +126,6 @@
 		D63F2FCE2D38D6A300C1C7D1 /* splash(ios).json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "splash(ios).json"; sourceTree = "<group>"; };
 		D63F2FD02D38D92B00C1C7D1 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		D63F2FD22D38E7BA00C1C7D1 /* AppState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppState.swift; sourceTree = "<group>"; };
-		D694854C2D396A2A000D26E2 /* MarketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketModel.swift; sourceTree = "<group>"; };
-		D694854E2D396A2A000D26E2 /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		D6C6750D2D32A5BB00DE6B4D /* Genre.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Genre.swift; sourceTree = "<group>"; };
 		D6C675102D32AD1700DE6B4D /* MockGenreService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockGenreService.swift; sourceTree = "<group>"; };
 		D6C675122D32B4B900DE6B4D /* APIResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIResponse.swift; sourceTree = "<group>"; };
@@ -241,15 +239,6 @@
 				6C2D5B6F2D32B9BE00E904C6 /* RegisterProductState.swift */,
 			);
 			path = Sell;
-			sourceTree = "<group>";
-		};
-		D0281BAB2D3D39F8001128EC /* Recovered References */ = {
-			isa = PBXGroup;
-			children = (
-				D694854C2D396A2A000D26E2 /* MarketModel.swift */,
-				D694854E2D396A2A000D26E2 /* MarketView.swift */,
-			);
-			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		D02CAB5F2D34EB9300B0D93F /* SegmentedControl */ = {
@@ -378,7 +367,6 @@
 				D0AA210B2D2C0C34004CC2E6 /* Search */,
 				6C2D5B5D2D32AD2800E904C6 /* Register */,
 				3C4F98072D3962100070BC7D /* Chat */,
-				D69485502D396A2A000D26E2 /* Market */,
 				D0AA21062D2C0C04004CC2E6 /* ProductDetail */,
 				D0AA20FC2D2C0BC7004CC2E6 /* Mypage */,
 				D0AA20F72D2C0B77004CC2E6 /* Tabbar */,
@@ -588,7 +576,6 @@
 			children = (
 				D0AA20EA2D2C0A56004CC2E6 /* Napzakmarket-iOS */,
 				D0C2A8F72D2AA38E00C8616B /* Products */,
-				D0281BAB2D3D39F8001128EC /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};

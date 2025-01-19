@@ -22,7 +22,7 @@ struct ProductDetailView: View {
     var body: some View {
         ZStack(alignment: .bottom) {
             VStack(spacing: 0) {
-                navigarionBar
+                navigationBar
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 0) {
                         productImagePageView
@@ -66,7 +66,7 @@ extension ProductDetailView {
     
     //MARK: - UIProperties
     
-    private var navigarionBar: some View {
+    private var navigationBar: some View {
         HStack {
             Button {
                 dismiss()
@@ -361,8 +361,4 @@ extension ProductDetailView {
             }
         }
     }
-}
-
-#Preview {
-    ProductDetailView()
 }
