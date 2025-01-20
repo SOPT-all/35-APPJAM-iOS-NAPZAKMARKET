@@ -12,6 +12,7 @@ struct GenreFilterModalView: View {
     //MARK: - Property Wrappers
     
     @State var inputText: String = ""
+    @State private var isInputComplete: Bool = false
     @Binding var selectedGenres: [GenreSearchModel]
     @Binding var selectedGenreStrings: [String]
     @Binding var filterModalViewIsPresented: Bool
@@ -99,7 +100,7 @@ extension GenreFilterModalView {
     }
     
     private var searchBar: some View {
-        SearchBar(placeholder: "예) 건담, 산리오, 주술회전", text: $inputText)
+        SearchBar(placeholder: "예) 건담, 산리오, 주술회전", text: $inputText, isInputComplete: $isInputComplete)
             .padding(.bottom, 10)
             .padding(.horizontal, 20)
     }

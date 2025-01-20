@@ -10,6 +10,8 @@ import SwiftUI
 struct OnboardingView: View {
     
     // MARK: - Properties
+    
+    @State private var isInputComplete: Bool = false
     @EnvironmentObject var appState: AppState
     @StateObject private var genreModel = GenreModel()
     @FocusState private var isSearchBarFocused: Bool
@@ -24,6 +26,7 @@ struct OnboardingView: View {
                 SearchBar(
                     placeholder: "원하는 장르를 직접 입력해 검색해보세요.",
                     text: $genreModel.searchText,
+                    isInputComplete: $isInputComplete,
                     isSearchBarFocused: _isSearchBarFocused
                 )
                 .onChange(of: genreModel.searchText) { _ in
