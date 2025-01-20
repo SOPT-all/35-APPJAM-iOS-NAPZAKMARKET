@@ -156,8 +156,3 @@ extension OnboardingView {
     }
      
 }
-
-#Preview {
-    OnboardingView()
-        .environmentObject(AppState())
-}
