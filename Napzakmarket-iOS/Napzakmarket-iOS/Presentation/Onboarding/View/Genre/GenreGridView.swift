@@ -1,10 +1,3 @@
-//
-//  GenreGridView.swift
-//  Napzakmarket-iOS
-//
-//  Created by 조호근 on 1/14/25.
-//
-
 import SwiftUI
 
 struct GenreGridView: View {
@@ -14,18 +7,22 @@ struct GenreGridView: View {
     @Binding var genres: [Genre]
     @Binding var selectedGenres: [Genre]
     
-    private let colums = [
+    private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
-    // MARK: - Properties
+    @State private var gradientOffset: CGFloat = -32
+    @State private var scrollOffset: CGFloat = 0
+    private let threshold: CGFloat = 10
+
+    // MARK: - Body
     
     var body: some View {
         ZStack {
-            ScrollView {
-                LazyVGrid(columns: colums, spacing: 20) {
+            ScrollView(showsIndicators: false) {
+                LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(genres) { genre in
                         GenreCell(
                             genre: genre,
@@ -43,9 +40,28 @@ struct GenreGridView: View {
                             )
                         )
                     }
+                    .padding(2)
                 }
-                .padding(.top, 32)
                 .padding(.bottom, 70)
+                .background(
+                    GeometryReader { insideProxy in
+                        Color.clear
+                            .onAppear {
+                                scrollOffset = insideProxy.frame(in: .global).minY
+                            }
+                            .onChange(of: insideProxy.frame(in: .global).minY) { value in
+                                let scrollMovement = value - scrollOffset
+
+                                withAnimation(.easeInOut(duration: 0.2)) {
+                                    if scrollMovement < -threshold {
+                                        gradientOffset = 0
+                                    } else if scrollMovement > threshold {
+                                        gradientOffset = -32  
+                                    }
+                                }
+                            }
+                    }
+                )
             }
             
             VStack {
@@ -56,10 +72,14 @@ struct GenreGridView: View {
                     endPoint: .bottom
                 )
                 .frame(height: 32)
-                .padding(.top, -30)
+                .offset(y: gradientOffset)
                 
                 Spacer()
-                
+            }
+            .allowsHitTesting(false)
+            
+            VStack {
+                Spacer()
                 LinearGradient(
                     colors: [Color.napzakGradient(.gradient1FirstColor),
                              Color.napzakGradient(.gradient1SecondColor)],
@@ -68,9 +88,7 @@ struct GenreGridView: View {
                 )
                 .frame(height: 32)
             }
-            .padding(.top, 30)
             .allowsHitTesting(false)
         }
     }
-    
 }
