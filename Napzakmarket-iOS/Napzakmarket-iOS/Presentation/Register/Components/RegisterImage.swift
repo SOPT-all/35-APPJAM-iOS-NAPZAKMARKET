@@ -94,6 +94,7 @@ extension RegisterImage {
     private var representativeBadge: some View {
         VStack {
             Spacer()
+            
             Text("대표")
                 .font(.napzakFont(.caption3Medium12))
                 .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
@@ -127,64 +128,40 @@ extension RegisterImage {
                 .clipShape(RoundedRectangle(cornerRadius: 12))
             
             if index == 0 {
-                VStack {
-                    Spacer()
-                    
-                    Text("대표")
-                        .font(.napzakFont(.caption3Medium12))
-                        .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                        .frame(width: 80)
-                        .padding(.vertical, 2)
-                        .background(Color.napzakTransparency(.black70))
-                        .foregroundStyle(.white)
-                        .clipShape(
-                            .rect(
-                                bottomLeadingRadius: 12,
-                                bottomTrailingRadius: 12
-                            )
-                        )
-                }
+                representativeBadge
             }
             
-            VStack{
-                HStack{
-                    Spacer()
-                    Image(.icXCircleBlack)
-                        .frame(width: 10, height: 10)
-                        .onTapGesture {
-                            print("xbutton tapped")
-                            selectedImages.remove(at: index)
-                        }
-                        .background(.yellow)
-                }
-                
-                Spacer()
-                
-                Rectangle()
-                    .fill(.gray.opacity(0.000000000000000000001))
-                    .frame(width: 80)
-                    .frame(maxHeight: .infinity)
-                    .onLongPressGesture(perform: {
-                        print("picture long pressed")
-                        let movedImage = selectedImages.remove(at: index)
-                        selectedImages.insert(movedImage, at: 0)
-                    })
-            }
+            deleteButton(at: index)
             
         }
-        
         
     }
     
     private func deleteButton(at index: Int) -> some View {
-        Button(action: {
-            print("tapped")
-            selectedImages.remove(at: index)
-        }, label: {
-            Image(.icXCircleBlack)
-        })
-        .frame(width: 24, height: 24)
-        .position(CGPoint(x: 74, y: 8))
+        VStack{
+            HStack{
+                Spacer()
+                Image(.icXCircleBlack)
+                    .frame(width: 10, height: 10)
+                    .onTapGesture {
+                        print("xbutton tapped")
+                        selectedImages.remove(at: index)
+                    }
+                    .background(.yellow)
+            }
+            
+            Spacer()
+            
+            Rectangle()
+                .fill(.gray.opacity(0.000000000000000000001))
+                .frame(width: 80)
+                .frame(maxHeight: .infinity)
+                .onLongPressGesture(perform: {
+                    print("picture long pressed")
+                    let movedImage = selectedImages.remove(at: index)
+                    selectedImages.insert(movedImage, at: 0)
+                })
+        }
     }
     
     private func handlePhotoPickerChange() {
