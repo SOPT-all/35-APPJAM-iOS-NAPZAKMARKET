@@ -11,16 +11,32 @@ struct SearchView: View {
     
     //MARK: - Property Wrappers
     
+    @Environment(\.dismiss) private var dismiss
+    
+    //상품
     @State var sellProducts = ProductModel.sellDummyList()
     @State var buyProducts = ProductModel.buyDummyList()
+    
+    //세그먼트 컨트롤
     @State var selectedTabIndex = 0
+    
+    //정렬
     @State var selectedSortOption: SortOption = .latest
+    
+    //필터
     @State var selectedGenres: [GenreSearchModel] = []
     @State var selectedGenreStrings: [String] = []
-    @State var sortModalViewIsPresented = false
-    @State var filterModalViewIsPresented = false
     @State var isSoldoutFilterOn = false
     @State var isUnopenFilterOn = false
+    
+    //화면 전환
+    @State var sortModalViewIsPresented = false
+    @State var filterModalViewIsPresented = false
+    @State var searchInputViewIsPresented = false
+
+    //검색 결과
+    @State var isBackButtonHidden = true
+    @State var searchResultText: String = ""
     
     let width = (UIScreen.main.bounds.width - 55) / 2
     
@@ -34,50 +50,56 @@ struct SearchView: View {
     //MARK: - Main Body
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                VStack(spacing: 0) {
-                    searchButton
-                    NZSegmentedControl(
-                        selectedIndex: $selectedTabIndex,
-                        tabs: ["팔아요", "구해요"],
-                        spacing: 15
-                    )
-                    filterButtons
-                    productScrollView
-                }
-                .ignoresSafeArea(edges: [.horizontal, .bottom])
-                
-                ZStack(alignment: .bottom) {
-                    if sortModalViewIsPresented {
-                        Color.napzakTransparency(.black70)
-                            .onTapGesture {
-                                sortModalViewIsPresented = false
-                            }
-                        
-                        SortModalView(
-                            sortModalViewIsPresented: $sortModalViewIsPresented,
-                            selectedSortOption: $selectedSortOption
+        NavigationStack {
+            GeometryReader { geometry in
+                ZStack {
+                    VStack(spacing: 0) {
+                        searchButton
+                        NZSegmentedControl(
+                            selectedIndex: $selectedTabIndex,
+                            tabs: ["팔아요", "구해요"],
+                            spacing: 15
                         )
-                    } else if filterModalViewIsPresented {
-                        Color.napzakTransparency(.black70)
-                            .onTapGesture {
-                                filterModalViewIsPresented = false
-                            }
-                        
-                        GenreFilterModalView(
-                            selectedGenres: $selectedGenres,
-                            selectedGenreStrings: $selectedGenreStrings,
-                            filterModalViewIsPresented: $filterModalViewIsPresented
-                        )
+                        filterButtons
+                        productScrollView
                     }
+                    .ignoresSafeArea(edges: [.horizontal, .bottom])
+                    
+                    ZStack(alignment: .bottom) {
+                        if sortModalViewIsPresented {
+                            Color.napzakTransparency(.black70)
+                                .onTapGesture {
+                                    sortModalViewIsPresented = false
+                                }
+                            
+                            SortModalView(
+                                sortModalViewIsPresented: $sortModalViewIsPresented,
+                                selectedSortOption: $selectedSortOption
+                            )
+                        } else if filterModalViewIsPresented {
+                            Color.napzakTransparency(.black70)
+                                .onTapGesture {
+                                    filterModalViewIsPresented = false
+                                }
+                            
+                            GenreFilterModalView(
+                                selectedGenres: $selectedGenres,
+                                selectedGenreStrings: $selectedGenreStrings,
+                                filterModalViewIsPresented: $filterModalViewIsPresented
+                            )
+                        }
+                    }
+                    .ignoresSafeArea(.all)
+                    .animation(.interactiveSpring(), value: sortModalViewIsPresented)
+                    .animation(.interactiveSpring(), value: filterModalViewIsPresented)
                 }
-                .ignoresSafeArea(.all)
-                .animation(.interactiveSpring(), value: sortModalViewIsPresented)
-                .animation(.interactiveSpring(), value: filterModalViewIsPresented)
+                .ignoresSafeArea(.keyboard)
+                .frame(width: geometry.size.width, height: geometry.size.height)
             }
-            .ignoresSafeArea(.keyboard)
-            .frame(width: geometry.size.width, height: geometry.size.height)
+            .navigationBarHidden(true)
+            .navigationDestination(isPresented: $searchInputViewIsPresented) {
+                SearchInputView()
+            }
         }
     }
 }
@@ -87,23 +109,41 @@ extension SearchView {
     //MARK: - UI Properties
     
     private var searchButton: some View {
-        Button {
-            print("searchButtonTapped")
-        } label: {
-            HStack {
-                Text("어떤 아이템을 찾고 계신가요?")
-                    .font(.napzakFont(.body5SemiBold14))
-                    .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                    .foregroundStyle(Color.napzakGrayScale(.gray400))
-                Spacer()
-                Image(.iconSearch)
+        HStack(alignment: .center, spacing: 4) {
+            if !isBackButtonHidden {
+                Button {
+                    dismiss()
+                } label: {
+                    Image(.icBack)
+                        .resizable()
+                        .frame(width: 48, height: 48)
+                        .padding(.top, 4)
+                }
             }
-            .padding(.horizontal, 20)
+            Button {
+                if isBackButtonHidden {
+                    searchInputViewIsPresented = true
+                } else {
+                    dismiss()
+                }
+            } label: {
+                HStack(alignment: .center) {
+                    Text(searchResultText.isEmpty ? "어떤 아이템을 찾고 계신가요?" : "\(searchResultText)")
+                        .font(.napzakFont(.body5SemiBold14))
+                        .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+                        .foregroundStyle(searchResultText.isEmpty ? Color.napzakGrayScale(.gray400) : Color.napzakGrayScale(.gray900))
+                    Spacer()
+                    Image(.iconSearch)
+                }
+                .frame(height: 44)
+                .padding(.horizontal, 12)
+                .background(Color.napzakGrayScale(.gray100))
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+            }
         }
-        .frame(height: 44)
-        .background(Color.napzakGrayScale(.gray100))
-        .clipShape(RoundedRectangle(cornerRadius: 12))
-        .padding(.horizontal, 20)
+        .padding(.top, 18)
+        .padding(.leading, isBackButtonHidden ? 20 : 0 )
+        .padding(.trailing, 20)
     }
     
     private var filterButtons: some View {
@@ -159,6 +199,7 @@ extension SearchView {
         .frame(height: 53)
         .background(Color.napzakGrayScale(.gray50))
     }
+    
     
     private var productScrollView: some View {
         ScrollViewReader { proxy in
