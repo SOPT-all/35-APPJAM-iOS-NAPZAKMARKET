@@ -67,5 +67,6 @@ extension RegisterView {
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .padding(.horizontal, 20)
         .padding(.bottom, 35)
+        .padding(.top, 20)
     }
 }
