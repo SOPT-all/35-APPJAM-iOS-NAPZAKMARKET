@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ChatView: View {
+    
+    @EnvironmentObject private var tabBarState: TabBarStateModel
     @Environment(\.dismiss) private var dismiss
     @State private var messageText: String = ""
     let isSelling: Bool // true for 팔아요, false for 구해요!
@@ -20,6 +22,9 @@ struct ChatView: View {
             messageInputView
         }
         .navigationBarHidden(true)
+        .onAppear {
+            tabBarState.isTabBarHidden = true
+        }
     }
 }
 

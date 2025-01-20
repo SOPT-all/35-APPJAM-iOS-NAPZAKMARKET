@@ -14,9 +14,9 @@ struct ProductDetailView: View {
     @State var currentPage: Int = 0
     @State var showToast = false
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var product = ProductDetailModel.dummyBuyProductDetail()
+    @ObservedObject var product = ProductDetailModel.dummySellProductDetail()
     @EnvironmentObject private var tabBarState: TabBarStateModel
-
+    
     //MARK: - Main Body
     
     var body: some View {
@@ -303,9 +303,7 @@ extension ProductDetailView {
                 } label: {
                     product.isInterested ? Image(.btnDetailLikeSelect) : Image(.btnDetailLike)
                 }
-                Button {
-                    print("채팅하기 버튼 선택")
-                } label: {
+                NavigationLink(destination: ChatView(isSelling: true)) {
                     HStack {
                         Spacer()
                         Text("채팅하기")
