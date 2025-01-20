@@ -12,6 +12,7 @@ struct SearchView: View {
     //MARK: - Property Wrappers
     
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var tabBarState: TabBarStateModel
     
     //상품
     @State var sellProducts = ProductModel.sellDummyList()
@@ -92,6 +93,16 @@ struct SearchView: View {
                     .ignoresSafeArea(.all)
                     .animation(.interactiveSpring(), value: sortModalViewIsPresented)
                     .animation(.interactiveSpring(), value: filterModalViewIsPresented)
+                    .onChange(of: sortModalViewIsPresented) { _ in
+                        if sortModalViewIsPresented == false {
+                            tabBarState.isTabBarHidden = false
+                        }
+                    }
+                    .onChange(of: filterModalViewIsPresented) { _ in
+                        if filterModalViewIsPresented == false {
+                            tabBarState.isTabBarHidden = false
+                        }
+                    }
                 }
                 .ignoresSafeArea(.keyboard)
                 .frame(width: geometry.size.width, height: geometry.size.height)
