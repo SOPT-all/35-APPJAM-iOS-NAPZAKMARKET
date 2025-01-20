@@ -52,8 +52,8 @@ struct SearchView: View {
     
     var body: some View {
         NavigationStack {
-            GeometryReader { geometry in
-                ZStack {
+            ZStack {
+                GeometryReader { geometry in
                     VStack(spacing: 0) {
                         searchButton
                         NZSegmentedControl(
@@ -65,7 +65,8 @@ struct SearchView: View {
                         productScrollView
                     }
                     .ignoresSafeArea(edges: [.horizontal, .bottom])
-                    
+                    .frame(width: geometry.size.width, height: geometry.size.height)
+
                     ZStack(alignment: .bottom) {
                         if sortModalViewIsPresented {
                             Color.napzakTransparency(.black70)
@@ -105,7 +106,6 @@ struct SearchView: View {
                     }
                 }
                 .ignoresSafeArea(.keyboard)
-                .frame(width: geometry.size.width, height: geometry.size.height)
             }
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $searchInputViewIsPresented) {
