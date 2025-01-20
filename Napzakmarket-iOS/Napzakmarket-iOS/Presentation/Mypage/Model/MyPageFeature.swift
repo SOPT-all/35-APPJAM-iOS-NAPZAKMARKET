@@ -5,13 +5,15 @@
 //  Created by 박어진 on 1/14/25.
 //
 
+import Foundation
+
 enum MyPageFeature: CaseIterable, Identifiable {
     case purchase
     case favorite
     case review
     case recent
     
-    var id: Self { self } 
+    var id: Self { self }
     
     var title: String {
         switch self {
@@ -30,4 +32,28 @@ enum MyPageFeature: CaseIterable, Identifiable {
         case .recent: return "ic_my_recent"
         }
     }
+}
+
+// MARK: - DTO
+
+struct MyPageResponse: Codable {
+    let storeId: Int
+    let nickname: String
+    let storePhoto: String
+    
+    enum CodingKeys: String, CodingKey {
+        case storeId
+        case nickname
+        case storePhoto
+    }
+}
+
+// MARK: - Mock Data
+
+extension MyPageResponse {
+    static let mockData = MyPageResponse(
+        storeId: 12345,
+        nickname: "오딩잉",
+        storePhoto: "img_profile_md"
+    )
 }
