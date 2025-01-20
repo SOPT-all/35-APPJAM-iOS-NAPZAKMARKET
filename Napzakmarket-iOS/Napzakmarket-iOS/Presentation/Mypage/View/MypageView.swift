@@ -20,7 +20,9 @@ struct MyPageView: View {
                     backgroundSection
                     
                     VStack(spacing: 0) {
-                        dividerLine
+                        Divider()
+                            .frame(height: 1)
+                            .overlay(Color.napzakGrayScale(.gray200))
                         
                         VStack(spacing: 0) {
                             profileSection
@@ -49,12 +51,6 @@ struct MyPageView: View {
         Color.napzakGrayScale(.gray50)
             .frame(height: 342)
             .edgesIgnoringSafeArea(.horizontal)
-    }
-        
-    private var dividerLine: some View {
-        Rectangle()
-            .frame(height: 1)
-            .foregroundStyle(Color.napzakGrayScale(.gray200))
     }
         
     private var profileSection: some View {
