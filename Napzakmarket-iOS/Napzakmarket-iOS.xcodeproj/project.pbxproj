@@ -34,6 +34,8 @@
 		6C71799E2D36118B00481622 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C71799D2D36118B00481622 /* String+.swift */; };
 		6C7179A22D36955C00481622 /* RegisterBuyPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7179A12D36955C00481622 /* RegisterBuyPrice.swift */; };
 		6CA556E42D38E11700AD1CF6 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA556E32D38E11700AD1CF6 /* RegisterModel.swift */; };
+		D00CF6532D3E797F00F48230 /* MarketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00CF64E2D3E797E00F48230 /* MarketModel.swift */; };
+		D00CF6542D3E797F00F48230 /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00CF6502D3E797E00F48230 /* MarketView.swift */; };
 		D02CAB5C2D34A9CC00B0D93F /* ProductItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02CAB5B2D34A9C200B0D93F /* ProductItemView.swift */; };
 		D02CAB612D34EBAB00B0D93F /* NZSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02CAB602D34EB9C00B0D93F /* NZSegmentedControl.swift */; };
 		D07A11F82D301BF400749962 /* ColorLiteral.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A11F72D301BE300749962 /* ColorLiteral.swift */; };
@@ -99,6 +101,8 @@
 		6C71799D2D36118B00481622 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		6C7179A12D36955C00481622 /* RegisterBuyPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBuyPrice.swift; sourceTree = "<group>"; };
 		6CA556E32D38E11700AD1CF6 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
+		D00CF64E2D3E797E00F48230 /* MarketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketModel.swift; sourceTree = "<group>"; };
+		D00CF6502D3E797E00F48230 /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
 		D02CAB5B2D34A9C200B0D93F /* ProductItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductItemView.swift; sourceTree = "<group>"; };
 		D02CAB602D34EB9C00B0D93F /* NZSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NZSegmentedControl.swift; sourceTree = "<group>"; };
 		D07A11F72D301BE300749962 /* ColorLiteral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorLiteral.swift; sourceTree = "<group>"; };
@@ -241,6 +245,31 @@
 			path = Sell;
 			sourceTree = "<group>";
 		};
+		D00CF64F2D3E797E00F48230 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				D00CF64E2D3E797E00F48230 /* MarketModel.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		D00CF6512D3E797E00F48230 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				D00CF6502D3E797E00F48230 /* MarketView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		D00CF6522D3E797E00F48230 /* Market */ = {
+			isa = PBXGroup;
+			children = (
+				D00CF64F2D3E797E00F48230 /* Model */,
+				D00CF6512D3E797E00F48230 /* View */,
+			);
+			path = Market;
+			sourceTree = "<group>";
+		};
 		D02CAB5F2D34EB9300B0D93F /* SegmentedControl */ = {
 			isa = PBXGroup;
 			children = (
@@ -370,6 +399,7 @@
 				D0AA21062D2C0C04004CC2E6 /* ProductDetail */,
 				D0AA20FC2D2C0BC7004CC2E6 /* Mypage */,
 				D0AA20F72D2C0B77004CC2E6 /* Tabbar */,
+				D00CF6522D3E797E00F48230 /* Market */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -778,6 +808,8 @@
 				D6F528C12D3646A900D1F7A8 /* GenreGridView.swift in Sources */,
 				D6C6751E2D33024B00DE6B4D /* SearchBar.swift in Sources */,
 				D08F4E842D3A6E43004093FC /* ProductDetailModel.swift in Sources */,
+				D00CF6532D3E797F00F48230 /* MarketModel.swift in Sources */,
+				D00CF6542D3E797F00F48230 /* MarketView.swift in Sources */,
 				6C7179A22D36955C00481622 /* RegisterBuyPrice.swift in Sources */,
 				6C2D5B7E2D32C2AA00E904C6 /* RegisterSellHeader.swift in Sources */,
 				6C2D5B702D32B9BE00E904C6 /* RegisterProductState.swift in Sources */,
