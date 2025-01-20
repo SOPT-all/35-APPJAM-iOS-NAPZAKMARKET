@@ -14,6 +14,8 @@ struct OnboardingView: View {
     @StateObject private var genreModel = GenreModel()
     @FocusState private var isSearchBarFocused: Bool
     
+    @State private var chipViewHeight: CGFloat = 0
+    
     // MARK: - Main Body
     
     var body: some View {
@@ -34,39 +36,24 @@ struct OnboardingView: View {
             }
             .padding(.horizontal, 20)
             .background(Color.napzakGrayScale(.white))
-            .zIndex(4)
+            .zIndex(2)
             
-            ZStack(alignment: .top) {
-                LinearGradient(
-                    colors: [Color.napzakGradient(.gradient1SecondColor),
-                             Color.napzakGradient(.gradient1FirstColor)],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .frame(height: 32)
-                .opacity(genreModel.selectedGenres.isEmpty ? 0 : 1)
-                .offset(y: genreModel.selectedGenres.isEmpty ? -32 : 0)
-                .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
-                .zIndex(1)
-                
-                ChipsContainerView(
-                    selectedGenres: .init(
-                        get: { genreModel.selectedGenres.map { $0.name } },
-                        set: { newNames in
-                            withAnimation(.easeInOut(duration: 0.3)) {
-                                genreModel.removeSelection(newNames)
-                            }
+            ChipsContainerView(
+                selectedGenres: .init(
+                    get: { genreModel.selectedGenres.map { $0.name } },
+                    set: { newNames in
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            genreModel.removeSelection(newNames)
                         }
-                    )
+                    }
                 )
-                .padding(.top, 16)
-                .padding(.horizontal, 20)
-                .frame(height: genreModel.selectedGenres.isEmpty ? 0 : nil, alignment: .top)
-                .offset(y: genreModel.selectedGenres.isEmpty ? -60 : 0)
-                .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
-                .zIndex(3)
-                
-            }
+            )
+            .padding(.top, 16)
+            .padding(.horizontal, 20)
+            .frame(height: genreModel.selectedGenres.isEmpty ? 0 : nil, alignment: .top)
+            .offset(y: genreModel.selectedGenres.isEmpty ? -60 : 0)
+            .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
+            .zIndex(1)
             
             VStack(spacing: 0) {
                 GenreGridView(
@@ -79,6 +66,8 @@ struct OnboardingView: View {
                         isSearchBarFocused = false
                     }
                 }
+                .padding(.top, 30)
+                
                 
                 FinalActionsView(
                     appState: appState,
@@ -86,8 +75,8 @@ struct OnboardingView: View {
                 )
             }
             .padding(.horizontal, 20)
-            .padding(.top, 30)
-            .zIndex(1)
+            
+            
             
         }
         .padding(.top, 40)

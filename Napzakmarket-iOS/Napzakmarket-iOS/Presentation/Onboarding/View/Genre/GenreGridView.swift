@@ -1,3 +1,10 @@
+//
+//  GenreGridView.swift
+//  Napzakmarket-iOS
+//
+//  Created by 조호근 on 1/21/25.
+//
+
 import SwiftUI
 
 struct GenreGridView: View {
@@ -13,10 +20,9 @@ struct GenreGridView: View {
         GridItem(.flexible())
     ]
     
-    @State private var gradientOffset: CGFloat = -32
-    @State private var scrollOffset: CGFloat = 0
+    @State private var showTopGradient: Bool = false
     private let threshold: CGFloat = 10
-
+    
     // MARK: - Body
     
     var body: some View {
@@ -44,25 +50,16 @@ struct GenreGridView: View {
                 }
                 .padding(.bottom, 70)
                 .background(
-                    GeometryReader { insideProxy in
-                        Color.clear
-                            .onAppear {
-                                scrollOffset = insideProxy.frame(in: .global).minY
+                    GeometryReader { proxy in
+                        Color.clear.onChange(of: proxy.frame(in: .named("scroll")).minY) { value in
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showTopGradient = value < -threshold
                             }
-                            .onChange(of: insideProxy.frame(in: .global).minY) { value in
-                                let scrollMovement = value - scrollOffset
-
-                                withAnimation(.easeInOut(duration: 0.2)) {
-                                    if scrollMovement < -threshold {
-                                        gradientOffset = 0
-                                    } else if scrollMovement > threshold {
-                                        gradientOffset = -32  
-                                    }
-                                }
-                            }
+                        }
                     }
                 )
             }
+            .coordinateSpace(name: "scroll")
             
             VStack {
                 LinearGradient(
@@ -72,7 +69,7 @@ struct GenreGridView: View {
                     endPoint: .bottom
                 )
                 .frame(height: 32)
-                .offset(y: gradientOffset)
+                .offset(y: showTopGradient ? 0 : -32)
                 
                 Spacer()
             }
