@@ -53,9 +53,10 @@ struct HomeView: View {
                     }
                     
                     MostLikedProductsView(width: width, products: $sellProducts)
+                        .padding(.horizontal, 20)
                 }
                 .padding(.top, 50)
-                .padding(.horizontal, 20)
+                
                 
                 // 세번째 섹션
                 VStack(spacing: 16) {

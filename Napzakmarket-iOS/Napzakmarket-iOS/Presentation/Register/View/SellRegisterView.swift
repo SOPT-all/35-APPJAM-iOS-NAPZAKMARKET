@@ -56,7 +56,7 @@ struct SellRegisterView: View {
             }
             .padding(.bottom, 67)
         }
-        
+        .scrollDismissesKeyboard(.immediately)
     }
 
 }
