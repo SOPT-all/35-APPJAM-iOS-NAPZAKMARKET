@@ -350,10 +350,11 @@ extension ProductDetailView {
     //MARK: - Private Func
     
     private func showToastMessage() {
-        withAnimation {
-            showToast = true
-        }
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) {
+        Task {
+            withAnimation {
+                showToast = true
+            }
+            try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
             withAnimation {
                 showToast = false
             }
