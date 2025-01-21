@@ -10,10 +10,8 @@ import Foundation
 final class NetworkService {
     
     static let shared = NetworkService()
-
+    
     private init() {}
     
-//    let userService: UserServiceProtocol = UserService()
-//    let timetableService: TimetableServiceProtocol = TimetableService()
-//    let ticketsService: TicketsServiceProtocol = TicketsService()
+    let genreService: GenreServiceProtocol = GenreService()
 }

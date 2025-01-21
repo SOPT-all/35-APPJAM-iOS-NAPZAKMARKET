@@ -15,7 +15,7 @@ struct PreferGenreResponseDTO: Codable {
 
 struct PreferGenreData: Codable {
     let genreList: [PreferGenre]
-    var nextCursor: Int? = nil
+    var nextCursor: String?
 }
 
 struct PreferGenre: Codable {

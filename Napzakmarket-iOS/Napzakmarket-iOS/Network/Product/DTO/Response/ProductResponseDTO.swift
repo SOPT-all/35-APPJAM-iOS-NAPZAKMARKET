@@ -46,7 +46,7 @@ struct SellProductResponseDTO: Codable {
 
 struct SellProductData: Codable {
     let productSellList: [SellProduct]
-    var nextCursor: Int? = nil
+    var nextCursor: String?
 }
 
 struct BuyProductResponseDTO: Codable {
@@ -57,7 +57,7 @@ struct BuyProductResponseDTO: Codable {
 
 struct BuyProductData: Codable {
     let productBuyList: [BuyProduct]
-    var nextCursor: Int? = nil
+    var nextCursor: String?
 }
 
 struct BuyProduct: Codable {

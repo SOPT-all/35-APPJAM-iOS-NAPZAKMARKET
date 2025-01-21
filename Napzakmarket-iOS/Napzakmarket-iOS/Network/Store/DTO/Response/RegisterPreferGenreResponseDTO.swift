@@ -15,5 +15,5 @@ struct RegisterPreferGenreResponseDTO: Codable {
 
 struct RegisteredPreferGenreData: Codable {
     let genreList: [GenreName]
-    var nextCursor: Int? = nil
+    var nextCursor: String?
 }

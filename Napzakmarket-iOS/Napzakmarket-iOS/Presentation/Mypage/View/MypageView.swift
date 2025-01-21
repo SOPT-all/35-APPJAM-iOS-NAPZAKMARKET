@@ -9,6 +9,7 @@ import SwiftUI
 
 struct MyPageView: View {
     @State private var navigateToMarket = false
+    @State private var myPageData = MyPageResponse.mockData
     
     var body: some View {
         NavigationStack {
@@ -19,7 +20,9 @@ struct MyPageView: View {
                     backgroundSection
                     
                     VStack(spacing: 0) {
-                        dividerLine
+                        Divider()
+                            .frame(height: 1)
+                            .overlay(Color.napzakGrayScale(.gray200))
                         
                         VStack(spacing: 0) {
                             profileSection
@@ -34,8 +37,6 @@ struct MyPageView: View {
         }
     }
     
-    // MARK: - Title
-    
     private var titleSection: some View {
         Text("마이페이지")
             .font(.napzakFont(.title4Bold18))
@@ -46,33 +47,21 @@ struct MyPageView: View {
             .background(Color.napzakGrayScale(.white))
     }
     
-    // MARK: - Background
-    
     private var backgroundSection: some View {
         Color.napzakGrayScale(.gray50)
             .frame(height: 342)
             .edgesIgnoringSafeArea(.horizontal)
     }
-    
-    // MARK: - 구분선
-    
-    private var dividerLine: some View {
-        Rectangle()
-            .frame(height: 1)
-            .foregroundStyle(Color.napzakGrayScale(.gray200))
-    }
-    
-    // MARK: - Profile Section
-    
+        
     private var profileSection: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
-                Image("img_profile_md")
+                Image(myPageData.storePhoto)
                     .resizable()
                     .scaledToFit()
                     .frame(width: 60, height: 60)
                 
-                Text("납자기님")
+                Text("\(myPageData.nickname)님")
                     .font(.napzakFont(.title2Bold20))
                     .applyNapzakTextStyle(napzakFontStyle: .title2Bold20)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -93,9 +82,7 @@ struct MyPageView: View {
         )
         .padding(.top, 20)
     }
-    
-    // MARK: - 내마켓보기 버튼
-    
+        
     private var marketButton: some View {
         NavigationLink(destination: MarketView()) {
             Text("내 마켓 보기")

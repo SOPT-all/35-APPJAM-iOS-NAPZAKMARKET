@@ -54,7 +54,7 @@ extension RegisterImage {
     
     private var imageScrollSection: some View {
         ScrollView(.horizontal, showsIndicators: false) {
-            HStack {
+            LazyHStack(spacing: 10) {
                 photoPickerButton
                 
                 ForEach(0..<selectedImages.count, id: \.self) { index in
@@ -94,10 +94,11 @@ extension RegisterImage {
     private var representativeBadge: some View {
         VStack {
             Spacer()
+            
             Text("대표")
                 .font(.napzakFont(.caption3Medium12))
                 .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                .frame(maxWidth: .infinity)
+                .frame(width: 80)
                 .padding(.vertical, 2)
                 .background(Color.napzakTransparency(.black70))
                 .foregroundStyle(.white)
@@ -118,15 +119,13 @@ extension RegisterImage {
 extension RegisterImage {
     
     private func imageItemView(for index: Int) -> some View {
-        ZStack {
+        
+        ZStack(alignment: .topLeading) {
             Image(uiImage: selectedImages[index])
                 .resizable()
                 .scaledToFill()
                 .frame(width: 80, height: 80)
                 .clipShape(RoundedRectangle(cornerRadius: 12))
-                .onLongPressGesture {
-                    moveImageToFront(at: index)
-                }
             
             if index == 0 {
                 representativeBadge
@@ -134,16 +133,33 @@ extension RegisterImage {
             
             deleteButton(at: index)
         }
+        
     }
     
     private func deleteButton(at index: Int) -> some View {
-        Button(action: {
-            selectedImages.remove(at: index)
-        }, label: {
-            Image(.icXCircleBlack)
-        })
-        .frame(width: 24, height: 24)
-        .position(CGPoint(x: 74, y: 8))
+        VStack{
+            HStack{
+                Spacer()
+                Image(.icXCircleBlack)
+                    .frame(width: 10, height: 10)
+                    .onTapGesture {
+                        print("xbutton tapped")
+                        selectedImages.remove(at: index)
+                    }
+            }
+            
+            Spacer()
+            
+            Rectangle()
+                .fill(.gray.opacity(0.000000000000000000001))
+                .frame(width: 80)
+                .frame(maxHeight: .infinity)
+                .onLongPressGesture(perform: {
+                    print("picture long pressed")
+                    let movedImage = selectedImages.remove(at: index)
+                    selectedImages.insert(movedImage, at: 0)
+                })
+        }
     }
     
     private func handlePhotoPickerChange() {
