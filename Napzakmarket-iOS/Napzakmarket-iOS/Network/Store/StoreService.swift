@@ -13,7 +13,7 @@ protocol StoreServiceProtocol {
 }
 
 final class StoreService: BaseService, StoreServiceProtocol {
-    let provider = MoyaProvider<MyPageAPI>()
+    let provider = MoyaProvider<StoreAPI>()
     
     func getStoreInfo(completion: @escaping (NetworkResult<MyPageInfoResponseDTO>) -> ()) {
         provider.request(.getStoreInfo) { result in

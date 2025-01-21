@@ -7,11 +7,11 @@
 
 import Moya
 
-enum MyPageAPI {
+enum StoreAPI {
     case getStoreInfo
 }
 
-extension MyPageAPI: BaseTargetType {
+extension StoreAPI: BaseTargetType {
     
     var headerType: HeaderType {
         switch self {
