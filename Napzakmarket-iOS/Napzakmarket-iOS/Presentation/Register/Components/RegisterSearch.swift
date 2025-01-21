@@ -11,6 +11,7 @@ struct RegisterSearch: View {
     @Environment(\.dismiss) private var dismiss
     
     @State var text = ""
+    @State private var isInputComplete: Bool = false
     @Binding var genre: String
     
     var list: [String] = [
@@ -60,7 +61,7 @@ struct RegisterSearch: View {
             Divider()
                 .padding(.bottom, 15)
             
-            SearchBar(placeholder: "예) 건담, 산리오, 주술회전", text: $text)
+            SearchBar(placeholder: "예) 건담, 산리오, 주술회전", text: $text, isInputComplete: $isInputComplete)
                 .padding(.horizontal, 20)
             
             listSection

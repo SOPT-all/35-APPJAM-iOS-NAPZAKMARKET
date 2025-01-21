@@ -11,13 +11,19 @@ struct GenreFilterModalView: View {
     
     //MARK: - Property Wrappers
     
+    @EnvironmentObject private var tabBarState: TabBarStateModel
+    
     @State var inputText: String = ""
+    @State private var isInputComplete: Bool = false
+    
     @Binding var selectedGenres: [GenreSearchModel]
     @Binding var selectedGenreStrings: [String]
     @Binding var filterModalViewIsPresented: Bool
-    @GestureState private var translation: CGFloat = .zero
-    @EnvironmentObject private var tabBarState: TabBarStateModel
     
+    @GestureState private var translation: CGFloat = .zero
+    
+    @FocusState private var isSearchBarFocused: Bool
+
     //MARK: - Properties
     
     private let modalHeight: CGFloat = 572
@@ -27,9 +33,14 @@ struct GenreFilterModalView: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 0) {
-            dragArea
-            header
-            searchBar
+            Group {
+                dragArea
+                header
+                searchBar
+            }
+            .onTapGesture {
+                isSearchBarFocused = false
+            }
             genreScrollView
             if !selectedGenreStrings.isEmpty {
                 selectedGenreView
@@ -99,7 +110,7 @@ extension GenreFilterModalView {
     }
     
     private var searchBar: some View {
-        SearchBar(placeholder: "예) 건담, 산리오, 주술회전", text: $inputText)
+        SearchBar(placeholder: "예) 건담, 산리오, 주술회전", text: $inputText, isInputComplete: $isInputComplete, isSearchBarFocused: _isSearchBarFocused)
             .padding(.bottom, 10)
             .padding(.horizontal, 20)
     }
@@ -118,6 +129,7 @@ extension GenreFilterModalView {
                     .frame(height: 60)
                     .contentShape(Rectangle())
                     .onTapGesture {
+                        isSearchBarFocused = false
                         if !selectedGenreStrings.contains(allGenres[i].genreName) && selectedGenreStrings.count < 4 {
                             selectedGenreStrings.append(allGenres[i].genreName)
                         }

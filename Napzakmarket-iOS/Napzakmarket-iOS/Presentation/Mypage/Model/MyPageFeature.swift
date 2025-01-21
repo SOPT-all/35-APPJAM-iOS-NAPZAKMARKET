@@ -33,27 +33,3 @@ enum MyPageFeature: CaseIterable, Identifiable {
         }
     }
 }
-
-// MARK: - DTO
-
-struct MyPageResponse: Codable {
-    let storeId: Int
-    let nickname: String
-    let storePhoto: String
-    
-    enum CodingKeys: String, CodingKey {
-        case storeId
-        case nickname
-        case storePhoto
-    }
-}
-
-// MARK: - Mock Data
-
-extension MyPageResponse {
-    static let mockData = MyPageResponse(
-        storeId: 12345,
-        nickname: "오딩잉",
-        storePhoto: "img_profile_md"
-    )
-}

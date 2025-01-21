@@ -14,4 +14,6 @@ final class NetworkService {
     private init() {}
     
     let genreService: GenreServiceProtocol = GenreService()
+    let myPageService: MyPageServiceProtocol = MyPageService()
+
 }
