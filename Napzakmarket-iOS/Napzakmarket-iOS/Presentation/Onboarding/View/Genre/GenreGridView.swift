@@ -2,7 +2,7 @@
 //  GenreGridView.swift
 //  Napzakmarket-iOS
 //
-//  Created by 조호근 on 1/14/25.
+//  Created by 조호근 on 1/21/25.
 //
 
 import SwiftUI
@@ -14,18 +14,21 @@ struct GenreGridView: View {
     @Binding var genres: [Genre]
     @Binding var selectedGenres: [Genre]
     
-    private let colums = [
+    private let columns = [
         GridItem(.flexible()),
         GridItem(.flexible()),
         GridItem(.flexible())
     ]
     
-    // MARK: - Properties
+    @State private var showTopGradient: Bool = false
+    private let threshold: CGFloat = 10
+    
+    // MARK: - Body
     
     var body: some View {
         ZStack {
-            ScrollView {
-                LazyVGrid(columns: colums, spacing: 20) {
+            ScrollView(showsIndicators: false) {
+                LazyVGrid(columns: columns, spacing: 20) {
                     ForEach(genres) { genre in
                         GenreCell(
                             genre: genre,
@@ -43,10 +46,20 @@ struct GenreGridView: View {
                             )
                         )
                     }
+                    .padding(2)
                 }
-                .padding(.top, 32)
                 .padding(.bottom, 70)
+                .background(
+                    GeometryReader { proxy in
+                        Color.clear.onChange(of: proxy.frame(in: .named("scroll")).minY) { value in
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                showTopGradient = value < -threshold
+                            }
+                        }
+                    }
+                )
             }
+            .coordinateSpace(name: "scroll")
             
             VStack {
                 LinearGradient(
@@ -56,10 +69,14 @@ struct GenreGridView: View {
                     endPoint: .bottom
                 )
                 .frame(height: 32)
-                .padding(.top, -30)
+                .offset(y: showTopGradient ? 0 : -32)
                 
                 Spacer()
-                
+            }
+            .allowsHitTesting(false)
+            
+            VStack {
+                Spacer()
                 LinearGradient(
                     colors: [Color.napzakGradient(.gradient1FirstColor),
                              Color.napzakGradient(.gradient1SecondColor)],
@@ -68,9 +85,7 @@ struct GenreGridView: View {
                 )
                 .frame(height: 32)
             }
-            .padding(.top, 30)
             .allowsHitTesting(false)
         }
     }
-    
 }
