@@ -9,7 +9,7 @@ import Moya
 
 protocol GenreServiceProtocol {
     func getAllGenreName(completion: @escaping (NetworkResult<GenreNameResponseDTO>) -> ())
-    func getSearchGenreName(searchWord: String,completion: @escaping (NetworkResult<GenreNameResponseDTO>) -> ())
+    func getSearchGenreName(searchWord: String, completion: @escaping (NetworkResult<GenreNameResponseDTO>) -> ())
 }
 
 final class GenreService: BaseService, GenreServiceProtocol {

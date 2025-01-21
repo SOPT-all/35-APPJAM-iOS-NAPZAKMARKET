@@ -25,7 +25,7 @@ struct SearchView: View {
     @State var selectedSortOption: SortOption = .latest
     
     //필터
-    @State var selectedGenres: [GenreSearchModel] = []
+    @State var selectedGenres: [GenreName] = []
     @State var selectedGenreStrings: [String] = []
     @State var isSoldoutFilterOn = false
     @State var isUnopenFilterOn = false

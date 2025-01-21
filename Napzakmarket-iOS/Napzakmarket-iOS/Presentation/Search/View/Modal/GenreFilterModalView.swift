@@ -16,18 +16,21 @@ struct GenreFilterModalView: View {
     @State var inputText: String = ""
     @State private var isInputComplete: Bool = false
     
-    @Binding var selectedGenres: [GenreSearchModel]
+    @Binding var selectedGenres: [GenreName]
     @Binding var selectedGenreStrings: [String]
     @Binding var filterModalViewIsPresented: Bool
     
     @GestureState private var translation: CGFloat = .zero
     
     @FocusState private var isSearchBarFocused: Bool
+    
+    //MARK: - Data from server
+    
+    @State var genreList: [GenreName] = []
 
     //MARK: - Properties
     
     private let modalHeight: CGFloat = 572
-    private let allGenres: [GenreSearchModel] = GenreSearchModel.genreDummyList
     
     //MARK: - Main Body
     
@@ -73,6 +76,10 @@ struct GenreFilterModalView: View {
         .onAppear {
             selectedGenreStrings = selectedGenres.map { $0.genreName }
             tabBarState.isTabBarHidden = true
+            
+            Task {
+                await getAllGenreList()
+            }
         }
     }
 }
@@ -113,14 +120,23 @@ extension GenreFilterModalView {
         SearchBar(placeholder: "예) 건담, 산리오, 주술회전", text: $inputText, isInputComplete: $isInputComplete, isSearchBarFocused: _isSearchBarFocused)
             .padding(.bottom, 10)
             .padding(.horizontal, 20)
+            .onChange(of: inputText) { newValue in
+                Task {
+                    if newValue.isEmpty {
+                        await getAllGenreList()
+                    } else {
+                        await getSearchGenreList(searchWord: newValue)
+                    }
+                }
+            }
     }
     
     private var genreScrollView: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 10) {
-                ForEach(allGenres.indices, id: \.self) { i in
+                ForEach(genreList.indices, id: \.self) { i in
                     HStack {
-                        Text("\(allGenres[i].genreName)")
+                        Text("\(genreList[i].genreName)")
                             .font(.napzakFont(.body5SemiBold14))
                             .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                             .foregroundStyle(Color.napzakGrayScale(.gray800))
@@ -130,12 +146,12 @@ extension GenreFilterModalView {
                     .contentShape(Rectangle())
                     .onTapGesture {
                         isSearchBarFocused = false
-                        if !selectedGenreStrings.contains(allGenres[i].genreName) && selectedGenreStrings.count < 4 {
-                            selectedGenreStrings.append(allGenres[i].genreName)
+                        if !selectedGenreStrings.contains(genreList[i].genreName) && selectedGenreStrings.count < 4 {
+                            selectedGenreStrings.append(genreList[i].genreName)
                         }
                     }
                     
-                    if i != allGenres.count - 1 {
+                    if i != genreList.count - 1 {
                         Divider()
                             .frame(height: 1)
                             .foregroundStyle(Color.napzakGrayScale(.gray100))
@@ -162,8 +178,8 @@ extension GenreFilterModalView {
             print("적용하기 버튼 선택")
             selectedGenres = []
             for selectedGenreString in self.selectedGenreStrings {
-                if let i = allGenres.firstIndex(where: { $0.genreName == selectedGenreString }) {
-                    selectedGenres.append(allGenres[i])
+                if let i = genreList.firstIndex(where: { $0.genreName == selectedGenreString }) {
+                    selectedGenres.append(genreList[i])
                 }
             }
             filterModalViewIsPresented = false
@@ -185,5 +201,36 @@ extension GenreFilterModalView {
         .padding(.top, 20)
         .padding(.horizontal, 20)
         .padding(.bottom, 35)
+    }
+    
+    //MARK: - Private Func
+    
+    private func getAllGenreList() async {
+        NetworkService.shared.genreService.getAllGenreName { result in
+            switch result {
+            case .success(let reponse):
+                guard let reponse else { return }
+                DispatchQueue.main.async {
+                    genreList = reponse.data.genreList
+                }
+            default:
+                break
+            }
+        }
+    }
+    
+    private func getSearchGenreList(searchWord: String) async {
+        NetworkService.shared.genreService.getSearchGenreName(searchWord: searchWord) { result in
+            switch result {
+            case .success(let reponse):
+                guard let reponse else { return }
+                DispatchQueue.main.async {
+                    genreList = reponse.data.genreList
+                    print(reponse.data.genreList)
+                }
+            default:
+                break
+            }
+        }
     }
 }

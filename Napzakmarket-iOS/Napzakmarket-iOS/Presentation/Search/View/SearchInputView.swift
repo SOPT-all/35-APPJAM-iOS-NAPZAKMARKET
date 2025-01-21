@@ -17,14 +17,14 @@ struct SearchInputView: View {
     @State private var inputText = ""
     @State private var isInputComplete: Bool = false
     
-    @State private var selectedGenre: GenreSearchModel?
+    @State private var selectedGenre: GenreName?
     @State private var isGenreSelected: Bool = false
     
     @FocusState private var isSearchBarFocused: Bool
     
     //MARK: - Properties
     
-    private let genres = GenreSearchModel.genreDummyList
+    private let genres: [GenreName] = []
     
     //MARK: - Main Body
     

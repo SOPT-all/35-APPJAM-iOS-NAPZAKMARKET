@@ -16,7 +16,7 @@ struct MarketView: View {
     @State private var sellProducts = ProductModel.sellDummyList()
     @State private var buyProducts = ProductModel.buyDummyList()
     @State private var selectedSortOption: SortOption = .latest
-    @State private var selectedGenres: [GenreSearchModel] = []
+    @State private var selectedGenres: [GenreName] = []
     @State private var selectedGenreStrings: [String] = []
     @State private var sortModalViewIsPresented = false
     @State private var filterModalViewIsPresented = false
