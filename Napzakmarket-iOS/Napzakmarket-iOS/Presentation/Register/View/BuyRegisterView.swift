@@ -46,6 +46,7 @@ struct BuyRegisterView: View {
             }
             .padding(.bottom, 38)
         }
+        .scrollDismissesKeyboard(.immediately)
     }
     
 }
