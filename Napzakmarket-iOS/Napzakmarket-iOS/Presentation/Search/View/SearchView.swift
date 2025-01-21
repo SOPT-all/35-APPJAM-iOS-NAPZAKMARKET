@@ -91,6 +91,15 @@ extension SearchView {
     private var searchButton: some View {
         Button {
             print("searchButtonTapped")
+            NetworkService.shared.genreService.getAllGenreName { result in
+                switch result {
+                case .success(let reponse):
+                    guard let reponse else { return }
+                    print(reponse.data.genreList[1])
+                default:
+                    break
+                }
+            }
         } label: {
             HStack {
                 Text("어떤 아이템을 찾고 계신가요?")
