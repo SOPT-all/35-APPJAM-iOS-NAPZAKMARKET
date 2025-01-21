@@ -9,6 +9,11 @@ import SwiftUI
 
 extension String {
     
+    /// 줄바꿈이 포함되어있을 때 줄바꿈이 되는 기준이 char 단위가 되도록 해줌
+    var forceCharWrapping: Self {
+        self.map({ String($0) }).joined(separator: "\u{200B}")
+    }
+    
     // MARK: - 문자열을 금액 형태로 바꿔주는 함수
 
     func convertPrice(maxPrice: Int) -> String {
