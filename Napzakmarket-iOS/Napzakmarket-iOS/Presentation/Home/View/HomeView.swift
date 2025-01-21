@@ -24,7 +24,7 @@ struct HomeView: View {
     
     var body: some View {
         
-        ScrollView {
+        ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
                 LogoView()
                 NoticeCarouselView(currentPage: $currentPage, bannerImages: bannerImages)
@@ -204,6 +204,7 @@ extension HomeView {
                         )
                     }
                 }
+                .padding(.trailing, 20)
             }
         }
     }
