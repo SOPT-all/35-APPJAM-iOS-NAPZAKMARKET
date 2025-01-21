@@ -10,7 +10,7 @@ import Foundation
 struct GenreNameResponseDTO: Codable {
     let status: Int
     let message: String
-    let data: PreferGenreData
+    let data: GenreNameData
 }
 
 struct GenreNameData: Codable {
