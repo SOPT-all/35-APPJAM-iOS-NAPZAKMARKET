@@ -34,50 +34,52 @@ struct SearchView: View {
     //MARK: - Main Body
     
     var body: some View {
-        GeometryReader { geometry in
-            ZStack {
-                VStack(spacing: 0) {
-                    searchButton
-                    NZSegmentedControl(
-                        selectedIndex: $selectedTabIndex,
-                        tabs: ["팔아요", "구해요"],
-                        spacing: 15
-                    )
-                    filterButtons
-                    productScrollView
-                }
-                .ignoresSafeArea(edges: [.horizontal, .bottom])
-                
-                ZStack(alignment: .bottom) {
-                    if sortModalViewIsPresented {
-                        Color.napzakTransparency(.black70)
-                            .onTapGesture {
-                                sortModalViewIsPresented = false
-                            }
-                        
-                        SortModalView(
-                            sortModalViewIsPresented: $sortModalViewIsPresented,
-                            selectedSortOption: $selectedSortOption
+        NavigationStack {
+            GeometryReader { geometry in
+                ZStack {
+                    VStack(spacing: 0) {
+                        searchButton
+                        NZSegmentedControl(
+                            selectedIndex: $selectedTabIndex,
+                            tabs: ["팔아요", "구해요"],
+                            spacing: 15
                         )
-                    } else if filterModalViewIsPresented {
-                        Color.napzakTransparency(.black70)
-                            .onTapGesture {
-                                filterModalViewIsPresented = false
-                            }
-                        
-                        GenreFilterModalView(
-                            selectedGenres: $selectedGenres,
-                            selectedGenreStrings: $selectedGenreStrings,
-                            filterModalViewIsPresented: $filterModalViewIsPresented
-                        )
+                        filterButtons
+                        productScrollView
                     }
+                    .ignoresSafeArea(edges: [.horizontal, .bottom])
+                    
+                    ZStack(alignment: .bottom) {
+                        if sortModalViewIsPresented {
+                            Color.napzakTransparency(.black70)
+                                .onTapGesture {
+                                    sortModalViewIsPresented = false
+                                }
+                            
+                            SortModalView(
+                                sortModalViewIsPresented: $sortModalViewIsPresented,
+                                selectedSortOption: $selectedSortOption
+                            )
+                        } else if filterModalViewIsPresented {
+                            Color.napzakTransparency(.black70)
+                                .onTapGesture {
+                                    filterModalViewIsPresented = false
+                                }
+                            
+                            GenreFilterModalView(
+                                selectedGenres: $selectedGenres,
+                                selectedGenreStrings: $selectedGenreStrings,
+                                filterModalViewIsPresented: $filterModalViewIsPresented
+                            )
+                        }
+                    }
+                    .ignoresSafeArea(.all)
+                    .animation(.interactiveSpring(), value: sortModalViewIsPresented)
+                    .animation(.interactiveSpring(), value: filterModalViewIsPresented)
                 }
-                .ignoresSafeArea(.all)
-                .animation(.interactiveSpring(), value: sortModalViewIsPresented)
-                .animation(.interactiveSpring(), value: filterModalViewIsPresented)
+                .ignoresSafeArea(.keyboard)
+                .frame(width: geometry.size.width, height: geometry.size.height)
             }
-            .ignoresSafeArea(.keyboard)
-            .frame(width: geometry.size.width, height: geometry.size.height)
         }
     }
 }
@@ -191,26 +193,32 @@ extension SearchView {
                             }
                         }
                     }
-                }
-                .frame(height: 56)
-                .id("header")
-                
-                LazyVGrid(columns: columns, spacing: 20) {
-                    if selectedTabIndex == 0 {
-                        ForEach(sellProducts) { product in
-                            ProductItemView(
-                                product: product,
+                    .frame(height: 56)
+                    .id("header")
+                    
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        if selectedTabIndex == 0 {
+                            ForEach(sellProducts) { product in
+                                NavigationLink(destination: ProductDetailView()) {
+                                    ProductItemView(
+                                        product: product,
                                 width: width
-                            )
+                                    )
+                                }
+                            }
                         }
-                    } else if selectedTabIndex == 1 {
-                        ForEach(buyProducts) { product in
-                            ProductItemView(
-                                product: product,
-                                width: width
-                            )
+                        else if selectedTabIndex == 1 {
+                            ForEach(buyProducts) { product in
+                                NavigationLink(destination: ProductDetailView()) {
+                                    ProductItemView(
+                                        product: product,
+                                        width: width
+                                    )
+                                }
+                            }
                         }
                     }
+                    .padding(.bottom, 130)
                 }
             }
             .padding(.horizontal, 20)
