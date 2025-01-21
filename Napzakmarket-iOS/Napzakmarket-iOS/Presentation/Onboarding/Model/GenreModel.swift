@@ -51,6 +51,23 @@ final class GenreModel: ObservableObject {
         }
     }
     
+    func registerPreferGenres() async {
+        let genreIds = selectedGenres.map { $0.id }
+        let requestDTO = RegisterPreferGenreRequestDTO(genreIds: genreIds)
+        
+        NetworkService.shared.storeService.postPreferGenre(selectedGenres: requestDTO) { result in
+            switch result {
+            case .success(let dto):
+                if let data = dto {
+                    print("[등록된 데이터] \n \(data.jsonString)")
+                }
+                
+            default:
+                break
+            }
+        }
+    }
+    
     func removeSelection(_ selectedIDs: [Int]) {
         selectedGenres.removeAll { !selectedIDs.contains($0.id) }
     }

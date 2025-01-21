@@ -74,6 +74,7 @@ struct OnboardingView: View {
                 
                 FinalActionsView(
                     appState: appState,
+                    genreModel: genreModel,
                     selectedGenres: $genreModel.selectedGenres
                 )
             }
@@ -119,6 +120,7 @@ extension OnboardingView {
         // MARK: - Properties
         
         @ObservedObject var appState: AppState
+        @ObservedObject var genreModel: GenreModel
         @Binding var selectedGenres: [PreferGenre]
         
         // MARK: - Main Body
@@ -126,7 +128,10 @@ extension OnboardingView {
         var body: some View {
             VStack(spacing: 0) {
                 Button {
-                    appState.moveToMain()
+                    Task {
+                        await genreModel.registerPreferGenres()
+                        appState.moveToMain()
+                    }
                 } label: {
                     Text("선택완료! 시작하기")
                         .font(.napzakFont(.body1Bold16))

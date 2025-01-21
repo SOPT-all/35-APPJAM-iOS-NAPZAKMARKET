@@ -19,22 +19,22 @@ final class GenreService: BaseService, GenreServiceProtocol {
     private let provider = MoyaProvider<GenreAPI>.init(plugins: [MoyaPlugin()])
     
     func getAllPreferGenre(completion: @escaping (NetworkResult<PreferGenreResponseDTO>) -> ()) {
-        requestGenre(.getAllPreferGenre, completion: completion)
+        request(.getAllPreferGenre, completion: completion)
     }
     
     func getSearchPreferGenre(searchWord: String, completion: @escaping (NetworkResult<PreferGenreResponseDTO>) -> ()) {
-        requestGenre(.getSearchPreferGenre(searchWord: searchWord), completion: completion)
+        request(.getSearchPreferGenre(searchWord: searchWord), completion: completion)
     }
     
     func getAllGenreName(completion: @escaping (NetworkResult<GenreNameResponseDTO>) -> ()) {
-        requestGenre(.getAllGenreName, completion: completion)
+        request(.getAllGenreName, completion: completion)
     }
     
     func getSearchGenreName(searchWord: String, completion: @escaping (NetworkResult<GenreNameResponseDTO>) -> ()) {
-        requestGenre(.getSearchGenreName(searchWord: searchWord), completion: completion)
+        request(.getSearchGenreName(searchWord: searchWord), completion: completion)
     }
     
-    private func requestGenre<T: Decodable>(_ target: GenreAPI, completion: @escaping (NetworkResult<T>) -> ()) {
+    func request<T: Decodable>(_ target: GenreAPI, completion: @escaping (NetworkResult<T>) -> ()) {
         provider.request(target) { [weak self] result in
             guard let self = self else { return }
             

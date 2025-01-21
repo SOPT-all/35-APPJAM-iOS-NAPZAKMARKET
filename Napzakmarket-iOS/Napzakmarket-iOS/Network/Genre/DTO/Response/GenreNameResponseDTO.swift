@@ -15,7 +15,7 @@ struct GenreNameResponseDTO: Codable {
 
 struct GenreNameData: Codable {
     let genreList: [GenreName]
-    let nextCursor: String
+    let nextCursor: String?
 }
 
 struct GenreName: Identifiable, Codable {

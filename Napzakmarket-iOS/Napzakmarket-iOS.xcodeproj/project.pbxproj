@@ -84,6 +84,7 @@
 		D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA21352D2CFF99004CC2E6 /* FontLiterial.swift */; };
 		D0C26EB72D3797A10014EB4C /* SortModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C26EB62D3797980014EB4C /* SortModalView.swift */; };
 		D61342532D3A92B800E65EFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D61342522D3A92B800E65EFD /* Assets.xcassets */; };
+		D61342762D40345300E65EFD /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61342752D40345300E65EFD /* Encodable+.swift */; };
 		D63F2FCC2D369B9C00C1C7D1 /* AppEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FCB2D369B9C00C1C7D1 /* AppEntryView.swift */; };
 		D63F2FCF2D38D6A300C1C7D1 /* splash(ios).json in Resources */ = {isa = PBXBuildFile; fileRef = D63F2FCE2D38D6A300C1C7D1 /* splash(ios).json */; };
 		D63F2FD12D38D92B00C1C7D1 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FD02D38D92B00C1C7D1 /* SplashView.swift */; };
@@ -180,6 +181,7 @@
 		D0C26EB62D3797980014EB4C /* SortModalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SortModalView.swift; sourceTree = "<group>"; };
 		D0C2A8F62D2AA38E00C8616B /* Napzakmarket-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Napzakmarket-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D61342522D3A92B800E65EFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		D61342752D40345300E65EFD /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
 		D63F2FCB2D369B9C00C1C7D1 /* AppEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryView.swift; sourceTree = "<group>"; };
 		D63F2FCE2D38D6A300C1C7D1 /* splash(ios).json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "splash(ios).json"; sourceTree = "<group>"; };
 		D63F2FD02D38D92B00C1C7D1 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -543,6 +545,7 @@
 				6C693D142D2E4D9200758C6A /* TextEditor+.swift */,
 				D07B6F292D30017B00500B92 /* View+.swift */,
 				6C71799D2D36118B00481622 /* String+.swift */,
+				D61342752D40345300E65EFD /* Encodable+.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -986,6 +989,7 @@
 				D6C6750E2D32A5BB00DE6B4D /* Genre.swift in Sources */,
 				D6F528A72D362ABF00D1F7A8 /* GenreChip.swift in Sources */,
 				D6F528C32D36503B00D1F7A8 /* OnboardingView.swift in Sources */,
+				D61342762D40345300E65EFD /* Encodable+.swift in Sources */,
 				D07972822D3F776F00CF97E4 /* PreferGenreResponseDTO.swift in Sources */,
 				D6F5288D2D3410C900D1F7A8 /* GenreCell.swift in Sources */,
 				D6C6751A2D32C27800DE6B4D /* MockGenreError.swift in Sources */,
