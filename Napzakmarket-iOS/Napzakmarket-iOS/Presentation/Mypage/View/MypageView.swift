@@ -7,6 +7,8 @@
 
 import SwiftUI
 
+import Kingfisher
+
 struct MyPageView: View {
     @State private var myPageInfo: MyPageInfoData?
     
@@ -34,13 +36,13 @@ struct MyPageView: View {
             .background(Color.clear)
             .navigationBarHidden(true)
             .onAppear {
-                fetchMyPageInfo()
+                getStoreInfo()
             }
         }
     }
     
-    private func fetchMyPageInfo() {
-        NetworkService.shared.myPageService.fetchMyPageInfo { result in
+    private func getStoreInfo() {
+        NetworkService.shared.storeService.getStoreInfo { result in
             switch result {
             case .success(let response):
                 guard let response else { return }
@@ -72,31 +74,22 @@ struct MyPageView: View {
             HStack {
                 if let photoURL = myPageInfo?.storePhoto,
                    let url = URL(string: photoURL) {
-                    AsyncImage(url: url) { phase in
-                        switch phase {
-                        case .empty:
+                    KFImage(url)
+                        .placeholder {
                             ProgressView()
                                 .frame(width: 60, height: 60)
-                        case .success(let image):
-                            image
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 60, height: 60)
-                                .clipShape(Circle())
-                        case .failure(_):
-                            Image("img_profile_md")
-                                .resizable()
-                                .scaledToFit()
-                                .frame(width: 60, height: 60)
-                                .clipShape(Circle())
-                        @unknown default:
+                        }
+                        .onFailure { _ in
                             Image("img_profile_md")
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 60, height: 60)
                                 .clipShape(Circle())
                         }
-                    }
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                        .clipShape(Circle())
                 } else {
                     Image("img_profile_md")
                         .resizable()
@@ -105,13 +98,13 @@ struct MyPageView: View {
                         .clipShape(Circle())
                 }
                 
-                Text(myPageInfo?.storeNickname ?? "사용자" + "님")                    .font(.napzakFont(.title2Bold20))
+                Text(myPageInfo?.storeNickname ?? "사용자" + "님")
+                    .font(.napzakFont(.title2Bold20))
                     .applyNapzakTextStyle(napzakFontStyle: .title2Bold20)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
                 
                 Spacer()
             }
-            
             marketButton
         }
         .padding(20)
