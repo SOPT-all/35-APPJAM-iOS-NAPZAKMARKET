@@ -11,21 +11,21 @@ struct GenreChip: View {
     
     // MARK: - Properties
     
-    let name: String
-    @Binding var selectedGenres: [String]
+    let genre: GenreName
+    @Binding var selectedGenres: [GenreName]
     
     // MARK: - Main Body
     
     var body: some View {
         HStack(spacing: 4) {
-            Text(name)
+            Text(genre.genreName)
                 .font(.napzakFont(.body4Bold14))
                 .applyNapzakTextStyle(napzakFontStyle: .body4Bold14)
                 .foregroundStyle(Color.napzakPurple(.purple30))
             
             Button {
                 withAnimation {
-                    selectedGenres.removeAll { $0 == name }
+                    selectedGenres.removeAll { $0.id == genre.id }
                 }
             } label: {
                 Image(systemName: "xmark")
