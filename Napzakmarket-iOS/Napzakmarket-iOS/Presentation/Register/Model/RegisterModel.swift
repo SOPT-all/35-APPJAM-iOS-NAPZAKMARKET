@@ -55,6 +55,7 @@ final class RegisterModel: ObservableObject {
     
     
     // MARK: - 장르 검색 RESPONSE GET 로직
+
     
     
     

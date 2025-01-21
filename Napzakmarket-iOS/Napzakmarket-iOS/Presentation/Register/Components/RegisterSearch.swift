@@ -10,52 +10,15 @@ import SwiftUI
 struct RegisterSearch: View {
     @Environment(\.dismiss) private var dismiss
     
+    // MARK: - text 서버로 보내서 실시간 검색 확인 api
+    // 장르이름 검색 api
+    
     @State var text = ""
     @State private var isInputComplete: Bool = false
-    @Binding var genre: String
     
-    var list: [String] = [
-        "산리오",
-        "은혼",
-        "주술회전",
-        "디즈니/픽사",
-        "원피스",
-        "레고",
-        "건담",
-        "귀멸의 칼날",
-        "나루토",
-        "나의 히어로 아카데미아",
-        "도쿄 리벤저스",
-        "드래곤볼",
-        "리락쿠마",
-        "마블",
-        "명탐정 코난",
-        "버추얼",
-        "보컬로이드",
-        "브라이스",
-        "블루아카이브",
-        "사카모토 데이즈",
-        "슈가슈가룬",
-        "스파이 패밀리",
-        "슬램덩크",
-        "실바니안",
-        "앙상블스타즈",
-        "에반게리온",
-        "원신",
-        "지브리 스튜디오",
-        "진격의 거인",
-        "짱구는 못말려",
-        "치이카와",
-        "캐릭캐릭체인지",
-        "팝마트",
-        "페이트",
-        "포켓몬스터",
-        "프로젝트 세카이",
-        "하이큐",
-        "헌터x헌터",
-        "화산귀환"
-    ]
-        
+    @Binding var genre: String
+    @State private var genreList: [GenreName] = []
+    
     var body: some View {
         VStack{
             Divider()
@@ -63,9 +26,14 @@ struct RegisterSearch: View {
             
             SearchBar(placeholder: "예) 건담, 산리오, 주술회전", text: $text, isInputComplete: $isInputComplete)
                 .padding(.horizontal, 20)
+                .onChange(of: text) { newValue in
+                    Task {
+                        await fetchGenres(searchWord: text)
+                    }
+                }
             
             listSection
-
+            
         }
         .navigationTitle("장르")
         .navigationBarTitleDisplayMode(.inline)
@@ -83,8 +51,20 @@ struct RegisterSearch: View {
                 }
             }
         }
-
-
+        .onAppear {
+            if genreList.isEmpty {
+                NetworkService.shared.genreService.getAllGenreName { result in
+                    switch result {
+                    case .success(let response):
+                        guard let response else { return }
+                        genreList = response.data.genreList
+                    default:
+                        break
+                    }
+                }
+            }
+        }
+        
     }
 }
 
@@ -94,10 +74,9 @@ extension RegisterSearch {
     
     private var listSection: some View {
         List {
-            ForEach(list.filter({"\($0)".contains(self.text) || self.text.isEmpty}),
-                    id: \.self) { item in
+            ForEach(genreList, id: \.genreId) { item in
                 HStack{
-                    Text(item)
+                    Text(item.genreName)
                         .font(.napzakFont(.body5SemiBold14))
                         .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                         .foregroundStyle(Color.napzakGrayScale(.gray800))
@@ -106,15 +85,34 @@ extension RegisterSearch {
                 }
                 .padding(.vertical, 20)
                 .onTapGesture {
-                    genre = item
+                    genre = item.genreName
                     dismiss()
                 }
             }
             .listRowInsets(.init()) // remove insets
-            
         }
         .listStyle(.plain)
-        .environment(\.defaultMinListRowHeight, 0) // reset default row minimum height
+        .environment(\.defaultMinListRowHeight, 0)
         .padding(.horizontal, 20)
+
+        
     }
+    
+}
+
+// MARK: - Network
+
+extension RegisterSearch {
+    private func fetchGenres(searchWord: String) async {
+        NetworkService.shared.genreService.getSearchGenreName(searchWord: searchWord) { result in
+            switch result {
+            case .success(let response):
+                guard let response else { return }
+                self.genreList = response.data.genreList
+            default:
+                break
+            }
+        }
+    }
+    
 }

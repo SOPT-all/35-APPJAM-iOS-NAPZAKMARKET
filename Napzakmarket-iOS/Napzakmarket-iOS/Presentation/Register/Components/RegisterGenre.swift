@@ -9,11 +9,11 @@ import SwiftUI
 
 struct RegisterGenre: View {
     @Binding var genre: String
+    @State var genreList: [GenreName] = []
     
     var body: some View {
         NavigationLink {
             RegisterSearch(genre: $genre)
-                
         } label: {
             VStack(spacing: 0){
                 titleSection
