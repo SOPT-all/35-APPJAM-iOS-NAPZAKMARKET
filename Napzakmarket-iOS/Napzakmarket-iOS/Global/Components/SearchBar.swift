@@ -14,6 +14,7 @@ struct SearchBar: View {
     let placeholder: String
     
     @Binding var text: String
+    @Binding var isInputComplete: Bool
     @FocusState var isSearchBarFocused: Bool
     
     // MARK: - Main Body
@@ -24,6 +25,9 @@ struct SearchBar: View {
                 .font(.napzakFont(.body5SemiBold14))
                 .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                 .focused($isSearchBarFocused)
+                .onSubmit {
+                    isInputComplete = true
+                }
             
             HStack(spacing: 4) {
                 if !text.isEmpty {
@@ -39,15 +43,16 @@ struct SearchBar: View {
                     if text.isEmpty {
                         isSearchBarFocused = true
                     } else {
-                        // TODO: 엔터 역할
                         print("돋보기 Tapped: \(text)")
+                        isInputComplete = true
                     }
                 } label: {
                     Icon(systemName: "magnifyingglass")
                 }
             }
         }
-        .padding(12)
+        .frame(height: 44)
+        .padding(.horizontal, 12)
         .background(Color.napzakGrayScale(.gray100))
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .animation(.easeInOut(duration: 0.3), value: text.isEmpty)
