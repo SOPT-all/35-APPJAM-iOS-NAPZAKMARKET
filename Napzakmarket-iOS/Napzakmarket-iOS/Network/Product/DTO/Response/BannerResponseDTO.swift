@@ -7,17 +7,17 @@
 
 import Foundation
 
-struct BannerResponseDTO: Codable {
+struct BannerResponseDTO: Decodable {
     let status: Int
     let message: String
     let data: PreferGenreData
 }
 
-struct BannerData: Codable {
+struct BannerData: Decodable {
     let bannerList: [Banner]
 }
 
-struct Banner: Codable {
+struct Banner: Decodable {
     let bannerId: Int
     let bannerPhoto: String
     let bannerUrl: String

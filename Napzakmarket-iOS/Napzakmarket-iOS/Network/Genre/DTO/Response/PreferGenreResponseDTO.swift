@@ -7,19 +7,25 @@
 
 import Foundation
 
-struct PreferGenreResponseDTO: Codable {
+struct PreferGenreResponseDTO: Decodable {
     let status: Int
     let message: String
     let data: PreferGenreData
 }
 
-struct PreferGenreData: Codable {
+struct PreferGenreData: Decodable {
     let genreList: [PreferGenre]
     var nextCursor: String?
 }
 
-struct PreferGenre: Codable {
-    let genreId: Int
-    let genreName: String
-    let genrePhoto: String
+struct PreferGenre: Identifiable, Hashable, Decodable {
+    let id: Int
+    let name: String
+    let image: String?
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "genreId"
+        case name = "genreName"
+        case image = "genrePhoto"
+    }
 }
