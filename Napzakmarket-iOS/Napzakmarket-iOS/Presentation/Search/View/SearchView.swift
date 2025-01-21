@@ -132,15 +132,6 @@ extension SearchView {
                 }
             }
             Button {
-                NetworkService.shared.genreService.getAllGenreName { result in
-                    switch result {
-                    case .success(let reponse):
-                        guard let reponse else { return }
-                        print(reponse.data.genreList[1])
-                    default:
-                        break
-                    }
-                }
                 if isBackButtonHidden {
                     searchInputViewIsPresented = true
                 } else {
