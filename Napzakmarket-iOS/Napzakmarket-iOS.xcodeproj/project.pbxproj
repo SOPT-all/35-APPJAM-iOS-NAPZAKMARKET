@@ -34,12 +34,12 @@
 		6C71799E2D36118B00481622 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C71799D2D36118B00481622 /* String+.swift */; };
 		6C7179A22D36955C00481622 /* RegisterBuyPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7179A12D36955C00481622 /* RegisterBuyPrice.swift */; };
 		6CA556E42D38E11700AD1CF6 /* RegisterModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6CA556E32D38E11700AD1CF6 /* RegisterModel.swift */; };
-		D0283BA62D3D6D07002F302A /* SearchInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0283BA52D3D6CF8002F302A /* SearchInputView.swift */; };
+		6CDC4C862D3FE285005D6502 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6CDC4C852D3FE285005D6502 /* Config.xcconfig */; };
 		D00CF6532D3E797F00F48230 /* MarketModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00CF64E2D3E797E00F48230 /* MarketModel.swift */; };
 		D00CF6542D3E797F00F48230 /* MarketView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D00CF6502D3E797E00F48230 /* MarketView.swift */; };
+		D0283BA62D3D6D07002F302A /* SearchInputView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0283BA52D3D6CF8002F302A /* SearchInputView.swift */; };
 		D02CAB5C2D34A9CC00B0D93F /* ProductItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02CAB5B2D34A9C200B0D93F /* ProductItemView.swift */; };
 		D02CAB612D34EBAB00B0D93F /* NZSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = D02CAB602D34EB9C00B0D93F /* NZSegmentedControl.swift */; };
-		D079723F2D3F675B00CF97E4 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = D079723E2D3F675B00CF97E4 /* Config.xcconfig */; };
 		D07972552D3F6F9D00CF97E4 /* BaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07972512D3F6F9D00CF97E4 /* BaseService.swift */; };
 		D07972562D3F6F9D00CF97E4 /* BaseTargetType.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07972502D3F6F9D00CF97E4 /* BaseTargetType.swift */; };
 		D07972572D3F6F9D00CF97E4 /* MoyaPlugin.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07972522D3F6F9D00CF97E4 /* MoyaPlugin.swift */; };
@@ -128,12 +128,12 @@
 		6C71799D2D36118B00481622 /* String+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "String+.swift"; sourceTree = "<group>"; };
 		6C7179A12D36955C00481622 /* RegisterBuyPrice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterBuyPrice.swift; sourceTree = "<group>"; };
 		6CA556E32D38E11700AD1CF6 /* RegisterModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterModel.swift; sourceTree = "<group>"; };
-		D0283BA52D3D6CF8002F302A /* SearchInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInputView.swift; sourceTree = "<group>"; };
+		6CDC4C852D3FE285005D6502 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		D00CF64E2D3E797E00F48230 /* MarketModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketModel.swift; sourceTree = "<group>"; };
 		D00CF6502D3E797E00F48230 /* MarketView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MarketView.swift; sourceTree = "<group>"; };
+		D0283BA52D3D6CF8002F302A /* SearchInputView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInputView.swift; sourceTree = "<group>"; };
 		D02CAB5B2D34A9C200B0D93F /* ProductItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProductItemView.swift; sourceTree = "<group>"; };
 		D02CAB602D34EB9C00B0D93F /* NZSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NZSegmentedControl.swift; sourceTree = "<group>"; };
-		D079723E2D3F675B00CF97E4 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		D07972502D3F6F9D00CF97E4 /* BaseTargetType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseTargetType.swift; sourceTree = "<group>"; };
 		D07972512D3F6F9D00CF97E4 /* BaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseService.swift; sourceTree = "<group>"; };
 		D07972522D3F6F9D00CF97E4 /* MoyaPlugin.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoyaPlugin.swift; sourceTree = "<group>"; };
@@ -788,7 +788,7 @@
 		D0C2A8ED2D2AA38E00C8616B = {
 			isa = PBXGroup;
 			children = (
-				D079723E2D3F675B00CF97E4 /* Config.xcconfig */,
+				6CDC4C852D3FE285005D6502 /* Config.xcconfig */,
 				D0AA20EA2D2C0A56004CC2E6 /* Napzakmarket-iOS */,
 				D0C2A8F72D2AA38E00C8616B /* Products */,
 			);
@@ -945,7 +945,7 @@
 				D63F2FCF2D38D6A300C1C7D1 /* splash(ios).json in Resources */,
 				D0AA21322D2CFF0E004CC2E6 /* Pretendard-Bold.otf in Resources */,
 				D0AA21332D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf in Resources */,
-				D079723F2D3F675B00CF97E4 /* Config.xcconfig in Resources */,
+				6CDC4C862D3FE285005D6502 /* Config.xcconfig in Resources */,
 				D61342532D3A92B800E65EFD /* Assets.xcassets in Resources */,
 				D0AA21342D2CFF0E004CC2E6 /* Pretendard-Medium.otf in Resources */,
 				D6C675182D32BC5400DE6B4D /* mock_genres_39.json in Resources */,
@@ -1061,7 +1061,7 @@
 /* Begin XCBuildConfiguration section */
 		D0C2A9022D2AA39100C8616B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D079723E2D3F675B00CF97E4 /* Config.xcconfig */;
+			baseConfigurationReference = 6CDC4C852D3FE285005D6502 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1125,7 +1125,7 @@
 		};
 		D0C2A9032D2AA39100C8616B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D079723E2D3F675B00CF97E4 /* Config.xcconfig */;
+			baseConfigurationReference = 6CDC4C852D3FE285005D6502 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1182,6 +1182,7 @@
 		};
 		D0C2A9052D2AA39100C8616B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CDC4C852D3FE285005D6502 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1215,6 +1216,7 @@
 		};
 		D0C2A9062D2AA39100C8616B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CDC4C852D3FE285005D6502 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
