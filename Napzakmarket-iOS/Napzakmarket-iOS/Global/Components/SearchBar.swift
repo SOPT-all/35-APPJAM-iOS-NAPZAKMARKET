@@ -25,6 +25,9 @@ struct SearchBar: View {
                 .font(.napzakFont(.body5SemiBold14))
                 .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                 .focused($isSearchBarFocused)
+                .onSubmit {
+                    isInputComplete = true
+                }
             
             HStack(spacing: 4) {
                 if !text.isEmpty {
