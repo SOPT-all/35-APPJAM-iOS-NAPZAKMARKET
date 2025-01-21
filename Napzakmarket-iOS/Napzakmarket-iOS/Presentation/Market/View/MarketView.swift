@@ -10,7 +10,7 @@ import SwiftUI
 struct MarketView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
-        
+    
     @State private var tags: [Tag] = MarketMockData.tags
     @State private var selectedIndex = 0
     @State private var sellProducts = ProductModel.sellDummyList()
@@ -22,21 +22,21 @@ struct MarketView: View {
     @State private var filterModalViewIsPresented = false
     @State private var isSoldoutFilterOn = false
     @State private var isUnopenFilterOn = false
-   
     
-    let width = (UIScreen.main.bounds.width - 55) / 2
-    
+    private let width = (UIScreen.main.bounds.width - 55) / 2
     private let columns = [
         GridItem(.flexible(), spacing: 15),
         GridItem(.flexible())
     ]
+    
+    // MARK: - Views
     
     var body: some View {
         ZStack {
             VStack(spacing: 0) {
                 navigationSection
                 profileSection
-               
+                
                 NZSegmentedControl(
                     selectedIndex: $selectedIndex,
                     tabs: ["팔아요", "구해요", "후기"],
@@ -44,62 +44,69 @@ struct MarketView: View {
                 )
                 .frame(height: 46)
                 .padding(.top, 20)
-               
+                
                 if selectedIndex == 2 {
                     ReadyComponent()
                         .navigationBarHidden(true)
                 } else {
                     filterButtons
                     
-                    ScrollView(showsIndicators: false) {
-                        let products = selectedIndex == 0 ? sellProducts : buyProducts
-                        
-                        VStack(spacing: 0) {
-                            HStack(spacing: 4) {
-                                Text("상품")
-                                    .font(.napzakFont(.body5SemiBold14))
-                                    .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                                    .foregroundStyle(Color.napzakGrayScale(.gray900))
-                                Text("\(products.count)개")
-                                    .font(.napzakFont(.body5SemiBold14))
-                                    .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                                    .foregroundStyle(Color.napzakPurple(.purple30))
-                                Spacer()
-                                Button {
-                                    sortModalViewIsPresented = true
-                                } label: {
-                                    HStack(spacing: 0) {
-                                        Text("\(selectedSortOption.rawValue)")
-                                            .font(.napzakFont(.caption3Medium12))
-                                            .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                                            .foregroundStyle(Color.napzakGrayScale(.gray600))
-                                        Image(.iconDownSmGray)
-                                            .resizable()
-                                            .frame(width: 16, height: 16)
+                    ScrollViewReader { proxy in
+                        ScrollView(showsIndicators: false) {
+                            let products = selectedIndex == 0 ? sellProducts : buyProducts
+                            
+                            VStack(spacing: 0) {
+                                HStack(spacing: 4) {
+                                    Text("상품")
+                                        .font(.napzakFont(.body5SemiBold14))
+                                        .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+                                        .foregroundStyle(Color.napzakGrayScale(.gray900))
+                                    Text("\(products.count)개")
+                                        .font(.napzakFont(.body5SemiBold14))
+                                        .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+                                        .foregroundStyle(Color.napzakPurple(.purple30))
+                                    Spacer()
+                                    Button {
+                                        sortModalViewIsPresented = true
+                                    } label: {
+                                        HStack(spacing: 0) {
+                                            Text("\(selectedSortOption.rawValue)")
+                                                .font(.napzakFont(.caption3Medium12))
+                                                .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                                                .foregroundStyle(Color.napzakGrayScale(.gray600))
+                                            Image(.iconDownSmGray)
+                                                .resizable()
+                                                .frame(width: 16, height: 16)
+                                        }
+                                    }
+                                }
+                                .frame(height: 56)
+                                .id("header")
+                                
+                                LazyVGrid(columns: columns, spacing: 20) {
+                                    if selectedIndex == 0 {
+                                        ForEach(sellProducts) { product in
+                                            ProductItemView(
+                                                product: product,
+                                                width: width
+                                            )
+                                        }
+                                    } else {
+                                        ForEach(buyProducts) { product in
+                                            ProductItemView(
+                                                product: product,
+                                                width: width
+                                            )
+                                        }
                                     }
                                 }
                             }
-                            .frame(height: 56)
-                            
-                            LazyVGrid(columns: columns, spacing: 20) {
-                                if selectedIndex == 0 {
-                                    ForEach(sellProducts) { product in
-                                        ProductItemView(
-                                            product: product,
-                                            width: width
-                                        )
-                                    }
-                                } else {
-                                    ForEach(buyProducts) { product in
-                                        ProductItemView(
-                                            product: product,
-                                            width: width
-                                        )
-                                    }
-                                }
+                            .padding(.horizontal, 20)
+                            .onChange(of: selectedIndex) { _ in
+                                selectedSortOption = .latest
+                                proxy.scrollTo("header", anchor: .top)
                             }
                         }
-                        .padding(.horizontal, 20)
                     }
                 }
             }
@@ -143,7 +150,11 @@ struct MarketView: View {
         .background(Color(.white))
         .navigationBarHidden(true)
     }
-    
+}
+
+// MARK: - View Extensions
+
+extension MarketView {
     private var filterButtons: some View {
         HStack(alignment: .center, spacing: 6) {
             Button {
@@ -215,7 +226,6 @@ struct MarketView: View {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(Color.napzakGrayScale(.gray900))
                         .frame(width: 48, height: 48)
-                    
                 }
                 Spacer()
             }
