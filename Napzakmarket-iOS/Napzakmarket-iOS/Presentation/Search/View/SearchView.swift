@@ -243,26 +243,32 @@ extension SearchView {
                             }
                         }
                     }
-                }
-                .frame(height: 56)
-                .id("header")
-                
-                LazyVGrid(columns: columns, spacing: 20) {
-                    if selectedTabIndex == 0 {
-                        ForEach(sellProducts) { product in
-                            ProductItemView(
-                                product: product,
+                    .frame(height: 56)
+                    .id("header")
+                    
+                    LazyVGrid(columns: columns, spacing: 20) {
+                        if selectedTabIndex == 0 {
+                            ForEach(sellProducts) { product in
+                                NavigationLink(destination: ProductDetailView()) {
+                                    ProductItemView(
+                                        product: product,
                                 width: width
-                            )
+                                    )
+                                }
+                            }
                         }
-                    } else if selectedTabIndex == 1 {
-                        ForEach(buyProducts) { product in
-                            ProductItemView(
-                                product: product,
-                                width: width
-                            )
+                        else if selectedTabIndex == 1 {
+                            ForEach(buyProducts) { product in
+                                NavigationLink(destination: ProductDetailView()) {
+                                    ProductItemView(
+                                        product: product,
+                                        width: width
+                                    )
+                                }
+                            }
                         }
                     }
+                    .padding(.bottom, 130)
                 }
             }
             .padding(.horizontal, 20)

@@ -21,7 +21,7 @@ struct GenreFilterModalView: View {
     
     //MARK: - Properties
     
-    private let modalHeight: CGFloat = 602
+    private let modalHeight: CGFloat = 572
     private let allGenres: [GenreSearchModel] = GenreSearchModel.genreDummyList
     
     //MARK: - Main Body
@@ -31,7 +31,7 @@ struct GenreFilterModalView: View {
             dragArea
             header
             searchBar
-            GenreScrollView
+            genreScrollView
             if !selectedGenreStrings.isEmpty {
                 selectedGenreView
             }
@@ -105,7 +105,7 @@ extension GenreFilterModalView {
             .padding(.horizontal, 20)
     }
     
-    private var GenreScrollView: some View {
+    private var genreScrollView: some View {
         ScrollView(.vertical, showsIndicators: false) {
             VStack(alignment: .leading, spacing: 10) {
                 ForEach(allGenres.indices, id: \.self) { i in
