@@ -132,7 +132,6 @@ extension RegisterImage {
             }
             
             deleteButton(at: index)
-            
         }
         
     }
@@ -147,7 +146,6 @@ extension RegisterImage {
                         print("xbutton tapped")
                         selectedImages.remove(at: index)
                     }
-                    .background(.yellow)
             }
             
             Spacer()
