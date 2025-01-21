@@ -117,18 +117,23 @@ extension GenreFilterModalView {
     }
     
     private var searchBar: some View {
-        SearchBar(placeholder: "예) 건담, 산리오, 주술회전", text: $inputText, isInputComplete: $isInputComplete, isSearchBarFocused: _isSearchBarFocused)
-            .padding(.bottom, 10)
-            .padding(.horizontal, 20)
-            .onChange(of: inputText) { newValue in
-                Task {
-                    if newValue.isEmpty {
-                        await getAllGenreList()
-                    } else {
-                        await getSearchGenreList(searchWord: newValue)
-                    }
+        SearchBar(
+            placeholder: "예) 건담, 산리오, 주술회전",
+            text: $inputText,
+            isInputComplete: $isInputComplete,
+            isSearchBarFocused: _isSearchBarFocused
+        )
+        .padding(.bottom, 10)
+        .padding(.horizontal, 20)
+        .onChange(of: inputText) { newValue in
+            Task {
+                if newValue.isEmpty {
+                    await getAllGenreList()
+                } else {
+                    await getSearchGenreList(searchWord: newValue)
                 }
             }
+        }
     }
     
     private var genreScrollView: some View {
@@ -175,6 +180,9 @@ extension GenreFilterModalView {
     
     private var applyButton: some View {
         Button {
+            
+            //TODO: - Genre 구조체로 바꿔서 배열 핸들링하기
+            
             print("적용하기 버튼 선택")
             selectedGenres = []
             for selectedGenreString in self.selectedGenreStrings {

@@ -158,54 +158,57 @@ extension SearchView {
     }
     
     private var filterButtons: some View {
-        HStack(alignment: .center, spacing: 6) {
-            Button {
-                print("장르 필터 선택")
-                filterModalViewIsPresented = true
-            } label: {
-                if selectedGenres.isEmpty {
-                    Image(.chipGenre)
-                        .resizable()
-                        .frame(width: 67, height: 33)
-                } else {
-                    HStack(spacing: 4) {
-                        Text(selectedGenres.count == 1 ? "\(selectedGenres[0].genreName)" : "\(selectedGenres[0].genreName) 외 \(selectedGenres.count - 1)")
-                            .font(.napzakFont(.caption2SemiBold12))
-                            .applyNapzakTextStyle(napzakFontStyle: .caption2SemiBold12)
-                            .foregroundStyle(Color.napzakGrayScale(.white))
-                        Image(.iconDownSmWhite)
-                            .resizable()
-                            .frame(width: 16, height: 16)
-                    }
-                    .padding(.horizontal, 14)
-                    .padding(.vertical, 8)
-                    .background(Color.napzakGrayScale(.gray900))
-                    .clipShape(RoundedRectangle(cornerRadius: 100))
-                }
-            }
-            .padding(.leading, 20)
-            
-            Button {
-                print("품절 제외 필터 선택")
-                isSoldoutFilterOn.toggle()
-            } label: {
-                Image(isSoldoutFilterOn ? .chipSoldoutSelect : .chipSoldout)
-                    .resizable()
-                    .frame(width: 69, height: 33)
-            }
-            
-            if selectedTabIndex == 0 {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(alignment: .center, spacing: 6) {
                 Button {
-                    print("미개봉 필터 선택")
-                    isUnopenFilterOn.toggle()
+                    print("장르 필터 선택")
+                    filterModalViewIsPresented = true
                 } label: {
-                    Image(isUnopenFilterOn ? .chipUnopenSelect : .chipUnopen)
-                        .resizable()
-                        .frame(width: 59, height: 33)
+                    if selectedGenres.isEmpty {
+                        Image(.chipGenre)
+                            .resizable()
+                            .frame(width: 67, height: 33)
+                    } else {
+                        HStack(spacing: 4) {
+                            Text(selectedGenres.count == 1 ? "\(selectedGenres[0].genreName)" : "\(selectedGenres[0].genreName) 외 \(selectedGenres.count - 1)")
+                                .font(.napzakFont(.caption2SemiBold12))
+                                .applyNapzakTextStyle(napzakFontStyle: .caption2SemiBold12)
+                                .foregroundStyle(Color.napzakGrayScale(.white))
+                                .lineLimit(1)
+                                .fixedSize(horizontal: true, vertical: false)
+                            Image(.iconDownSmWhite)
+                                .resizable()
+                                .frame(width: 16, height: 16)
+                        }
+                        .padding(.horizontal, 14)
+                        .padding(.vertical, 8)
+                        .background(Color.napzakGrayScale(.gray900))
+                        .clipShape(RoundedRectangle(cornerRadius: 100))
+                    }
                 }
+                .padding(.leading, 20)
+                
+                Button {
+                    print("품절 제외 필터 선택")
+                    isSoldoutFilterOn.toggle()
+                } label: {
+                    Image(isSoldoutFilterOn ? .chipSoldoutSelect : .chipSoldout)
+                        .resizable()
+                        .frame(width: 69, height: 33)
+                }
+                
+                if selectedTabIndex == 0 {
+                    Button {
+                        print("미개봉 필터 선택")
+                        isUnopenFilterOn.toggle()
+                    } label: {
+                        Image(isUnopenFilterOn ? .chipUnopenSelect : .chipUnopen)
+                            .resizable()
+                            .frame(width: 59, height: 33)
+                    }
+                }
+                Spacer()
             }
-            Spacer()
-            
         }
         .frame(height: 53)
         .background(Color.napzakGrayScale(.gray50))
