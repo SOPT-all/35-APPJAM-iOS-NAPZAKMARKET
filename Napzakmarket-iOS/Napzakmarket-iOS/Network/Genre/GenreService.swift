@@ -34,7 +34,7 @@ final class GenreService: BaseService, GenreServiceProtocol {
         request(.getSearchGenreName(searchWord: searchWord), completion: completion)
     }
     
-    func request<T: Decodable>(_ target: GenreAPI, completion: @escaping (NetworkResult<T>) -> ()) {
+    private func request<T: Decodable>(_ target: GenreAPI, completion: @escaping (NetworkResult<T>) -> ()) {
         provider.request(target) { [weak self] result in
             guard let self = self else { return }
             

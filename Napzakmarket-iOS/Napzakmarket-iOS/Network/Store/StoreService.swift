@@ -19,7 +19,7 @@ final class StoreService: BaseService, StoreServiceProtocol {
         request(.postPreferGenres(request: selectedGenres), completion: completion)
     }
     
-    func request<T: Decodable>(_ target: StoreAPI, completion: @escaping (NetworkResult<T>) -> ()) {
+    private func request<T: Decodable>(_ target: StoreAPI, completion: @escaping (NetworkResult<T>) -> ()) {
         provider.request(target) { [weak self] result in
             guard let self = self else { return }
             
