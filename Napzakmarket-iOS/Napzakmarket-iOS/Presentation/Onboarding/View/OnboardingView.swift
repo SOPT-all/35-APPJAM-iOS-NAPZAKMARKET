@@ -75,9 +75,6 @@ struct OnboardingView: View {
                 )
             }
             .padding(.horizontal, 20)
-            
-            
-            
         }
         .padding(.top, 40)
         .edgesIgnoringSafeArea(.bottom)
