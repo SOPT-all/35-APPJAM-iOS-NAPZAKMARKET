@@ -8,35 +8,35 @@
 import Moya
 
 enum StoreAPI {
-    case getStoreInfo
+    case getmypageInfo
 }
 
 extension StoreAPI: BaseTargetType {
     
     var headerType: HeaderType {
         switch self {
-        case .getStoreInfo:
+        case .getmypageInfo:
             return .accessTokenHeader
         }
     }
     
     var path: String {
         switch self {
-        case .getStoreInfo:
+        case .getmypageInfo:
             return "stores/mypage"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getStoreInfo:
+        case .getmypageInfo:
             return .get
         }
     }
     
     var task: Moya.Task {
         switch self {
-        case .getStoreInfo:
+        case .getmypageInfo:
             return .requestPlain
         }
     }

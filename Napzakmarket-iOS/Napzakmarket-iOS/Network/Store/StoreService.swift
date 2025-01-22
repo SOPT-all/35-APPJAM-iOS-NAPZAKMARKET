@@ -9,14 +9,14 @@ import Foundation
 import Moya
 
 protocol StoreServiceProtocol {
-    func getStoreInfo(completion: @escaping (NetworkResult<MyPageInfoResponseDTO>) -> ())
+    func getmypageInfo(completion: @escaping (NetworkResult<MyPageInfoResponseDTO>) -> ())
 }
 
 final class StoreService: BaseService, StoreServiceProtocol {
     let provider = MoyaProvider<StoreAPI>()
     
-    func getStoreInfo(completion: @escaping (NetworkResult<MyPageInfoResponseDTO>) -> ()) {
-        provider.request(.getStoreInfo) { result in
+    func getmypageInfo(completion: @escaping (NetworkResult<MyPageInfoResponseDTO>) -> ()) {
+        provider.request(.getmypageInfo) { result in
             switch result {
             case .success(let response):
                 let networkResult: NetworkResult<MyPageInfoResponseDTO> = self.fetchNetworkResult(
