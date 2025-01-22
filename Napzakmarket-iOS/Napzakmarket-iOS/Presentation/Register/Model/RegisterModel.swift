@@ -36,6 +36,8 @@ final class RegisterModel: ObservableObject {
     
     @Published var presignedUrlList: [ProductPresignedUrlsData] = []
     
+    @Published var compleatedPut: Bool = false
+    
     // MARK: - 유효성 검사 및 버튼 활성화 로직
     
     // 팔아요, 구해요 상관없이 기본적인 등록 과정의 검증
@@ -58,7 +60,7 @@ final class RegisterModel: ObservableObject {
     
     // MARK: - presigned url GET 로직
     
-    func registerPresignedRequest() {
+    func registerPresignedRequest() async {
         NetworkService.shared.presignedService
             .getPresignedURL(imageNameList: self.imageNameList) { result in
                 switch result {
@@ -95,34 +97,83 @@ final class RegisterModel: ObservableObject {
             return
         }
         
-        
         for (index, presignedUrl) in presignedUrlList.enumerated() {
             guard let url = presignedUrl.productPresignedUrls.values.first,
                   index < registerInfo.images.count,
                   let imageData = registerInfo.images[index].jpegData(compressionQuality: 0.8) else {
+                print("업로드 준비 실패: index \(index)")
                 continue
             }
             
+            print("이미지 \(index + 1) 업로드 시작")
             NetworkService.shared.productService
                 .putImageToPresignedUrl(url: url, imageData: imageData) { result in
                     switch result {
                     case .success:
+                        if (index+1) == self.presignedUrlList.count {
+                            self.compleatedPut = true // 명시적으로 상태 변경
+                        }
                         print("이미지 \(index + 1) 업로드 성공")
                     default:
-                        print("지금 이건 디폴트 값이야")
+                        break
                     }
-                    
                 }
-            
-            print("과정이 안 끝난건가?")
         }
         
         print("모든 이미지 업로드 작업 완료")
     }
     
     
+    // MARK: - Sell Register Post 로직
     
-    // MARK: - 장르 검색 RESPONSE GET 로직
+    func sellRegisterRequest() {
+        var registerPhotoList: [RegisteredPhoto] = []
+        
+        // uiimage를 RegisteredPhoto 로 변경
+        for (index, image) in registerInfo.images.enumerated() {
+            if image.jpegData(compressionQuality: 0.8) != nil {
+                // 임시로 UUID를 활용한 URL을 생성 (실제로는 서버의 URL 또는 경로를 사용해야 함)
+                let photoUrl = presignedUrlList[index].jsonString
+                let registeredPhoto = RegisteredPhoto(photoUrl: photoUrl, sequence: index + 1)
+                registerPhotoList.append(registeredPhoto)
+            }
+        }
+        
+        var registerProductCondition = ""
+        
+        switch registerInfo.productState {
+        case "미개봉":
+            registerProductCondition = "NEW"
+        case "아주 좋은 상태":
+            registerProductCondition = "LIKE_NEW"
+        case "약간의 사용감":
+            registerProductCondition = "SLIGHTLY_USED"
+        default:
+            registerProductCondition = "USED"
+        }
+        
+        let registerItem = RegisterSellProductRequestDTO(
+            productPhotoList: registerPhotoList,
+            genreId: registerInfo.genreId,
+            title: registerInfo.title,
+            description: registerInfo.description,
+            price: Int(registerInfo.price) ?? 0,
+            productCondition: registerProductCondition,
+            isDeliveryIncluded: registerInfo.deliveryChargeFree,
+            standardDeliveryFee: Int(registerInfo.normalDeliveryCharge) ?? 0,
+            halfDeliveryFee: Int(registerInfo.halfDeliveryCharge) ?? 0
+        )
+        
+        NetworkService.shared.productService.postRegisterSellRequest(registerSellProduct: registerItem) { result in
+            switch result {
+            case .success:
+                print("Post 성공!")
+            default:
+                break
+            }
+        }
+        
+    }
     
     
     

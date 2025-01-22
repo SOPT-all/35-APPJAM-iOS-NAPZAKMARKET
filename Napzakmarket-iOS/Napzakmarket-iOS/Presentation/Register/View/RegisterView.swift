@@ -39,6 +39,12 @@ struct RegisterView: View {
             registerButton
         }
         .scrollIndicators(.hidden)
+        .onChange(of: registerModel.compleatedPut) { newValue in
+            if newValue {
+                print("onChange 실행됨: compleatedPut = \(newValue)")
+                registerModel.sellRegisterRequest()
+            }
+        }
     }
 }
 
@@ -54,7 +60,7 @@ extension RegisterView {
                 case .sell:
                     if registerModel.baseValidate() && registerModel.sellValidate() {
                         
-                        registerModel.registerPresignedRequest()
+                        await registerModel.registerPresignedRequest()
                         print("registerPresignedRequest 완료")
 
                         registerModel.putImagesToPresignedUrls()
@@ -65,7 +71,7 @@ extension RegisterView {
                     }
                  case .buy:
                      if registerModel.baseValidate() {
-                         registerModel.registerPresignedRequest()
+                         await registerModel.registerPresignedRequest()
                          print("registerPresignedRequest 완료")
 
                          registerModel.putImagesToPresignedUrls()

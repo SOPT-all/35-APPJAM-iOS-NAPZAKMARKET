@@ -15,6 +15,10 @@ enum ProductAPI {
     case getPopularSellProducts
     case getRecommandedBuyProducts
     case putPresignedURL(url: String, imageData: Data)
+    case sellProductRequest(registerItem: RegisterSellProductRequestDTO)
+    case buyProductRequest
+    case sellProductResponse(productId: Int)
+    case buyProductResponse
 }
 
 extension ProductAPI: BaseTargetType {
@@ -23,8 +27,7 @@ extension ProductAPI: BaseTargetType {
         switch self {
         case .putPresignedURL(let url, _):
             // 프리사인드 URL을 절대 경로로 처리
-            return URL(string: url) ?? URL(string: "https://napzak-dev-bucket.s3.ap-northeast-2.amazonaws.com")!
-            
+            return URL(string: url) ?? URL(string: "")!
         default:
             guard let urlString = Bundle.main.infoDictionary?["BASE_URL"] as? String,
                   let url = URL(string: urlString) else {
@@ -39,9 +42,12 @@ extension ProductAPI: BaseTargetType {
         switch self {
         case .putPresignedURL:
             return .noneHeader
-            
         case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts:
             return .accessTokenHeader
+        case .sellProductRequest, .buyProductRequest:
+            return .accessTokenHeader
+        case .sellProductResponse, .buyProductResponse:
+            return .noneHeader
         }
     }
     
@@ -57,6 +63,14 @@ extension ProductAPI: BaseTargetType {
             return "products/home/buy"
         case .putPresignedURL:
             return ""
+        case .sellProductRequest:
+            return "products/sell"
+        case .buyProductRequest:
+            return "products/buy"
+        case .sellProductResponse:
+            return "products/sell"
+        case .buyProductResponse:
+            return "products/buy"
         }
     }
     
@@ -66,6 +80,14 @@ extension ProductAPI: BaseTargetType {
             return .get
         case .putPresignedURL:
             return .put
+        case .sellProductRequest:
+            return .post
+        case .buyProductRequest:
+            return .post
+        case .sellProductResponse:
+            return .get
+        case .buyProductResponse:
+            return .get
         }
     }
     
@@ -75,6 +97,14 @@ extension ProductAPI: BaseTargetType {
             return .requestPlain
         case .putPresignedURL(_, let imageData):
             return .requestData(imageData)
+        case .sellProductRequest(let registerItem):
+            return .requestJSONEncodable(registerItem)
+        case .buyProductRequest:
+            return .requestPlain    //
+        case .sellProductResponse(let productId):
+            return .requestParameters(parameters: ["productId" : productId.description], encoding: URLEncoding.queryString)
+        case .buyProductResponse:
+            return .requestPlain    //
         }
     }
     

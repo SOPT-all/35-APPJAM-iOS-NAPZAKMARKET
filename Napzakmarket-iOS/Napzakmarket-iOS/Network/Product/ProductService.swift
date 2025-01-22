@@ -14,11 +14,24 @@ protocol ProductServiceProtocol {
     func getPersonalProducts(completion: @escaping (NetworkResult<PersonalProductResponseDTO>) -> ())
     func getPopularSellProducts(completion: @escaping (NetworkResult<PopularSellProductResponseDTO>) -> ())
     func getRecommandedBuyProducts(completion: @escaping (NetworkResult<RecommandedBuyProductResponseDTO>) -> ())
-    func putImageToPresignedUrl(
-        url: String,
-        imageData: Data,
-        completion: @escaping (NetworkResult<Void>) -> ()
+    
+    // presigned-url 관련
+    func putImageToPresignedUrl(url: String,imageData: Data,completion: @escaping (NetworkResult<Void>) -> ())
+    
+    // register 관련
+    func postRegisterSellRequest(
+        registerSellProduct: RegisterSellProductRequestDTO,
+        completion: @escaping (NetworkResult<RegisterSellProductResponseDTO>) -> ()
     )
+    
+    func postRegisterBuyRequest(completion: @escaping (NetworkResult<RegisterBuyProductRequestDTO>) -> ())
+    
+    
+    func getRegisterSellResponse(productId: Int, completion: @escaping (NetworkResult<RegisterSellProductResponseDTO>) -> ())
+    
+    
+    func getRegisterBuyResponse(completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ())
+    
 }
 
 final class ProductService: BaseService, ProductServiceProtocol {
@@ -58,7 +71,7 @@ final class ProductService: BaseService, ProductServiceProtocol {
             }
         }
     }
-
+    
     func putImageToPresignedUrl(
         url: String,
         imageData: Data,
@@ -79,11 +92,55 @@ final class ProductService: BaseService, ProductServiceProtocol {
                 
             case .failure(let error):
                 print("네트워크 요청 실패: \(error.localizedDescription)")
-
+                
             }
             print("💡 업로드 작업이 종료되었습니다.") // 종료를 명시적으로 표시
-
+            
         }
     }
-
+    
+    func postRegisterSellRequest(registerSellProduct: RegisterSellProductRequestDTO, completion: @escaping (NetworkResult<RegisterSellProductResponseDTO>) -> ()) {
+        request(.sellProductRequest(registerItem: registerSellProduct), completion: completion)
+    }
+    
+    
+    func getRegisterSellResponse(
+        productId: Int,
+        completion: @escaping (NetworkResult<RegisterSellProductResponseDTO>) -> ()
+    ) {
+        provider.request(.sellProductResponse(productId: productId)) { result in
+            switch result {
+            case .success(let response):
+                if (200...299).contains(response.statusCode) {
+                    do {
+                        // 서버의 응답 데이터 파싱
+                        let decodedResponse = try JSONDecoder().decode(RegisterSellProductResponseDTO.self, from: response.data)
+                        completion(.success(decodedResponse))
+                    } catch {
+                        print("JSON Parsing Error: \(error.localizedDescription)")
+                    }
+                } else {
+                    print("상품 조회 실패: 상태 코드 \(response.statusCode)")
+                }
+            case .failure(let error):
+                print("상품 조회 네트워크 요청 실패: \(error.localizedDescription)")
+            }
+        }
+    }
+    
+    
+    
+    
+    
+    func postRegisterBuyRequest(
+        completion: @escaping (NetworkResult<RegisterBuyProductRequestDTO>) -> ()
+    ) {
+        
+    }
+    
+    func getRegisterBuyResponse(completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ()) {
+        //
+    }
+    
+    
 }
