@@ -66,7 +66,7 @@ extension ProductItemView {
                 }
                 
                 Spacer()
-                if product.isOwnedByCurrentUser {
+                if !product.isOwnedByCurrentUser {
                     likeButton
                 }
             }
