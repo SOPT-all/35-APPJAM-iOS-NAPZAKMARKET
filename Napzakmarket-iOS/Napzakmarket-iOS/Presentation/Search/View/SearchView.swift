@@ -45,7 +45,7 @@ struct SearchView: View {
     @State var selectedGenreStrings: [String] = []
     
     //상품 분류
-    @State private var productFetchOption = ProductFetchOption(sortOption: .recent, genreIDs: [], isOnSale: false, isUnopened: false)
+    @State var productFetchOption = ProductFetchOption(sortOption: .recent, genreIDs: [], isOnSale: false, isUnopened: false)
     
     //화면 전환
     @State var sortModalViewIsPresented = false
@@ -129,14 +129,8 @@ struct SearchView: View {
                     await productModel.getBuyProducts(productFetchOption: productFetchOption)
                 }
             }
-            .onChange(of: productFetchOption) { _ in
-                Task {
-                    if selectedTabIndex == 0 {
-                        await productModel.getSellProducts(productFetchOption: productFetchOption)
-                    } else if selectedTabIndex == 1 {
-                        await productModel.getBuyProducts(productFetchOption: productFetchOption)
-                    }
-                }
+            .onChange(of: adaptedGenres) { _ in
+                productFetchOption.genreIDs = adaptedGenres.map { $0.id }
             }
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $searchInputViewIsPresented) {
@@ -314,6 +308,16 @@ extension SearchView {
                         await productModel.getBuyProducts(productFetchOption: productFetchOption)
                     } else if selectedTabIndex == 1 {
                         await productModel.getSellProducts(productFetchOption: productFetchOption)
+                    }
+                }
+            }
+            .onChange(of: productFetchOption) { _ in
+                proxy.scrollTo("header", anchor: .top)
+                Task {
+                    if selectedTabIndex == 0 {
+                        await productModel.getSellProducts(productFetchOption: productFetchOption)
+                    } else if selectedTabIndex == 1 {
+                        await productModel.getBuyProducts(productFetchOption: productFetchOption)
                     }
                 }
             }
