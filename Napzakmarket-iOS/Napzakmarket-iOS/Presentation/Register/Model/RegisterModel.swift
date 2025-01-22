@@ -36,7 +36,7 @@ final class RegisterModel: ObservableObject {
     
     @Published var presignedUrlList: [ProductPresignedUrlsData] = []
     
-    @Published var compleatedPut: Bool = false
+    @Published var compleatedCount: Int = 0
     
     // MARK: - 유효성 검사 및 버튼 활성화 로직
     
@@ -106,25 +106,37 @@ final class RegisterModel: ObservableObject {
             }
             
             print("이미지 \(index + 1) 업로드 시작")
+            
             NetworkService.shared.productService
                 .putImageToPresignedUrl(url: url, imageData: imageData) { result in
                     switch result {
-                    case .success:
-                        if (index+1) == self.presignedUrlList.count {
-                            self.compleatedPut = true // 명시적으로 상태 변경
-                        }
+                    case .success(let response):
                         print("이미지 \(index + 1) 업로드 성공")
+                        self.compleatedCount += 1
+                        print("compleatedCount: \(self.compleatedCount)")
+                        self.sellRegisterRequest()
                     default:
+                        print("끝")
                         break
                     }
                 }
         }
-        
-        print("모든 이미지 업로드 작업 완료")
     }
     
     
     // MARK: - Sell Register Post 로직
+    
+    func simplifyUrl(url: String) -> String? {
+        // URL에서 도메인과 중요한 경로만 추출
+        guard let urlComponents = URLComponents(string: url) else {
+            return nil
+        }
+        
+        // URL에서 도메인과 경로만 추출
+        let simplifiedUrl = "\(urlComponents.scheme ?? "https")://\(urlComponents.host ?? "")\(urlComponents.path)"
+        
+        return simplifiedUrl
+    }
     
     func sellRegisterRequest() {
         var registerPhotoList: [RegisteredPhoto] = []
@@ -132,10 +144,16 @@ final class RegisterModel: ObservableObject {
         // uiimage를 RegisteredPhoto 로 변경
         for (index, image) in registerInfo.images.enumerated() {
             if image.jpegData(compressionQuality: 0.8) != nil {
-                // 임시로 UUID를 활용한 URL을 생성 (실제로는 서버의 URL 또는 경로를 사용해야 함)
-                let photoUrl = presignedUrlList[index].jsonString
-                let registeredPhoto = RegisteredPhoto(photoUrl: photoUrl, sequence: index + 1)
-                registerPhotoList.append(registeredPhoto)
+                // presignedUrlList에서 실제 URL 값 추출
+                if let actualUrl = presignedUrlList[index].productPresignedUrls.values.first {
+                    // URL에서 중요한 부분만 추출 (도메인과 경로만)
+                    if let simplifiedUrl = simplifyUrl(url: actualUrl) {
+                        let registeredPhoto = RegisteredPhoto(photoUrl: simplifiedUrl, sequence: index + 1)
+                        registerPhotoList.append(registeredPhoto)
+                    } else {
+                        print("URL 추출 실패: index \(index)")
+                    }
+                }
             }
         }
         
@@ -163,6 +181,16 @@ final class RegisterModel: ObservableObject {
             standardDeliveryFee: Int(registerInfo.normalDeliveryCharge) ?? 0,
             halfDeliveryFee: Int(registerInfo.halfDeliveryCharge) ?? 0
         )
+        
+        print("productPhotoList: \(registerItem.productPhotoList)")
+        print("genreId: \(registerItem.genreId)")
+        print("title: \(registerItem.title)")
+        print("description: \(registerItem.description)")
+        print("price: \(registerItem.price)")
+        print("productCondition: \(registerItem.productCondition)")
+        print("isDeliveryIncluded: \(registerItem.isDeliveryIncluded)")
+        print("standardDeliveryFee: \(registerItem.standardDeliveryFee)")
+        print("halfDeliveryFee: \(registerItem.halfDeliveryFee)")
         
         NetworkService.shared.productService.postRegisterSellRequest(registerSellProduct: registerItem) { result in
             switch result {
