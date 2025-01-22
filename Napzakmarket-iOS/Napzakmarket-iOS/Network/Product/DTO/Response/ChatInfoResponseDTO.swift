@@ -16,7 +16,7 @@ struct ChatInfoResponseDTO: Codable {
 struct ChatInfoData: Codable {
     let nickname: String
     let firstPhoto: String
-    let tradeType: String
+    let tradeType: ProductType
     let title: String
     let price: Int
     let isPriceNegotiable: Bool
