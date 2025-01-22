@@ -9,11 +9,12 @@ import SwiftUI
 
 struct RegisterGenre: View {
     @Binding var genre: String
+    @Binding var genreId: Int
+    @State var genreList: [GenreName] = []
     
     var body: some View {
         NavigationLink {
-            RegisterSearch(genre: $genre)
-                
+            RegisterSearch(genre: $genre, genreId: $genreId)
         } label: {
             VStack(spacing: 0){
                 titleSection
