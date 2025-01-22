@@ -14,12 +14,17 @@ struct SellRegisterView: View {
         ScrollView {
             VStack(alignment: .leading) {
                 
-                RegisterImage(selectedImages: $registerModel.registerInfo.images)
+                RegisterImage(
+                    selectedImages: $registerModel.registerInfo.images, imageNameList: $registerModel.imageNameList,
+                    presignedUrls: $registerModel.presignedUrlList
+                )
                     .padding(.top, 15)
                     .padding(.bottom, 40)
                     .padding(.horizontal, 20)
 
-                RegisterGenre(genre: $registerModel.registerInfo.genre)
+                RegisterGenre(
+                    genre: $registerModel.registerInfo.genre,
+                    genreId: $registerModel.registerInfo.genreId)
                     .padding(.bottom, 35)
                     .padding(.horizontal, 20)
 
