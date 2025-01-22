@@ -10,6 +10,11 @@ import PhotosUI
 
 struct RegisterImage: View {
     @Binding var selectedImages: [UIImage]
+    
+    @Binding var imageNameList: [String]
+    
+    @Binding var presignedUrls: [productPresignedUrls]
+    
     @State private var photosPickerItem: [PhotosPickerItem] = []
     
     private let maxSelectedCount = 10
@@ -145,6 +150,7 @@ extension RegisterImage {
                     .onTapGesture {
                         print("xbutton tapped")
                         selectedImages.remove(at: index)
+                        imageNameList.remove(at: index)
                     }
             }
             
@@ -156,8 +162,7 @@ extension RegisterImage {
                 .frame(maxHeight: .infinity)
                 .onLongPressGesture(perform: {
                     print("picture long pressed")
-                    let movedImage = selectedImages.remove(at: index)
-                    selectedImages.insert(movedImage, at: 0)
+                    moveImageToFront(at: index)
                 })
         }
     }
@@ -168,6 +173,7 @@ extension RegisterImage {
                 if let data = try? await item.loadTransferable(type: Data.self) {
                     if let image = UIImage(data: data) {
                         selectedImages.append(image)
+                        imageNameList.append(UUID().uuidString)
                     }
                 }
             }
@@ -179,6 +185,7 @@ extension RegisterImage {
     private func moveImageToFront(at index: Int) {
         let movedImage = selectedImages.remove(at: index)
         selectedImages.insert(movedImage, at: 0)
+        imageNameList.insert(UUID().uuidString, at: 0)
     }
     
 }

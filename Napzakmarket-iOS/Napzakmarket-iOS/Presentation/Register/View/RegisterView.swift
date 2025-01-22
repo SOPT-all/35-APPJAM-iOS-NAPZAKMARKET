@@ -22,7 +22,7 @@ enum RegisterType: String {
 struct RegisterView: View {
     var registerType: RegisterType
     @StateObject private var registerModel = RegisterModel()
-
+    
     var body: some View {
         NavigationStack {
             switch registerType {
@@ -45,6 +45,23 @@ extension RegisterView {
     private var registerButton: some View {
         Button(action: {
             print("등록 버튼 클릭")
+            print(registerModel.registerInfo)
+            print("--------------------------------------------------------------------")
+  
+            Task {
+                switch registerType {
+                case .sell:
+                    registerModel.baseValidate() && registerModel.sellValidate()
+                    ? await registerModel
+                        .registerPresignedRequest()
+                    : print("유효성 검증 실패")
+                case .buy:
+                    registerModel.baseValidate()
+                    ? await registerModel.registerPresignedRequest()
+                    : print("유효성 검증 실패")
+                }
+            }
+                        
         }) {
             Text("등록하기")
                 .font(.napzakFont(.body1Bold16))

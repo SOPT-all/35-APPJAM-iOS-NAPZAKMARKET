@@ -17,6 +17,7 @@ struct RegisterSearch: View {
     @State private var isInputComplete: Bool = false
     
     @Binding var genre: String
+    @Binding var genreId: Int
     @State private var genreList: [GenreName] = []
     
     var body: some View {
@@ -86,6 +87,7 @@ extension RegisterSearch {
                 .padding(.vertical, 20)
                 .onTapGesture {
                     genre = item.genreName
+                    genreId = item.genreId.byteSwapped
                     dismiss()
                 }
             }

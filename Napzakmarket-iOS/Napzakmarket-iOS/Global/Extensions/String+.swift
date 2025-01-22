@@ -29,4 +29,13 @@ extension String {
         formatter.numberStyle = .decimal
         return formatter.string(from: limitedPrice as NSNumber) ?? ""
     }
+    
+    func convertInt() -> Int {
+        // 숫자만 남기기
+        let filteredPrice = self.filter { $0.isNumber }
+        guard let price = Int(filteredPrice) else { return 0 }
+    
+        return price
+    }
+    
 }

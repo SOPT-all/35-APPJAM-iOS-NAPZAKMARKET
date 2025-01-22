@@ -13,6 +13,7 @@ struct RegisterInfo {
     var title: String = ""
     var description: String = ""
     var genre: String = ""
+    var genreId: Int = 0
     var price: String = ""
     
     // 판매 등록글 사용 데이터
@@ -29,6 +30,10 @@ struct RegisterInfo {
 
 final class RegisterModel: ObservableObject {
     @Published var registerInfo = RegisterInfo()
+    
+    @Published var imageNameList: [String] = []
+
+    @Published var presignedUrlList: [productPresignedUrls] = []
     
     // MARK: - 유효성 검사 및 버튼 활성화 로직
     
@@ -50,8 +55,30 @@ final class RegisterModel: ObservableObject {
     }
 
     
+    // MARK: - presigned url 요청 로직
     
-    // MARK: - 등록정보 REQUEST POST 로직
+    func registerPresignedRequest() async {
+        NetworkService.shared.presignedService
+            .getPresignedURL(imageNameList: self.imageNameList) { result in
+                switch result {
+                case .success(let response):
+                    guard let response = response else { return }
+                    
+                    // 딕셔너리 데이터를 productPresignedUrls 배열로 변환
+                    let convertedUrls = response.data.presignedURL.map { key, value in
+                         productPresignedUrls(presignedURL: [key: value])
+                     }
+                     
+                     // presignedUrlList에 추가
+                     self.presignedUrlList.append(contentsOf: convertedUrls)
+                    
+                    print("프리사인드 URL 발급 성공!")
+                    print(self.presignedUrlList)
+                default:
+                    break
+                }
+            }
+    }
     
     
     // MARK: - 장르 검색 RESPONSE GET 로직
