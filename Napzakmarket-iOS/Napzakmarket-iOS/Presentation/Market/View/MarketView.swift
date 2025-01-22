@@ -6,12 +6,15 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct MarketView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
     
-    @State private var tags: [Tag] = MarketMockData.tags
+    let storeId: Int
+    
+    @State private var storeInfo: StoreInfoData?
     @State private var selectedIndex = 0
     @State private var sellProducts = ProductModel.sellDummyList()
     @State private var buyProducts = ProductModel.buyDummyList()
@@ -28,6 +31,10 @@ struct MarketView: View {
         GridItem(.flexible(), spacing: 15),
         GridItem(.flexible())
     ]
+    
+    init(storeId: Int) {
+        self.storeId = storeId
+    }
     
     // MARK: - Views
     
@@ -113,6 +120,7 @@ struct MarketView: View {
             .background(Color(.white))
             .navigationBarHidden(true)
             .onAppear {
+                getStoreInfo()
                 tabBarState.isTabBarHidden = true
             }
             .onDisappear {
@@ -149,6 +157,21 @@ struct MarketView: View {
         }
         .background(Color(.white))
         .navigationBarHidden(true)
+    }
+    
+    private func getStoreInfo() {
+        NetworkService.shared.storeService.getStoreInfo(storeId: storeId) { result in
+            switch result {
+            case .success(let response):
+                if let responseData = response?.data {
+                    DispatchQueue.main.async {
+                        self.storeInfo = responseData
+                    }
+                }
+            default:
+                break
+            }
+        }
     }
 }
 
@@ -235,44 +258,51 @@ extension MarketView {
     
     private var profileSection: some View {
         VStack(spacing: 0) {
-            Image("img_profile_md")
-                .resizable()
-                .scaledToFit()
-                .frame(width: 88, height: 88)
-                .overlay(Circle().stroke(Color.white, lineWidth: 4))
-                .padding(.top, -55)
-            
-            Text("아요핑들")
-                .font(.napzakFont(.title2Bold20))
-                .applyNapzakTextStyle(napzakFontStyle: .title2Bold20)
-                .foregroundStyle(Color.napzakGrayScale(.gray900))
-                .padding(.top, 6)
-            
-            tagListView
+            if let storeInfo = storeInfo {
+                KFImage(URL(string: storeInfo.storePhoto))
+                    .placeholder {
+                        Image("img_profile_md")
+                            .resizable()
+                            .scaledToFit()
+                    }
+                    .resizable()
+                    .scaledToFit()
+                    .frame(width: 88, height: 88)
+                    .clipShape(Circle())
+                    .overlay(Circle().stroke(Color.white, lineWidth: 4))
+                    .padding(.top, -55)
+                
+                Text(storeInfo.storeNickName)
+                    .font(.napzakFont(.title2Bold20))
+                    .applyNapzakTextStyle(napzakFontStyle: .title2Bold20)
+                    .foregroundStyle(Color.napzakGrayScale(.gray900))
+                    .padding(.top, 6)
+                
+                HStack(spacing: 6) {
+                    ForEach(storeInfo.genrePreferenceList, id: \.id) { genre in
+                        Text(genre.genreName)
+                            .font(.system(size: 12))
+                            .foregroundColor(Color.napzakGrayScale(.gray800))
+                            .padding(.horizontal, 8)
+                            .padding(.vertical, 4)
+                            .background(Color.napzakGrayScale(.gray100))
+                            .clipShape(RoundedRectangle(cornerRadius: 4))
+                    }
+                }
+                .padding(.horizontal, 16)
                 .padding(.top, 8)
-            
-            Text("마이멜로디, 시나모롤 제일 좋아합니다 :) 해당 장르 상품들 판매 및 제시 채팅 언제든 환영합니다!")
-                .multilineTextAlignment(.center)
-                .padding(.horizontal, 20)
-                .padding(.top, 12)
-                .font(.napzakFont(.caption3Medium12))
-                .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                .foregroundStyle(Color.napzakGrayScale(.gray700))
-        }
-    }
-    
-    private var tagListView: some View {
-        HStack(spacing: 6) {
-            ForEach(tags) { tag in
-                Text(tag.name)
-                    .font(.system(size: 12))
-                    .foregroundColor(Color.napzakGrayScale(.gray800))
-                    .padding(.horizontal, 8)
-                    .padding(.vertical, 4)
-                    .background(Color.napzakGrayScale(.gray100))
-                    .clipShape(RoundedRectangle(cornerRadius: 4))
+                
+                Text(storeInfo.storeDescription)
+                    .multilineTextAlignment(.center)
+                    .padding(.horizontal, 20)
+                    .padding(.top, 12)
+                    .font(.napzakFont(.caption3Medium12))
+                    .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                    .foregroundStyle(Color.napzakGrayScale(.gray700))
+            } else {
+                ProgressView()
+                    .padding()
             }
         }
-        .padding(.horizontal, 16)
     }
 }
