@@ -10,9 +10,9 @@ import Foundation
 struct PresignedResponseDTO: Codable {
     let status: Int
     let message: String
-    let data: productPresignedUrls
+    let data: ProductPresignedUrlsData
 }
 
-struct productPresignedUrls: Codable {
-    let presignedURL: [String: String]
+struct ProductPresignedUrlsData: Codable {
+    let productPresignedUrls: [String: String]
 }

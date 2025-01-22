@@ -19,13 +19,15 @@ final class PresignedService: BaseService, PresignedServiceProtocol {
         provider.request(.getPresignedURL(imageNameList: imageNameList)) { result in
             switch result {
             case .success(let response):
+                
                 let networkResult: NetworkResult<PresignedResponseDTO> = self.fetchNetworkResult(
                     statusCode: response.statusCode,
                     data: response.data
                 )
-
-                print("[networkResult] : \(networkResult)")
+                
                 completion(networkResult)
+                print("프리사인드 URL 발급 성공")
+
             case .failure(let err):
                 print(err)
             }

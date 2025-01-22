@@ -13,7 +13,7 @@ struct RegisterImage: View {
     
     @Binding var imageNameList: [String]
     
-    @Binding var presignedUrls: [productPresignedUrls]
+    @Binding var presignedUrls: [ProductPresignedUrlsData]
     
     @State private var photosPickerItem: [PhotosPickerItem] = []
     

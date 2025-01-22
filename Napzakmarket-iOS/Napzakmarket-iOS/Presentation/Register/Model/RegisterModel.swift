@@ -32,8 +32,8 @@ final class RegisterModel: ObservableObject {
     @Published var registerInfo = RegisterInfo()
     
     @Published var imageNameList: [String] = []
-
-    @Published var presignedUrlList: [productPresignedUrls] = []
+    
+    @Published var presignedUrlList: [ProductPresignedUrlsData] = []
     
     // MARK: - 유효성 검사 및 버튼 활성화 로직
     
@@ -53,7 +53,7 @@ final class RegisterModel: ObservableObject {
          !registerInfo.normalDeliveryCharge.isEmpty ||
          !registerInfo.halfDeliveryCharge.isEmpty)
     }
-
+    
     
     // MARK: - presigned url 요청 로직
     
@@ -65,15 +65,14 @@ final class RegisterModel: ObservableObject {
                     guard let response = response else { return }
                     
                     // 딕셔너리 데이터를 productPresignedUrls 배열로 변환
-                    let convertedUrls = response.data.presignedURL.map { key, value in
-                         productPresignedUrls(presignedURL: [key: value])
-                     }
-                     
-                     // presignedUrlList에 추가
-                     self.presignedUrlList.append(contentsOf: convertedUrls)
+                    let convertedUrls = response.data.productPresignedUrls.map { key, value in
+                        ProductPresignedUrlsData(productPresignedUrls: [key: value])
+                    }
+                    
+                    // presignedUrlList에 추가
+                    self.presignedUrlList.append(contentsOf: convertedUrls)
                     
                     print("프리사인드 URL 발급 성공!")
-                    print(self.presignedUrlList)
                 default:
                     break
                 }
@@ -82,7 +81,7 @@ final class RegisterModel: ObservableObject {
     
     
     // MARK: - 장르 검색 RESPONSE GET 로직
-
+    
     
     
     
