@@ -7,12 +7,15 @@
 
 import SwiftUI
 
+import Kingfisher
+
 struct ChatView: View {
     
     @EnvironmentObject private var tabBarState: TabBarStateModel
     @Environment(\.dismiss) private var dismiss
     @State private var messageText: String = ""
     let isSelling: Bool // true for 팔아요, false for 구해요!
+    let chatInfo: ChatInfoData
     
     var body: some View {
         VStack(spacing: 0) {
@@ -42,7 +45,7 @@ private extension ChatView {
                         .frame(width: 48, height: 48)
                 }
                 
-                Text("납작한 아요들")
+                Text(chatInfo.nickname)
                     .font(.napzakFont(.title5SemiBold18))
                     .applyNapzakTextStyle(napzakFontStyle: .title5SemiBold18)
                     .foregroundColor(Color.napzakGrayScale(.gray900))
@@ -63,46 +66,61 @@ private extension ChatView {
 private extension ChatView {
     var productInfoHeader: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 14) {
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(Color.napzakGrayScale(.gray300))
-                    .frame(width: 54, height: 54)
+            HStack {
+                if let url = URL(string: chatInfo.firstPhoto) {
+                    KFImage(url)
+                        .placeholder {
+                            ProgressView()
+                                .frame(width: 54, height: 54)
+                        }
+                        .retry(maxCount: 3, interval: .seconds(1))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 54, height: 54)
+                } else {
+                    Image(.imgProfileMd)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 54, height: 54)
+                }
                 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
-                        if !isSelling {
+                        switch chatInfo.tradeType {
+                        case .buy:
                             Text("구해요")
                                 .font(.napzakFont(.body4Bold14))
                                 .applyNapzakTextStyle(napzakFontStyle: .body4Bold14)
                                 .foregroundColor(Color.napzakGrayScale(.gray900))
-                        }
-                        else {
+                            
+                        case .sell:
                             Text("팔아요")
                                 .font(.napzakFont(.body4Bold14))
                                 .applyNapzakTextStyle(napzakFontStyle: .body4Bold14)
                                 .foregroundColor(Color.napzakPurple(.purple30))
                         }
-                        Text("꿈에 나올까 무서운 빼꼼인형 ㅜㅜ")
+                        
+                        Text(chatInfo.title)
                             .font(.napzakFont(.body6Medium14))
                             .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                             .foregroundColor(Color.napzakGrayScale(.gray900))
                     }
                     
                     HStack(spacing: 4) {
-                        if !isSelling {
+                        switch chatInfo.tradeType {
+                        case .buy:
                             Image("img_tag_price_sm")
                                 .frame(width: 51, height: 23)
                             Text("333원")
                                 .font(.napzakFont(.body1Bold16))
                                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                                 .foregroundColor(Color.napzakGrayScale(.gray900))
+                        case .sell:
+                            Text("100,000원대")
+                                .font(.napzakFont(.body1Bold16))
+                                .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                                .foregroundColor(Color.napzakGrayScale(.gray900))
                         }
-                        else{
-                           Text("100,000원대")
-                               .font(.napzakFont(.body1Bold16))
-                               .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
-                               .foregroundColor(Color.napzakGrayScale(.gray900))
-                       }
                     }
                 }
                 Spacer()
