@@ -13,6 +13,10 @@
 		3CF80DC02D3696F300E8DE1F /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80DBF2D3696F300E8DE1F /* MypageView.swift */; };
 		3CF80DC22D3697C900E8DE1F /* MyPageFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80DC12D3697C000E8DE1F /* MyPageFeature.swift */; };
 		3CF80DC42D36A45300E8DE1F /* ReadyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80DC32D36A45300E8DE1F /* ReadyView.swift */; };
+		6C0E0DEB2D40A4050022C139 /* PresignedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0E0DEA2D40A4050022C139 /* PresignedAPI.swift */; };
+		6C0E0DED2D40A4170022C139 /* PresignedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0E0DEC2D40A4170022C139 /* PresignedService.swift */; };
+		6C0E0DEF2D40A4590022C139 /* PresignedRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0E0DEE2D40A4590022C139 /* PresignedRequestDTO.swift */; };
+		6C0E0DF12D40A4630022C139 /* PresignedResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0E0DF02D40A4630022C139 /* PresignedResponseDTO.swift */; };
 		6C2D5B5E2D32AD2800E904C6 /* RegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B5A2D32AD2800E904C6 /* RegisterView.swift */; };
 		6C2D5B5F2D32AD2800E904C6 /* SellRegisterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B5B2D32AD2800E904C6 /* SellRegisterView.swift */; };
 		6C2D5B662D32B47B00E904C6 /* RegisterImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C2D5B652D32B47B00E904C6 /* RegisterImage.swift */; };
@@ -30,6 +34,7 @@
 		6C412F5B2D37DFA600998B27 /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA210D2D2C0C42004CC2E6 /* SearchView.swift */; };
 		6C412F5C2D37DFB700998B27 /* ProductDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA21082D2C0C15004CC2E6 /* ProductDetailView.swift */; };
 		6C412F5D2D37DFC200998B27 /* TabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA20FA2D2C0B96004CC2E6 /* TabBarView.swift */; };
+		6C6729792D41230700452B62 /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61342752D40345300E65EFD /* Encodable+.swift */; };
 		6C693D132D2D7C2600758C6A /* TextField+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C693D122D2D7C2600758C6A /* TextField+.swift */; };
 		6C71799E2D36118B00481622 /* String+.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C71799D2D36118B00481622 /* String+.swift */; };
 		6C7179A22D36955C00481622 /* RegisterBuyPrice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C7179A12D36955C00481622 /* RegisterBuyPrice.swift */; };
@@ -83,7 +88,6 @@
 		D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA21352D2CFF99004CC2E6 /* FontLiterial.swift */; };
 		D0C26EB72D3797A10014EB4C /* SortModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C26EB62D3797980014EB4C /* SortModalView.swift */; };
 		D61342532D3A92B800E65EFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D61342522D3A92B800E65EFD /* Assets.xcassets */; };
-		D61342762D40345300E65EFD /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61342752D40345300E65EFD /* Encodable+.swift */; };
 		D63F2FCC2D369B9C00C1C7D1 /* AppEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FCB2D369B9C00C1C7D1 /* AppEntryView.swift */; };
 		D63F2FCF2D38D6A300C1C7D1 /* splash(ios).json in Resources */ = {isa = PBXBuildFile; fileRef = D63F2FCE2D38D6A300C1C7D1 /* splash(ios).json */; };
 		D63F2FD12D38D92B00C1C7D1 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FD02D38D92B00C1C7D1 /* SplashView.swift */; };
@@ -111,6 +115,10 @@
 		3CF80DBF2D3696F300E8DE1F /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
 		3CF80DC12D3697C000E8DE1F /* MyPageFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFeature.swift; sourceTree = "<group>"; };
 		3CF80DC32D36A45300E8DE1F /* ReadyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyView.swift; sourceTree = "<group>"; };
+		6C0E0DEA2D40A4050022C139 /* PresignedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresignedAPI.swift; sourceTree = "<group>"; };
+		6C0E0DEC2D40A4170022C139 /* PresignedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresignedService.swift; sourceTree = "<group>"; };
+		6C0E0DEE2D40A4590022C139 /* PresignedRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresignedRequestDTO.swift; sourceTree = "<group>"; };
+		6C0E0DF02D40A4630022C139 /* PresignedResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresignedResponseDTO.swift; sourceTree = "<group>"; };
 		6C2D5B5A2D32AD2800E904C6 /* RegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterView.swift; sourceTree = "<group>"; };
 		6C2D5B5B2D32AD2800E904C6 /* SellRegisterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SellRegisterView.swift; sourceTree = "<group>"; };
 		6C2D5B652D32B47B00E904C6 /* RegisterImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterImage.swift; sourceTree = "<group>"; };
@@ -236,6 +244,41 @@
 				3C4F98062D3962100070BC7D /* View */,
 			);
 			path = Chat;
+			sourceTree = "<group>";
+		};
+		6C0E0DE32D40A3D90022C139 /* Presigned */ = {
+			isa = PBXGroup;
+			children = (
+				6C0E0DE92D40A3F40022C139 /* DTO */,
+				6C0E0DEA2D40A4050022C139 /* PresignedAPI.swift */,
+				6C0E0DEC2D40A4170022C139 /* PresignedService.swift */,
+			);
+			path = Presigned;
+			sourceTree = "<group>";
+		};
+		6C0E0DE72D40A3F40022C139 /* Request */ = {
+			isa = PBXGroup;
+			children = (
+				6C0E0DEE2D40A4590022C139 /* PresignedRequestDTO.swift */,
+			);
+			path = Request;
+			sourceTree = "<group>";
+		};
+		6C0E0DE82D40A3F40022C139 /* Response */ = {
+			isa = PBXGroup;
+			children = (
+				6C0E0DF02D40A4630022C139 /* PresignedResponseDTO.swift */,
+			);
+			path = Response;
+			sourceTree = "<group>";
+		};
+		6C0E0DE92D40A3F40022C139 /* DTO */ = {
+			isa = PBXGroup;
+			children = (
+				6C0E0DE72D40A3F40022C139 /* Request */,
+				6C0E0DE82D40A3F40022C139 /* Response */,
+			);
+			path = DTO;
 			sourceTree = "<group>";
 		};
 		6C2D5B582D32AD2800E904C6 /* Model */ = {
@@ -566,6 +609,7 @@
 				D079725E2D3F73EC00CF97E4 /* Product */,
 				D079725D2D3F73CB00CF97E4 /* Store */,
 				D6C6750C2D32A50700DE6B4D /* OnboardingMock */,
+				6C0E0DE32D40A3D90022C139 /* Presigned */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -960,10 +1004,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C6729792D41230700452B62 /* Encodable+.swift in Sources */,
 				D079728F2D3F7A4200CF97E4 /* ProductResponseDTO.swift in Sources */,
 				6C412F5D2D37DFC200998B27 /* TabBarView.swift in Sources */,
 				6C412F5C2D37DFB700998B27 /* ProductDetailView.swift in Sources */,
 				6C412F5B2D37DFA600998B27 /* SearchView.swift in Sources */,
+				6C0E0DED2D40A4170022C139 /* PresignedService.swift in Sources */,
 				6C412F5A2D37DF9200998B27 /* TextEditor+.swift in Sources */,
 				D0A7361C2D381F6800EF2CF9 /* GenreSearchModel.swift in Sources */,
 				D07972952D3F86DB00CF97E4 /* RegisterProductResponseDTO.swift in Sources */,
@@ -972,6 +1018,7 @@
 				D6F528A92D363B3300D1F7A8 /* ChipsContainerView.swift in Sources */,
 				D63F2FD32D38E7BA00C1C7D1 /* AppState.swift in Sources */,
 				D6C675112D32AD1700DE6B4D /* MockGenreService.swift in Sources */,
+				6C0E0DEF2D40A4590022C139 /* PresignedRequestDTO.swift in Sources */,
 				6C2D5B662D32B47B00E904C6 /* RegisterImage.swift in Sources */,
 				3CF80DC22D3697C900E8DE1F /* MyPageFeature.swift in Sources */,
 				6C2D5B6A2D32B62000E904C6 /* RegisterTitle.swift in Sources */,
@@ -987,7 +1034,7 @@
 				D6C6750E2D32A5BB00DE6B4D /* Genre.swift in Sources */,
 				D6F528A72D362ABF00D1F7A8 /* GenreChip.swift in Sources */,
 				D6F528C32D36503B00D1F7A8 /* OnboardingView.swift in Sources */,
-				D61342762D40345300E65EFD /* Encodable+.swift in Sources */,
+				6C0E0DF12D40A4630022C139 /* PresignedResponseDTO.swift in Sources */,
 				D07972822D3F776F00CF97E4 /* PreferGenreResponseDTO.swift in Sources */,
 				D6F5288D2D3410C900D1F7A8 /* GenreCell.swift in Sources */,
 				D6C6751A2D32C27800DE6B4D /* MockGenreError.swift in Sources */,
@@ -1021,6 +1068,7 @@
 				D07972552D3F6F9D00CF97E4 /* BaseService.swift in Sources */,
 				D07972562D3F6F9D00CF97E4 /* BaseTargetType.swift in Sources */,
 				D07972732D3F74F900CF97E4 /* StoreService.swift in Sources */,
+				6C0E0DEB2D40A4050022C139 /* PresignedAPI.swift in Sources */,
 				D07972572D3F6F9D00CF97E4 /* MoyaPlugin.swift in Sources */,
 				D079728B2D3F794700CF97E4 /* BannerResponseDTO.swift in Sources */,
 				D079726B2D3F74DB00CF97E4 /* LikeService.swift in Sources */,
@@ -1184,6 +1232,7 @@
 		};
 		D0C2A9052D2AA39100C8616B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CB7AFE52D3FD87D00F3A251 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1206,7 +1255,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "napzak.Napzakmarket-iOS2";
+				PRODUCT_BUNDLE_IDENTIFIER = "napzak.Napzakmarket-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -1217,6 +1266,7 @@
 		};
 		D0C2A9062D2AA39100C8616B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 3CB7AFE52D3FD87D00F3A251 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1239,7 +1289,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "napzak.Napzakmarket-iOS2";
+				PRODUCT_BUNDLE_IDENTIFIER = "napzak.Napzakmarket-iOS";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;

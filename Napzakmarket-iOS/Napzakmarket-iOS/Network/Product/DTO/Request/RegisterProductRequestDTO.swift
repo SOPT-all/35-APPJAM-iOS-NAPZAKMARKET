@@ -19,7 +19,7 @@ struct RegisterSellProductRequestDTO: Codable {
     let halfDeliveryFee: Int
 }
 
-struct RegisterBuyProductRequestDTO: Codable {
+struct RegisterBuyProductRequestDTO {
     let productPhotoList: [RegisteredPhoto]
     let genreId: Int
     let title: String
@@ -27,7 +27,6 @@ struct RegisterBuyProductRequestDTO: Codable {
     let price: Int
     let isPriceNegotiable: Bool
 }
-
 
 struct RegisteredPhoto: Codable {
     let photoUrl: String
