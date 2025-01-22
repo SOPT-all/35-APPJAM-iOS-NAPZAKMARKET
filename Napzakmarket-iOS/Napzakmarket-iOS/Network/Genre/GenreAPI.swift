@@ -8,14 +8,14 @@
 import Moya
 
 enum GenreAPI {
-    case getAllPreferGenre
-    case getSearchPreferGenre(searchWord: String)
+    case getAllPreferGenre(size: Int, cursor: String?)
+    case getSearchPreferGenre(size: Int, cursor: String?, searchWord: String)
     case getAllGenreName
     case getSearchGenreName(searchWord: String)
 }
 
 extension GenreAPI: BaseTargetType {
-
+    
     var headerType: HeaderType {
         switch self {
         case .getAllPreferGenre, .getSearchPreferGenre, .getAllGenreName, .getSearchGenreName:
@@ -45,10 +45,23 @@ extension GenreAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getAllPreferGenre, .getAllGenreName:
+        case .getAllPreferGenre(let size, let cursor):
+            var parameters: [String: Any] = ["size": size]
+            if let cursor = cursor {
+                parameters["cursor"] = cursor
+            }
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
+        case .getAllGenreName:
             return .requestPlain
-        case .getSearchPreferGenre(let searchWord):
-            return .requestParameters(parameters: ["searchWord" : searchWord], encoding: URLEncoding.queryString)
+        case .getSearchPreferGenre(let size, let cursor, let searchWord):
+            var parameters: [String: Any] = [
+                "size": size,
+                "searchWord": searchWord
+            ]
+            if let cursor = cursor {
+                parameters["cursor"] = cursor
+            }
+            return .requestParameters(parameters: parameters, encoding: URLEncoding.queryString)
         case .getSearchGenreName(let searchWord):
             return .requestParameters(parameters: ["searchWord" : searchWord], encoding: URLEncoding.queryString)
         }

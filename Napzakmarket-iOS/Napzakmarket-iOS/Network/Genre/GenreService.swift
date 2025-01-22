@@ -8,8 +8,8 @@
 import Moya
 
 protocol GenreServiceProtocol {
-    func getAllPreferGenre(completion: @escaping (NetworkResult<PreferGenreResponseDTO>) -> ())
-    func getSearchPreferGenre(searchWord: String, completion: @escaping(NetworkResult<PreferGenreResponseDTO>) -> ())
+    func getAllPreferGenre(size: Int, cursor: String?, completion: @escaping (NetworkResult<PreferGenreResponseDTO>) -> ())
+    func getSearchPreferGenre(size: Int, cursor: String?, searchWord: String, completion: @escaping(NetworkResult<PreferGenreResponseDTO>) -> ())
     func getAllGenreName(completion: @escaping (NetworkResult<GenreNameResponseDTO>) -> ())
     func getSearchGenreName(searchWord: String, completion: @escaping (NetworkResult<GenreNameResponseDTO>) -> ())
 }
@@ -18,12 +18,12 @@ final class GenreService: BaseService, GenreServiceProtocol {
     
     private let provider = MoyaProvider<GenreAPI>.init(plugins: [MoyaPlugin()])
     
-    func getAllPreferGenre(completion: @escaping (NetworkResult<PreferGenreResponseDTO>) -> ()) {
-        request(.getAllPreferGenre, completion: completion)
+    func getAllPreferGenre(size: Int, cursor: String?, completion: @escaping (NetworkResult<PreferGenreResponseDTO>) -> ()) {
+        request(.getAllPreferGenre(size: size, cursor: cursor), completion: completion)
     }
     
-    func getSearchPreferGenre(searchWord: String, completion: @escaping (NetworkResult<PreferGenreResponseDTO>) -> ()) {
-        request(.getSearchPreferGenre(searchWord: searchWord), completion: completion)
+    func getSearchPreferGenre(size: Int, cursor: String?, searchWord: String, completion: @escaping (NetworkResult<PreferGenreResponseDTO>) -> ()) {
+        request(.getSearchPreferGenre(size: size, cursor: cursor, searchWord: searchWord), completion: completion)
     }
     
     func getAllGenreName(completion: @escaping (NetworkResult<GenreNameResponseDTO>) -> ()) {
