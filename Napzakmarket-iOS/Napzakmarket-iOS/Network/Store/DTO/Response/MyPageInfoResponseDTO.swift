@@ -2,7 +2,7 @@
 //  MyPageStoreResponseDTO.swift
 //  Napzakmarket-iOS
 //
-//  Created by 조혜린 on 1/21/25.
+//  Created by 어진 on 1/21/25.
 //
 
 import Foundation
@@ -15,6 +15,6 @@ struct MyPageInfoResponseDTO: Codable {
 
 struct MyPageInfoData: Codable {
     let storeId: Int
-    let storeNickName: String
+    let storeNickname: String
     let storePhoto: String
 }

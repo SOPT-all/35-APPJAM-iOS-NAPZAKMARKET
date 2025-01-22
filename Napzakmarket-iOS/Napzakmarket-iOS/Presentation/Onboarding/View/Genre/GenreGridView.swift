@@ -11,8 +11,8 @@ struct GenreGridView: View {
     
     // MARK: - Properties
     
-    @Binding var genres: [Genre]
-    @Binding var selectedGenres: [Genre]
+    @Binding var genres: [PreferGenre]
+    @Binding var selectedGenres: [PreferGenre]
     
     private let columns = [
         GridItem(.flexible()),

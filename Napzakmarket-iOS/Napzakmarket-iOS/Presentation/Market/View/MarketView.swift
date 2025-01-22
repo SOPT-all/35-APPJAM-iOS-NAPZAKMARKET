@@ -136,11 +136,11 @@ struct MarketView: View {
                             filterModalViewIsPresented = false
                         }
                     
-                    GenreFilterModalView(
-                        selectedGenres: $selectedGenres,
-                        selectedGenreStrings: $selectedGenreStrings,
-                        filterModalViewIsPresented: $filterModalViewIsPresented
-                    )
+//                    GenreFilterModalView(
+//                        selectedGenres: $selectedGenres,
+//                        selectedGenreStrings: $selectedGenreStrings,
+//                        filterModalViewIsPresented: $filterModalViewIsPresented
+//                    )
                 }
             }
             .ignoresSafeArea(.all)
@@ -209,14 +209,14 @@ extension MarketView {
         ZStack(alignment: .top) {
             Color.napzakGrayScale(.gray200)
                 .edgesIgnoringSafeArea(.top)
-                .frame(height: 138)
+                .frame(height: 130)
             
             HStack(alignment: .center, spacing: 0) {
                 Spacer()
                 Image("img_market_bg_character")
                     .resizable()
                     .frame(width: 138, height: 111, alignment: .trailing)
-                    .padding(.top, 27)
+                    .padding(.top, 19)
             }
             
             HStack {
