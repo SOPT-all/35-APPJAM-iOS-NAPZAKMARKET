@@ -15,4 +15,5 @@ final class NetworkService {
     
     let genreService: GenreServiceProtocol = GenreService()
     let presignedService: PresignedServiceProtocol = PresignedService()
+    let productService: ProductServiceProtocol = ProductService()
 }

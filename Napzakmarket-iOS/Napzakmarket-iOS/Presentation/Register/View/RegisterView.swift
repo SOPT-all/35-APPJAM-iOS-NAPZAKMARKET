@@ -20,6 +20,8 @@ enum RegisterType: String {
 }
 
 struct RegisterView: View {
+    @Environment(\.dismiss) private var dismiss
+
     var registerType: RegisterType
     @StateObject private var registerModel = RegisterModel()
     
@@ -45,22 +47,37 @@ extension RegisterView {
     private var registerButton: some View {
         Button(action: {
             print("등록 버튼 클릭")
-            print(registerModel.registerInfo)
             print("--------------------------------------------------------------------")
   
             Task {
                 switch registerType {
                 case .sell:
-                    registerModel.baseValidate() && registerModel.sellValidate()
-                    ? await registerModel
-                        .registerPresignedRequest()
-                    : print("유효성 검증 실패")
-                case .buy:
-                    registerModel.baseValidate()
-                    ? await registerModel.registerPresignedRequest()
-                    : print("유효성 검증 실패")
+                    if registerModel.baseValidate() && registerModel.sellValidate() {
+                        
+                        registerModel.registerPresignedRequest()
+                        print("registerPresignedRequest 완료")
+
+                        registerModel.putImagesToPresignedUrls()
+                        print("putImagesToPresignedUrls 완료")
+                        
+                    } else {
+                        print("유효성 검증 실패")
+                    }
+                 case .buy:
+                     if registerModel.baseValidate() {
+                         registerModel.registerPresignedRequest()
+                         print("registerPresignedRequest 완료")
+
+                         registerModel.putImagesToPresignedUrls()
+                         print("putImagesToPresignedUrls 완료")
+
+                     } else {
+                         print("유효성 검증 실패")
+                     }
                 }
             }
+            
+            dismiss()
                         
         }) {
             Text("등록하기")
