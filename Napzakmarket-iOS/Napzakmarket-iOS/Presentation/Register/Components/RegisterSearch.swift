@@ -54,15 +54,7 @@ struct RegisterSearch: View {
         }
         .onAppear {
             if genreList.isEmpty {
-                NetworkService.shared.genreService.getAllGenreName { result in
-                    switch result {
-                    case .success(let response):
-                        guard let response else { return }
-                        genreList = response.data.genreList
-                    default:
-                        break
-                    }
-                }
+                fetchAllGenre()
             }
         }
         
@@ -75,7 +67,7 @@ extension RegisterSearch {
     
     private var listSection: some View {
         List {
-            ForEach(genreList, id: \.genreId) { item in
+            ForEach(genreList, id: \.id) { item in
                 HStack{
                     Text(item.genreName)
                         .font(.napzakFont(.body5SemiBold14))
@@ -87,7 +79,7 @@ extension RegisterSearch {
                 .padding(.vertical, 20)
                 .onTapGesture {
                     genre = item.genreName
-                    genreId = item.genreId.byteSwapped
+                    genreId = item.id.byteSwapped
                     dismiss()
                 }
             }
@@ -111,6 +103,18 @@ extension RegisterSearch {
             case .success(let response):
                 guard let response else { return }
                 self.genreList = response.data.genreList
+            default:
+                break
+            }
+        }
+    }
+    
+    private func fetchAllGenre() {
+        NetworkService.shared.genreService.getAllGenreName { result in
+            switch result {
+            case .success(let response):
+                guard let response else { return }
+                genreList = response.data.genreList
             default:
                 break
             }

@@ -31,7 +31,7 @@ extension ProductAPI: BaseTargetType {
 
     var path: String {
         switch self {
-        case .putPresignedURL(let url, _):
+        case .putPresignedURL:
             return ""
         }
     }
