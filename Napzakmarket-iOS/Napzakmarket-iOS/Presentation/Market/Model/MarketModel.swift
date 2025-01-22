@@ -12,15 +12,3 @@ struct Tag: Identifiable {
     let name: String
 }
 
-//MockData
-struct MarketMockData {
-    static let tags: [Tag] = [
-        Tag(id: UUID().uuidString, name: "최강아요"),
-        Tag(id: UUID().uuidString, name: "납작어진"),
-        Tag(id: UUID().uuidString, name: "납작혜린"),
-        Tag(id: UUID().uuidString, name: "납작호근"),
-        Tag(id: UUID().uuidString, name: "납작한열")
-    ]
-}
-
-
