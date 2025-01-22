@@ -31,9 +31,16 @@ struct OnboardingView: View {
                     isInputComplete: $isInputComplete,
                     isSearchBarFocused: _isSearchBarFocused
                 )
-                .onChange(of: genreModel.searchText) { _ in
-                    Task {
-                        await genreModel.fetchGenresFiltered()
+                .onChange(of: genreModel.searchText) { newValue in
+                    genreModel.resetSearch()
+                    if newValue.isEmpty {
+                        Task {
+                            await genreModel.fetchGenres(initialLoad: true)
+                        }
+                    } else {
+                        Task {
+                            await genreModel.fetchGenresFiltered(initialLoad: true)
+                        }
                     }
                 }
             }
@@ -60,8 +67,7 @@ struct OnboardingView: View {
             
             VStack(spacing: 0) {
                 GenreGridView(
-                    genres: $genreModel.genres,
-                    selectedGenres: $genreModel.selectedGenres
+                    genreModel: genreModel
                 )
                 .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
                 .onTapGesture {

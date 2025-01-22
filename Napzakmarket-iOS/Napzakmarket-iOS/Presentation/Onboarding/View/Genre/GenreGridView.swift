@@ -10,9 +10,8 @@ import SwiftUI
 struct GenreGridView: View {
     
     // MARK: - Properties
+    @ObservedObject var genreModel: GenreModel
     
-    @Binding var genres: [PreferGenre]
-    @Binding var selectedGenres: [PreferGenre]
     
     private let columns = [
         GridItem(.flexible()),
@@ -29,22 +28,33 @@ struct GenreGridView: View {
         ZStack {
             ScrollView(showsIndicators: false) {
                 LazyVGrid(columns: columns, spacing: 20) {
-                    ForEach(genres) { genre in
+                    ForEach(genreModel.genres) { genre in
                         GenreCell(
                             genre: genre,
                             isSelected: Binding(
-                                get: { selectedGenres.contains(genre) },
+                                get: { genreModel.selectedGenres.contains(genre) },
                                 set: { isSelected in
                                     if isSelected {
-                                        if selectedGenres.count < 4 {
-                                            selectedGenres.append(genre)
+                                        if genreModel.selectedGenres.count < 4 {
+                                            genreModel.selectedGenres.append(genre)
                                         }
                                     } else {
-                                        selectedGenres.removeAll(where: { $0.id == genre.id })
+                                        genreModel.selectedGenres.removeAll(where: { $0.id == genre.id })
                                     }
                                 }
                             )
                         )
+                        .onAppear {
+                            if genre == genreModel.genres.last && genreModel.hasMorePages {
+                                Task {
+                                    if genreModel.isFiltering {
+                                        await genreModel.fetchGenresFiltered()
+                                    } else {
+                                        await genreModel.fetchGenres()
+                                    }
+                                }
+                            }
+                        }
                     }
                     .padding(2)
                 }
