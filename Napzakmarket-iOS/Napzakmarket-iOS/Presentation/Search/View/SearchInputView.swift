@@ -17,7 +17,7 @@ struct SearchInputView: View {
     @State private var inputText = ""
     @State private var isInputComplete: Bool = false
     
-    @State private var selectedGenre: GenreName?
+    @State private var adaptedGenre: GenreName?
     @State private var isGenreSelected: Bool = false
     
     @FocusState private var isSearchBarFocused: Bool
@@ -61,8 +61,8 @@ struct SearchInputView: View {
             SearchView(isBackButtonHidden: false, searchResultText: inputText)
         }
         .navigationDestination(isPresented: $isGenreSelected) {
-            if let selectedGenre {
-                SearchView(selectedGenres: [selectedGenre], isBackButtonHidden: false)
+            if let adaptedGenre {
+                SearchView(adaptedGenres: [adaptedGenre], isBackButtonHidden: false)
             }
         }
     }
@@ -120,7 +120,7 @@ extension SearchInputView {
                         }
                         .contentShape(Rectangle())
                         .onTapGesture {
-                            selectedGenre = genreList[i]
+                            adaptedGenre = genreList[i]
                             isGenreSelected = true
                         }
                         Spacer()

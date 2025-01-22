@@ -25,7 +25,7 @@ struct SearchView: View {
     @State var selectedSortOption: SortOption = .latest
     
     //필터
-    @State var selectedGenres: [GenreName] = []
+    @State var adaptedGenres: [GenreName] = []
     @State var selectedGenreStrings: [String] = []
     @State var isSoldoutFilterOn = false
     @State var isUnopenFilterOn = false
@@ -84,11 +84,10 @@ struct SearchView: View {
                                     filterModalViewIsPresented = false
                                 }
                             
-//                            GenreFilterModalView(
-//                                selectedGenres: $selectedGenres,
-//                                selectedGenreStrings: $selectedGenreStrings,
-//                                filterModalViewIsPresented: $filterModalViewIsPresented
-//                            )
+                            GenreFilterModalView(
+                                adaptedGenres: $adaptedGenres,
+                                filterModalViewIsPresented: $filterModalViewIsPresented
+                            )
                         }
                     }
                     .ignoresSafeArea(.all)
@@ -164,13 +163,13 @@ extension SearchView {
                     print("장르 필터 선택")
                     filterModalViewIsPresented = true
                 } label: {
-                    if selectedGenres.isEmpty {
+                    if adaptedGenres.isEmpty {
                         Image(.chipGenre)
                             .resizable()
                             .frame(width: 67, height: 33)
                     } else {
                         HStack(spacing: 4) {
-                            Text(selectedGenres.count == 1 ? "\(selectedGenres[0].genreName)" : "\(selectedGenres[0].genreName) 외 \(selectedGenres.count - 1)")
+                            Text(adaptedGenres.count == 1 ? "\(adaptedGenres[0].genreName)" : "\(adaptedGenres[0].genreName) 외 \(adaptedGenres.count - 1)")
                                 .font(.napzakFont(.caption2SemiBold12))
                                 .applyNapzakTextStyle(napzakFontStyle: .caption2SemiBold12)
                                 .foregroundStyle(Color.napzakGrayScale(.white))
