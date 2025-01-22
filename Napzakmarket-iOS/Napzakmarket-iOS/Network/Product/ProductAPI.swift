@@ -15,6 +15,8 @@ enum ProductAPI {
     case getPopularSellProducts
     case getRecommandedBuyProducts
     case putPresignedURL(url: String, imageData: Data)
+    case getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
+    case getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
 }
 
 extension ProductAPI: BaseTargetType {
@@ -40,7 +42,7 @@ extension ProductAPI: BaseTargetType {
         case .putPresignedURL:
             return .noneHeader
             
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts:
+        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .getSellProduct, .getBuyProduct:
             return .accessTokenHeader
         }
     }
@@ -57,12 +59,16 @@ extension ProductAPI: BaseTargetType {
             return "products/home/buy"
         case .putPresignedURL:
             return ""
+        case .getSellProduct:
+            return "products/sell"
+        case .getBuyProduct:
+            return "products/buy"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts:
+        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .getSellProduct, .getBuyProduct:
             return .get
         case .putPresignedURL:
             return .put
@@ -75,7 +81,17 @@ extension ProductAPI: BaseTargetType {
             return .requestPlain
         case .putPresignedURL(_, let imageData):
             return .requestData(imageData)
+        case .getSellProduct(let sortOption, let genreIDs, let isOnSale, let isUnopened):
+            return .requestParameters(parameters: ["sortOption" : sortOption,
+                                                   "genreId" : genreIDs ?? [],
+                                                   "isOnSale" : isOnSale,
+                                                   "isUnopened" : isUnopened],
+                                      encoding: URLEncoding.queryString)
+        case .getBuyProduct(let sortOption, let genreIDs, let isOnSale):
+            return .requestParameters(parameters: ["sortOption" : sortOption,
+                                                   "genreId" : genreIDs ?? [],
+                                                   "isOnSale" : isOnSale],
+                                      encoding: URLEncoding.queryString)
         }
     }
-    
 }

@@ -19,6 +19,8 @@ protocol ProductServiceProtocol {
         imageData: Data,
         completion: @escaping (NetworkResult<Void>) -> ()
     )
+    func getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
+    func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
 }
 
 final class ProductService: BaseService, ProductServiceProtocol {
@@ -39,6 +41,14 @@ final class ProductService: BaseService, ProductServiceProtocol {
     
     func getRecommandedBuyProducts(completion: @escaping (NetworkResult<RecommandedBuyProductResponseDTO>) -> ()) {
         request(.getRecommandedBuyProducts, completion: completion)
+    }
+    
+    func getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ()) {
+        request(.getSellProduct(sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale, isUnopened: isUnopened), completion: completion)
+    }
+    
+    func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ()) {
+        request(.getBuyProduct(sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale), completion: completion)
     }
     
     private func request<T: Decodable>(_ target: ProductAPI, completion: @escaping (NetworkResult<T>) -> ()) {
