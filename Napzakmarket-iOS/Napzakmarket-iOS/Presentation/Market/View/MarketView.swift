@@ -279,7 +279,7 @@ extension MarketView {
                     .padding(.top, 6)
                 
                 HStack(spacing: 6) {
-                    ForEach(storeInfo.genrePreferenceList, id: \.id) { genre in
+                    ForEach(storeInfo.genrePreferences, id: \.id) { genre in
                         Text(genre.genreName)
                             .font(.system(size: 12))
                             .foregroundColor(Color.napzakGrayScale(.gray800))
