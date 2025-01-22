@@ -34,9 +34,9 @@ struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
     
-    //상품
-    @State var sellProducts = ProductModel.dummyProducts
-    @State var buyProducts = ProductModel.dummyProducts    
+    //상품 모델
+    @StateObject private var productModel = ProductSearchModel()
+    
     //세그먼트 컨트롤
     @State var selectedTabIndex = 0
     
@@ -122,6 +122,21 @@ struct SearchView: View {
                     }
                 }
                 .ignoresSafeArea(.keyboard)
+            }
+            .onAppear() {
+                Task {
+                    await productModel.getSellProducts(productFetchOption: productFetchOption)
+                    await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                }
+            }
+            .onChange(of: productFetchOption) { _ in
+                Task {
+                    if selectedTabIndex == 0 {
+                        await productModel.getSellProducts(productFetchOption: productFetchOption)
+                    } else if selectedTabIndex == 1 {
+                        await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                    }
+                }
             }
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $searchInputViewIsPresented) {
@@ -234,15 +249,13 @@ extension SearchView {
     private var productScrollView: some View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
-                let products = selectedTabIndex == 0 ? sellProducts : buyProducts
-                
                 VStack(spacing: 0) {
                     HStack(spacing: 4) {
                         Text("상품")
                             .font(.napzakFont(.body5SemiBold14))
                             .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                             .foregroundStyle(Color.napzakGrayScale(.gray900))
-                        Text("\(products.count)개")
+                        Text(selectedTabIndex == 0 ? "\(productModel.sellProducts.count)개" : "\(productModel.buyProducts.count)개")
                             .font(.napzakFont(.body5SemiBold14))
                             .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                             .foregroundStyle(Color.napzakPurple(.purple30))
@@ -267,22 +280,24 @@ extension SearchView {
                     
                     LazyVGrid(columns: columns, spacing: 20) {
                         if selectedTabIndex == 0 {
-                            ForEach(sellProducts) { product in
-                                NavigationLink(destination: ProductDetailView()) {
-                                    ProductItemView(
-                                        product: product,
-                                width: width
-                                    )
-                                }
-                            }
-                        }
-                        else if selectedTabIndex == 1 {
-                            ForEach(buyProducts) { product in
+                            ForEach(productModel.sellProducts) { product in
                                 NavigationLink(destination: ProductDetailView()) {
                                     ProductItemView(
                                         product: product,
                                         width: width
                                     )
+                                    .environmentObject(productModel)
+                                }
+                            }
+                        }
+                        else if selectedTabIndex == 1 {
+                            ForEach(productModel.buyProducts) { product in
+                                NavigationLink(destination: ProductDetailView()) {
+                                    ProductItemView(
+                                        product: product,
+                                        width: width
+                                    )
+                                    .environmentObject(productModel)
                                 }
                             }
                         }
@@ -292,8 +307,15 @@ extension SearchView {
             }
             .padding(.horizontal, 20)
             .onChange(of: selectedTabIndex) { _ in
-                selectedSortOption = .latest
+                productFetchOption.sortOption = .recent
                 proxy.scrollTo("header", anchor: .top)
+                Task {
+                    if selectedTabIndex == 0 {
+                        await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                    } else if selectedTabIndex == 1 {
+                        await productModel.getSellProducts(productFetchOption: productFetchOption)
+                    }
+                }
             }
         }
     }
