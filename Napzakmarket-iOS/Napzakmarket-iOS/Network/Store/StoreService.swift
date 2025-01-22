@@ -2,13 +2,14 @@
 //  StoreService.swift
 //  Napzakmarket-iOS
 //
-//  Created by 조혜린 on 1/21/25.
+//  Created by 어진 on 1/21/25.
 //
 
 import Moya
 
 protocol StoreServiceProtocol {
     func postPreferGenre(selectedGenres: RegisterPreferGenreRequestDTO, completion: @escaping (NetworkResult<GenreNameResponseDTO>) -> ())
+    func getmypageInfo(completion: @escaping (NetworkResult<MyPageInfoResponseDTO>) -> ())
 }
 
 final class StoreService: BaseService, StoreServiceProtocol {
@@ -17,6 +18,10 @@ final class StoreService: BaseService, StoreServiceProtocol {
     
     func postPreferGenre(selectedGenres: RegisterPreferGenreRequestDTO, completion: @escaping (NetworkResult<GenreNameResponseDTO>) -> ()) {
         request(.postPreferGenres(request: selectedGenres), completion: completion)
+    }
+    
+    func getmypageInfo(completion: @escaping (NetworkResult<MyPageInfoResponseDTO>) -> ()) {
+        request(.getmypageInfo, completion: completion)
     }
     
     private func request<T: Decodable>(_ target: StoreAPI, completion: @escaping (NetworkResult<T>) -> ()) {

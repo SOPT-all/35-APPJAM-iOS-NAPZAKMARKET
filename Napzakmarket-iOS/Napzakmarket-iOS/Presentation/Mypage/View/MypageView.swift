@@ -7,9 +7,10 @@
 
 import SwiftUI
 
+import Kingfisher
+
 struct MyPageView: View {
-    @State private var navigateToMarket = false
-    @State private var myPageData = MyPageResponse.mockData
+    @State private var myPageInfo: MyPageInfoData?
     
     var body: some View {
         NavigationStack {
@@ -25,15 +26,30 @@ struct MyPageView: View {
                             .overlay(Color.napzakGrayScale(.gray200))
                         
                         VStack(spacing: 0) {
-                            profileSection
-                            menuSection
-                            Spacer()
+                           profileSection
+                           menuSection
+                           Spacer()
                         }
                     }
                 }
             }
             .background(Color.clear)
             .navigationBarHidden(true)
+            .onAppear {
+                getmypageInfo()
+            }
+        }
+    }
+    
+    private func getmypageInfo() {
+        NetworkService.shared.storeService.getmypageInfo { result in
+            switch result {
+            case .success(let response):
+                guard let response else { return }
+                self.myPageInfo = response.data
+            default:
+                break
+            }
         }
     }
     
@@ -56,19 +72,40 @@ struct MyPageView: View {
     private var profileSection: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
-                Image(myPageData.storePhoto)
-                    .resizable()
-                    .scaledToFit()
-                    .frame(width: 60, height: 60)
+                if let photoURL = myPageInfo?.storePhoto,
+                   let url = URL(string: photoURL) {
+                    KFImage(url)
+                        .placeholder {
+                            ProgressView()
+                                .frame(width: 60, height: 60)
+                        }
+                        .retry(maxCount: 3, interval: .seconds(1)) // 최대 3번, 1초 간격으로 재시도
+                        .onFailure { _ in
+                            Image("img_profile_md")
+                                .resizable()
+                                .scaledToFit()
+                                .frame(width: 60, height: 60)
+                                .clipShape(Circle())
+                        }
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                        .clipShape(Circle())
+                } else {
+                    Image("img_profile_md")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 60, height: 60)
+                        .clipShape(Circle())
+                }
                 
-                Text("\(myPageData.nickname)님")
+                Text(myPageInfo?.storeNickname ?? "사용자" + "님")
                     .font(.napzakFont(.title2Bold20))
                     .applyNapzakTextStyle(napzakFontStyle: .title2Bold20)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
                 
                 Spacer()
             }
-            
             marketButton
         }
         .padding(20)
