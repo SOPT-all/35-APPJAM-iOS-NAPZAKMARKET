@@ -7,13 +7,6 @@
 
 import SwiftUI
 
-enum SortOption: String {
-    case latest = "최신순"
-    case popular = "인기순"
-    case highPrice = "고가순"
-    case lowPrice = "저가순"
-}
-
 struct SortModalView: View {
     
     //MARK: - Property Wrappers
@@ -26,7 +19,7 @@ struct SortModalView: View {
     //MARK: - Properties
     
     private let modalHeight: CGFloat = 302
-    private let sortOptions: [SortOption] = [.latest, .popular, .highPrice, .lowPrice]
+    private let sortOptions: [SortOption] = [.recent, .popular, .highPrice, .lowPrice]
     
     //MARK: - Main Body
     
@@ -80,7 +73,7 @@ extension SortModalView {
                 VStack(spacing: 0) {
                     Spacer()
                     HStack {
-                        Text("\(option.rawValue)")
+                        Text("\(option.title)")
                             .font(.napzakFont(.title5SemiBold18))
                             .applyNapzakTextStyle(napzakFontStyle: .title5SemiBold18)
                             .foregroundStyle(option == selectedSortOption ? Color.napzakPurple(.purple30) : Color.napzakGrayScale(.gray900))

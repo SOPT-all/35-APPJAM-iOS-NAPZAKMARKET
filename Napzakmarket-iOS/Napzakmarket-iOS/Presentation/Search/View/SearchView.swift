@@ -7,6 +7,26 @@
 
 import SwiftUI
 
+enum SortOption: String {
+    case recent = "RECENT"
+    case popular = "POPULAR"
+    case highPrice = "HIGH_PRICE"
+    case lowPrice = "LOW_PRICE"
+    
+    var title: String {
+        switch self {
+        case .recent:
+            return "최근순"
+        case .popular:
+            return "인기순"
+        case .highPrice:
+            return "고가순"
+        case .lowPrice:
+            return "저가순"
+        }
+    }
+}
+
 struct SearchView: View {
     
     //MARK: - Property Wrappers
@@ -20,14 +40,12 @@ struct SearchView: View {
     //세그먼트 컨트롤
     @State var selectedTabIndex = 0
     
-    //정렬
-    @State var selectedSortOption: SortOption = .latest
-    
     //필터
     @State var adaptedGenres: [GenreName] = []
     @State var selectedGenreStrings: [String] = []
-    @State var isSoldoutFilterOn = false
-    @State var isUnopenFilterOn = false
+    
+    //상품 분류
+    @State private var productFetchOption = ProductFetchOption(sortOption: .recent, genreIDs: [], isOnSale: false, isUnopened: false)
     
     //화면 전환
     @State var sortModalViewIsPresented = false
@@ -75,7 +93,7 @@ struct SearchView: View {
                             
                             SortModalView(
                                 sortModalViewIsPresented: $sortModalViewIsPresented,
-                                selectedSortOption: $selectedSortOption
+                                selectedSortOption: $productFetchOption.sortOption
                             )
                         } else if filterModalViewIsPresented {
                             Color.napzakTransparency(.black70)
@@ -188,9 +206,9 @@ extension SearchView {
                 
                 Button {
                     print("품절 제외 필터 선택")
-                    isSoldoutFilterOn.toggle()
+                    productFetchOption.isOnSale.toggle()
                 } label: {
-                    Image(isSoldoutFilterOn ? .chipSoldoutSelect : .chipSoldout)
+                    Image(productFetchOption.isOnSale ? .chipSoldoutSelect : .chipSoldout)
                         .resizable()
                         .frame(width: 69, height: 33)
                 }
@@ -198,14 +216,14 @@ extension SearchView {
                 if selectedTabIndex == 0 {
                     Button {
                         print("미개봉 필터 선택")
-                        isUnopenFilterOn.toggle()
+                        productFetchOption.isUnopened.toggle()
                     } label: {
-                        Image(isUnopenFilterOn ? .chipUnopenSelect : .chipUnopen)
+                        Image(productFetchOption.isUnopened ? .chipUnopenSelect : .chipUnopen)
                             .resizable()
                             .frame(width: 59, height: 33)
                     }
+                    Spacer()
                 }
-                Spacer()
             }
         }
         .frame(height: 53)
@@ -234,7 +252,7 @@ extension SearchView {
                             sortModalViewIsPresented = true
                         } label: {
                             HStack(spacing: 0) {
-                                Text("\(selectedSortOption.rawValue)")
+                                Text("\(productFetchOption.sortOption.title)")
                                     .font(.napzakFont(.caption3Medium12))
                                     .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                                     .foregroundStyle(Color.napzakGrayScale(.gray600))
