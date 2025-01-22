@@ -15,7 +15,7 @@ struct StoreInfoResponseDTO: Codable {
 
 struct StoreInfoData: Codable {
     let storeId: Int
-    let storeNickName: String
+    let storeNickname: String
     let description: String
     let storePhoto: String
     let storeCover: String
