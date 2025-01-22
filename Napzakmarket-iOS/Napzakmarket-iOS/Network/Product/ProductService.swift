@@ -21,6 +21,8 @@ protocol ProductServiceProtocol {
     )
     func getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
+    func getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
+    func getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
 }
 
 final class ProductService: BaseService, ProductServiceProtocol {
@@ -50,6 +52,15 @@ final class ProductService: BaseService, ProductServiceProtocol {
     func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ()) {
         request(.getBuyProduct(sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale), completion: completion)
     }
+    
+    func getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ()) {
+        request(.getSellProductForSearch(searchWord: searchWord, sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale, isUnopened: isUnopened), completion: completion)
+    }
+    
+    func getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ()) {
+        request(.getBuyProductForSearch(searchWord: searchWord, sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale), completion: completion)
+    }
+
     
     private func request<T: Decodable>(_ target: ProductAPI, completion: @escaping (NetworkResult<T>) -> ()) {
         provider.request(target) { [weak self] result in

@@ -125,8 +125,13 @@ struct SearchView: View {
             }
             .onAppear() {
                 Task {
-                    await productModel.getSellProducts(productFetchOption: productFetchOption)
-                    await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                    if searchResultText.isEmpty {
+                        await productModel.getSellProducts(productFetchOption: productFetchOption)
+                        await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                    } else {
+                        await productModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        await productModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                    }
                 }
             }
             .onChange(of: adaptedGenres) { _ in

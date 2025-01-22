@@ -50,4 +50,28 @@ extension ProductSearchModel {
         }
     }
 
+    func getSellProductsForSearch(searchWord: String, productFetchOption: ProductFetchOption) async {
+        NetworkService.shared.productService.getSellProductForSearch(searchWord: searchWord, sortOption: productFetchOption.sortOption.rawValue, genreIDs: productFetchOption.genreIDs, isOnSale: productFetchOption.isOnSale, isUnopened: productFetchOption.isUnopened) { [weak self] result in
+            switch result {
+            case .success(let response):
+                guard let response else { return }
+                self?.sellProducts = response.data.productSellList.map { ProductModel(dto: $0) }
+            default:
+                break
+            }
+        }
+    }
+
+    func getBuyProductsForSearch(searchWord: String, productFetchOption: ProductFetchOption) async {
+        NetworkService.shared.productService.getBuyProductForSearch(searchWord: searchWord, sortOption: productFetchOption.sortOption.rawValue, genreIDs: productFetchOption.genreIDs, isOnSale: productFetchOption.isOnSale) { [weak self] result in
+            switch result {
+            case .success(let response):
+                guard let response else { return }
+                self?.buyProducts = response.data.productBuyList.map { ProductModel(dto: $0) }
+            default:
+                break
+            }
+        }
+    }
+
 }
