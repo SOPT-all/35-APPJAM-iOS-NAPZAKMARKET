@@ -310,27 +310,48 @@ extension SearchView {
                 productFetchOption.sortOption = .recent
                 proxy.scrollTo("header", anchor: .top)
                 Task {
-                    if isFiltered {
-                        await productModel.getBuyProducts(productFetchOption: productFetchOption)
-                        await productModel.getSellProducts(productFetchOption: productFetchOption)
-                    } else {
-                        if selectedTabIndex == 0 {
+                    if searchResultText.isEmpty {
+                        if isFiltered {
                             await productModel.getBuyProducts(productFetchOption: productFetchOption)
-                        } else if selectedTabIndex == 1 {
                             await productModel.getSellProducts(productFetchOption: productFetchOption)
+                        } else {
+                            if selectedTabIndex == 0 {
+                                await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                            } else if selectedTabIndex == 1 {
+                                await productModel.getSellProducts(productFetchOption: productFetchOption)
+                            }
+                        }
+                    } else {
+                        if isFiltered {
+                            await productModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                            await productModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        } else {
+                            if selectedTabIndex == 0 {
+                                await productModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                            } else if selectedTabIndex == 1 {
+                                await productModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                            }
                         }
                     }
+                    isFiltered = false
                 }
             }
             .onChange(of: productFetchOption) { _ in
                 proxy.scrollTo("header", anchor: .top)
-                isFiltered = productFetchOption.sortOption != .recent || productFetchOption.isOnSale || productFetchOption.isUnopened || !productFetchOption.genreIDs.isEmpty
-                
+                isFiltered = true
                 Task {
-                    if selectedTabIndex == 0 {
-                        await productModel.getSellProducts(productFetchOption: productFetchOption)
-                    } else if selectedTabIndex == 1 {
-                        await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                    if searchResultText.isEmpty {
+                        if selectedTabIndex == 0 {
+                            await productModel.getSellProducts(productFetchOption: productFetchOption)
+                        } else if selectedTabIndex == 1 {
+                            await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                        }
+                    } else {
+                        if selectedTabIndex == 0 {
+                            await productModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        } else if selectedTabIndex == 1 {
+                            await productModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        }
                     }
                 }
             }
