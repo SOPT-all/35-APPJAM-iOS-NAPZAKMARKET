@@ -46,6 +46,7 @@ struct SearchView: View {
     
     //상품 분류
     @State var productFetchOption = ProductFetchOption(sortOption: .recent, genreIDs: [], isOnSale: false, isUnopened: false)
+    @State var isFiltered = false
     
     //화면 전환
     @State var sortModalViewIsPresented = false
@@ -309,15 +310,22 @@ extension SearchView {
                 productFetchOption.sortOption = .recent
                 proxy.scrollTo("header", anchor: .top)
                 Task {
-                    if selectedTabIndex == 0 {
+                    if isFiltered {
                         await productModel.getBuyProducts(productFetchOption: productFetchOption)
-                    } else if selectedTabIndex == 1 {
                         await productModel.getSellProducts(productFetchOption: productFetchOption)
+                    } else {
+                        if selectedTabIndex == 0 {
+                            await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                        } else if selectedTabIndex == 1 {
+                            await productModel.getSellProducts(productFetchOption: productFetchOption)
+                        }
                     }
                 }
             }
             .onChange(of: productFetchOption) { _ in
                 proxy.scrollTo("header", anchor: .top)
+                isFiltered = productFetchOption.sortOption != .recent || productFetchOption.isOnSale || productFetchOption.isUnopened || !productFetchOption.genreIDs.isEmpty
+                
                 Task {
                     if selectedTabIndex == 0 {
                         await productModel.getSellProducts(productFetchOption: productFetchOption)
