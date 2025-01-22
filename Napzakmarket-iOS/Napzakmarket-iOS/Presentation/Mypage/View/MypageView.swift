@@ -36,13 +36,13 @@ struct MyPageView: View {
             .background(Color.clear)
             .navigationBarHidden(true)
             .onAppear {
-                getStoreInfo()
+                getmypageInfo()
             }
         }
     }
     
-    private func getStoreInfo() {
-        NetworkService.shared.storeService.getStoreInfo { result in
+    private func getmypageInfo() {
+        NetworkService.shared.storeService.getmypageInfo { result in
             switch result {
             case .success(let response):
                 guard let response else { return }
