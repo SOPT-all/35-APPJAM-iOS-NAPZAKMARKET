@@ -15,6 +15,7 @@ enum ProductAPI {
     case getPopularSellProducts
     case getRecommandedBuyProducts
     case putPresignedURL(url: String, imageData: Data)
+    case getChatInfo(productId: Int)
 }
 
 extension ProductAPI: BaseTargetType {
@@ -40,7 +41,7 @@ extension ProductAPI: BaseTargetType {
         case .putPresignedURL:
             return .noneHeader
             
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts:
+        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .getChatInfo:
             return .accessTokenHeader
         }
     }
@@ -57,12 +58,14 @@ extension ProductAPI: BaseTargetType {
             return "products/home/buy"
         case .putPresignedURL:
             return ""
+        case .getChatInfo(let prodeuctId):
+            return "products/chat/\(prodeuctId)"
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts:
+        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .getChatInfo:
             return .get
         case .putPresignedURL:
             return .put
@@ -71,7 +74,7 @@ extension ProductAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts:
+        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .getChatInfo:
             return .requestPlain
         case .putPresignedURL(_, let imageData):
             return .requestData(imageData)
