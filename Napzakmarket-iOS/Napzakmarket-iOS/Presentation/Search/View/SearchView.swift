@@ -84,11 +84,11 @@ struct SearchView: View {
                                     filterModalViewIsPresented = false
                                 }
                             
-                            GenreFilterModalView(
-                                selectedGenres: $selectedGenres,
-                                selectedGenreStrings: $selectedGenreStrings,
-                                filterModalViewIsPresented: $filterModalViewIsPresented
-                            )
+//                            GenreFilterModalView(
+//                                selectedGenres: $selectedGenres,
+//                                selectedGenreStrings: $selectedGenreStrings,
+//                                filterModalViewIsPresented: $filterModalViewIsPresented
+//                            )
                         }
                     }
                     .ignoresSafeArea(.all)

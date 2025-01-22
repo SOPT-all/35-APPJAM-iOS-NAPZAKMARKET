@@ -33,7 +33,7 @@ struct OnboardingView: View {
                 )
                 .onChange(of: genreModel.searchText) { _ in
                     Task {
-                        try? await genreModel.fetchGenresFiltered()
+                        await genreModel.fetchGenresFiltered()
                     }
                 }
             }
@@ -43,10 +43,10 @@ struct OnboardingView: View {
             
             ChipsContainerView(
                 selectedGenres: .init(
-                    get: { genreModel.selectedGenres.map { $0.name } },
-                    set: { newNames in
+                    get: { genreModel.selectedGenres.map { GenreName(id: $0.id, genreName: $0.name) } },
+                    set: { newGenres in
                         withAnimation(.easeInOut(duration: 0.3)) {
-                            genreModel.removeSelection(newNames)
+                            genreModel.removeSelection(newGenres.map { $0.id })
                         }
                     }
                 )
@@ -70,23 +70,20 @@ struct OnboardingView: View {
                     }
                 }
                 .padding(.top, 30)
-                
+                .padding(.horizontal, 20)
                 
                 FinalActionsView(
                     appState: appState,
+                    genreModel: genreModel,
                     selectedGenres: $genreModel.selectedGenres
                 )
             }
-            .padding(.horizontal, 20)
-            
-            
-            
         }
         .padding(.top, 40)
         .edgesIgnoringSafeArea(.bottom)
         .ignoresSafeArea(.keyboard)
         .task {
-            try? await genreModel.fetchGenres()
+            await genreModel.fetchGenres()
         }
     }
     
@@ -123,14 +120,18 @@ extension OnboardingView {
         // MARK: - Properties
         
         @ObservedObject var appState: AppState
-        @Binding var selectedGenres: [Genre]
+        @ObservedObject var genreModel: GenreModel
+        @Binding var selectedGenres: [PreferGenre]
         
         // MARK: - Main Body
         
         var body: some View {
             VStack(spacing: 0) {
                 Button {
-                    appState.moveToMain()
+                    Task {
+                        await genreModel.registerPreferGenres()
+                        appState.moveToMain()
+                    }
                 } label: {
                     Text("선택완료! 시작하기")
                         .font(.napzakFont(.body1Bold16))

@@ -15,10 +15,15 @@ struct GenreNameResponseDTO: Codable {
 
 struct GenreNameData: Codable {
     let genreList: [GenreName]
-    let nextCursor: String
+    let nextCursor: String?
 }
 
-struct GenreName: Codable {
-    let genreId: Int
+struct GenreName: Identifiable, Codable {
+    let id: Int
     let genreName: String
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "genreId"
+        case genreName
+    }
 }

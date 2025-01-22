@@ -12,7 +12,7 @@ struct GenreCell: View {
     
     // MARK: - Properties
     
-    let genre: Genre
+    let genre: PreferGenre
     @Binding var isSelected: Bool
     
     // MARK: - Main Body
