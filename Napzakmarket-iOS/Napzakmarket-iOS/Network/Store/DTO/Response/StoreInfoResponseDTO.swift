@@ -19,5 +19,5 @@ struct StoreInfoData: Codable {
     let storeDescription: String
     let storePhoto: String
     let storeCover: String
-    let genrePreferenceList: [GenreName]
+    let genrePreferences: [GenreName]
 }
