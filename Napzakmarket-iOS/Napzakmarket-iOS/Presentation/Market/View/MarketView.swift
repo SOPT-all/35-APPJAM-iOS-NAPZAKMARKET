@@ -13,8 +13,8 @@ struct MarketView: View {
     
     @State private var tags: [Tag] = MarketMockData.tags
     @State private var selectedIndex = 0
-    @State private var sellProducts = ProductModel.sellDummyList()
-    @State private var buyProducts = ProductModel.buyDummyList()
+    @State private var sellProducts = ProductModel.dummyProducts
+    @State private var buyProducts = ProductModel.dummyProducts
     @State private var selectedSortOption: SortOption = .latest
     @State private var selectedGenres: [GenreSearchModel] = []
     @State private var selectedGenreStrings: [String] = []

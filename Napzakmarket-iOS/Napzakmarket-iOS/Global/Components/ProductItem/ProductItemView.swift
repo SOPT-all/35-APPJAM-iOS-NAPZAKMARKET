@@ -7,10 +7,7 @@
 
 import SwiftUI
 
-enum ProductType {
-    case buy
-    case sell
-}
+import Kingfisher
 
 struct ProductItemView: View {
     
@@ -37,11 +34,27 @@ extension ProductItemView {
     private var productMain: some View {
         ZStack(alignment: .top) {
             //추후 Image() 요소로 변경 예정
-            Rectangle()
-                .fill(Color.napzakGrayScale(.gray300))
-                .frame(width: width, height: width)
+            if let url = URL(string: product.photo) {
+                KFImage(url)
+                    .placeholder {
+                        Rectangle()
+                            .fill(Color.napzakGrayScale(.gray300))
+                            .frame(width: width, height: width)
+                    }
+                    .retry(maxCount: 3, interval: .seconds(5))
+                    .onFailure { error  in
+                        print("failure: \(error.localizedDescription)")
+                    }
+                    .resizable()
+                    .frame(width: width, height: width)
+            } else {
+                Rectangle()
+                    .fill(Color.napzakGrayScale(.gray300))
+                    .frame(width: width, height: width)
+            }
+            
             HStack(alignment: .bottom) {
-                switch product.productType {
+                switch product.tradeType {
                 case .buy:
                     Image(.imgTagBuy)
                         .resizable()
@@ -51,6 +64,7 @@ extension ProductItemView {
                         .resizable()
                         .frame(width: 47, height: 27)
                 }
+                
                 Spacer()
                 if product.isOwnedByCurrentUser {
                     likeButton
@@ -63,10 +77,11 @@ extension ProductItemView {
     
     private var likeButton: some View {
         Button {
+            // TODO: - 좋아요 API 연결
             print("Like Button tapped")
-            product.toggleLike()
+            
         } label: {
-            product.isLiked ? Image(.icnHeartListSelect) : Image(.icnHeartList)
+            product.isInterested ? Image(.icnHeartListSelect) : Image(.icnHeartList)
         }
         .padding(.trailing, 6)
     }
@@ -88,7 +103,7 @@ extension ProductItemView {
                         Image(.imgTagPriceSm)
                     }
                 }
-                Text(product.price)
+                Text("\(product.price)원")
                     .font(.napzakFont(.body1Bold16))
                     .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))

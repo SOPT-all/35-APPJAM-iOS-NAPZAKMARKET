@@ -15,9 +15,8 @@ struct SearchView: View {
     @EnvironmentObject private var tabBarState: TabBarStateModel
     
     //상품
-    @State var sellProducts = ProductModel.sellDummyList()
-    @State var buyProducts = ProductModel.buyDummyList()
-    
+    @State var sellProducts = ProductModel.dummyProducts
+    @State var buyProducts = ProductModel.dummyProducts    
     //세그먼트 컨트롤
     @State var selectedTabIndex = 0
     

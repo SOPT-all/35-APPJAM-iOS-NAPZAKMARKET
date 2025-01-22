@@ -2,8 +2,6 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>TEMPORARY_ACCESS_TOKEN</key>
-	<string>$(TEMPORARY_ACCESS_TOKEN)</string>
 	<key>BASE_URL</key>
 	<string>$(BASE_URL)</string>
 	<key>NSAppTransportSecurity</key>
@@ -11,6 +9,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>TEMPORARY_ACCESS_TOKEN</key>
+	<string>$(TEMPORARY_ACCESS_TOKEN)</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Pretendard-Medium.otf</string>
