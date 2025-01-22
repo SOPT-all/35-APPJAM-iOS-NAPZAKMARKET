@@ -92,11 +92,6 @@ final class RegisterModel: ObservableObject {
     
     func putImagesToPresignedUrls() {
         
-        guard self.presignedUrlList.count == self.registerInfo.images.count else {
-            print("프리사인드 URL과 이미지 개수가 일치하지 않습니다.")
-            return
-        }
-        
         for (index, presignedUrl) in presignedUrlList.enumerated() {
             guard let url = presignedUrl.productPresignedUrls.values.first,
                   index < registerInfo.images.count,
@@ -110,17 +105,21 @@ final class RegisterModel: ObservableObject {
             NetworkService.shared.productService
                 .putImageToPresignedUrl(url: url, imageData: imageData) { result in
                     switch result {
-                    case .success(let response):
-                        print("이미지 \(index + 1) 업로드 성공")
-                        self.compleatedCount += 1
-                        print("compleatedCount: \(self.compleatedCount)")
-                        self.sellRegisterRequest()
+                    case .success:
+                        if self.presignedUrlList.count == self.registerInfo.images.count {
+                            print("이미지 \(index + 1) 업로드 성공")
+                        }
                     default:
-                        print("끝")
                         break
                     }
                 }
+            
         }
+        guard self.presignedUrlList.count == self.registerInfo.images.count else {
+            print("프리사인드 URL과 이미지 개수가 일치하지 않습니다.")
+            return
+        }
+        self.sellRegisterRequest()
     }
     
     
@@ -144,9 +143,7 @@ final class RegisterModel: ObservableObject {
         // uiimage를 RegisteredPhoto 로 변경
         for (index, image) in registerInfo.images.enumerated() {
             if image.jpegData(compressionQuality: 0.8) != nil {
-                // presignedUrlList에서 실제 URL 값 추출
                 if let actualUrl = presignedUrlList[index].productPresignedUrls.values.first {
-                    // URL에서 중요한 부분만 추출 (도메인과 경로만)
                     if let simplifiedUrl = simplifyUrl(url: actualUrl) {
                         let registeredPhoto = RegisteredPhoto(photoUrl: simplifiedUrl, sequence: index + 1)
                         registerPhotoList.append(registeredPhoto)
@@ -182,21 +179,13 @@ final class RegisterModel: ObservableObject {
             halfDeliveryFee: Int(registerInfo.halfDeliveryCharge) ?? 0
         )
         
-        print("productPhotoList: \(registerItem.productPhotoList)")
-        print("genreId: \(registerItem.genreId)")
-        print("title: \(registerItem.title)")
-        print("description: \(registerItem.description)")
-        print("price: \(registerItem.price)")
-        print("productCondition: \(registerItem.productCondition)")
-        print("isDeliveryIncluded: \(registerItem.isDeliveryIncluded)")
-        print("standardDeliveryFee: \(registerItem.standardDeliveryFee)")
-        print("halfDeliveryFee: \(registerItem.halfDeliveryFee)")
-        
         NetworkService.shared.productService.postRegisterSellRequest(registerSellProduct: registerItem) { result in
             switch result {
             case .success:
                 print("Post 성공!")
             default:
+                print("default 가 실행됨")
+                print(result) // decodeErr
                 break
             }
         }

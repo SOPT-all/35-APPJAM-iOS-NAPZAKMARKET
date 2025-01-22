@@ -26,7 +26,6 @@ final class PresignedService: BaseService, PresignedServiceProtocol {
                 )
                 
                 completion(networkResult)
-                print("프리사인드 URL 발급 성공")
 
             case .failure(let err):
                 print(err)

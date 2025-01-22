@@ -39,9 +39,6 @@ struct RegisterView: View {
             registerButton
         }
         .scrollIndicators(.hidden)
-        .onChange(of: registerModel.compleatedCount) { newValue in
-            registerModel.sellRegisterRequest()
-        }
     }
 }
 
