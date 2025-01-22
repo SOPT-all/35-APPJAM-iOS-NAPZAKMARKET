@@ -87,6 +87,8 @@
 		D0AA21362D2CFF9F004CC2E6 /* FontLiterial.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0AA21352D2CFF99004CC2E6 /* FontLiterial.swift */; };
 		D0C26EB72D3797A10014EB4C /* SortModalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0C26EB62D3797980014EB4C /* SortModalView.swift */; };
 		D61342532D3A92B800E65EFD /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D61342522D3A92B800E65EFD /* Assets.xcassets */; };
+		D61342762D40345300E65EFD /* Encodable+.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61342752D40345300E65EFD /* Encodable+.swift */; };
+		D61342782D40C90600E65EFD /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = D61342772D40C90600E65EFD /* HomeModel.swift */; };
 		D63F2FCC2D369B9C00C1C7D1 /* AppEntryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FCB2D369B9C00C1C7D1 /* AppEntryView.swift */; };
 		D63F2FCF2D38D6A300C1C7D1 /* splash(ios).json in Resources */ = {isa = PBXBuildFile; fileRef = D63F2FCE2D38D6A300C1C7D1 /* splash(ios).json */; };
 		D63F2FD12D38D92B00C1C7D1 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D63F2FD02D38D92B00C1C7D1 /* SplashView.swift */; };
@@ -187,6 +189,7 @@
 		D0C2A8F62D2AA38E00C8616B /* Napzakmarket-iOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Napzakmarket-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D61342522D3A92B800E65EFD /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		D61342752D40345300E65EFD /* Encodable+.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Encodable+.swift"; sourceTree = "<group>"; };
+		D61342772D40C90600E65EFD /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
 		D63F2FCB2D369B9C00C1C7D1 /* AppEntryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppEntryView.swift; sourceTree = "<group>"; };
 		D63F2FCE2D38D6A300C1C7D1 /* splash(ios).json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = "splash(ios).json"; sourceTree = "<group>"; };
 		D63F2FD02D38D92B00C1C7D1 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -746,6 +749,7 @@
 		D0AA21142D2C0C63004CC2E6 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D61342772D40C90600E65EFD /* HomeModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1038,6 +1042,7 @@
 				D6C6751C2D32F30100DE6B4D /* GenreModel.swift in Sources */,
 				D6F528C12D3646A900D1F7A8 /* GenreGridView.swift in Sources */,
 				D079729F2D3F8A6D00CF97E4 /* MyPageInfoResponseDTO.swift in Sources */,
+				D61342782D40C90600E65EFD /* HomeModel.swift in Sources */,
 				D6C6751E2D33024B00DE6B4D /* SearchBar.swift in Sources */,
 				D08F4E842D3A6E43004093FC /* ProductDetailModel.swift in Sources */,
 				D00CF6532D3E797F00F48230 /* MarketModel.swift in Sources */,

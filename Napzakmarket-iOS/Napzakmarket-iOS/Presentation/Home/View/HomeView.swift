@@ -7,18 +7,16 @@
 
 import SwiftUI
 
+import Kingfisher
+
 struct HomeView: View {
     
     // MARK: - Properties
     
+    @StateObject private var homeModel = HomeModel()
     @State private var currentPage: Int = 0
-    private let bannerImages = ["img_banner_1", "img_banner_2"]
     
-    @State var recomendedProducts = ProductModel.recommendedDummyList()
-    @State var sellProducts = ProductModel.sellDummyList()
-    @State var buyProducts = ProductModel.buyDummyList()
-    
-    let width = (UIScreen.main.bounds.width - 55) / 2
+    private let width = (UIScreen.main.bounds.width - 55) / 2
     
     // MARK: - Main Body
     
@@ -27,12 +25,12 @@ struct HomeView: View {
         ScrollView(showsIndicators: false) {
             VStack(spacing: 0) {
                 LogoView()
-                NoticeCarouselView(currentPage: $currentPage, bannerImages: bannerImages)
+                NoticeCarouselView(currentPage: $currentPage, banneres: $homeModel.banners)
                 
                 // 첫번째 섹션
                 VStack(spacing: 16) {
                     RecommendedItemsTitleView()
-                    ProductScrollView(width: width - 10, products: $recomendedProducts)
+                    ProductScrollView(width: width - 10, products: $homeModel.personalProducts)
                 }
                 .padding(.leading, 20)
                 
@@ -52,7 +50,7 @@ struct HomeView: View {
                         .padding(.trailing, 20)
                     }
                     
-                    MostLikedProductsView(width: width, products: $sellProducts)
+                    MostLikedProductsView(width: width, products: $homeModel.popularSellProducts)
                         .padding(.horizontal, 20)
                 }
                 .padding(.top, 50)
@@ -75,14 +73,23 @@ struct HomeView: View {
                         .padding(.leading, 20)
                     }
                     
-                    ProductScrollView(width: width - 10, products: $buyProducts)
+                    ProductScrollView(width: width - 10, products: $homeModel.recommendedBuyProducts)
                         .padding(.leading, 20)
                 }
                 .padding(.top, 60)
                 .padding(.bottom, 75)
             }
         }
+        .onAppear {
+            Task {
+                await homeModel.fetchBanners()
+                await homeModel.fetchPersonalProducts()
+                await homeModel.fetchPopularSellProducts()
+                await homeModel.fetchRecommendedBuyProducts()
+            }
+        }
     }
+    
 }
 
 extension HomeView {
@@ -100,7 +107,7 @@ extension HomeView {
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-
+            
         }
     }
     
@@ -108,24 +115,34 @@ extension HomeView {
         
         // MARK: - Properties
         @Binding var currentPage: Int
-        let bannerImages: [String]
+        @Binding var banneres: [Banner]
         
         // MARK: - Main Body
         
         var body: some View {
             VStack {
                 TabView(selection: $currentPage) {
-                    ForEach(0..<bannerImages.count, id: \.self) { index in
-                        Image(bannerImages[index])
-                            .resizable()
-                            .scaledToFill()
+                    ForEach(0..<banneres.count, id: \.self) { index in
+                        if let url = URL(string: banneres[index].bannerPhoto) {
+                            KFImage(url)
+                                .resizable()
+                                .placeholder {
+                                    Image(.imgOnboardingEmpty)
+                                }
+                                .retry(maxCount: 3, interval: .seconds(5))
+                                .onFailure { error  in
+                                    print("failure: \(error.localizedDescription)")
+                                }
+                                .scaledToFill()
+                                .frame(maxWidth: .infinity)
+                        }
                     }
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 .frame(height: 230)
                 
                 HStack(spacing: 8) {
-                    ForEach(0..<bannerImages.count, id: \.self) { index in
+                    ForEach(0..<banneres.count, id: \.self) { index in
                         Circle()
                             .fill(
                                 index == currentPage ? Color.napzakPurple(.purple30) : Color.napzakGrayScale(.gray400)

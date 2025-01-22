@@ -14,8 +14,7 @@ struct PersonalProductResponseDTO: Codable {
 }
 
 struct PersonalProductData: Codable {
-    let productBuyList: [BuyProduct]
-    let productSellList: [SellProduct]
+    let productRecommendList: [Product]
 }
 
 struct PopularSellProductResponseDTO: Codable {
@@ -25,7 +24,7 @@ struct PopularSellProductResponseDTO: Codable {
 }
 
 struct PopularSellProductData: Codable {
-    let productSellList: [SellProduct]
+    let productSellList: [Product]
 }
 
 struct RecommandedBuyProductResponseDTO: Codable {
@@ -35,7 +34,7 @@ struct RecommandedBuyProductResponseDTO: Codable {
 }
 
 struct RecommandedBuyProductData: Codable {
-    let productBuyList: [BuyProduct]
+    let productBuyList: [Product]
 }
 
 struct SellProductResponseDTO: Codable {
@@ -58,6 +57,25 @@ struct BuyProductResponseDTO: Codable {
 struct BuyProductData: Codable {
     let productBuyList: [BuyProduct]
     var nextCursor: String?
+}
+
+enum ProductType: String, Codable {
+    case buy = "BUY"
+    case sell = "SELL"
+}
+
+struct Product: Codable {
+    let productId: Int
+    let genreName: String
+    let productName: String
+    let photo: String
+    let price: Int
+    let uploadTime: String
+    let isInterested: Bool
+    let tradeType: ProductType
+    let tradeStatus: String
+    let isOwnedByCurrentUser: Bool
+    let isPriceNegotiable: Bool?
 }
 
 struct BuyProduct: Codable {
