@@ -13,7 +13,6 @@
 		3CF80DC02D3696F300E8DE1F /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80DBF2D3696F300E8DE1F /* MypageView.swift */; };
 		3CF80DC22D3697C900E8DE1F /* MyPageFeature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80DC12D3697C000E8DE1F /* MyPageFeature.swift */; };
 		3CF80DC42D36A45300E8DE1F /* ReadyView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80DC32D36A45300E8DE1F /* ReadyView.swift */; };
-		6C0E0DE12D40330E0022C139 /* Config.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 6C0E0DE02D40330E0022C139 /* Config.xcconfig */; };
 		6C0E0DEB2D40A4050022C139 /* PresignedAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0E0DEA2D40A4050022C139 /* PresignedAPI.swift */; };
 		6C0E0DED2D40A4170022C139 /* PresignedService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0E0DEC2D40A4170022C139 /* PresignedService.swift */; };
 		6C0E0DEF2D40A4590022C139 /* PresignedRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6C0E0DEE2D40A4590022C139 /* PresignedRequestDTO.swift */; };
@@ -114,7 +113,6 @@
 		3CF80DBF2D3696F300E8DE1F /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
 		3CF80DC12D3697C000E8DE1F /* MyPageFeature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPageFeature.swift; sourceTree = "<group>"; };
 		3CF80DC32D36A45300E8DE1F /* ReadyView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReadyView.swift; sourceTree = "<group>"; };
-		6C0E0DE02D40330E0022C139 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
 		6C0E0DEA2D40A4050022C139 /* PresignedAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresignedAPI.swift; sourceTree = "<group>"; };
 		6C0E0DEC2D40A4170022C139 /* PresignedService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresignedService.swift; sourceTree = "<group>"; };
 		6C0E0DEE2D40A4590022C139 /* PresignedRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PresignedRequestDTO.swift; sourceTree = "<group>"; };
@@ -528,7 +526,6 @@
 		D0AA20EA2D2C0A56004CC2E6 /* Napzakmarket-iOS */ = {
 			isa = PBXGroup;
 			children = (
-				6C0E0DE02D40330E0022C139 /* Config.xcconfig */,
 				D0AA21372D2D00A3004CC2E6 /* Info.plist */,
 				D0AA20E42D2C0A56004CC2E6 /* Application */,
 				D0AA20EF2D2C0A8E004CC2E6 /* Global */,
@@ -989,7 +986,6 @@
 				D63F2FCF2D38D6A300C1C7D1 /* splash(ios).json in Resources */,
 				D0AA21322D2CFF0E004CC2E6 /* Pretendard-Bold.otf in Resources */,
 				D0AA21332D2CFF0E004CC2E6 /* Pretendard-SemiBold.otf in Resources */,
-				6C0E0DE12D40330E0022C139 /* Config.xcconfig in Resources */,
 				D61342532D3A92B800E65EFD /* Assets.xcassets in Resources */,
 				D0AA21342D2CFF0E004CC2E6 /* Pretendard-Medium.otf in Resources */,
 				D6C675182D32BC5400DE6B4D /* mock_genres_39.json in Resources */,
@@ -1109,7 +1105,6 @@
 /* Begin XCBuildConfiguration section */
 		D0C2A9022D2AA39100C8616B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C0E0DE02D40330E0022C139 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1173,7 +1168,6 @@
 		};
 		D0C2A9032D2AA39100C8616B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C0E0DE02D40330E0022C139 /* Config.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
@@ -1230,7 +1224,6 @@
 		};
 		D0C2A9052D2AA39100C8616B /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C0E0DE02D40330E0022C139 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1264,7 +1257,6 @@
 		};
 		D0C2A9062D2AA39100C8616B /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6C0E0DE02D40330E0022C139 /* Config.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
