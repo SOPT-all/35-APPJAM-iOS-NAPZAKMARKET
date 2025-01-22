@@ -40,11 +40,11 @@ struct RecommandedBuyProductData: Codable {
 struct SellProductResponseDTO: Codable {
     let status: Int
     let message: String
-    let data: PopularSellProductData
+    let data: SellProductData
 }
 
 struct SellProductData: Codable {
-    let productSellList: [SellProduct]
+    let productSellList: [Product]
     var nextCursor: String?
 }
 
@@ -55,7 +55,7 @@ struct BuyProductResponseDTO: Codable {
 }
 
 struct BuyProductData: Codable {
-    let productBuyList: [BuyProduct]
+    let productBuyList: [Product]
     var nextCursor: String?
 }
 
@@ -76,31 +76,4 @@ struct Product: Codable {
     let tradeStatus: String
     let isOwnedByCurrentUser: Bool
     let isPriceNegotiable: Bool?
-}
-
-struct BuyProduct: Codable {
-    let productId: Int
-    let genreName: String
-    let productName: String
-    let photo: String
-    let price: Int
-    let uploadTime: String
-    let isInterested: Bool
-    let tradeType: String
-    let tradeStatus: String
-    let isPriceNegotiable: Bool
-    let isOwnedByCurrentUser: Bool
-}
-
-struct SellProduct: Codable {
-    let productId: Int
-    let genreName: String
-    let productName: String
-    let photo: String
-    let price: Int
-    let uploadTime: String
-    let isInterested: Bool
-    let tradeType: String
-    let tradeStatus: String
-    let isOwnedByCurrentUser: Bool
 }
