@@ -27,7 +27,7 @@ extension BaseTargetType {
         }
         return url
     }
-        
+    
     var headers: [String: String]? {
         
         switch headerType {
@@ -41,7 +41,7 @@ extension BaseTargetType {
             
             let header = ["Content-Type": "application/json",
                           "Authorization": "Bearer \(accessToken)"]
-
+            
             return header
         }
     }
