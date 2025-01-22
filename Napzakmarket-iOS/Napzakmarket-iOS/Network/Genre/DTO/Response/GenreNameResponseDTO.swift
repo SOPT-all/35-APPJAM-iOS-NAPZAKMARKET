@@ -18,7 +18,7 @@ struct GenreNameData: Codable {
     let nextCursor: String?
 }
 
-struct GenreName: Identifiable, Codable {
+struct GenreName: Identifiable, Codable, Hashable {
     let id: Int
     let genreName: String
     

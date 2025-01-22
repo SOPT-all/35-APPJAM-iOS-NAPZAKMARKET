@@ -40,6 +40,9 @@ class BaseService {
         let decoder = JSONDecoder()
         if let decodedData = try? decoder.decode(responseType, from: data){
             return decodedData
-        } else { return nil }
+        } else {
+            print("decoding error🤮🤮🤮🤮")
+            return nil
+        }
     }
 }
