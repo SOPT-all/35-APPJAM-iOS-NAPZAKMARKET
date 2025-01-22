@@ -11,7 +11,7 @@ struct ChipsContainerView: View {
     
     // MARK: - Properties
     
-    @Binding var selectedGenres: [String]
+    @Binding var selectedGenres: [GenreName]
     
     // MARK: - Main Body
     
@@ -40,15 +40,15 @@ extension ChipsContainerView {
         
         // MARK: - Properties
         
-        @Binding var selectedGenres: [String]
+        @Binding var selectedGenres: [GenreName]
         
         // MARK: - Main Body
         
         var body: some View {
             ScrollView(.horizontal, showsIndicators: false) {
                 LazyHStack(spacing: 6) {
-                    ForEach(selectedGenres, id: \.self) { genre in
-                        GenreChip(name: genre, selectedGenres: $selectedGenres)
+                    ForEach(selectedGenres) { genre in
+                        GenreChip(genre: genre, selectedGenres: $selectedGenres)
                     }
                 }
                 .padding(.trailing, 20)
