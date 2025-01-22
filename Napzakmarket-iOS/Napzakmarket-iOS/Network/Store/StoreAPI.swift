@@ -2,20 +2,22 @@
 //  StoreAPI.swift
 //  Napzakmarket-iOS
 //
-//  Created by 조혜린 on 1/21/25.
+//  Created by 어진 on 1/21/25.
 //
 
 import Moya
 
 enum StoreAPI {
     case postPreferGenres(request: RegisterPreferGenreRequestDTO)
+    case getmypageInfo
 }
 
 extension StoreAPI: BaseTargetType {
     
     var headerType: HeaderType {
         switch self {
-        case .postPreferGenres: return .accessTokenHeader
+        case .postPreferGenres, .getmypageInfo:
+            return .accessTokenHeader
         }
     }
     
@@ -23,6 +25,8 @@ extension StoreAPI: BaseTargetType {
         switch self {
         case .postPreferGenres:
             return "stores/register"
+        case .getmypageInfo:
+            return "stores/mypage"
         }
     }
     
@@ -30,6 +34,8 @@ extension StoreAPI: BaseTargetType {
         switch self {
         case .postPreferGenres:
             return .post
+        case .getmypageInfo:
+            return .get
         }
     }
     
@@ -37,7 +43,10 @@ extension StoreAPI: BaseTargetType {
         switch self {
         case .postPreferGenres(let request):
               return .requestJSONEncodable(request)
+            
+        case .getmypageInfo:
+            return .requestPlain
         }
     }
-    
+
 }
