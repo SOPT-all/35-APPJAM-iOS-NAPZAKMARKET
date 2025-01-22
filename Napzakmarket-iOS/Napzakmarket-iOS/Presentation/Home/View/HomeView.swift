@@ -15,11 +15,6 @@ struct HomeView: View {
     
     @StateObject private var homeModel = HomeModel()
     @State private var currentPage: Int = 0
-//    private let bannerImages = ["img_banner_1", "img_banner_2"]
-    
-//    @State var recomendedProducts = ProductModel.recommendedDummyList()
-//    @State var sellProducts = ProductModel.sellDummyList()
-//    @State var buyProducts = ProductModel.buyDummyList()
     
     private let width = (UIScreen.main.bounds.width - 55) / 2
     
@@ -112,7 +107,7 @@ extension HomeView {
                 Spacer()
             }
             .frame(maxWidth: .infinity)
-
+            
         }
     }
     
@@ -130,7 +125,7 @@ extension HomeView {
                     ForEach(0..<banneres.count, id: \.self) { index in
                         if let url = URL(string: banneres[index].bannerPhoto) {
                             KFImage(url)
-                                .resizable()  
+                                .resizable()
                                 .placeholder {
                                     Image(.imgOnboardingEmpty)
                                 }
@@ -138,12 +133,9 @@ extension HomeView {
                                 .onFailure { error  in
                                     print("failure: \(error.localizedDescription)")
                                 }
-                                .scaledToFill()  // 추가
+                                .scaledToFill()
                                 .frame(maxWidth: .infinity)
                         }
-//                        Image(bannerImages[index])
-//                            .resizable()
-//                            .scaledToFill()
                     }
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
