@@ -10,7 +10,7 @@ import Foundation
 struct BannerResponseDTO: Decodable {
     let status: Int
     let message: String
-    let data: PreferGenreData
+    let data: BannerData
 }
 
 struct BannerData: Decodable {
@@ -20,6 +20,6 @@ struct BannerData: Decodable {
 struct Banner: Decodable {
     let bannerId: Int
     let bannerPhoto: String
-    let bannerUrl: String
+    let bannerUrl: String?
     let bannerSequence: Int
 }
