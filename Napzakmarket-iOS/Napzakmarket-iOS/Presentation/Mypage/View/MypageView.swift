@@ -79,6 +79,7 @@ struct MyPageView: View {
                             ProgressView()
                                 .frame(width: 60, height: 60)
                         }
+                        .retry(maxCount: 3, interval: .seconds(1)) // 최대 3번, 1초 간격으로 재시도
                         .onFailure { _ in
                             Image("img_profile_md")
                                 .resizable()
