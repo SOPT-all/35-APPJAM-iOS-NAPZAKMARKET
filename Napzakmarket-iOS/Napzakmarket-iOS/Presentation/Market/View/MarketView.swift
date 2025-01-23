@@ -297,7 +297,7 @@ struct MarketView: View {
                     LazyVGrid(columns: columns, spacing: 20) {
                         if selectedIndex == 0 {
                             ForEach(productModel.sellProducts) { product in
-                                NavigationLink(destination: ProductDetailView()) {
+                                NavigationLink(destination: ProductDetailView(productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width
@@ -308,7 +308,7 @@ struct MarketView: View {
                         }
                         else if selectedIndex == 1 {
                             ForEach(productModel.buyProducts) { product in
-                                NavigationLink(destination: ProductDetailView()) {
+                                NavigationLink(destination: ProductDetailView(productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width
