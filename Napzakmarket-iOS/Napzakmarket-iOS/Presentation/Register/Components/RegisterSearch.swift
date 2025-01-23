@@ -79,7 +79,7 @@ extension RegisterSearch {
                 .padding(.vertical, 20)
                 .onTapGesture {
                     genre = item.genreName
-                    genreId = item.id.byteSwapped
+                    genreId = item.id
                     dismiss()
                 }
             }

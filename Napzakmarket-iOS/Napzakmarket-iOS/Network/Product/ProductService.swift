@@ -14,11 +14,19 @@ protocol ProductServiceProtocol {
     func getPersonalProducts(completion: @escaping (NetworkResult<PersonalProductResponseDTO>) -> ())
     func getPopularSellProducts(completion: @escaping (NetworkResult<PopularSellProductResponseDTO>) -> ())
     func getRecommandedBuyProducts(completion: @escaping (NetworkResult<RecommandedBuyProductResponseDTO>) -> ())
-    func putImageToPresignedUrl(
-        url: String,
-        imageData: Data,
-        completion: @escaping (NetworkResult<Void>) -> ()
-    )
+    
+
+    // register 관련
+    func postRegisterSellRequest(registerSellProduct: RegisterSellProductRequestDTO,
+                                 completion: @escaping (NetworkResult<RegisterSellProductResponseDTO>) -> ())
+    
+    func getRegisterSellResponse(productId: Int, completion: @escaping (NetworkResult<RegisterSellProductResponseDTO>) -> ())
+    
+    func postRegisterBuyRequest(registerBuyProduct: RegisterBuyProductRequestDTO,
+                                completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ())
+    
+    func getRegisterBuyResponse(productId: Int, completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ())
+
     func getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
     func getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
@@ -32,7 +40,7 @@ protocol ProductServiceProtocol {
 }
 
 final class ProductService: BaseService, ProductServiceProtocol {
-    
+   
     private let provider = MoyaProvider<ProductAPI>.init(plugins: [MoyaPlugin()])
     
     func getBanners(completion: @escaping (NetworkResult<BannerResponseDTO>) -> ()) {
@@ -107,32 +115,22 @@ final class ProductService: BaseService, ProductServiceProtocol {
             }
         }
     }
-
-    func putImageToPresignedUrl(
-        url: String,
-        imageData: Data,
-        completion: @escaping (NetworkResult<Void>) -> ()
-    ) {
-        provider.request(.putPresignedURL(url: url, imageData: imageData)) { result in
-            switch result {
-            case .success(let response):
-                if (200...299).contains(response.statusCode) {
-                    print("이미지 업로드 성공: \(url)")
-                    completion(.success(()))
-                } else {
-                    print("이미지 업로드 실패: \(response.statusCode)")
-                    print("무ㅏㅓ가 전달됐길래 이래!!")
-                    print("url : \(url)")
-                    print("imagedata : \(imageData)")
-                }
-                
-            case .failure(let error):
-                print("네트워크 요청 실패: \(error.localizedDescription)")
-
-            }
-            print("💡 업로드 작업이 종료되었습니다.") // 종료를 명시적으로 표시
-
-        }
+    
+    func postRegisterSellRequest(registerSellProduct: RegisterSellProductRequestDTO, completion: @escaping (NetworkResult<RegisterSellProductResponseDTO>) -> ()) {
+        request(.sellProductRequest(registerItem: registerSellProduct), completion: completion)
     }
-
+    
+    func getRegisterSellResponse(productId: Int, completion: @escaping
+    (NetworkResult<RegisterSellProductResponseDTO>) -> ()) {
+        request(.sellProductResponse(productId: productId), completion: completion)
+    }
+    
+    func postRegisterBuyRequest(registerBuyProduct: RegisterBuyProductRequestDTO, completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ()) {
+        request(.buyProductRequest(registerItem: registerBuyProduct), completion: completion)
+    }
+    
+    func getRegisterBuyResponse(productId: Int, completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ()) {
+        request(.buyProductResponse(productId: productId), completion: completion)
+    }
+    
 }
