@@ -27,9 +27,9 @@ protocol ProductServiceProtocol {
     func deleteInterest(productId: Int, completion: @escaping (NetworkResult<Any>) -> ())
     func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ())
     func getStoreOwnerSellProduct(storeOwnerId: Int, option: ProductFetchOption,
-          completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
+                                  completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getStoreOwnerBuyProduct(storeOwnerId: Int, option: ProductFetchOption,
-          completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
+                                 completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
 }
 
 final class ProductService: BaseService, ProductServiceProtocol {
@@ -72,26 +72,28 @@ final class ProductService: BaseService, ProductServiceProtocol {
         storeOwnerId: Int,
         option: ProductFetchOption,
         completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ()) {
-        request(.getStoreOwnerSellProduct(storeOwnerId, option), completion: completion)
-    }
-
+            request(.getStoreOwnerSellProduct(storeOwnerId, option), completion: completion)
+        }
+    
     func getStoreOwnerBuyProduct(
         storeOwnerId: Int,
         option: ProductFetchOption,
         completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ()) {
-        request(.getStoreOwnerBuyProduct(storeOwnerId, option), completion: completion)
+            request(.getStoreOwnerBuyProduct(storeOwnerId, option), completion: completion)
+        }
+    
+    func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ()) {
+        request(.getProductDetail(productId: productId), completion: completion)
     }
-
+    
     func postInterest(productId: Int, completion: @escaping (NetworkResult<Any>) -> ()) {
         request(.postInterest(productId: productId), completion: completion)
     }
     
-    func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ()) {
-        request(.getProductDetail(productId: productId), completion: completion)
     func deleteInterest(productId: Int, completion: @escaping (NetworkResult<Any>) -> ()) {
         request(.deleteInterest(productId: productId), completion: completion)
     }
-
+    
     
     private func request<T: Decodable>(_ target: ProductAPI, completion: @escaping (NetworkResult<T>) -> ()) {
         provider.request(target) { [weak self] result in
@@ -128,7 +130,8 @@ final class ProductService: BaseService, ProductServiceProtocol {
             }
         }
     }
-
+    
+    
     func putImageToPresignedUrl(
         url: String,
         imageData: Data,
@@ -149,11 +152,11 @@ final class ProductService: BaseService, ProductServiceProtocol {
                 
             case .failure(let error):
                 print("네트워크 요청 실패: \(error.localizedDescription)")
-
+                
             }
             print("💡 업로드 작업이 종료되었습니다.") // 종료를 명시적으로 표시
-
+            
         }
     }
-
+    
 }
