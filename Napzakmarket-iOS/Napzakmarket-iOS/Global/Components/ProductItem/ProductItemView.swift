@@ -77,8 +77,9 @@ extension ProductItemView {
     
     private var likeButton: some View {
         Button {
-            // TODO: - 좋아요 API 연결
-            print("Like Button tapped")
+            Task {
+                await product.postInterestToggle()
+            }
             
         } label: {
             product.isInterested ? Image(.icnHeartListSelect) : Image(.icnHeartList)
