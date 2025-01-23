@@ -14,11 +14,18 @@ protocol ProductServiceProtocol {
     func getPersonalProducts(completion: @escaping (NetworkResult<PersonalProductResponseDTO>) -> ())
     func getPopularSellProducts(completion: @escaping (NetworkResult<PopularSellProductResponseDTO>) -> ())
     func getRecommandedBuyProducts(completion: @escaping (NetworkResult<RecommandedBuyProductResponseDTO>) -> ())
-    func putImageToPresignedUrl(
-        url: String,
-        imageData: Data,
-        completion: @escaping (NetworkResult<Void>) -> ()
-    )
+
+    // register 관련
+    func postRegisterSellRequest(registerSellProduct: RegisterSellProductRequestDTO,
+                                 completion: @escaping (NetworkResult<RegisterSellProductResponseDTO>) -> ())
+    
+    func getRegisterSellResponse(productId: Int, completion: @escaping (NetworkResult<RegisterSellProductResponseDTO>) -> ())
+    
+    func postRegisterBuyRequest(registerBuyProduct: RegisterBuyProductRequestDTO,
+                                completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ())
+    
+    func getRegisterBuyResponse(productId: Int, completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ())
+
     func getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
     func getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
@@ -30,10 +37,11 @@ protocol ProductServiceProtocol {
                                   completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getStoreOwnerBuyProduct(storeOwnerId: Int, option: ProductFetchOption,
                                  completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
+    func getChatInfo(productId: Int, completion: @escaping (NetworkResult<ChatInfoResponseDTO>) -> ())
 }
 
 final class ProductService: BaseService, ProductServiceProtocol {
-    
+   
     private let provider = MoyaProvider<ProductAPI>.init(plugins: [MoyaPlugin()])
     
     func getBanners(completion: @escaping (NetworkResult<BannerResponseDTO>) -> ()) {
@@ -94,6 +102,26 @@ final class ProductService: BaseService, ProductServiceProtocol {
         request(.deleteInterest(productId: productId), completion: completion)
     }
     
+    func getChatInfo(productId: Int, completion: @escaping (NetworkResult<ChatInfoResponseDTO>) -> ()) {
+        request(.getChatInfo(productId: productId), completion: completion)
+    }
+    
+    func postRegisterSellRequest(registerSellProduct: RegisterSellProductRequestDTO, completion: @escaping (NetworkResult<RegisterSellProductResponseDTO>) -> ()) {
+        request(.sellProductRequest(registerItem: registerSellProduct), completion: completion)
+    }
+    
+    func getRegisterSellResponse(productId: Int, completion: @escaping
+    (NetworkResult<RegisterSellProductResponseDTO>) -> ()) {
+        request(.sellProductResponse(productId: productId), completion: completion)
+    }
+    
+    func postRegisterBuyRequest(registerBuyProduct: RegisterBuyProductRequestDTO, completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ()) {
+        request(.buyProductRequest(registerItem: registerBuyProduct), completion: completion)
+    }
+    
+    func getRegisterBuyResponse(productId: Int, completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ()) {
+        request(.buyProductResponse(productId: productId), completion: completion)
+    }
     
     private func request<T: Decodable>(_ target: ProductAPI, completion: @escaping (NetworkResult<T>) -> ()) {
         provider.request(target) { [weak self] result in

@@ -14,7 +14,12 @@ enum ProductAPI {
     case getPersonalProducts
     case getPopularSellProducts
     case getRecommandedBuyProducts
+    case sellProductRequest(registerItem: RegisterSellProductRequestDTO)
+    case buyProductRequest(registerItem: RegisterBuyProductRequestDTO)
+    case sellProductResponse(productId: Int)
+    case buyProductResponse(productId: Int)
     case putPresignedURL(url: String, imageData: Data)
+    case getChatInfo(productId: Int)
     case getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
     case getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
     case getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
@@ -28,25 +33,9 @@ enum ProductAPI {
 
 extension ProductAPI: BaseTargetType {
     
-    var baseURL: URL {
-        switch self {
-        case .putPresignedURL(let url, _):
-            // 프리사인드 URL을 절대 경로로 처리
-            return URL(string: url) ?? URL(string: "https://napzak-dev-bucket.s3.ap-northeast-2.amazonaws.com")!
-            
-        default:
-            guard let urlString = Bundle.main.infoDictionary?["BASE_URL"] as? String,
-                  let url = URL(string: urlString) else {
-                fatalError("🚨Base URL을 찾을 수 없습니다🚨")
-            }
-            return url
-        }
-        
-    }
-    
     var headerType: HeaderType {
         switch self {
-        case .putPresignedURL:
+        case .sellProductResponse, .buyProductResponse:
             return .noneHeader
         default:
             return .accessTokenHeader
@@ -63,8 +52,14 @@ extension ProductAPI: BaseTargetType {
             return "products/home/sell"
         case .getRecommandedBuyProducts:
             return "products/home/buy"
-        case .putPresignedURL:
-            return ""
+        case .sellProductRequest:
+            return "products/sell"
+        case .buyProductRequest:
+            return "products/buy"
+        case .sellProductResponse:
+            return "products/sell"
+        case .buyProductResponse:
+            return "products/buy"
         case .getSellProduct:
             return "products/sell"
         case .getBuyProduct:
@@ -81,17 +76,21 @@ extension ProductAPI: BaseTargetType {
             return "products/buy/stores/\(storeOwnerId)"
         case .postInterest(let productId), .deleteInterest(let productId):
             return "interest/\(productId)"
+        case .getChatInfo(let prodeuctId):
+            return "products/chat/\(prodeuctId)"
+        case .putPresignedURL:
+            return ""
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .putPresignedURL:
-            return .put
         case .postInterest:
             return .post
         case .deleteInterest:
             return .delete
+        case .sellProductRequest, .buyProductRequest, .putPresignedURL:
+            return .post
         default:
             return .get
         }
@@ -99,10 +98,18 @@ extension ProductAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .postInterest, .deleteInterest, .getProductDetail:
+        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .postInterest, .deleteInterest, .getProductDetail, .getChatInfo:
             return .requestPlain
         case .putPresignedURL(_, let imageData):
             return .requestData(imageData)
+        case .sellProductRequest(let registerItem):
+            return .requestJSONEncodable(registerItem)
+        case .buyProductRequest(let registerItem):
+            return .requestJSONEncodable(registerItem)
+        case .sellProductResponse(let productId):
+            return .requestParameters(parameters: ["productId" : productId.description], encoding: URLEncoding.queryString)
+        case .buyProductResponse(let productId):
+            return .requestParameters(parameters: ["productId" : productId.description], encoding: URLEncoding.queryString)
         case .getSellProduct(let sortOption, let genreIDs, let isOnSale, let isUnopened):
             return .requestParameters(parameters: ["sortOption" : sortOption,
                                                    "genreId" : genreIDs ?? [],

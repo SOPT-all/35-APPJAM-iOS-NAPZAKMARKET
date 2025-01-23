@@ -13,18 +13,18 @@ struct ProductDetailView: View {
     
     //MARK: - Property Wrappers
     
-    @State private var currentPage = 0
-    @State var showToast = false
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
-    
+
+    @State private var currentPage = 0
+    @State var showToast = false
     @State var product: ProductDetailData?
-    
+        
     //MARK: - Properties
     
-    let screenWidth = UIScreen.main.bounds.width
     let productId: Int
-    
+    let screenWidth = UIScreen.main.bounds.width
+
     //MARK: - Main Body
     
     var body: some View {
@@ -65,9 +65,15 @@ struct ProductDetailView: View {
             tabBarState.isTabBarHidden = true
             getProductDetail(productId: productId)
         }
-        .onDisappear() {
-            tabBarState.isTabBarHidden = false
-        }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 100 {
+                        dismiss()
+                        tabBarState.isTabBarHidden = false
+                    }
+                }
+        )
     }
 }
 
@@ -79,6 +85,7 @@ extension ProductDetailView {
         HStack {
             Button {
                 dismiss()
+                tabBarState.isTabBarHidden = false
             } label: {
                 Image(.icBack)
                     .resizable()
@@ -330,20 +337,20 @@ extension ProductDetailView {
                 } label: {
                     product?.isInterested ?? Bool() ? Image(.btnDetailLikeSelect) : Image(.btnDetailLike)
                 }
-                NavigationLink(destination: ChatView(isSelling: true)) {
-                    HStack {
-                        Spacer()
-                        Text("채팅하기")
-                            .font(.napzakFont(.body1Bold16))
-                            .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
-                            .foregroundStyle(Color.napzakGrayScale(.white))
-                        Spacer()
-                    }
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.napzakGrayScale(.gray900))
-                            .frame(height: 52)
-                    )
+                NavigationLink(destination: ChatView(productId: productId)) {
+                   HStack {
+                       Spacer()
+                       Text("채팅하기")
+                           .font(.napzakFont(.body1Bold16))
+                           .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                           .foregroundStyle(Color.napzakGrayScale(.white))
+                       Spacer()
+                   }
+                   .background(
+                       RoundedRectangle(cornerRadius: 12)
+                           .fill(Color.napzakGrayScale(.gray900))
+                           .frame(height: 52)
+                   )
                 }
             }
             .padding(.top, 20)
