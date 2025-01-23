@@ -53,9 +53,6 @@ struct SearchInputView: View {
                     }
                 }
             }
-            .onDisappear {
-                tabBarState.isTabBarHidden = false
-            }
         }
         .navigationDestination(isPresented: $isInputComplete) {
             SearchView(isBackButtonHidden: false, searchResultText: inputText)
@@ -74,6 +71,15 @@ struct SearchInputView: View {
                 )
             }
         }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 100 {
+                        dismiss()
+                        tabBarState.isTabBarHidden = false
+                    }
+                }
+        )
     }
 }
 
@@ -85,6 +91,7 @@ extension SearchInputView {
         HStack(alignment: .center, spacing: 4) {
             Button {
                 dismiss()
+                tabBarState.isTabBarHidden = false
             } label: {
                 Image(.icBack)
                     .resizable()

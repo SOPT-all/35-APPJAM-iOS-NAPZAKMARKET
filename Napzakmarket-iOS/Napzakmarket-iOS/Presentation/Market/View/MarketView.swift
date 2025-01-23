@@ -11,6 +11,7 @@ import Kingfisher
 
 struct MarketView: View {
     @Environment(\.dismiss) private var dismiss
+
     @EnvironmentObject private var tabBarState: TabBarStateModel
     
     let storeId: Int
@@ -46,25 +47,64 @@ struct MarketView: View {
     // MARK: - Views
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
-                navigationSection
-                profileSection
+        NavigationStack {
+            ZStack {
+                VStack(spacing: 0) {
+                    navigationSection
+                    profileSection
+                    
+                    NZSegmentedControl(
+                        selectedIndex: $selectedIndex,
+                        tabs: ["팔아요", "구해요", "후기"],
+                        spacing: 15
+                    )
+                    .padding(.top, 20)
+                    
+                    if selectedIndex == 2 {
+                        ReadyComponent()
+                            .navigationBarHidden(true)
+                    } else {
+                        filterButtons
+                        productScrollView
+                    }
+                }
+                .background(Color(.white))
                 
-                NZSegmentedControl(
-                    selectedIndex: $selectedIndex,
-                    tabs: ["팔아요", "구해요", "후기"],
-                    spacing: 15
-                )
-                .frame(height: 46)
-                .padding(.top, 20)
-                
-                if selectedIndex == 2 {
-                    ReadyComponent()
-                        .navigationBarHidden(true)
-                } else {
-                    filterButtons
-                    productScrollView
+                ZStack(alignment: .bottom) {
+                    if sortModalViewIsPresented {
+                        Color.napzakTransparency(.black70)
+                            .onTapGesture {
+                                sortModalViewIsPresented = false
+                            }
+                        
+                        SortModalView(
+                            sortModalViewIsPresented: $sortModalViewIsPresented,
+                            selectedSortOption: $productFetchOption.sortOption
+                        )
+                    } else if filterModalViewIsPresented {
+                        Color.napzakTransparency(.black70)
+                            .onTapGesture {
+                                filterModalViewIsPresented = false
+                            }
+                        
+                        GenreFilterModalView(
+                            adaptedGenres: $adaptedGenres,
+                            filterModalViewIsPresented: $filterModalViewIsPresented
+                        )
+                    }
+                }
+                .ignoresSafeArea(.all)
+                .animation(.interactiveSpring(), value: sortModalViewIsPresented)
+                .animation(.interactiveSpring(), value: filterModalViewIsPresented)
+                .onChange(of: sortModalViewIsPresented) { _ in
+                    if sortModalViewIsPresented == false {
+                        tabBarState.isTabBarHidden = false
+                    }
+                }
+                .onChange(of: filterModalViewIsPresented) { _ in
+                    if filterModalViewIsPresented == false {
+                        tabBarState.isTabBarHidden = false
+                    }
                 }
             }
             .background(Color(.white))
@@ -78,52 +118,19 @@ struct MarketView: View {
                     await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
                 }
             }
-            .onDisappear {
-                tabBarState.isTabBarHidden = false
-            }
             .onChange(of: adaptedGenres) { _ in
                 productFetchOption.genreIDs = adaptedGenres.map { $0.id }
             }
-            
-            ZStack(alignment: .bottom) {
-                if sortModalViewIsPresented {
-                    Color.napzakTransparency(.black70)
-                        .onTapGesture {
-                            sortModalViewIsPresented = false
+            .gesture(
+                DragGesture()
+                    .onEnded { value in
+                        if value.translation.width > 100 {
+                            dismiss()
+                            tabBarState.isTabBarHidden = false
                         }
-                    
-                    SortModalView(
-                        sortModalViewIsPresented: $sortModalViewIsPresented,
-                        selectedSortOption: $productFetchOption.sortOption
-                    )
-                } else if filterModalViewIsPresented {
-                    Color.napzakTransparency(.black70)
-                        .onTapGesture {
-                            filterModalViewIsPresented = false
-                        }
-                    
-                    GenreFilterModalView(
-                        adaptedGenres: $adaptedGenres,
-                        filterModalViewIsPresented: $filterModalViewIsPresented
-                    )
-                }
-            }
-            .ignoresSafeArea(.all)
-            .animation(.interactiveSpring(), value: sortModalViewIsPresented)
-            .animation(.interactiveSpring(), value: filterModalViewIsPresented)
-            .onChange(of: sortModalViewIsPresented) { _ in
-                if sortModalViewIsPresented == false {
-                    tabBarState.isTabBarHidden = false
-                }
-            }
-            .onChange(of: filterModalViewIsPresented) { _ in
-                if filterModalViewIsPresented == false {
-                    tabBarState.isTabBarHidden = false
-                }
-            }
+                    }
+            )
         }
-        .background(Color(.white))
-        .navigationBarHidden(true)
     }
     
     // MARK: - Private Views
@@ -145,6 +152,7 @@ struct MarketView: View {
             HStack {
                 Button(action: {
                     dismiss()
+                    tabBarState.isTabBarHidden = false
                 }) {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(Color.napzakGrayScale(.gray900))
