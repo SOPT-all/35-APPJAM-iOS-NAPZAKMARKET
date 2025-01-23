@@ -18,26 +18,29 @@ struct TabBarView: View {
     @State private var isTabBarHidden: Bool = false
     @State private var modalRegister = false
     @State var registerType: RegisterType? = nil
-
+    
     private let tabs: [TabItem] = TabItem.getDefaultTabs()
     
     // MARK: - Body
     
     var body: some View {
-        ZStack {
-            mainContent
-            if !isTabBarHidden {
-                tabBarStack
+        NavigationStack{
+            ZStack {
+                mainContent
+                
+                if !isTabBarHidden {
+                    tabBarStack
+                }
+                if isBottomSheetVisible {
+                    bottomSheetOverlay
+                    bottomSheetContent
+                }
             }
-            if isBottomSheetVisible {
-                bottomSheetOverlay
-                bottomSheetContent
-            }
-        }
-        .edgesIgnoringSafeArea(.bottom)
-        .fullScreenCover(isPresented: $modalRegister) {
-            if let registerType = registerType {
-                RegisterView(registerType: registerType)
+            .edgesIgnoringSafeArea(.bottom)
+            .fullScreenCover(isPresented: $modalRegister) {
+                if let registerType = registerType {
+                    RegisterView(registerType: registerType)
+                }
             }
         }
     }

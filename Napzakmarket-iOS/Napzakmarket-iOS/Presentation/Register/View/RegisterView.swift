@@ -21,32 +21,59 @@ enum RegisterType: String {
 
 struct RegisterView: View {
     @Environment(\.dismiss) private var dismiss
-
-    var registerType: RegisterType
-    @StateObject private var registerModel = RegisterModel()
+    @StateObject var registerModel: RegisterModel = RegisterModel()
         
+    var registerType: RegisterType
+    
+    @State private var isLoading: Bool = false
+    
     var body: some View {
         NavigationStack {
-            switch registerType {
-            case .sell:
-                RegisterSellHeader()
-                SellRegisterView(registerModel: registerModel)
-            case .buy:
-                RegisterBuyHeader()
-                BuyRegisterView(registerModel: registerModel)
+            ZStack {
+                VStack {
+                    switch registerType {
+                    case .sell:
+                        RegisterSellHeader()
+                        SellRegisterView(registerModel: registerModel)
+                    case .buy:
+                        RegisterBuyHeader()
+                        BuyRegisterView(registerModel: registerModel)
+                    }
+                    
+                    registerButton
+                }
+                
+                // 로딩 화면 추가
+//                if isLoading {
+//                    Color.black.opacity(0.4) // 반투명 배경
+//                        .ignoresSafeArea()
+//                    ProgressView() // 로딩 인디케이터
+//                        .padding()
+//                        .background(Color.white)
+//                        .cornerRadius(12)
+//                        .shadow(radius: 10)
+//                }
+                
+                if registerModel.productId != nil {
+                    ProductDetailView(productId: registerModel.productId!)
+                }
             }
-            
-            registerButton
+            .navigationDestination(isPresented: $registerModel.completeUploading) {
+                ProductDetailView(productId: registerModel.productId ?? 1)
+            }
         }
         .scrollIndicators(.hidden)
+        
     }
 }
+
 
 extension RegisterView {
     
     private var registerButton: some View {
         Button(action: {
             print("등록 버튼 클릭")
+            isLoading = true
             
             Task {
                 switch registerType {
@@ -54,21 +81,19 @@ extension RegisterView {
                     if registerModel.baseValidate() && registerModel.sellValidate() {
                         await registerModel.registerPresignedRequest(registerType: registerType)
                         print("registerPresignedRequest 완료")
-                        dismiss()
                     } else {
                         print("유효성 검증 실패")
                     }
-                 case .buy:
-                     if registerModel.baseValidate() {
-                         await registerModel.registerPresignedRequest(registerType: registerType)
-                         print("registerPresignedRequest 완료")
-                         dismiss()
-                     } else {
-                         print("유효성 검증 실패")
-                     }
+                case .buy:
+                    if registerModel.baseValidate() {
+                        await registerModel.registerPresignedRequest(registerType: registerType)
+                        print("registerPresignedRequest 완료")
+                    } else {
+                        print("유효성 검증 실패")
+                    }
                 }
             }
-                                    
+            
         }) {
             Text("등록하기")
                 .font(.napzakFont(.body1Bold16))
@@ -76,6 +101,7 @@ extension RegisterView {
                 .foregroundStyle(.white)
                 .frame(maxWidth: .infinity, minHeight: 52)
         }
+        .disabled(registerType == .buy ? !registerModel.baseValidate() : !registerModel.baseValidate() && !registerModel.sellValidate())
         .background(content: {
             switch registerType {
             case .sell:

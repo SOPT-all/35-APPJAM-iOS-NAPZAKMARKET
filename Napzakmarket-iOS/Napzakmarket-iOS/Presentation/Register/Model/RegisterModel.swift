@@ -34,6 +34,8 @@ final class RegisterModel: ObservableObject {
     @Published var imageNameList: [String] = []
     @Published var presignedUrlList: [ProductPresignedUrlsData] = []
     @Published var registerType: RegisterType = .sell
+    @Published var productId: Int?
+    @Published var completeUploading: Bool = false
         
     // MARK: - 유효성 검사 및 버튼 활성화 로직
     
@@ -192,7 +194,10 @@ final class RegisterModel: ObservableObject {
         
         NetworkService.shared.productService.postRegisterSellRequest(registerSellProduct: registerItem) { result in
             switch result {
-            case .success:
+            case .success(let response):
+                self.productId = response?.data.productId
+                self.completeUploading = true
+                print("업로드 상태 : \(self.completeUploading)")
                 print("Post 성공!")
             default:
                 break
@@ -232,6 +237,8 @@ final class RegisterModel: ObservableObject {
         NetworkService.shared.productService.postRegisterBuyRequest(registerBuyProduct: registerItem) { result in
             switch result {
             case .success(let response):
+                self.productId = response?.data.productId
+                self.completeUploading = true
                 print("Post 성공!")
             default:
                 break
