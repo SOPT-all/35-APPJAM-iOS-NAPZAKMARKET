@@ -66,7 +66,7 @@ extension ProductItemView {
                 }
                 
                 Spacer()
-                if product.isOwnedByCurrentUser {
+                if !product.isOwnedByCurrentUser {
                     likeButton
                 }
             }
@@ -88,9 +88,12 @@ extension ProductItemView {
     
     private var productInfo: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text(product.genreName)
-                .font(.napzakFont(.caption1Bold12))
-                .applyNapzakTextStyle(napzakFontStyle: .caption1Bold12)
+            HStack {
+                Text(product.genreName)
+                    .font(.napzakFont(.caption1Bold12))
+                    .applyNapzakTextStyle(napzakFontStyle: .caption1Bold12)
+                Spacer()
+            }
                 .foregroundStyle(Color.napzakGrayScale(.gray900))
             Text(product.productName)
                 .font(.napzakFont(.body6Medium14))
@@ -103,10 +106,11 @@ extension ProductItemView {
                         Image(.imgTagPriceSm)
                     }
                 }
-                Text("\(product.price)원")
+                Text(product.tradeType == .sell ? "\(String(product.price).convertPrice(maxPrice: 1_000_000))원" : "\(String(product.price).convertPrice(maxPrice: 1_000_000))원대")
                     .font(.napzakFont(.body1Bold16))
                     .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
+                    .lineLimit(1)
             }
             Text(product.uploadTime)
                 .font(.napzakFont(.caption3Medium12))

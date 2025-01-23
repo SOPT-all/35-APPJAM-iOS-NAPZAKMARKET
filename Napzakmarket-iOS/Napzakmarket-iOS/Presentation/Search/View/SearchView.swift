@@ -281,7 +281,7 @@ extension SearchView {
                     LazyVGrid(columns: columns, spacing: 20) {
                         if selectedTabIndex == 0 {
                             ForEach(productSearchModel.sellProducts) { product in
-                                NavigationLink(destination: ProductDetailView()) {
+                                NavigationLink(destination: ProductDetailView(productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width
@@ -292,7 +292,7 @@ extension SearchView {
                         }
                         else if selectedTabIndex == 1 {
                             ForEach(productSearchModel.buyProducts) { product in
-                                NavigationLink(destination: ProductDetailView()) {
+                                NavigationLink(destination: ProductDetailView(productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width

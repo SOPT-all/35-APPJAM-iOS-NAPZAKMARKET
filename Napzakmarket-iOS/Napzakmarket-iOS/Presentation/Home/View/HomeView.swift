@@ -22,70 +22,72 @@ struct HomeView: View {
     
     var body: some View {
         
-        ScrollView(showsIndicators: false) {
-            VStack(spacing: 0) {
-                LogoView()
-                NoticeCarouselView(currentPage: $currentPage, banneres: $homeModel.banners)
-                
-                // 첫번째 섹션
-                VStack(spacing: 16) {
-                    RecommendedItemsTitleView()
-                    ProductScrollView(width: width - 10, products: $homeModel.personalProducts)
-                }
-                .padding(.leading, 20)
-                
-                // 두번째 섹션
-                VStack(spacing: 16) {
-                    ZStack(alignment: .bottom) {
-                        HStack {
-                            Image(.imgHome2)
-                            Spacer()
+        NavigationStack {
+            ScrollView(showsIndicators: false) {
+                VStack(spacing: 0) {
+                    LogoView()
+                    NoticeCarouselView(currentPage: $currentPage, banneres: $homeModel.banners)
+                    
+                    // 첫번째 섹션
+                    VStack(spacing: 16) {
+                        RecommendedItemsTitleView()
+                        ProductScrollView(width: width - 10, products: $homeModel.personalProducts)
+                    }
+                    .padding(.leading, 20)
+                    
+                    // 두번째 섹션
+                    VStack(spacing: 16) {
+                        ZStack(alignment: .bottom) {
+                            HStack {
+                                Image(.imgHome2)
+                                Spacer()
+                            }
+                            
+                            CommonTitleView(
+                                title: "지금 가장 많이 찜한 납작템",
+                                subTitle: "놓치면 아쉬운 인기아이템들을 구경해볼까요?",
+                                alignment: .right
+                            )
+                            .padding(.trailing, 20)
                         }
                         
-                        CommonTitleView(
-                            title: "지금 가장 많이 찜한 납작템",
-                            subTitle: "놓치면 아쉬운 인기아이템들을 구경해볼까요?",
-                            alignment: .right
-                        )
-                        .padding(.trailing, 20)
+                        MostLikedProductsView(width: width, products: $homeModel.popularSellProducts)
+                            .padding(.horizontal, 20)
                     }
+                    .padding(.top, 50)
                     
-                    MostLikedProductsView(width: width, products: $homeModel.popularSellProducts)
-                        .padding(.horizontal, 20)
-                }
-                .padding(.top, 50)
-                
-                
-                // 세번째 섹션
-                VStack(spacing: 16) {
-                    ZStack(alignment: .bottom) {
-                        HStack {
-                            Spacer()
-                            Image(.imgHome3)
+                    
+                    // 세번째 섹션
+                    VStack(spacing: 16) {
+                        ZStack(alignment: .bottom) {
+                            HStack {
+                                Spacer()
+                                Image(.imgHome3)
+                            }
+                            .padding(.trailing, 20)
+                            
+                            CommonTitleView(
+                                title: "다른 유저들은 뭐 찾고 있을까요?",
+                                subTitle: "덕심 가득한 리스트에서 취향을 나눠보세요.",
+                                alignment: .left
+                            )
+                            .padding(.leading, 20)
                         }
-                        .padding(.trailing, 20)
                         
-                        CommonTitleView(
-                            title: "다른 유저들은 뭐 찾고 있을까요?",
-                            subTitle: "덕심 가득한 리스트에서 취향을 나눠보세요.",
-                            alignment: .left
-                        )
-                        .padding(.leading, 20)
+                        ProductScrollView(width: width - 10, products: $homeModel.recommendedBuyProducts)
+                            .padding(.leading, 20)
                     }
-                    
-                    ProductScrollView(width: width - 10, products: $homeModel.recommendedBuyProducts)
-                        .padding(.leading, 20)
+                    .padding(.top, 60)
+                    .padding(.bottom, 75)
                 }
-                .padding(.top, 60)
-                .padding(.bottom, 75)
             }
-        }
-        .onAppear {
-            Task {
-                await homeModel.fetchBanners()
-                await homeModel.fetchPersonalProducts()
-                await homeModel.fetchPopularSellProducts()
-                await homeModel.fetchRecommendedBuyProducts()
+            .onAppear {
+                Task {
+                    await homeModel.fetchBanners()
+                    await homeModel.fetchPersonalProducts()
+                    await homeModel.fetchPopularSellProducts()
+                    await homeModel.fetchRecommendedBuyProducts()
+                }
             }
         }
     }
@@ -215,10 +217,12 @@ extension HomeView {
                 LazyHGrid(rows: column, spacing: 16) {
                     ForEach(products) {
                         product in
-                        ProductItemView(
-                            product: product,
-                            width: width - 10
-                        )
+                        NavigationLink(destination: ProductDetailView(productId: product.id)) {
+                            ProductItemView(
+                                product: product,
+                                width: width - 10
+                            )
+                        }
                     }
                 }
                 .padding(.trailing, 20)
@@ -287,10 +291,12 @@ extension HomeView {
         var body: some View {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(products.prefix(4)) { product in
-                    ProductItemView(
-                        product: product,
-                        width: width
-                    )
+                    NavigationLink(destination: ProductDetailView(productId: product.id)) {
+                        ProductItemView(
+                            product: product,
+                            width: width
+                        )
+                    }
                 }
             }
         }
