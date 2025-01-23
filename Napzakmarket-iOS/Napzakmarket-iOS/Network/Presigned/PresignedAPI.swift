@@ -32,9 +32,7 @@ extension PresignedAPI: BaseTargetType {
     
     var headerType: HeaderType {
         switch self {
-        case .putPresignedURL:
-            return .noneHeader
-        case .getPresignedURL:
+        case .putPresignedURL, .getPresignedURL:
             return .noneHeader
         }
     }

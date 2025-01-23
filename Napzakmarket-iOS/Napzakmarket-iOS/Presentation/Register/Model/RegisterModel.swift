@@ -72,8 +72,6 @@ final class RegisterModel: ObservableObject {
                     // presignedUrlList에 추가
                     self.presignedUrlList.append(contentsOf: convertedUrls)
                     
-                    print("프리사인드 URL 목록의 길이: \(self.presignedUrlList.count)")
-                    print("이미지 목록의 길이: \(self.registerInfo.images.count)")
                     print("프리사인드 URL 발급 성공!")
                     
                     self.putImagesToPresignedUrls(registerType: registerType)
@@ -197,8 +195,6 @@ final class RegisterModel: ObservableObject {
             case .success:
                 print("Post 성공!")
             default:
-                print("default 가 실행됨")
-                print(result)
                 break
             }
         }
@@ -238,8 +234,6 @@ final class RegisterModel: ObservableObject {
             case .success(let response):
                 print("Post 성공!")
             default:
-                print("default 가 실행됨")
-                print(result) // decodeErr
                 break
             }
         }
