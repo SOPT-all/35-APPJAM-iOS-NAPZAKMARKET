@@ -46,84 +46,86 @@ struct MarketView: View {
     // MARK: - Views
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
-                navigationSection
-                profileSection
+        NavigationStack {
+            ZStack {
+                VStack(spacing: 0) {
+                    navigationSection
+                    profileSection
+                    
+                    NZSegmentedControl(
+                        selectedIndex: $selectedIndex,
+                        tabs: ["팔아요", "구해요", "후기"],
+                        spacing: 15
+                    )
+                    .frame(height: 46)
+                    .padding(.top, 20)
+                    
+                    if selectedIndex == 2 {
+                        ReadyComponent()
+                            .navigationBarHidden(true)
+                    } else {
+                        filterButtons
+                        productScrollView
+                    }
+                }
+                .background(Color(.white))
+                .navigationBarHidden(true)
+                .onAppear {
+                    getStoreInfo()
+                    tabBarState.isTabBarHidden = true
+                    
+                    Task {
+                        await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
+                        await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
+                    }
+                }
+                .onDisappear {
+                    tabBarState.isTabBarHidden = false
+                }
+                .onChange(of: adaptedGenres) { _ in
+                    productFetchOption.genreIDs = adaptedGenres.map { $0.id }
+                }
                 
-                NZSegmentedControl(
-                    selectedIndex: $selectedIndex,
-                    tabs: ["팔아요", "구해요", "후기"],
-                    spacing: 15
-                )
-                .frame(height: 46)
-                .padding(.top, 20)
-                
-                if selectedIndex == 2 {
-                    ReadyComponent()
-                        .navigationBarHidden(true)
-                } else {
-                    filterButtons
-                    productScrollView
+                ZStack(alignment: .bottom) {
+                    if sortModalViewIsPresented {
+                        Color.napzakTransparency(.black70)
+                            .onTapGesture {
+                                sortModalViewIsPresented = false
+                            }
+                        
+                        SortModalView(
+                            sortModalViewIsPresented: $sortModalViewIsPresented,
+                            selectedSortOption: $productFetchOption.sortOption
+                        )
+                    } else if filterModalViewIsPresented {
+                        Color.napzakTransparency(.black70)
+                            .onTapGesture {
+                                filterModalViewIsPresented = false
+                            }
+                        
+                        GenreFilterModalView(
+                            adaptedGenres: $adaptedGenres,
+                            filterModalViewIsPresented: $filterModalViewIsPresented
+                        )
+                    }
+                }
+                .ignoresSafeArea(.all)
+                .animation(.interactiveSpring(), value: sortModalViewIsPresented)
+                .animation(.interactiveSpring(), value: filterModalViewIsPresented)
+                .onChange(of: sortModalViewIsPresented) { _ in
+                    if sortModalViewIsPresented == false {
+                        tabBarState.isTabBarHidden = false
+                    }
+                }
+                .onChange(of: filterModalViewIsPresented) { _ in
+                    if filterModalViewIsPresented == false {
+                        tabBarState.isTabBarHidden = false
+                    }
                 }
             }
             .background(Color(.white))
             .navigationBarHidden(true)
-            .onAppear {
-                getStoreInfo()
-                tabBarState.isTabBarHidden = true
-                
-                Task {
-                    await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
-                    await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
-                }
-            }
-            .onDisappear {
-                tabBarState.isTabBarHidden = false
-            }
-            .onChange(of: adaptedGenres) { _ in
-                productFetchOption.genreIDs = adaptedGenres.map { $0.id }
-            }
-            
-            ZStack(alignment: .bottom) {
-                if sortModalViewIsPresented {
-                    Color.napzakTransparency(.black70)
-                        .onTapGesture {
-                            sortModalViewIsPresented = false
-                        }
-                    
-                    SortModalView(
-                        sortModalViewIsPresented: $sortModalViewIsPresented,
-                        selectedSortOption: $productFetchOption.sortOption
-                    )
-                } else if filterModalViewIsPresented {
-                    Color.napzakTransparency(.black70)
-                        .onTapGesture {
-                            filterModalViewIsPresented = false
-                        }
-                    
-                    GenreFilterModalView(
-                        adaptedGenres: $adaptedGenres,
-                        filterModalViewIsPresented: $filterModalViewIsPresented
-                    )
-                }
-            }
-            .ignoresSafeArea(.all)
-            .animation(.interactiveSpring(), value: sortModalViewIsPresented)
-            .animation(.interactiveSpring(), value: filterModalViewIsPresented)
-            .onChange(of: sortModalViewIsPresented) { _ in
-                if sortModalViewIsPresented == false {
-                    tabBarState.isTabBarHidden = false
-                }
-            }
-            .onChange(of: filterModalViewIsPresented) { _ in
-                if filterModalViewIsPresented == false {
-                    tabBarState.isTabBarHidden = false
-                }
-            }
         }
-        .background(Color(.white))
-        .navigationBarHidden(true)
     }
     
     // MARK: - Private Views
@@ -297,7 +299,7 @@ struct MarketView: View {
                     LazyVGrid(columns: columns, spacing: 20) {
                         if selectedIndex == 0 {
                             ForEach(productModel.sellProducts) { product in
-                                NavigationLink(destination: ProductDetailView()) {
+                                NavigationLink(destination: ProductDetailView(productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width
@@ -308,7 +310,7 @@ struct MarketView: View {
                         }
                         else if selectedIndex == 1 {
                             ForEach(productModel.buyProducts) { product in
-                                NavigationLink(destination: ProductDetailView()) {
+                                NavigationLink(destination: ProductDetailView(productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width
