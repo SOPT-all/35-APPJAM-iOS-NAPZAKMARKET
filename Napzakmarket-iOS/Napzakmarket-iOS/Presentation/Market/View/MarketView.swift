@@ -327,9 +327,9 @@ struct MarketView: View {
                 proxy.scrollTo("header", anchor: .top)
                 Task {
                     if selectedIndex == 0 {
-                        await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
-                    } else if selectedIndex == 1 {
                         await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
+                    } else if selectedIndex == 1 {
+                        await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
                     }
                 }
             }
@@ -337,9 +337,9 @@ struct MarketView: View {
                 proxy.scrollTo("header", anchor: .top)
                 Task {
                     if selectedIndex == 0 {
-                        await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
-                    } else if selectedIndex == 1 {
                         await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
+                    } else if selectedIndex == 1 {
+                        await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
                     }
                 }
             }
