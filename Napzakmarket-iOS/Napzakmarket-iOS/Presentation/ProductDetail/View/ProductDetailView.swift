@@ -7,15 +7,23 @@
 
 import SwiftUI
 
+import Kingfisher
+
 struct ProductDetailView: View {
     
     //MARK: - Property Wrappers
     
-    @State var currentPage: Int = 0
+    @State private var currentPage = 0
     @State var showToast = false
     @Environment(\.dismiss) private var dismiss
-    @ObservedObject var product = ProductDetailModel.dummySellProductDetail()
     @EnvironmentObject private var tabBarState: TabBarStateModel
+    
+    @State var product: ProductDetailData?
+    
+    //MARK: - Properties
+    
+    let screenWidth = UIScreen.main.bounds.width
+    let productId: Int
     
     //MARK: - Main Body
     
@@ -29,7 +37,7 @@ struct ProductDetailView: View {
                         productInfo
                         divider
                         productDescription
-                        if product.productDetail.productType == .sell {
+                        if product?.productDetail.tradeType == .sell {
                             productConditions
                             divider
                             productDeliveryFee
@@ -47,7 +55,7 @@ struct ProductDetailView: View {
                         .animation(.spring(), value: showToast)
                 }
             }
-            if !product.productDetail.isOwnedByCurrentUser {
+            if !(product?.productDetail.isOwnedByCurrentUser ?? false) {
                 bottomView
             }
         }
@@ -55,6 +63,7 @@ struct ProductDetailView: View {
         .ignoresSafeArea(edges: [.bottom])
         .onAppear {
             tabBarState.isTabBarHidden = true
+            getProductDetail(productId: productId)
         }
         .onDisappear() {
             tabBarState.isTabBarHidden = false
@@ -85,10 +94,33 @@ extension ProductDetailView {
     
     private var productImagePageView: some View {
         TabView(selection: $currentPage) {
-            ForEach(product.productPhotoList.indices, id: \.self) { i in
-                //Image 리소스로 변경 예정핑!!!!!ㅋ
-                Rectangle()
-                    .fill(i % 2 == 0 ? .red : .blue)
+            ForEach(product?.productPhotoList ?? [ProductPhoto]()) { photo in
+                ZStack(alignment: .bottom) {
+                    if let url = URL(string: photo.photoUrl) {
+                        KFImage(url)
+                            .placeholder {
+                                Rectangle()
+                                    .fill(Color.napzakGrayScale(.gray300))
+                                    .frame(width: screenWidth, height: screenWidth)
+                            }
+                            .retry(maxCount: 3, interval: .seconds(5))
+                            .onFailure { error  in
+                                print("failure: \(error.localizedDescription)")
+                            }
+                            .resizable()
+                            .frame(width: screenWidth, height: screenWidth)
+                    } else {
+                        Rectangle()
+                            .fill(Color.napzakGrayScale(.gray300))
+                            .frame(width: screenWidth, height: screenWidth)
+                    }
+                    
+                    LinearGradient(colors: [
+                        Color.napzakGradient(.gradient2FirstColor),
+                        Color.napzakGradient(.gradient2SecondColor)
+                    ], startPoint: .top, endPoint: .bottom)
+                    .frame(height: 175)
+                }
             }
         }
         .tabViewStyle(PageTabViewStyle())
@@ -97,14 +129,9 @@ extension ProductDetailView {
     
     private var header: some View {
         HStack(alignment: .center, spacing: 0) {
-            switch product.productDetail.productType {
-            case .buy:
-                Image(.imgTagBuy)
-            case .sell:
-                Image(.imgTagSell)
-            }
+            product?.productDetail.tradeType == .buy ? Image(.imgTagBuy) : Image(.imgTagSell)
             Spacer()
-            Text("\(product.productDetail.uploadTime)")
+            Text("\(product?.productDetail.uploadTime ?? "")")
                 .font(.napzakFont(.caption3Medium12))
                 .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                 .foregroundStyle(Color.napzakGrayScale(.gray500))
@@ -114,14 +141,14 @@ extension ProductDetailView {
                 .padding(.horizontal, 7)
             Image(.icView)
                 .padding(.trailing, 2)
-            Text("\(product.productDetail.viewCount)")
+            Text("\(product?.productDetail.viewCount ?? Int())")
                 .font(.napzakFont(.caption3Medium12))
                 .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                 .foregroundStyle(Color.napzakGrayScale(.gray500))
                 .padding(.trailing, 4)
             Image(.icHeartSm)
                 .padding(.trailing, 2)
-            Text("\(product.productDetail.interestCount)")
+            Text("\(product?.productDetail.interestCount ?? Int())")
                 .font(.napzakFont(.caption3Medium12))
                 .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                 .foregroundStyle(Color.napzakGrayScale(.gray500))
@@ -132,21 +159,21 @@ extension ProductDetailView {
     private var productInfo: some View {
         VStack(alignment: .leading, spacing: 0){
             header
-            Text("\(product.productDetail.genreName)")
+            Text("\(product?.productDetail.genreName ?? "")")
                 .font(.napzakFont(.body1Bold16))
                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                 .foregroundStyle(Color.napzakGrayScale(.gray900))
                 .padding(.bottom, 4)
-            Text("\(product.productDetail.productName)")
+            Text("\(product?.productDetail.productName ?? "")")
                 .font(.napzakFont(.title6Medium18))
                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                 .foregroundStyle(Color.napzakGrayScale(.gray800))
                 .padding(.bottom, 16)
             HStack(spacing: 8){
-                if product.productDetail.isPriceNegotiable {
+                if (product?.productDetail.isPriceNegotiable) != nil {
                     Image(.imgTagPriceLg)
                 }
-                Text(product.productDetail.productType == .sell ?  "\(String(product.productDetail.price).convertPrice(maxPrice: 1_000_000))원" : "\(String(product.productDetail.price).convertPrice(maxPrice: 1_000_000))원대" )
+                Text(product?.productDetail.tradeType == .sell ?  "\(String(product?.productDetail.price ?? 0).convertPrice(maxPrice: 1_000_000))원" : "\(String(product?.productDetail.price ?? 0).convertPrice(maxPrice: 1_000_000))원대")
                     .font(.napzakFont(.title2Bold20))
                     .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -164,7 +191,7 @@ extension ProductDetailView {
     }
     
     private var productDescription: some View {
-        Text("\(product.productDetail.description)".forceCharWrapping)
+        Text("\(product?.productDetail.description ?? "")".forceCharWrapping)
             .font(.napzakFont(.body3Medium16))
             .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
             .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -180,14 +207,14 @@ extension ProductDetailView {
                 .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                 .foregroundStyle(Color.napzakGrayScale(.gray800))
             Spacer()
-            switch product.productDetail.productCondition {
-            case .unopened:
+            switch product?.productDetail.productCondition {
+            case .new:
                 Image(.imgDetailConditionUnopen)
-            case .excellent:
+            case .likeNew:
                 Image(.imgDetailConditionGood)
             case .slightlyUsed:
                 Image(.imgDetailConditionLightuse)
-            case .used:
+            default:
                 Image(.imgDetailConditionHeavyuse)
             }
         }
@@ -201,36 +228,36 @@ extension ProductDetailView {
                 .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                 .foregroundStyle(Color.napzakGrayScale(.gray800))
             Spacer()
-            if product.productDetail.isDeliveryIncluded {
+            if ((product?.productDetail.isDeliveryIncluded) != nil) {
                 Text("포함")
                     .font(.napzakFont(.body2SemiBold16))
                     .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
             } else {
-                if product.productDetail.standardDeliveryFee != 0 {
+                if product?.productDetail.standardDeliveryFee != 0 {
                     Text("일반")
                         .font(.napzakFont(.body6Medium14))
                         .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                         .foregroundStyle(Color.napzakGrayScale(.gray700))
                         .padding(.trailing, 6)
-                    Text("\(String(product.productDetail.standardDeliveryFee).convertPrice(maxPrice: 1_000_000))원")
+                    Text("\(String(product?.productDetail.standardDeliveryFee ?? 0).convertPrice(maxPrice: 1_000_000))원")
                         .font(.napzakFont(.body2SemiBold16))
                         .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                         .foregroundStyle(Color.napzakGrayScale(.gray900))
                 }
-                if product.productDetail.standardDeliveryFee != 0 && product.productDetail.halfDeliveryFee != 0{
+                if product?.productDetail.standardDeliveryFee != 0 && product?.productDetail.halfDeliveryFee != 0{
                     Rectangle()
                         .fill(Color.napzakGrayScale(.gray200))
                         .frame(width: 1, height: 14)
                         .padding(.horizontal, 13)
                 }
-                if product.productDetail.halfDeliveryFee != 0 {
+                if product?.productDetail.halfDeliveryFee != 0 {
                     Text("반값/알뜰")
                         .font(.napzakFont(.body6Medium14))
                         .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                         .foregroundStyle(Color.napzakGrayScale(.gray700))
                         .padding(.trailing, 6)
-                    Text("\(String(product.productDetail.halfDeliveryFee).convertPrice(maxPrice: 1_000_000))원")
+                    Text("\(String(product?.productDetail.halfDeliveryFee ?? 0).convertPrice(maxPrice: 1_000_000))원")
                         .font(.napzakFont(.body2SemiBold16))
                         .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                         .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -252,7 +279,7 @@ extension ProductDetailView {
                     .resizable()
                     .frame(width: 50, height: 50)
                 VStack(alignment: .leading) {
-                    Text("\(product.storeInfo.nickname)")
+                    Text("\(product?.storeInfo.nickname ?? "")")
                         .font(.napzakFont(.body1Bold16))
                         .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                         .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -262,7 +289,7 @@ extension ProductDetailView {
                             .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                             .foregroundStyle(Color.napzakGrayScale(.gray700))
                             .padding(.trailing, 2)
-                        Text("\(product.storeInfo.totalProducts)개")
+                        Text("\(product?.storeInfo.totalProducts ?? Int())개")
                             .font(.napzakFont(.caption3Medium12))
                             .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                             .foregroundStyle(Color.napzakPurple(.purple30))
@@ -275,7 +302,7 @@ extension ProductDetailView {
                             .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                             .foregroundStyle(Color.napzakGrayScale(.gray700))
                             .padding(.trailing, 2)
-                        Text("\(product.storeInfo.totalTransactions)건")
+                        Text("\(product?.storeInfo.totalTransactions ?? Int())건")
                             .font(.napzakFont(.caption3Medium12))
                             .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                             .foregroundStyle(Color.napzakPurple(.purple30))
@@ -285,7 +312,7 @@ extension ProductDetailView {
         }
         .padding(.top, 31)
         .padding(.horizontal, 20)
-        .padding(.bottom, product.productDetail.isOwnedByCurrentUser ? 85 : 192)
+        .padding(.bottom, product?.productDetail.isOwnedByCurrentUser ?? Bool() ? 85 : 192)
     }
     
     private var bottomView: some View {
@@ -296,12 +323,12 @@ extension ProductDetailView {
             HStack(spacing: 16) {
                 Button {
                     print("좋아요 버튼 선택")
-                    product.toggleLike()
-                    if product.isInterested {
-                        showToastMessage()
-                    }
+//                    product.toggleLike()
+//                    if product.isInterested {
+//                        showToastMessage()
+//                    }
                 } label: {
-                    product.isInterested ? Image(.btnDetailLikeSelect) : Image(.btnDetailLike)
+                    product?.isInterested ?? Bool() ? Image(.btnDetailLikeSelect) : Image(.btnDetailLike)
                 }
                 NavigationLink(destination: ChatView(isSelling: true)) {
                     HStack {
@@ -357,6 +384,18 @@ extension ProductDetailView {
             try? await Task.sleep(nanoseconds: 2 * 1_000_000_000)
             withAnimation {
                 showToast = false
+            }
+        }
+    }
+    
+    private func getProductDetail(productId: Int) {
+        NetworkService.shared.productService.getProductDetail(productId: productId) { result in
+            switch result {
+            case .success(let response):
+                guard let response else { return }
+                self.product = response.data
+            default:
+                break
             }
         }
     }
