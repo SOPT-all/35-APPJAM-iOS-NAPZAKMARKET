@@ -15,13 +15,11 @@ struct ChatView: View {
     
     @State private var chatInfo: ChatInfoData?
     
-    let isSelling: Bool
     let productId: Int
     let productService: ProductServiceProtocol
     
-    init(productId: Int, isSelling: Bool, productService: ProductServiceProtocol = ProductService()) {
+    init(productId: Int, productService: ProductServiceProtocol = ProductService()) {
         self.productId = productId
-        self.isSelling = isSelling
         self.productService = productService
     }
     
