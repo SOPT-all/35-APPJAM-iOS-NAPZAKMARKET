@@ -19,10 +19,7 @@ final class MarketModel: ObservableObject {
     func getStoreOwnerSellProducts(storeId: Int, productFetchOption: ProductFetchOption) async {
         NetworkService.shared.productService.getStoreOwnerSellProduct(
             storeOwnerId: storeId,
-            sortOption: productFetchOption.sortOption.rawValue,
-            genreIDs: productFetchOption.genreIDs,
-            isOnSale: productFetchOption.isOnSale,
-            isUnopened: productFetchOption.isUnopened) { [weak self] result in
+            option: productFetchOption) { [weak self] result in
                 switch result {
                 case .success(let dto):
                     if let data = dto?.data {
@@ -38,9 +35,7 @@ final class MarketModel: ObservableObject {
     func getStoreOwnerBuyProducts(storeId: Int, productFetchOption: ProductFetchOption) async {
         NetworkService.shared.productService.getStoreOwnerBuyProduct(
             storeOwnerId: storeId,
-            sortOption: productFetchOption.sortOption.rawValue,
-            genreIDs: productFetchOption.genreIDs,
-            isOnSale: productFetchOption.isOnSale) { [weak self] result in
+            option: productFetchOption) { [weak self] result in
                 switch result {
                 case .success(let dto):
                     if let data = dto?.data {
@@ -52,7 +47,6 @@ final class MarketModel: ObservableObject {
                 }
             }
     }
-    
 }
 
 
