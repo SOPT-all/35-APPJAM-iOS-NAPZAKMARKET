@@ -19,6 +19,11 @@ protocol ProductServiceProtocol {
         imageData: Data,
         completion: @escaping (NetworkResult<Void>) -> ()
     )
+    func getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
+    func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
+    func getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
+    func getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
+    func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ())
     func getChatInfo(productId: Int, completion: @escaping (NetworkResult<ChatInfoResponseDTO>) -> ())
 }
 
@@ -40,6 +45,26 @@ final class ProductService: BaseService, ProductServiceProtocol {
     
     func getRecommandedBuyProducts(completion: @escaping (NetworkResult<RecommandedBuyProductResponseDTO>) -> ()) {
         request(.getRecommandedBuyProducts, completion: completion)
+    }
+    
+    func getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ()) {
+        request(.getSellProduct(sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale, isUnopened: isUnopened), completion: completion)
+    }
+    
+    func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ()) {
+        request(.getBuyProduct(sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale), completion: completion)
+    }
+    
+    func getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ()) {
+        request(.getSellProductForSearch(searchWord: searchWord, sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale, isUnopened: isUnopened), completion: completion)
+    }
+    
+    func getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ()) {
+        request(.getBuyProductForSearch(searchWord: searchWord, sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale), completion: completion)
+    }
+    
+    func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ()) {
+        request(.getProductDetail(productId: productId), completion: completion)
     }
     
     func getChatInfo(productId: Int, completion: @escaping (NetworkResult<ChatInfoResponseDTO>) -> ()) {

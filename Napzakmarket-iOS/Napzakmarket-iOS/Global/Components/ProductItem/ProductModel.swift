@@ -52,7 +52,7 @@ final class ProductModel: Identifiable, ObservableObject {
         self.id = dto.productId
         self.genreName = dto.genreName
         self.productName = dto.productName
-        self.photo = dto.photo
+        self.photo = dto.photo ?? ""
         self.price = dto.price
         self.uploadTime = dto.uploadTime
         self.isInterested = dto.isInterested

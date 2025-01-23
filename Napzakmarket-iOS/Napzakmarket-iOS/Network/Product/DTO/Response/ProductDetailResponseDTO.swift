@@ -7,10 +7,23 @@
 
 import Foundation
 
+enum ProductStatus: String, Codable {
+    case beforeTrade = "BEFORE_TRADE"
+    case reserved = "RESERVED"
+    case completed = "COMPLETED"
+}
+
+enum ProductCondition: String, Codable {
+    case new = "NEW"
+    case likeNew = "LIKE_NEW"
+    case slightlyUsed = "SLIGHTLY_USED"
+    case used = "USED"
+}
+
 struct ProductDetailResponseDTO: Codable {
     let status: Int
     let message: String
-    let data: PersonalProductData
+    let data: ProductDetailData
 }
 
 struct ProductDetailData: Codable {
@@ -23,7 +36,7 @@ struct ProductDetailData: Codable {
 
 struct ProductDetail: Codable {
     let productId: Int
-    let tradeType: String
+    let tradeType: ProductType
     let genreName: String
     let productName: String
     let price: Int
@@ -31,7 +44,7 @@ struct ProductDetail: Codable {
     let viewCount: Int
     let interestCount: Int
     let description: String
-    let productCondition: String?
+    let productCondition: ProductCondition?
     let isDeliveryIncluded: Bool
     let standardDeliveryFee: Int
     let halfDeliveryFee: Int
@@ -40,10 +53,16 @@ struct ProductDetail: Codable {
     let isOwnedByCurrentUser: Bool
 }
 
-struct ProductPhoto: Codable {
-    let photoId: Int
+struct ProductPhoto: Codable, Hashable, Identifiable {
+    let id: Int
     let photoUrl: String
     let photoSequence: Int
+    
+    private enum CodingKeys: String, CodingKey {
+        case id = "photoId"
+        case photoUrl
+        case photoSequence
+    }
 }
 
 struct Store: Codable {
