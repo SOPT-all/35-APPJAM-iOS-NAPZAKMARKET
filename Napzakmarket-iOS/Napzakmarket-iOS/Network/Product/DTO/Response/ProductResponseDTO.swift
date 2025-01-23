@@ -68,7 +68,7 @@ struct Product: Codable {
     let productId: Int
     let genreName: String
     let productName: String
-    let photo: String
+    let photo: String?
     let price: Int
     let uploadTime: String
     let isInterested: Bool
