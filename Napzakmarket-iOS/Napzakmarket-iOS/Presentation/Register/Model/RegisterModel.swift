@@ -89,40 +89,68 @@ final class RegisterModel: ObservableObject {
     
     func putImagesToPresignedUrls(registerType: RegisterType) {
         
+        let group = DispatchGroup()
+        var uploadSuccess = true
+        
+        func compressImage(_ image: UIImage) -> Data? {
+            let maxSize: CGFloat = 1024
+            let scale = max(maxSize/image.size.width, maxSize/image.size.height)
+            
+            if scale < 1 {
+                let newSize = CGSize(width: image.size.width * scale,
+                                     height: image.size.height * scale)
+                UIGraphicsBeginImageContext(newSize)
+                image.draw(in: CGRect(origin: .zero, size: newSize))
+                let resizedImage = UIGraphicsGetImageFromCurrentImageContext()
+                UIGraphicsEndImageContext()
+                
+                return resizedImage?.jpegData(compressionQuality: 0.5)
+            }
+            
+            return image.jpegData(compressionQuality: 0.5)
+        }
+        
         for (index, presignedUrl) in presignedUrlList.enumerated() {
             guard let url = presignedUrl.productPresignedUrls.values.first,
                   index < registerInfo.images.count,
-                  let imageData = registerInfo.images[index].jpegData(compressionQuality: 0.8) else {
+                  let imageData = compressImage(registerInfo.images[index]) else {
                 print("업로드 준비 실패: index \(index)")
                 continue
             }
             
+            group.enter()
             print("이미지 \(index + 1) 업로드 시작")
             
             NetworkService.shared.presignedService
                 .putImageToPresignedUrl(url: url, imageData: imageData) { result in
                     switch result {
                     case .success:
-                        if self.presignedUrlList.count == self.registerInfo.images.count {
-                            print("이미지 \(index + 1) 업로드 성공")
-                        }
+                        print("이미지 \(index + 1) 업로드 성공")
                     default:
-                        break
+                        uploadSuccess = false
+                        print("이미지 \(index + 1) 업로드 실패")
                     }
+                    group.leave()
                 }
         }
+        
         guard self.presignedUrlList.count == self.registerInfo.images.count else {
             print("프리사인드 URL과 이미지 개수가 일치하지 않습니다.")
             return
         }
         
-        // 구매인지 판매인지 구분
-        switch registerType {
-        case .sell:
-            self.sellRegisterRequest()
-        case .buy:
-            self.buyRegisterRequest()
-
+        group.notify(queue: .main) {
+            guard uploadSuccess else {
+                print("일부 이미지 업로드 실패")
+                return
+            }
+            
+            switch registerType {
+            case .sell:
+                self.sellRegisterRequest()
+            case .buy:
+                self.buyRegisterRequest()
+            }
         }
         
     }

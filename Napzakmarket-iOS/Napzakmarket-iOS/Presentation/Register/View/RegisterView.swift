@@ -43,6 +43,16 @@ struct RegisterView: View {
                     
                     registerButton
                 }
+                
+                if isLoading {
+                    Color.black.opacity(0.4) // 반투명 배경
+                        .ignoresSafeArea()
+                    ProgressView() // 로딩 인디케이터
+                        .padding()
+                        .background(Color.white)
+                        .cornerRadius(12)
+                        .shadow(radius: 10)
+                }
             }
             .navigationDestination(isPresented: $registerModel.completeUploading) {
                 ProductDetailView(productId: registerModel.productId ?? 1)
@@ -72,7 +82,7 @@ extension RegisterView {
                     }
                 case .buy:
                     if registerModel.baseValidate() {
-                        await registerModel.registerPresignedRequest(registerType: registerType)
+                    await registerModel.registerPresignedRequest(registerType: registerType)
                         print("registerPresignedRequest 완료")
                     } else {
                         print("유효성 검증 실패")
