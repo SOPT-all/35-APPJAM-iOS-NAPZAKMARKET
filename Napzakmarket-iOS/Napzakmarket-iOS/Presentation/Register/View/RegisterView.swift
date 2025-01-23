@@ -53,7 +53,7 @@ extension RegisterView {
                 switch registerType {
                 case .sell:
                     if registerModel.baseValidate() && registerModel.sellValidate() {
-                        await registerModel.registerPresignedRequest()
+                        await registerModel.registerPresignedRequest(registerType: registerType)
                         print("registerPresignedRequest 완료")
                         dismiss()
                     } else {
@@ -61,7 +61,7 @@ extension RegisterView {
                     }
                  case .buy:
                      if registerModel.baseValidate() {
-                         await registerModel.registerPresignedRequest()
+                         await registerModel.registerPresignedRequest(registerType: registerType)
                          print("registerPresignedRequest 완료")
                          dismiss()
                      } else {
