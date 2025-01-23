@@ -170,7 +170,7 @@ extension ProductDetailView {
                 .foregroundStyle(Color.napzakGrayScale(.gray800))
                 .padding(.bottom, 16)
             HStack(spacing: 8){
-                if (product?.productDetail.isPriceNegotiable) != nil {
+                if product?.productDetail.isPriceNegotiable == true {
                     Image(.imgTagPriceLg)
                 }
                 Text(product?.productDetail.tradeType == .sell ?  "\(String(product?.productDetail.price ?? 0).convertPrice(maxPrice: 1_000_000))원" : "\(String(product?.productDetail.price ?? 0).convertPrice(maxPrice: 1_000_000))원대")

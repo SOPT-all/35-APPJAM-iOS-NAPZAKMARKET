@@ -110,6 +110,7 @@ extension ProductItemView {
                     .font(.napzakFont(.body1Bold16))
                     .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
+                    .lineLimit(1)
             }
             Text(product.uploadTime)
                 .font(.napzakFont(.caption3Medium12))
