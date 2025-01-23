@@ -7,13 +7,6 @@
 
 import Foundation
 
-enum ProductCondition {
-    case unopened
-    case excellent
-    case slightlyUsed
-    case used
-}
-
 struct ProductInfo {
     let productId: Int
     let productType: ProductType
@@ -56,6 +49,7 @@ struct StoreReview {
     let relatedProductName: String
 }
 
+//당장은 안쓰는데 일단 남겨놓는 파일임
 final class ProductDetailModel: ObservableObject, Identifiable {
     
     //MARK: - Property Wrappers
@@ -103,7 +97,7 @@ extension ProductDetailModel {
                 viewCount: 27,
                 interestCount: 4,
                 description: "박어진 판매합니다!\n연남동에서 구매했어요 한정판.. ㅠㅠㅠ 보내기 아깝다.\n마감 임박 빨리 데려가세요... ㄷㄷ ",
-                productCondition: .unopened,
+                productCondition: .new,
                 isDeliveryIncluded: true,
                 standardDeliveryFee: 3800,
                 halfDeliveryFee: 1800,
@@ -150,7 +144,7 @@ extension ProductDetailModel {
                 viewCount: 27,
                 interestCount: 4,
                 description: "현물로 토모에 히요리 이츠누이 간절히 구해봅니다.\n사진과 함께 채팅 부탁드려요! 가격 제시는 가능하나 과한 플미는 어려울 것 같습니다 ㅠ0ㅠ",
-                productCondition: .unopened,
+                productCondition: .new,
                 isDeliveryIncluded: false,
                 standardDeliveryFee: 3800,
                 halfDeliveryFee: 1800,

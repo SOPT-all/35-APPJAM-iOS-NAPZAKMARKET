@@ -40,6 +40,8 @@ enum Transparency: String {
 enum Gradient {
     case gradient1FirstColor
     case gradient1SecondColor
+    case gradient2FirstColor
+    case gradient2SecondColor
 }
 
 extension Color {
@@ -83,6 +85,12 @@ extension Color {
         case .gradient1SecondColor:
             let opacity = 1.0
             return Color(hex: "FFFFFF", opacity: opacity)
+        case .gradient2FirstColor:
+            let opacity = 0.0
+            return Color(hex: "000000", opacity: opacity)
+        case .gradient2SecondColor:
+            let opacity = 0.35
+            return Color(hex: "000000", opacity: opacity)
         }
     }
 }
