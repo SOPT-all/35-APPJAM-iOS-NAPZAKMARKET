@@ -62,7 +62,16 @@ struct SearchInputView: View {
         }
         .navigationDestination(isPresented: $isGenreSelected) {
             if let adaptedGenre {
-                SearchView(adaptedGenres: [adaptedGenre], isBackButtonHidden: false)
+                SearchView(
+                    adaptedGenres: [adaptedGenre],
+                    productFetchOption: ProductFetchOption(
+                        sortOption: .recent,
+                        genreIDs: [adaptedGenre.id],
+                        isOnSale: false,
+                        isUnopened: false
+                    ),
+                    isBackButtonHidden: false
+                )
             }
         }
     }
