@@ -132,7 +132,7 @@ private extension ChatView {
                         case .buy:
                             Image("img_tag_price_sm")
                                 .frame(width: 51, height: 23)
-                            Text("\(chatInfo?.price ?? 0)원")
+                            Text("\(chatInfo?.price ?? 0)원대")
                                 .font(.napzakFont(.body1Bold16))
                                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                                 .foregroundColor(Color.napzakGrayScale(.gray900))
