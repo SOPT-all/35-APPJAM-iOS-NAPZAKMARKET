@@ -48,6 +48,14 @@ struct ChatView: View {
                 break
             }
         }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 100 {
+                        dismiss()
+                    }
+                }
+        )
     }
 }
 
@@ -59,9 +67,10 @@ private extension ChatView {
                 Button(action: {
                     dismiss()
                 }) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(Color.napzakGrayScale(.gray900))
+                    Image(.icBack)
+                        .resizable()
                         .frame(width: 48, height: 48)
+                        .padding(.top, 4)
                 }
                 
                 Text(chatInfo?.nickname ?? "")

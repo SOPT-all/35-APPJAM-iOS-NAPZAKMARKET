@@ -16,6 +16,14 @@ final class GenreModel: ObservableObject {
     @Published var selectedGenres: [PreferGenre] = []
     @Published var searchText: String = ""
     
+    // TODO: - 페이징에 필요한 속성들 잠시 주석처리 하겠습니다.
+//    @Published var nextCursor: String? = nil
+//    @Published var isLoading: Bool = false
+//    @Published var hasMorePages: Bool = true
+//    @Published var isFiltering: Bool = false
+    
+    private let pageSize = 15
+    
     // MARK: - Func
     
     func fetchGenres() async {
@@ -71,5 +79,14 @@ final class GenreModel: ObservableObject {
     func removeSelection(_ selectedIDs: [Int]) {
         selectedGenres.removeAll { !selectedIDs.contains($0.id) }
     }
+    
+    
+//    func resetSearch() {
+//        genres.removeAll()
+//        nextCursor = nil
+//        hasMorePages = true
+//        isFiltering = false
+//        isLoading = false
+//    }
     
 }

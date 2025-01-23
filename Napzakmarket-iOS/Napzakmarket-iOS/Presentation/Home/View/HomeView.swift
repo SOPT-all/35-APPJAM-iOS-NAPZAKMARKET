@@ -14,7 +14,7 @@ struct HomeView: View {
     // MARK: - Properties
     
     @StateObject private var homeModel = HomeModel()
-    @State private var currentPage: Int = 0
+    @State private var currentPage: Int = 1
     
     private let width = (UIScreen.main.bounds.width - 55) / 2
     
@@ -54,8 +54,10 @@ struct HomeView: View {
                         MostLikedProductsView(width: width, products: $homeModel.popularSellProducts)
                             .padding(.horizontal, 20)
                     }
-                    .padding(.top, 50)
-                    
+                    .padding(.top, 20)
+                    .padding(.bottom, 40)
+                    .background(Color.napzakGrayScale(.gray50))
+                    .padding(.top, 30)
                     
                     // 세번째 섹션
                     VStack(spacing: 16) {
@@ -77,22 +79,24 @@ struct HomeView: View {
                         ProductScrollView(width: width - 10, products: $homeModel.recommendedBuyProducts)
                             .padding(.leading, 20)
                     }
-                    .padding(.top, 60)
-                    .padding(.bottom, 75)
+                    .padding(.top, 26)
+                    .padding(.bottom, 165)
                 }
             }
-            .onAppear {
-                Task {
-                    await homeModel.fetchBanners()
-                    await homeModel.fetchPersonalProducts()
-                    await homeModel.fetchPopularSellProducts()
-                    await homeModel.fetchRecommendedBuyProducts()
-                }
+        }
+        .onAppear {
+            Task {
+                await homeModel.fetchBanners()
+                await homeModel.fetchPersonalProducts()
+                await homeModel.fetchPopularSellProducts()
+                await homeModel.fetchRecommendedBuyProducts()
             }
         }
     }
     
 }
+
+
 
 extension HomeView {
     
@@ -119,13 +123,21 @@ extension HomeView {
         @Binding var currentPage: Int
         @Binding var banneres: [Banner]
         
+        @State private var timerPaused = false
+        private let timer = Timer.publish(every: 3, on: .main, in: .common).autoconnect()
+        
+        private var displayBanners: [Banner] {
+            guard !banneres.isEmpty else { return [] }
+            return [banneres.last!] + banneres + [banneres.first!]
+        }
+        
         // MARK: - Main Body
         
         var body: some View {
             VStack {
                 TabView(selection: $currentPage) {
-                    ForEach(0..<banneres.count, id: \.self) { index in
-                        if let url = URL(string: banneres[index].bannerPhoto) {
+                    ForEach(0..<displayBanners.count, id: \.self) { index in
+                        if let url = URL(string: displayBanners[index].bannerPhoto) {
                             KFImage(url)
                                 .resizable()
                                 .placeholder {
@@ -137,17 +149,45 @@ extension HomeView {
                                 }
                                 .scaledToFill()
                                 .frame(maxWidth: .infinity)
+                                .tag(index)
+                            
                         }
                     }
                 }
                 .tabViewStyle(PageTabViewStyle(indexDisplayMode: .never))
                 .frame(height: 230)
+                .onChange(of: currentPage) { newValue in
+                    Task {
+                        try? await Task.sleep(nanoseconds: 300_000_000)
+                        
+                        withTransaction(Transaction(animation: .none)) {
+                            if newValue == displayBanners.count - 1 {
+                                currentPage = 1
+                                
+                            } else if newValue == 0 {
+                                currentPage = displayBanners.count - 2
+                            }
+                        }
+                    }
+                }
+                .onReceive(timer) { _ in
+                    guard !timerPaused else { return }
+                    if !timerPaused {
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            if currentPage == displayBanners.count - 1 {
+                                currentPage = 1
+                            } else {
+                                currentPage += 1
+                            }
+                        }
+                    }
+                }
                 
                 HStack(spacing: 8) {
                     ForEach(0..<banneres.count, id: \.self) { index in
                         Circle()
                             .fill(
-                                index == currentPage ? Color.napzakPurple(.purple30) : Color.napzakGrayScale(.gray400)
+                                (index == (currentPage - 1) % banneres.count) ? Color.napzakPurple(.purple30) : Color.napzakGrayScale(.gray400)
                             )
                             .frame(width: 7, height: 7)
                             .onTapGesture {
@@ -157,8 +197,15 @@ extension HomeView {
                             }
                     }
                 }
+                
+            }
+            .onAppear {
+                if banneres.count > 1 && currentPage == 0 {
+                    currentPage = 1
+                }
             }
         }
+        
     }
     
     private struct RecommendedItemsTitleView: View {
