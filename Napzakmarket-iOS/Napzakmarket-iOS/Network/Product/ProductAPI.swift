@@ -19,6 +19,7 @@ enum ProductAPI {
     case getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
     case getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
     case getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
+    case getProductDetail(productId: Int)
 }
 
 extension ProductAPI: BaseTargetType {
@@ -68,6 +69,8 @@ extension ProductAPI: BaseTargetType {
             return "products/sell/search"
         case .getBuyProductForSearch:
             return "products/buy/search"
+        case .getProductDetail(let productId):
+            return "products/\(productId)"
         }
     }
     
@@ -82,7 +85,7 @@ extension ProductAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts:
+        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .getProductDetail:
             return .requestPlain
         case .putPresignedURL(_, let imageData):
             return .requestData(imageData)
