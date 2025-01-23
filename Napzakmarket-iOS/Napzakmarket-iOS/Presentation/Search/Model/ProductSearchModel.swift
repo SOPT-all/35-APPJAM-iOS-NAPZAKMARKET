@@ -12,6 +12,10 @@ struct ProductFetchOption: Equatable {
     var genreIDs: [Int]
     var isOnSale: Bool
     var isUnopened: Bool
+    
+    var sortOptionValue: String {
+        return sortOption.rawValue
+    }
 }
 
 final class ProductSearchModel: ObservableObject {
@@ -27,7 +31,7 @@ extension ProductSearchModel {
     //MARK: - API Request Func
 
     func getSellProducts(productFetchOption: ProductFetchOption) async {
-        NetworkService.shared.productService.getSellProduct(sortOption: productFetchOption.sortOption.rawValue, genreIDs: productFetchOption.genreIDs, isOnSale: productFetchOption.isOnSale, isUnopened: productFetchOption.isUnopened) { [weak self] result in
+        NetworkService.shared.productService.getSellProduct(sortOption: productFetchOption.sortOptionValue, genreIDs: productFetchOption.genreIDs, isOnSale: productFetchOption.isOnSale, isUnopened: productFetchOption.isUnopened) { [weak self] result in
             switch result {
             case .success(let response):
                 guard let response else { return }
@@ -39,7 +43,7 @@ extension ProductSearchModel {
     }
 
     func getBuyProducts(productFetchOption: ProductFetchOption) async {
-        NetworkService.shared.productService.getBuyProduct(sortOption: productFetchOption.sortOption.rawValue, genreIDs: productFetchOption.genreIDs, isOnSale: productFetchOption.isOnSale) { [weak self] result in
+        NetworkService.shared.productService.getBuyProduct(sortOption: productFetchOption.sortOptionValue, genreIDs: productFetchOption.genreIDs, isOnSale: productFetchOption.isOnSale) { [weak self] result in
             switch result {
             case .success(let response):
                 guard let response else { return }
@@ -51,7 +55,7 @@ extension ProductSearchModel {
     }
 
     func getSellProductsForSearch(searchWord: String, productFetchOption: ProductFetchOption) async {
-        NetworkService.shared.productService.getSellProductForSearch(searchWord: searchWord, sortOption: productFetchOption.sortOption.rawValue, genreIDs: productFetchOption.genreIDs, isOnSale: productFetchOption.isOnSale, isUnopened: productFetchOption.isUnopened) { [weak self] result in
+        NetworkService.shared.productService.getSellProductForSearch(searchWord: searchWord, sortOption: productFetchOption.sortOptionValue, genreIDs: productFetchOption.genreIDs, isOnSale: productFetchOption.isOnSale, isUnopened: productFetchOption.isUnopened) { [weak self] result in
             switch result {
             case .success(let response):
                 guard let response else { return }
@@ -63,7 +67,7 @@ extension ProductSearchModel {
     }
 
     func getBuyProductsForSearch(searchWord: String, productFetchOption: ProductFetchOption) async {
-        NetworkService.shared.productService.getBuyProductForSearch(searchWord: searchWord, sortOption: productFetchOption.sortOption.rawValue, genreIDs: productFetchOption.genreIDs, isOnSale: productFetchOption.isOnSale) { [weak self] result in
+        NetworkService.shared.productService.getBuyProductForSearch(searchWord: searchWord, sortOption: productFetchOption.sortOptionValue, genreIDs: productFetchOption.genreIDs, isOnSale: productFetchOption.isOnSale) { [weak self] result in
             switch result {
             case .success(let response):
                 guard let response else { return }
