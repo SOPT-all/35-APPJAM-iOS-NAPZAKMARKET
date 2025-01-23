@@ -69,7 +69,7 @@ extension ProductAPI: BaseTargetType {
         case .getSellProductForSearch:
             return "products/sell/search"
         case .getBuyProductForSearch:
-            return "products/sell/buy"
+            return "products/buy/search"
         case .getStoreOwnerSellProduct(let storeOwnerId, _, _, _, _):
             return "products/sell/stores/\(storeOwnerId)"
         case .getStoreOwnerBuyProduct(let storeOwnerId, _, _, _):

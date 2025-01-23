@@ -35,7 +35,7 @@ struct SearchView: View {
     @EnvironmentObject private var tabBarState: TabBarStateModel
     
     //상품 모델
-    @StateObject private var productModel = ProductSearchModel()
+    @StateObject private var productSearchModel = ProductSearchModel()
     
     //세그먼트 컨트롤
     @State var selectedTabIndex = 0
@@ -127,11 +127,11 @@ struct SearchView: View {
             .onAppear() {
                 Task {
                     if searchResultText.isEmpty {
-                        await productModel.getSellProducts(productFetchOption: productFetchOption)
-                        await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                        await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+                        await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
                     } else {
-                        await productModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
-                        await productModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
                     }
                 }
             }
@@ -255,7 +255,7 @@ extension SearchView {
                             .font(.napzakFont(.body5SemiBold14))
                             .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                             .foregroundStyle(Color.napzakGrayScale(.gray900))
-                        Text(selectedTabIndex == 0 ? "\(productModel.sellProducts.count)개" : "\(productModel.buyProducts.count)개")
+                        Text(selectedTabIndex == 0 ? "\(productSearchModel.sellProducts.count)개" : "\(productSearchModel.buyProducts.count)개")
                             .font(.napzakFont(.body5SemiBold14))
                             .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                             .foregroundStyle(Color.napzakPurple(.purple30))
@@ -280,24 +280,24 @@ extension SearchView {
                     
                     LazyVGrid(columns: columns, spacing: 20) {
                         if selectedTabIndex == 0 {
-                            ForEach(productModel.sellProducts) { product in
+                            ForEach(productSearchModel.sellProducts) { product in
                                 NavigationLink(destination: ProductDetailView()) {
                                     ProductItemView(
                                         product: product,
                                         width: width
                                     )
-                                    .environmentObject(productModel)
+                                    .environmentObject(productSearchModel)
                                 }
                             }
                         }
                         else if selectedTabIndex == 1 {
-                            ForEach(productModel.buyProducts) { product in
+                            ForEach(productSearchModel.buyProducts) { product in
                                 NavigationLink(destination: ProductDetailView()) {
                                     ProductItemView(
                                         product: product,
                                         width: width
                                     )
-                                    .environmentObject(productModel)
+                                    .environmentObject(productSearchModel)
                                 }
                             }
                         }
@@ -312,24 +312,24 @@ extension SearchView {
                 Task {
                     if searchResultText.isEmpty {
                         if isFiltered {
-                            await productModel.getBuyProducts(productFetchOption: productFetchOption)
-                            await productModel.getSellProducts(productFetchOption: productFetchOption)
+                            await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
+                            await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
                         } else {
                             if selectedTabIndex == 0 {
-                                await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                                await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
                             } else if selectedTabIndex == 1 {
-                                await productModel.getSellProducts(productFetchOption: productFetchOption)
+                                await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
                             }
                         }
                     } else {
                         if isFiltered {
-                            await productModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
-                            await productModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                            await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                            await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
                         } else {
                             if selectedTabIndex == 0 {
-                                await productModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                                await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
                             } else if selectedTabIndex == 1 {
-                                await productModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                                await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
                             }
                         }
                     }
@@ -342,15 +342,15 @@ extension SearchView {
                 Task {
                     if searchResultText.isEmpty {
                         if selectedTabIndex == 0 {
-                            await productModel.getSellProducts(productFetchOption: productFetchOption)
+                            await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
                         } else if selectedTabIndex == 1 {
-                            await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                            await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
                         }
                     } else {
                         if selectedTabIndex == 0 {
-                            await productModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                            await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
                         } else if selectedTabIndex == 1 {
-                            await productModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                            await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
                         }
                     }
                 }
