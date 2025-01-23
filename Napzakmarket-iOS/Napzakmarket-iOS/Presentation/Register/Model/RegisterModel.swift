@@ -125,18 +125,6 @@ final class RegisterModel: ObservableObject {
     
     // MARK: - Sell Register Post 로직
     
-    func simplifyUrl(url: String) -> String? {
-        // URL에서 도메인과 중요한 경로만 추출
-        guard let urlComponents = URLComponents(string: url) else {
-            return nil
-        }
-        
-        // URL에서 도메인과 경로만 추출
-        let simplifiedUrl = "\(urlComponents.scheme ?? "https")://\(urlComponents.host ?? "")\(urlComponents.path)"
-        
-        return simplifiedUrl
-    }
-    
     func sellRegisterRequest() {
         var registerPhotoList: [RegisteredPhoto] = []
         
@@ -144,12 +132,8 @@ final class RegisterModel: ObservableObject {
         for (index, image) in registerInfo.images.enumerated() {
             if image.jpegData(compressionQuality: 0.8) != nil {
                 if let actualUrl = presignedUrlList[index].productPresignedUrls.values.first {
-                    if let simplifiedUrl = simplifyUrl(url: actualUrl) {
-                        let registeredPhoto = RegisteredPhoto(photoUrl: simplifiedUrl, sequence: index + 1)
-                        registerPhotoList.append(registeredPhoto)
-                    } else {
-                        print("URL 추출 실패: index \(index)")
-                    }
+                    let registeredPhoto = RegisteredPhoto(photoUrl: actualUrl, sequence: index + 1)
+                    registerPhotoList.append(registeredPhoto)
                 }
             }
         }
