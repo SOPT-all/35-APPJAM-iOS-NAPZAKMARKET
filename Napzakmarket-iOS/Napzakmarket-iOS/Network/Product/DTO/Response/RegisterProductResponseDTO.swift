@@ -15,7 +15,7 @@ struct RegisterSellProductResponseDTO: Codable {
 
 struct RegisterSellProductData: Codable {
     let productId: Int
-    let productPhotoList: [ProductPhoto]
+    let productPhotoList: [RegisterPhoto]
     let genreId: Int
     let title: String
     let description: String
@@ -35,12 +35,18 @@ struct RegisterBuyProductResponseDTO: Codable {
 
 struct RegisterBuyProductData: Codable {
     let productId: Int
-    let productPhotoList: [ProductPhoto]
+    let productPhotoList: [RegisterPhoto]
     let genreId: Int
     let title: String
     let description: String
     let price: Int
     let isPriceNegotiable: Bool
     let createdAt: String
+}
+
+struct RegisterPhoto: Codable {
+    let photoId: Int
+    let photoUrl: String
+    let sequence: Int
 }
 
