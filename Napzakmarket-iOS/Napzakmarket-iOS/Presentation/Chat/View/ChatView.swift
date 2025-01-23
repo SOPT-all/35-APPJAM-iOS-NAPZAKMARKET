@@ -35,6 +35,14 @@ struct ChatView: View {
             tabBarState.isTabBarHidden = true
             fetchChatInfo()
         }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 100 {
+                        dismiss()
+                    }
+                }
+        )
     }
     
     private func fetchChatInfo() {
@@ -48,14 +56,6 @@ struct ChatView: View {
                 break
             }
         }
-        .gesture(
-            DragGesture()
-                .onEnded { value in
-                    if value.translation.width > 100 {
-                        dismiss()
-                    }
-                }
-        )
     }
 }
 
