@@ -20,6 +20,8 @@ enum ProductAPI {
     case getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
     case getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
     case getProductDetail(productId: Int)
+    case getStoreOwnerSellProduct(Int, ProductFetchOption)
+    case getStoreOwnerBuyProduct(Int, ProductFetchOption)
 }
 
 extension ProductAPI: BaseTargetType {
@@ -71,6 +73,10 @@ extension ProductAPI: BaseTargetType {
             return "products/buy/search"
         case .getProductDetail(let productId):
             return "products/\(productId)"
+        case .getStoreOwnerSellProduct(let storeOwnerId, _):
+            return "products/sell/stores/\(storeOwnerId)"
+        case .getStoreOwnerBuyProduct(let storeOwnerId, _):
+            return "products/buy/stores/\(storeOwnerId)"
         }
     }
     
@@ -113,6 +119,18 @@ extension ProductAPI: BaseTargetType {
                                                    "genreId" : genreIDs ?? [],
                                                    "isOnSale" : isOnSale],
                                       encoding: URLEncoding.queryString)
+        case .getStoreOwnerSellProduct(_, let option):
+            return .requestParameters(parameters: ["sortOption": option.sortOptionValue,
+                                                   "genreId": option.genreIDs,
+                                                   "isOnSale": option.isOnSale,
+                                                   "isUnopened": option.isUnopened],
+                                        encoding: URLEncoding.queryString)
+        case .getStoreOwnerBuyProduct(_, let option):
+            return .requestParameters(parameters: ["sortOption": option.sortOptionValue,
+                                                   "genreId": option.genreIDs,
+                                                   "isOnSale": option.isOnSale],
+                                        encoding: URLEncoding.queryString
+            )
         }
     }
 }

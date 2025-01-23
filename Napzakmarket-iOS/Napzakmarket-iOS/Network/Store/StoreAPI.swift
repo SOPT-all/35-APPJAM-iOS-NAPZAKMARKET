@@ -9,14 +9,14 @@ import Moya
 
 enum StoreAPI {
     case postPreferGenres(request: RegisterPreferGenreRequestDTO)
-    case getmypageInfo
+    case getStoreInfo(storeId: Int)  // 마켓
+    case getMyPageInfo // 마이페이지
 }
 
 extension StoreAPI: BaseTargetType {
-    
     var headerType: HeaderType {
         switch self {
-        case .postPreferGenres, .getmypageInfo:
+        case .postPreferGenres, .getMyPageInfo, .getStoreInfo:
             return .accessTokenHeader
         }
     }
@@ -25,8 +25,10 @@ extension StoreAPI: BaseTargetType {
         switch self {
         case .postPreferGenres:
             return "stores/register"
-        case .getmypageInfo:
+        case .getMyPageInfo:
             return "stores/mypage"
+        case .getStoreInfo(let storeId):
+            return "stores/\(storeId)"
         }
     }
     
@@ -34,7 +36,7 @@ extension StoreAPI: BaseTargetType {
         switch self {
         case .postPreferGenres:
             return .post
-        case .getmypageInfo:
+        case .getMyPageInfo, .getStoreInfo:
             return .get
         }
     }
@@ -44,7 +46,7 @@ extension StoreAPI: BaseTargetType {
         case .postPreferGenres(let request):
               return .requestJSONEncodable(request)
             
-        case .getmypageInfo:
+        case .getMyPageInfo, .getStoreInfo:
             return .requestPlain
         }
     }

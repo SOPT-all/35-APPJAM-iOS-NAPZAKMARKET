@@ -24,6 +24,10 @@ protocol ProductServiceProtocol {
     func getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
     func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ())
+    func getStoreOwnerSellProduct(storeOwnerId: Int, option: ProductFetchOption,
+          completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
+    func getStoreOwnerBuyProduct(storeOwnerId: Int, option: ProductFetchOption,
+          completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
 }
 
 final class ProductService: BaseService, ProductServiceProtocol {
@@ -61,6 +65,21 @@ final class ProductService: BaseService, ProductServiceProtocol {
     func getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ()) {
         request(.getBuyProductForSearch(searchWord: searchWord, sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale), completion: completion)
     }
+    
+    func getStoreOwnerSellProduct(
+        storeOwnerId: Int,
+        option: ProductFetchOption,
+        completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ()) {
+        request(.getStoreOwnerSellProduct(storeOwnerId, option), completion: completion)
+    }
+
+    func getStoreOwnerBuyProduct(
+        storeOwnerId: Int,
+        option: ProductFetchOption,
+        completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ()) {
+        request(.getStoreOwnerBuyProduct(storeOwnerId, option), completion: completion)
+    }
+
     
     func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ()) {
         request(.getProductDetail(productId: productId), completion: completion)
