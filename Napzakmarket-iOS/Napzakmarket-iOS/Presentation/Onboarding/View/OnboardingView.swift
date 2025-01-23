@@ -31,9 +31,15 @@ struct OnboardingView: View {
                     isInputComplete: $isInputComplete,
                     isSearchBarFocused: _isSearchBarFocused
                 )
-                .onChange(of: genreModel.searchText) { _ in
-                    Task {
-                        await genreModel.fetchGenresFiltered()
+                .onChange(of: genreModel.searchText) { newValue in
+                    if newValue.isEmpty {
+                        Task {
+                            await genreModel.fetchGenres()
+                        }
+                    } else {
+                        Task {
+                            await genreModel.fetchGenresFiltered()
+                        }
                     }
                 }
             }
