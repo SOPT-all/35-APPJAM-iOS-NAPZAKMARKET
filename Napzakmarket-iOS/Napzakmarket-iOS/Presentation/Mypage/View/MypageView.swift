@@ -36,13 +36,13 @@ struct MyPageView: View {
             .background(Color.clear)
             .navigationBarHidden(true)
             .onAppear {
-                getmypageInfo()
+                getMyPageInfo()
             }
         }
     }
     
-    private func getmypageInfo() {
-        NetworkService.shared.storeService.getmypageInfo { result in
+    private func getMyPageInfo() {
+        NetworkService.shared.storeService.getMyPageInfo { result in
             switch result {
             case .success(let response):
                 guard let response else { return }
@@ -92,7 +92,7 @@ struct MyPageView: View {
                         .clipShape(Circle())
                 }
                 
-                Text(myPageInfo?.storeNickname ?? "사용자" + "님")
+                Text(myPageInfo?.storeNickName ?? "사용자" + "님")
                     .font(.napzakFont(.title2Bold20))
                     .applyNapzakTextStyle(napzakFontStyle: .title2Bold20)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -114,7 +114,7 @@ struct MyPageView: View {
     }
         
     private var marketButton: some View {
-        NavigationLink(destination: MarketView()) {
+        NavigationLink(destination: MarketView(storeId: myPageInfo?.storeId ?? 0)) {
             Text("내 마켓 보기")
                 .font(.napzakFont(.body1Bold16))
                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)

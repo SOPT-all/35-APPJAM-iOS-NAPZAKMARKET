@@ -15,6 +15,6 @@ struct MyPageInfoResponseDTO: Codable {
 
 struct MyPageInfoData: Codable {
     let storeId: Int
-    let storeNickname: String
+    let storeNickName: String
     let storePhoto: String
 }

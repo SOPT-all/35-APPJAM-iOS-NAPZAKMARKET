@@ -9,7 +9,8 @@ import Moya
 
 protocol StoreServiceProtocol {
     func postPreferGenre(selectedGenres: RegisterPreferGenreRequestDTO, completion: @escaping (NetworkResult<GenreNameResponseDTO>) -> ())
-    func getmypageInfo(completion: @escaping (NetworkResult<MyPageInfoResponseDTO>) -> ())
+    func getMyPageInfo(completion: @escaping (NetworkResult<MyPageInfoResponseDTO>) -> ())
+    func getStoreInfo(storeId: Int, completion: @escaping (NetworkResult<StoreInfoResponseDTO>) -> ())
 }
 
 final class StoreService: BaseService, StoreServiceProtocol {
@@ -20,8 +21,12 @@ final class StoreService: BaseService, StoreServiceProtocol {
         request(.postPreferGenres(request: selectedGenres), completion: completion)
     }
     
-    func getmypageInfo(completion: @escaping (NetworkResult<MyPageInfoResponseDTO>) -> ()) {
-        request(.getmypageInfo, completion: completion)
+    func getMyPageInfo(completion: @escaping (NetworkResult<MyPageInfoResponseDTO>) -> ()) {
+        request(.getMyPageInfo, completion: completion)
+    }
+    
+    func getStoreInfo(storeId: Int, completion: @escaping (NetworkResult<StoreInfoResponseDTO>) -> ()) {
+        request(.getStoreInfo(storeId: storeId), completion: completion)
     }
     
     private func request<T: Decodable>(_ target: StoreAPI, completion: @escaping (NetworkResult<T>) -> ()) {
