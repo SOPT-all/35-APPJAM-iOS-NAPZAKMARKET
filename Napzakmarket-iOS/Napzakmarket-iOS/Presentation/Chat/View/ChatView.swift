@@ -124,6 +124,7 @@ private extension ChatView {
                             .font(.napzakFont(.body6Medium14))
                             .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                             .foregroundColor(Color.napzakGrayScale(.gray900))
+                            .lineLimit(1)
                     }
                     
                     HStack(spacing: 4) {
