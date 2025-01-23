@@ -25,6 +25,14 @@ struct ChatView: View {
         .onAppear {
             tabBarState.isTabBarHidden = true
         }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 100 {
+                        dismiss()
+                    }
+                }
+        )
     }
 }
 

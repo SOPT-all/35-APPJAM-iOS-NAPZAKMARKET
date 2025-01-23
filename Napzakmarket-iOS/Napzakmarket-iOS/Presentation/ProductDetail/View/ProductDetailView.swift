@@ -65,6 +65,15 @@ struct ProductDetailView: View {
             tabBarState.isTabBarHidden = true
             getProductDetail(productId: productId)
         }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 100 {
+                        dismiss()
+                        tabBarState.isTabBarHidden = false
+                    }
+                }
+        )
     }
 }
 

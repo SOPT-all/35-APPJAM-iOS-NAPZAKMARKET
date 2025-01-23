@@ -71,6 +71,7 @@ struct SearchView: View {
     var body: some View {
         NavigationStack {
             ZStack {
+                Color.napzakGrayScale(.white)
                 GeometryReader { geometry in
                     VStack(spacing: 0) {
                         searchButton
@@ -138,6 +139,14 @@ struct SearchView: View {
             .onChange(of: adaptedGenres) { _ in
                 productFetchOption.genreIDs = adaptedGenres.map { $0.id }
             }
+            .gesture(
+                DragGesture()
+                    .onEnded { value in
+                        if value.translation.width > 100 {
+                            dismiss()
+                        }
+                    }
+            )
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $searchInputViewIsPresented) {
                 SearchInputView()

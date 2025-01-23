@@ -121,6 +121,15 @@ struct MarketView: View {
             .onChange(of: adaptedGenres) { _ in
                 productFetchOption.genreIDs = adaptedGenres.map { $0.id }
             }
+            .gesture(
+                DragGesture()
+                    .onEnded { value in
+                        if value.translation.width > 100 {
+                            dismiss()
+                            tabBarState.isTabBarHidden = false
+                        }
+                    }
+            )
         }
     }
     
