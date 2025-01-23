@@ -330,7 +330,7 @@ extension ProductDetailView {
                 } label: {
                     product?.isInterested ?? Bool() ? Image(.btnDetailLikeSelect) : Image(.btnDetailLike)
                 }
-                NavigationLink(destination: ChatView(chatInfo: <#ChatInfoData#>)) {
+                NavigationLink(destination: ChatView(isSelling: product?.productDetail.tradeType == .sell)) {
                     HStack {
                         Spacer()
                         Text("채팅하기")
