@@ -22,7 +22,8 @@ enum RegisterType: String {
 struct RegisterView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var registerModel: RegisterModel = RegisterModel()
-        
+    @EnvironmentObject private var tabBarState: TabBarStateModel
+    
     var registerType: RegisterType
     
     @State private var isLoading: Bool = false
@@ -43,20 +44,6 @@ struct RegisterView: View {
                     registerButton
                 }
                 
-                // 로딩 화면 추가
-//                if isLoading {
-//                    Color.black.opacity(0.4) // 반투명 배경
-//                        .ignoresSafeArea()
-//                    ProgressView() // 로딩 인디케이터
-//                        .padding()
-//                        .background(Color.white)
-//                        .cornerRadius(12)
-//                        .shadow(radius: 10)
-//                }
-                
-                if registerModel.productId != nil {
-                    ProductDetailView(productId: registerModel.productId!)
-                }
             }
             .navigationDestination(isPresented: $registerModel.completeUploading) {
                 ProductDetailView(productId: registerModel.productId ?? 1)
