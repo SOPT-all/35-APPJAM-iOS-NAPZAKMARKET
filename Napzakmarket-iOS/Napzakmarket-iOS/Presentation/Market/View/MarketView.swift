@@ -15,7 +15,7 @@ struct MarketView: View {
     @State private var selectedIndex = 0
     @State private var sellProducts = ProductModel.dummyProducts
     @State private var buyProducts = ProductModel.dummyProducts
-    @State private var selectedSortOption: SortOption = .latest
+    @State private var selectedSortOption: SortOption = .recent
     @State private var selectedGenres: [GenreName] = []
     @State private var selectedGenreStrings: [String] = []
     @State private var sortModalViewIsPresented = false
@@ -103,7 +103,7 @@ struct MarketView: View {
                             }
                             .padding(.horizontal, 20)
                             .onChange(of: selectedIndex) { _ in
-                                selectedSortOption = .latest
+                                selectedSortOption = .recent
                                 proxy.scrollTo("header", anchor: .top)
                             }
                         }

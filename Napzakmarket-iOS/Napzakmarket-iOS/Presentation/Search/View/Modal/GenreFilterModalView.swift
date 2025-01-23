@@ -137,24 +137,21 @@ extension GenreFilterModalView {
     
     private var genreScrollView: some View {
         ScrollView(.vertical, showsIndicators: false) {
-            VStack(alignment: .leading, spacing: 10) {
+            LazyVGrid(columns: [GridItem(.flexible())], alignment: .leading, spacing: 0) {
                 ForEach(genreList, id: \.self) { genre in
-                    HStack {
+                    HStack(alignment: .center) {
                         Text("\(genre.genreName)")
                             .font(.napzakFont(.body5SemiBold14))
                             .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                             .foregroundStyle(Color.napzakGrayScale(.gray800))
-                        Spacer()
                     }
                     .frame(height: 60)
-                    .contentShape(Rectangle())
                     .onTapGesture {
                         isSearchBarFocused = false
                         if !selectedGenres.contains(genre) && selectedGenres.count < 4 {
                             selectedGenres.append(genre)
                         }
                     }
-                    
                     if genre != genreList.last {
                         Divider()
                             .frame(height: 1)

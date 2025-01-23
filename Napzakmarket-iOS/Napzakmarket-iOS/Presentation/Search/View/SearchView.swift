@@ -7,6 +7,26 @@
 
 import SwiftUI
 
+enum SortOption: String {
+    case recent = "RECENT"
+    case popular = "POPULAR"
+    case highPrice = "HIGH_PRICE"
+    case lowPrice = "LOW_PRICE"
+    
+    var title: String {
+        switch self {
+        case .recent:
+            return "최근순"
+        case .popular:
+            return "인기순"
+        case .highPrice:
+            return "고가순"
+        case .lowPrice:
+            return "저가순"
+        }
+    }
+}
+
 struct SearchView: View {
     
     //MARK: - Property Wrappers
@@ -14,20 +34,19 @@ struct SearchView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
     
-    //상품
-    @State var sellProducts = ProductModel.dummyProducts
-    @State var buyProducts = ProductModel.dummyProducts    
+    //상품 모델
+    @StateObject private var productSearchModel = ProductSearchModel()
+    
     //세그먼트 컨트롤
     @State var selectedTabIndex = 0
-    
-    //정렬
-    @State var selectedSortOption: SortOption = .latest
     
     //필터
     @State var adaptedGenres: [GenreName] = []
     @State var selectedGenreStrings: [String] = []
-    @State var isSoldoutFilterOn = false
-    @State var isUnopenFilterOn = false
+    
+    //상품 분류
+    @State var productFetchOption = ProductFetchOption(sortOption: .recent, genreIDs: [], isOnSale: false, isUnopened: false)
+    @State var isFiltered = false
     
     //화면 전환
     @State var sortModalViewIsPresented = false
@@ -75,7 +94,7 @@ struct SearchView: View {
                             
                             SortModalView(
                                 sortModalViewIsPresented: $sortModalViewIsPresented,
-                                selectedSortOption: $selectedSortOption
+                                selectedSortOption: $productFetchOption.sortOption
                             )
                         } else if filterModalViewIsPresented {
                             Color.napzakTransparency(.black70)
@@ -104,6 +123,20 @@ struct SearchView: View {
                     }
                 }
                 .ignoresSafeArea(.keyboard)
+            }
+            .onAppear() {
+                Task {
+                    if searchResultText.isEmpty {
+                        await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+                        await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
+                    } else {
+                        await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                    }
+                }
+            }
+            .onChange(of: adaptedGenres) { _ in
+                productFetchOption.genreIDs = adaptedGenres.map { $0.id }
             }
             .navigationBarHidden(true)
             .navigationDestination(isPresented: $searchInputViewIsPresented) {
@@ -188,9 +221,9 @@ extension SearchView {
                 
                 Button {
                     print("품절 제외 필터 선택")
-                    isSoldoutFilterOn.toggle()
+                    productFetchOption.isOnSale.toggle()
                 } label: {
-                    Image(isSoldoutFilterOn ? .chipSoldoutSelect : .chipSoldout)
+                    Image(productFetchOption.isOnSale ? .chipSoldoutSelect : .chipSoldout)
                         .resizable()
                         .frame(width: 69, height: 33)
                 }
@@ -198,14 +231,14 @@ extension SearchView {
                 if selectedTabIndex == 0 {
                     Button {
                         print("미개봉 필터 선택")
-                        isUnopenFilterOn.toggle()
+                        productFetchOption.isUnopened.toggle()
                     } label: {
-                        Image(isUnopenFilterOn ? .chipUnopenSelect : .chipUnopen)
+                        Image(productFetchOption.isUnopened ? .chipUnopenSelect : .chipUnopen)
                             .resizable()
                             .frame(width: 59, height: 33)
                     }
+                    Spacer()
                 }
-                Spacer()
             }
         }
         .frame(height: 53)
@@ -216,15 +249,13 @@ extension SearchView {
     private var productScrollView: some View {
         ScrollViewReader { proxy in
             ScrollView(showsIndicators: false) {
-                let products = selectedTabIndex == 0 ? sellProducts : buyProducts
-                
                 VStack(spacing: 0) {
                     HStack(spacing: 4) {
                         Text("상품")
                             .font(.napzakFont(.body5SemiBold14))
                             .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                             .foregroundStyle(Color.napzakGrayScale(.gray900))
-                        Text("\(products.count)개")
+                        Text(selectedTabIndex == 0 ? "\(productSearchModel.sellProducts.count)개" : "\(productSearchModel.buyProducts.count)개")
                             .font(.napzakFont(.body5SemiBold14))
                             .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
                             .foregroundStyle(Color.napzakPurple(.purple30))
@@ -234,7 +265,7 @@ extension SearchView {
                             sortModalViewIsPresented = true
                         } label: {
                             HStack(spacing: 0) {
-                                Text("\(selectedSortOption.rawValue)")
+                                Text("\(productFetchOption.sortOption.title)")
                                     .font(.napzakFont(.caption3Medium12))
                                     .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                                     .foregroundStyle(Color.napzakGrayScale(.gray600))
@@ -249,22 +280,24 @@ extension SearchView {
                     
                     LazyVGrid(columns: columns, spacing: 20) {
                         if selectedTabIndex == 0 {
-                            ForEach(sellProducts) { product in
-                                NavigationLink(destination: ProductDetailView()) {
-                                    ProductItemView(
-                                        product: product,
-                                width: width
-                                    )
-                                }
-                            }
-                        }
-                        else if selectedTabIndex == 1 {
-                            ForEach(buyProducts) { product in
+                            ForEach(productSearchModel.sellProducts) { product in
                                 NavigationLink(destination: ProductDetailView()) {
                                     ProductItemView(
                                         product: product,
                                         width: width
                                     )
+                                    .environmentObject(productSearchModel)
+                                }
+                            }
+                        }
+                        else if selectedTabIndex == 1 {
+                            ForEach(productSearchModel.buyProducts) { product in
+                                NavigationLink(destination: ProductDetailView()) {
+                                    ProductItemView(
+                                        product: product,
+                                        width: width
+                                    )
+                                    .environmentObject(productSearchModel)
                                 }
                             }
                         }
@@ -274,8 +307,53 @@ extension SearchView {
             }
             .padding(.horizontal, 20)
             .onChange(of: selectedTabIndex) { _ in
-                selectedSortOption = .latest
+                productFetchOption.sortOption = .recent
                 proxy.scrollTo("header", anchor: .top)
+                Task {
+                    if searchResultText.isEmpty {
+                        if isFiltered {
+                            await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
+                            await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+                        } else {
+                            if selectedTabIndex == 0 {
+                                await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
+                            } else if selectedTabIndex == 1 {
+                                await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+                            }
+                        }
+                    } else {
+                        if isFiltered {
+                            await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                            await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        } else {
+                            if selectedTabIndex == 0 {
+                                await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                            } else if selectedTabIndex == 1 {
+                                await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                            }
+                        }
+                    }
+                    isFiltered = false
+                }
+            }
+            .onChange(of: productFetchOption) { _ in
+                proxy.scrollTo("header", anchor: .top)
+                isFiltered = true
+                Task {
+                    if searchResultText.isEmpty {
+                        if selectedTabIndex == 0 {
+                            await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+                        } else if selectedTabIndex == 1 {
+                            await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
+                        }
+                    } else {
+                        if selectedTabIndex == 0 {
+                            await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        } else if selectedTabIndex == 1 {
+                            await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        }
+                    }
+                }
             }
         }
     }
