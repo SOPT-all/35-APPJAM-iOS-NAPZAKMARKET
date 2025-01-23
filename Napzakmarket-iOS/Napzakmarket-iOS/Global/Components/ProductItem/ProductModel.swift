@@ -66,7 +66,7 @@ final class ProductModel: Identifiable, ObservableObject {
     func postInterestToggle() async {
         await withCheckedContinuation { continuation in
             if isInterested {
-                NetworkService.shared.productService.deleteInterest(productId: id) { [weak self] result in
+                NetworkService.shared.interestService.deleteInterest(productId: id) { [weak self] result in
                     switch result {
                     case .success:
                         self?.isInterested = false
@@ -76,7 +76,7 @@ final class ProductModel: Identifiable, ObservableObject {
                     continuation.resume()
                 }
             } else {
-                NetworkService.shared.productService.postInterest(productId: id) { [weak self] result in
+                NetworkService.shared.interestService.postInterest(productId: id) { [weak self] result in
                     switch result {
                     case .success:
                         self?.isInterested = true
