@@ -66,7 +66,7 @@ extension ProductItemView {
                 }
                 
                 Spacer()
-                if product.isOwnedByCurrentUser {
+                if !product.isOwnedByCurrentUser {
                     likeButton
                 }
             }
@@ -103,10 +103,11 @@ extension ProductItemView {
                         Image(.imgTagPriceSm)
                     }
                 }
-                Text("\(product.price)원")
+                Text(product.tradeType == .sell ? "\(String(product.price).convertPrice(maxPrice: 1_000_000))원" : "\(String(product.price).convertPrice(maxPrice: 1_000_000))원대")
                     .font(.napzakFont(.body1Bold16))
                     .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
+                Spacer()
             }
             Text(product.uploadTime)
                 .font(.napzakFont(.caption3Medium12))
