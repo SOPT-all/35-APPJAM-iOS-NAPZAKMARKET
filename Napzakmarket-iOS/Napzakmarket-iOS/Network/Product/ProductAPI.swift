@@ -21,6 +21,11 @@ enum ProductAPI {
     
     case sellProductResponse(productId: Int)
     case buyProductResponse(productId: Int)
+    case putPresignedURL(url: String, imageData: Data)
+    case getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
+    case getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
+    case getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
+    case getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
 }
 
 extension ProductAPI: BaseTargetType {
@@ -33,6 +38,8 @@ extension ProductAPI: BaseTargetType {
             return .accessTokenHeader
         case .sellProductResponse, .buyProductResponse:
             return .noneHeader
+        default:
+            return .accessTokenHeader
         }
     }
     
@@ -54,6 +61,16 @@ extension ProductAPI: BaseTargetType {
             return "products/sell"
         case .buyProductResponse:
             return "products/buy"
+        case .putPresignedURL:
+            return ""
+        case .getSellProduct:
+            return "products/sell"
+        case .getBuyProduct:
+            return "products/buy"
+        case .getSellProductForSearch:
+            return "products/sell/search"
+        case .getBuyProductForSearch:
+            return "products/buy/search"
         }
     }
     
@@ -68,6 +85,9 @@ extension ProductAPI: BaseTargetType {
         case .sellProductResponse:
             return .get
         case .buyProductResponse:
+        case .putPresignedURL:
+            return .put
+        default:
             return .get
         }
     }
@@ -86,5 +106,4 @@ extension ProductAPI: BaseTargetType {
             return .requestParameters(parameters: ["productId" : productId.description], encoding: URLEncoding.queryString)
         }
     }
-    
 }
