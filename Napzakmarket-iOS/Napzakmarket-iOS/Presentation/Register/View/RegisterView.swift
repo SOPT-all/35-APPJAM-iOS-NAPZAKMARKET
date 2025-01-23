@@ -24,7 +24,7 @@ struct RegisterView: View {
 
     var registerType: RegisterType
     @StateObject private var registerModel = RegisterModel()
-    
+        
     var body: some View {
         NavigationStack {
             switch registerType {
@@ -55,6 +55,7 @@ extension RegisterView {
                     if registerModel.baseValidate() && registerModel.sellValidate() {
                         await registerModel.registerPresignedRequest()
                         print("registerPresignedRequest 완료")
+                        dismiss()
                     } else {
                         print("유효성 검증 실패")
                     }
@@ -62,14 +63,13 @@ extension RegisterView {
                      if registerModel.baseValidate() {
                          await registerModel.registerPresignedRequest()
                          print("registerPresignedRequest 완료")
+                         dismiss()
                      } else {
                          print("유효성 검증 실패")
                      }
                 }
             }
-            
-            dismiss()
-                        
+                                    
         }) {
             Text("등록하기")
                 .font(.napzakFont(.body1Bold16))

@@ -156,11 +156,11 @@ final class RegisterModel: ObservableObject {
             genreId: registerInfo.genreId,
             title: registerInfo.title,
             description: registerInfo.description,
-            price: Int(registerInfo.price) ?? 0,
+            price: Int(registerInfo.price.convertInt()),
             productCondition: registerProductCondition,
             isDeliveryIncluded: registerInfo.deliveryChargeFree,
-            standardDeliveryFee: Int(registerInfo.normalDeliveryCharge) ?? 0,
-            halfDeliveryFee: Int(registerInfo.halfDeliveryCharge) ?? 0
+            standardDeliveryFee: Int(registerInfo.normalDeliveryCharge.convertInt()),
+            halfDeliveryFee: Int(registerInfo.halfDeliveryCharge.convertInt())
         )
         
         NetworkService.shared.productService.postRegisterSellRequest(registerSellProduct: registerItem) { result in
