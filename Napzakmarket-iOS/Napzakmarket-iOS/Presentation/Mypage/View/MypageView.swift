@@ -114,7 +114,7 @@ struct MyPageView: View {
     }
         
     private var marketButton: some View {
-        NavigationLink(destination: MarketView(storeId: 1)) {
+        NavigationLink(destination: MarketView(storeId: myPageInfo?.storeId ?? 0)) {
             Text("내 마켓 보기")
                 .font(.napzakFont(.body1Bold16))
                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
