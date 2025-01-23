@@ -22,6 +22,9 @@ enum ProductAPI {
     case getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
     case getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
     case getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
+    case getProductDetail(productId: Int)
+    case getStoreOwnerSellProduct(Int, ProductFetchOption)
+    case getStoreOwnerBuyProduct(Int, ProductFetchOption)
 }
 
 extension ProductAPI: BaseTargetType {
@@ -61,6 +64,12 @@ extension ProductAPI: BaseTargetType {
             return "products/sell/search"
         case .getBuyProductForSearch:
             return "products/buy/search"
+        case .getProductDetail(let productId):
+            return "products/\(productId)"
+        case .getStoreOwnerSellProduct(let storeOwnerId, _):
+            return "products/sell/stores/\(storeOwnerId)"
+        case .getStoreOwnerBuyProduct(let storeOwnerId, _):
+            return "products/buy/stores/\(storeOwnerId)"
         }
     }
     
@@ -75,7 +84,7 @@ extension ProductAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts:
+        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .getProductDetail:
             return .requestPlain
         case .sellProductRequest(let registerItem):
             return .requestJSONEncodable(registerItem)
@@ -109,6 +118,18 @@ extension ProductAPI: BaseTargetType {
                                                    "genreId" : genreIDs ?? [],
                                                    "isOnSale" : isOnSale],
                                       encoding: URLEncoding.queryString)
+        case .getStoreOwnerSellProduct(_, let option):
+            return .requestParameters(parameters: ["sortOption": option.sortOptionValue,
+                                                   "genreId": option.genreIDs,
+                                                   "isOnSale": option.isOnSale,
+                                                   "isUnopened": option.isUnopened],
+                                        encoding: URLEncoding.queryString)
+        case .getStoreOwnerBuyProduct(_, let option):
+            return .requestParameters(parameters: ["sortOption": option.sortOptionValue,
+                                                   "genreId": option.genreIDs,
+                                                   "isOnSale": option.isOnSale],
+                                        encoding: URLEncoding.queryString
+            )
         }
     }
 }
