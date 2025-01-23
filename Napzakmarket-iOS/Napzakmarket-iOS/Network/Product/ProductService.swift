@@ -26,11 +26,7 @@ protocol ProductServiceProtocol {
                                 completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ())
     
     func getRegisterBuyResponse(productId: Int, completion: @escaping (NetworkResult<RegisterBuyProductResponseDTO>) -> ())
-    func putImageToPresignedUrl(
-        url: String,
-        imageData: Data,
-        completion: @escaping (NetworkResult<Void>) -> ()
-    )
+
     func getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
     func getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
@@ -91,8 +87,6 @@ final class ProductService: BaseService, ProductServiceProtocol {
             }
         }
     }
-    
-
     
     func postRegisterSellRequest(registerSellProduct: RegisterSellProductRequestDTO, completion: @escaping (NetworkResult<RegisterSellProductResponseDTO>) -> ()) {
         request(.sellProductRequest(registerItem: registerSellProduct), completion: completion)

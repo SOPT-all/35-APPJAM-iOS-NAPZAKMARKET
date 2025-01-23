@@ -14,14 +14,10 @@ enum ProductAPI {
     case getPersonalProducts
     case getPopularSellProducts
     case getRecommandedBuyProducts
-    
-    
     case sellProductRequest(registerItem: RegisterSellProductRequestDTO)
     case buyProductRequest(registerItem: RegisterBuyProductRequestDTO)
-    
     case sellProductResponse(productId: Int)
     case buyProductResponse(productId: Int)
-    case putPresignedURL(url: String, imageData: Data)
     case getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
     case getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
     case getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
@@ -32,10 +28,6 @@ extension ProductAPI: BaseTargetType {
     
     var headerType: HeaderType {
         switch self {
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts:
-            return .accessTokenHeader
-        case .sellProductRequest, .buyProductRequest:
-            return .accessTokenHeader
         case .sellProductResponse, .buyProductResponse:
             return .noneHeader
         default:
@@ -61,8 +53,6 @@ extension ProductAPI: BaseTargetType {
             return "products/sell"
         case .buyProductResponse:
             return "products/buy"
-        case .putPresignedURL:
-            return ""
         case .getSellProduct:
             return "products/sell"
         case .getBuyProduct:
@@ -76,17 +66,8 @@ extension ProductAPI: BaseTargetType {
     
     var method: Moya.Method {
         switch self {
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts:
-            return .get
-        case .sellProductRequest:
+        case .sellProductRequest, .buyProductRequest:
             return .post
-        case .buyProductRequest:
-            return .post
-        case .sellProductResponse:
-            return .get
-        case .buyProductResponse:
-        case .putPresignedURL:
-            return .put
         default:
             return .get
         }
@@ -104,6 +85,30 @@ extension ProductAPI: BaseTargetType {
             return .requestParameters(parameters: ["productId" : productId.description], encoding: URLEncoding.queryString)
         case .buyProductResponse(let productId):
             return .requestParameters(parameters: ["productId" : productId.description], encoding: URLEncoding.queryString)
+        case .getSellProduct(let sortOption, let genreIDs, let isOnSale, let isUnopened):
+            return .requestParameters(parameters: ["sortOption" : sortOption,
+                                                   "genreId" : genreIDs ?? [],
+                                                   "isOnSale" : isOnSale,
+                                                   "isUnopened" : isUnopened],
+                                      encoding: URLEncoding.queryString)
+        case .getBuyProduct(let sortOption, let genreIDs, let isOnSale):
+            return .requestParameters(parameters: ["sortOption" : sortOption,
+                                                   "genreId" : genreIDs ?? [],
+                                                   "isOnSale" : isOnSale],
+                                      encoding: URLEncoding.queryString)
+        case .getSellProductForSearch(let searchWord, let sortOption, let genreIDs, let isOnSale, let isUnopened):
+            return .requestParameters(parameters: ["searchWord" : searchWord,
+                                                   "sortOption" : sortOption,
+                                                   "genreId" : genreIDs ?? [],
+                                                   "isOnSale" : isOnSale,
+                                                   "isUnopened" : isUnopened],
+                                      encoding: URLEncoding.queryString)
+        case .getBuyProductForSearch(let searchWord, let sortOption, let genreIDs, let isOnSale):
+            return .requestParameters(parameters: ["searchWord" : searchWord,
+                                                   "sortOption" : sortOption,
+                                                   "genreId" : genreIDs ?? [],
+                                                   "isOnSale" : isOnSale],
+                                      encoding: URLEncoding.queryString)
         }
     }
 }
