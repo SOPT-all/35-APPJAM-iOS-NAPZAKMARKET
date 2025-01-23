@@ -337,20 +337,20 @@ extension ProductDetailView {
                 } label: {
                     product?.isInterested ?? Bool() ? Image(.btnDetailLikeSelect) : Image(.btnDetailLike)
                 }
-                NavigationLink(destination: ChatView(isSelling: true)) {
-                    HStack {
-                        Spacer()
-                        Text("채팅하기")
-                            .font(.napzakFont(.body1Bold16))
-                            .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
-                            .foregroundStyle(Color.napzakGrayScale(.white))
-                        Spacer()
-                    }
-                    .background(
-                        RoundedRectangle(cornerRadius: 12)
-                            .fill(Color.napzakGrayScale(.gray900))
-                            .frame(height: 52)
-                    )
+                NavigationLink(destination: ChatView(productId: productId)) {
+                   HStack {
+                       Spacer()
+                       Text("채팅하기")
+                           .font(.napzakFont(.body1Bold16))
+                           .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                           .foregroundStyle(Color.napzakGrayScale(.white))
+                       Spacer()
+                   }
+                   .background(
+                       RoundedRectangle(cornerRadius: 12)
+                           .fill(Color.napzakGrayScale(.gray900))
+                           .frame(height: 52)
+                   )
                 }
             }
             .padding(.top, 20)

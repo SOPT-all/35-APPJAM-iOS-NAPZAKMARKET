@@ -18,6 +18,8 @@ enum ProductAPI {
     case buyProductRequest(registerItem: RegisterBuyProductRequestDTO)
     case sellProductResponse(productId: Int)
     case buyProductResponse(productId: Int)
+    case putPresignedURL(url: String, imageData: Data)
+    case getChatInfo(productId: Int)
     case getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
     case getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
     case getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
@@ -70,6 +72,8 @@ extension ProductAPI: BaseTargetType {
             return "products/sell/stores/\(storeOwnerId)"
         case .getStoreOwnerBuyProduct(let storeOwnerId, _):
             return "products/buy/stores/\(storeOwnerId)"
+        case .getChatInfo(let prodeuctId):
+            return "products/chat/\(prodeuctId)"
         }
     }
     
@@ -84,7 +88,7 @@ extension ProductAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .getProductDetail:
+        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .getProductDetail, .getChatInfo:
             return .requestPlain
         case .sellProductRequest(let registerItem):
             return .requestJSONEncodable(registerItem)

@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3C4F98082D3962100070BC7D /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3C4F98052D3962100070BC7D /* ChatView.swift */; };
+		3CB7AFEB2D42950800F3A251 /* ChatModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CB7AFEA2D42950300F3A251 /* ChatModel.swift */; };
 		3CF80CEE2D34357300E8DE1F /* PreView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80CED2D34357300E8DE1F /* PreView.swift */; };
 		3CF80CF02D3435A000E8DE1F /* TabBarModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80CEF2D3435A000E8DE1F /* TabBarModel.swift */; };
 		3CF80DC02D3696F300E8DE1F /* MypageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CF80DBF2D3696F300E8DE1F /* MypageView.swift */; };
@@ -111,6 +112,7 @@
 /* Begin PBXFileReference section */
 		3C4F98052D3962100070BC7D /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		3CB7AFE52D3FD87D00F3A251 /* Config.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Config.xcconfig; sourceTree = "<group>"; };
+		3CB7AFEA2D42950300F3A251 /* ChatModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatModel.swift; sourceTree = "<group>"; };
 		3CF80CED2D34357300E8DE1F /* PreView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreView.swift; sourceTree = "<group>"; };
 		3CF80CEF2D3435A000E8DE1F /* TabBarModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarModel.swift; sourceTree = "<group>"; };
 		3CF80DBF2D3696F300E8DE1F /* MypageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MypageView.swift; sourceTree = "<group>"; };
@@ -227,6 +229,7 @@
 		3C4F98042D3962100070BC7D /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				3CB7AFEA2D42950300F3A251 /* ChatModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1042,6 +1045,7 @@
 				D6C6751A2D32C27800DE6B4D /* MockGenreError.swift in Sources */,
 				6C2D5B722D32BB9F00E904C6 /* RegisterSellPrice.swift in Sources */,
 				D02CAB5C2D34A9CC00B0D93F /* ProductItemView.swift in Sources */,
+				3CB7AFEB2D42950800F3A251 /* ChatModel.swift in Sources */,
 				3CF80CEE2D34357300E8DE1F /* PreView.swift in Sources */,
 				D63F2FD12D38D92B00C1C7D1 /* SplashView.swift in Sources */,
 				D079726F2D3F74EC00CF97E4 /* ProductService.swift in Sources */,

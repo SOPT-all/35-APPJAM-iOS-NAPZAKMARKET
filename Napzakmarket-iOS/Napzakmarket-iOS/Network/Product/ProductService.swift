@@ -36,6 +36,7 @@ protocol ProductServiceProtocol {
           completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getStoreOwnerBuyProduct(storeOwnerId: Int, option: ProductFetchOption,
           completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
+    func getChatInfo(productId: Int, completion: @escaping (NetworkResult<ChatInfoResponseDTO>) -> ())
 }
 
 final class ProductService: BaseService, ProductServiceProtocol {
@@ -91,6 +92,10 @@ final class ProductService: BaseService, ProductServiceProtocol {
     
     func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ()) {
         request(.getProductDetail(productId: productId), completion: completion)
+    }
+    
+    func getChatInfo(productId: Int, completion: @escaping (NetworkResult<ChatInfoResponseDTO>) -> ()) {
+        request(.getChatInfo(productId: productId), completion: completion)
     }
     
     private func request<T: Decodable>(_ target: ProductAPI, completion: @escaping (NetworkResult<T>) -> ()) {
