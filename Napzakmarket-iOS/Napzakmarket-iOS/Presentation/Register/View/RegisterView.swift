@@ -47,7 +47,6 @@ extension RegisterView {
     private var registerButton: some View {
         Button(action: {
             print("등록 버튼 클릭")
-            print("--------------------------------------------------------------------")
             
             Task {
                 switch registerType {
