@@ -16,7 +16,7 @@ enum SortOption: String {
     var title: String {
         switch self {
         case .recent:
-            return "최근순"
+            return "최신순"
         case .popular:
             return "인기순"
         case .highPrice:
