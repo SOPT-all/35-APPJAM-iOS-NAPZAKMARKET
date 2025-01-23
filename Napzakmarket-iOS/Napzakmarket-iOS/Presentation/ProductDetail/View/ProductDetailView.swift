@@ -79,6 +79,7 @@ extension ProductDetailView {
         HStack {
             Button {
                 dismiss()
+                dismiss()
             } label: {
                 Image(.icBack)
                     .resizable()

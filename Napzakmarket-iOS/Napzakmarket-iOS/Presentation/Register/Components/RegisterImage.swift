@@ -184,6 +184,7 @@ extension RegisterImage {
     
     private func moveImageToFront(at index: Int) {
         let movedImage = selectedImages.remove(at: index)
+        imageNameList.remove(at: index)
         selectedImages.insert(movedImage, at: 0)
         imageNameList.insert(UUID().uuidString, at: 0)
     }
