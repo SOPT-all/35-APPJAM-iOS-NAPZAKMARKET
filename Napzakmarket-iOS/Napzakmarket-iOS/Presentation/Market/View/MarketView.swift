@@ -19,7 +19,7 @@ struct MarketView: View {
     @State private var selectedIndex = 0
     
     //상품 모델
-    @StateObject private var productModel = ProductSearchModel()
+    @StateObject private var productModel = MarketModel()
     
     //필터
     @State var adaptedGenres: [GenreName] = []
@@ -74,8 +74,8 @@ struct MarketView: View {
                 tabBarState.isTabBarHidden = true
                 
                 Task {
-                    await productModel.getSellProducts(productFetchOption: productFetchOption)
-                    await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                    await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
+                    await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
                 }
             }
             .onDisappear {
@@ -327,9 +327,9 @@ struct MarketView: View {
                 proxy.scrollTo("header", anchor: .top)
                 Task {
                     if selectedIndex == 0 {
-                        await productModel.getSellProducts(productFetchOption: productFetchOption)
+                        await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
                     } else if selectedIndex == 1 {
-                        await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                        await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
                     }
                 }
             }
@@ -337,9 +337,9 @@ struct MarketView: View {
                 proxy.scrollTo("header", anchor: .top)
                 Task {
                     if selectedIndex == 0 {
-                        await productModel.getSellProducts(productFetchOption: productFetchOption)
+                        await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
                     } else if selectedIndex == 1 {
-                        await productModel.getBuyProducts(productFetchOption: productFetchOption)
+                        await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
                     }
                 }
             }
