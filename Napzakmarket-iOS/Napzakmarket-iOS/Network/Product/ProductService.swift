@@ -131,7 +131,6 @@ final class ProductService: BaseService, ProductServiceProtocol {
         }
     }
     
-    
     func putImageToPresignedUrl(
         url: String,
         imageData: Data,
