@@ -67,7 +67,7 @@ extension ProductAPI: BaseTargetType {
         case .getSellProductForSearch:
             return "products/sell/search"
         case .getBuyProductForSearch:
-            return "products/sell/buy"
+            return "products/buy/search"
         }
     }
     
