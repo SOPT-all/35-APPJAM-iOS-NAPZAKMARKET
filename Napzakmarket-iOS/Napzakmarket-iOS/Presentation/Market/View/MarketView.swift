@@ -11,6 +11,7 @@ import Kingfisher
 
 struct MarketView: View {
     @Environment(\.dismiss) private var dismiss
+
     @EnvironmentObject private var tabBarState: TabBarStateModel
     
     let storeId: Int
@@ -68,22 +69,6 @@ struct MarketView: View {
                     }
                 }
                 .background(Color(.white))
-                .navigationBarHidden(true)
-                .onAppear {
-                    getStoreInfo()
-                    tabBarState.isTabBarHidden = true
-                    
-                    Task {
-                        await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
-                        await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
-                    }
-                }
-                .onDisappear {
-                    tabBarState.isTabBarHidden = false
-                }
-                .onChange(of: adaptedGenres) { _ in
-                    productFetchOption.genreIDs = adaptedGenres.map { $0.id }
-                }
                 
                 ZStack(alignment: .bottom) {
                     if sortModalViewIsPresented {
@@ -124,6 +109,18 @@ struct MarketView: View {
             }
             .background(Color(.white))
             .navigationBarHidden(true)
+            .onAppear {
+                getStoreInfo()
+                tabBarState.isTabBarHidden = true
+                
+                Task {
+                    await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
+                    await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
+                }
+            }
+            .onChange(of: adaptedGenres) { _ in
+                productFetchOption.genreIDs = adaptedGenres.map { $0.id }
+            }
         }
     }
     
@@ -146,6 +143,7 @@ struct MarketView: View {
             HStack {
                 Button(action: {
                     dismiss()
+                    tabBarState.isTabBarHidden = false
                 }) {
                     Image(systemName: "chevron.backward")
                         .foregroundColor(Color.napzakGrayScale(.gray900))
