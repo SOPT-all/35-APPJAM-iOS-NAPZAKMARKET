@@ -23,6 +23,7 @@ protocol ProductServiceProtocol {
     func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
     func getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
+    func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ())
     func getStoreOwnerSellProduct(storeOwnerId: Int, option: ProductFetchOption,
           completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getStoreOwnerBuyProduct(storeOwnerId: Int, option: ProductFetchOption,
@@ -79,6 +80,10 @@ final class ProductService: BaseService, ProductServiceProtocol {
         request(.getStoreOwnerBuyProduct(storeOwnerId, option), completion: completion)
     }
 
+    
+    func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ()) {
+        request(.getProductDetail(productId: productId), completion: completion)
+    }
     
     private func request<T: Decodable>(_ target: ProductAPI, completion: @escaping (NetworkResult<T>) -> ()) {
         provider.request(target) { [weak self] result in
