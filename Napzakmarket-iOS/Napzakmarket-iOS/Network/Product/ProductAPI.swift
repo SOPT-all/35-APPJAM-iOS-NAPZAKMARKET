@@ -19,6 +19,8 @@ enum ProductAPI {
     case getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
     case getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
     case getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
+    case getStoreOwnerSellProduct(storeOwnerId: Int, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
+    case getStoreOwnerBuyProduct(storeOwnerId: Int, sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
 }
 
 extension ProductAPI: BaseTargetType {
@@ -68,6 +70,10 @@ extension ProductAPI: BaseTargetType {
             return "products/sell/search"
         case .getBuyProductForSearch:
             return "products/sell/buy"
+        case .getStoreOwnerSellProduct(let storeOwnerId, _, _, _, _):
+            return "products/sell/stores/\(storeOwnerId)"
+        case .getStoreOwnerBuyProduct(let storeOwnerId, _, _, _):
+            return "products/buy/stores/\(storeOwnerId)"
         }
     }
     
@@ -107,6 +113,17 @@ extension ProductAPI: BaseTargetType {
         case .getBuyProductForSearch(let searchWord, let sortOption, let genreIDs, let isOnSale):
             return .requestParameters(parameters: ["searchWord" : searchWord,
                                                    "sortOption" : sortOption,
+                                                   "genreId" : genreIDs ?? [],
+                                                   "isOnSale" : isOnSale],
+                                      encoding: URLEncoding.queryString)
+        case .getStoreOwnerSellProduct(_, let sortOption, let genreIDs, let isOnSale, let isUnopened):
+            return .requestParameters(parameters: ["sortOption" : sortOption,
+                                                   "genreId" : genreIDs ?? [],
+                                                   "isOnSale" : isOnSale,
+                                                   "isUnopened" : isUnopened],
+                                      encoding: URLEncoding.queryString)
+        case .getStoreOwnerBuyProduct(_, let sortOption, let genreIDs, let isOnSale):
+            return .requestParameters(parameters: ["sortOption" : sortOption,
                                                    "genreId" : genreIDs ?? [],
                                                    "isOnSale" : isOnSale],
                                       encoding: URLEncoding.queryString)

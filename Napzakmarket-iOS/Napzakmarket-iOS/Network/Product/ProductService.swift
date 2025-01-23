@@ -23,6 +23,8 @@ protocol ProductServiceProtocol {
     func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
     func getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
+    func getStoreOwnerSellProduct(storeOwnerId: Int, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
+    func getStoreOwnerBuyProduct(storeOwnerId: Int, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
 }
 
 final class ProductService: BaseService, ProductServiceProtocol {
@@ -59,6 +61,14 @@ final class ProductService: BaseService, ProductServiceProtocol {
     
     func getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ()) {
         request(.getBuyProductForSearch(searchWord: searchWord, sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale), completion: completion)
+    }
+    
+    func getStoreOwnerSellProduct(storeOwnerId: Int, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ()) {
+        request(.getStoreOwnerSellProduct(storeOwnerId: storeOwnerId, sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale, isUnopened: isUnopened), completion: completion)
+    }
+    
+    func getStoreOwnerBuyProduct(storeOwnerId: Int, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ()) {
+        request(.getStoreOwnerBuyProduct(storeOwnerId: storeOwnerId, sortOption: sortOption, genreIDs: genreIDs, isOnSale: isOnSale), completion: completion)
     }
 
     
