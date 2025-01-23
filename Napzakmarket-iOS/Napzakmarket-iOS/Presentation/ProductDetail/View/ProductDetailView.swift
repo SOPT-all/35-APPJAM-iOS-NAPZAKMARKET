@@ -62,11 +62,11 @@ struct ProductDetailView: View {
         .navigationBarHidden(true)
         .ignoresSafeArea(edges: [.bottom])
         .onAppear {
-//            tabBarState.isTabBarHidden = true
+            tabBarState.isTabBarHidden = true
             getProductDetail(productId: productId)
         }
         .onDisappear() {
-//            tabBarState.isTabBarHidden = false
+            tabBarState.isTabBarHidden = false
         }
     }
 }

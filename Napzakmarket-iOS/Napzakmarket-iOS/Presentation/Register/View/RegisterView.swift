@@ -53,10 +53,6 @@ struct RegisterView: View {
 //                        .cornerRadius(12)
 //                        .shadow(radius: 10)
 //                }
-                
-                if registerModel.productId != nil {
-                    ProductDetailView(productId: registerModel.productId!)
-                }
             }
             .navigationDestination(isPresented: $registerModel.completeUploading) {
                 ProductDetailView(productId: registerModel.productId ?? 1)
