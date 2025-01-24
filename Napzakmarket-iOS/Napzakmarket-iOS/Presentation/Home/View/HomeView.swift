@@ -14,7 +14,10 @@ struct HomeView: View {
     // MARK: - Properties
     
     @StateObject private var homeModel = HomeModel()
+    
     @State private var currentPage: Int = 1
+    @State var isInterestChanged: Bool? = false
+    @State var isInterestChangedInPopularSection: Bool? = false
     
     private let width = (UIScreen.main.bounds.width - 55) / 2
     
@@ -31,7 +34,7 @@ struct HomeView: View {
                     // 첫번째 섹션
                     VStack(spacing: 16) {
                         RecommendedItemsTitleView()
-                        ProductScrollView(width: width - 10, products: $homeModel.personalProducts)
+                        ProductScrollView(width: width - 10, products: $homeModel.personalProducts, isInterestChanged: $isInterestChanged)
                     }
                     .padding(.leading, 20)
                     
@@ -51,7 +54,7 @@ struct HomeView: View {
                             .padding(.trailing, 20)
                         }
                         
-                        MostLikedProductsView(width: width, products: $homeModel.popularSellProducts)
+                        MostLikedProductsView(width: width, products: $homeModel.popularSellProducts, isInterestChangedInPopularSection: $isInterestChangedInPopularSection)
                             .padding(.horizontal, 20)
                     }
                     .padding(.top, 20)
@@ -76,7 +79,7 @@ struct HomeView: View {
                             .padding(.leading, 20)
                         }
                         
-                        ProductScrollView(width: width - 10, products: $homeModel.recommendedBuyProducts)
+                        ProductScrollView(width: width - 10, products: $homeModel.recommendedBuyProducts, isInterestChanged: $isInterestChanged)
                             .padding(.leading, 20)
                     }
                     .padding(.top, 26)
@@ -90,6 +93,17 @@ struct HomeView: View {
                 await homeModel.fetchPersonalProducts()
                 await homeModel.fetchPopularSellProducts()
                 await homeModel.fetchRecommendedBuyProducts()
+            }
+        }
+        .onChange(of: isInterestChanged) { _ in
+            Task {
+                await homeModel.fetchPersonalProducts()
+                await homeModel.fetchRecommendedBuyProducts()
+            }
+        }
+        .onChange(of: isInterestChangedInPopularSection) { _ in
+            Task {
+                await homeModel.fetchPopularSellProducts()
             }
         }
     }
@@ -249,10 +263,12 @@ extension HomeView {
     private struct ProductScrollView: View {
         
         // MARK: - Properties
+        
         let width: CGFloat
         
         @Binding var products: [ProductModel]
-        
+        @Binding var isInterestChanged: Bool?
+
         private let column = [
             GridItem(.flexible())
         ]
@@ -264,7 +280,7 @@ extension HomeView {
                 LazyHGrid(rows: column, spacing: 16) {
                     ForEach(products) {
                         product in
-                        NavigationLink(destination: ProductDetailView(productId: product.id)) {
+                        NavigationLink(destination: ProductDetailView(isChangedInterest: $isInterestChanged, productId: product.id)) {
                             ProductItemView(
                                 product: product,
                                 width: width - 10
@@ -324,10 +340,12 @@ extension HomeView {
     struct MostLikedProductsView: View {
         
         // MARK: - Properties
+        
         let width: CGFloat
         
         @Binding var products: [ProductModel]
-        
+        @Binding var isInterestChangedInPopularSection: Bool?
+
         private let columns = [
             GridItem(.flexible(), spacing: 15),
             GridItem(.flexible())
@@ -338,7 +356,7 @@ extension HomeView {
         var body: some View {
             LazyVGrid(columns: columns, spacing: 20) {
                 ForEach(products.prefix(4)) { product in
-                    NavigationLink(destination: ProductDetailView(productId: product.id)) {
+                    NavigationLink(destination: ProductDetailView(isChangedInterest: $isInterestChangedInPopularSection, productId: product.id)) {
                         ProductItemView(
                             product: product,
                             width: width

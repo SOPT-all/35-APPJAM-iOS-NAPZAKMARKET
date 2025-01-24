@@ -21,7 +21,8 @@ struct ProductDetailView: View {
     @State private var currentPage = 0
     @State var showToast = false
     
-        
+    @Binding var isChangedInterest: Bool?
+    
     //MARK: - Properties
     
     let productId: Int
@@ -334,6 +335,7 @@ extension ProductDetailView {
             HStack(spacing: 16) {
                 Button {
                     print("좋아요 버튼 선택")
+                    isChangedInterest?.toggle()
                     Task {
                         await product.postInterestToggle(productId: productId)
                     }
