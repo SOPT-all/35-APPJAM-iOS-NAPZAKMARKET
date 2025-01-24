@@ -87,6 +87,7 @@ struct SearchView: View {
                         tabs: ["팔아요", "구해요"],
                         spacing: 15
                     )
+                    .frame(height: 49)
                     filterButtons
                     productScrollView
                 }

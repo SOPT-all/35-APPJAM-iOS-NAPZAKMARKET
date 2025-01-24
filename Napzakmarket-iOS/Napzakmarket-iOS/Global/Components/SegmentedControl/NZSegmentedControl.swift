@@ -54,6 +54,7 @@ extension NZSegmentedControl {
                     selectedIndex = i
                 } label: {
                     VStack {
+                        Spacer()
                         Text(tabs[i])
                             .font(selectedIndex == i ? .napzakFont(.title5SemiBold18) : .napzakFont(.title6Medium18))
                             .applyNapzakTextStyle(napzakFontStyle: .title5SemiBold18)
