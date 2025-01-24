@@ -61,6 +61,9 @@ struct SearchView: View {
     //좋아요
     @State var isInterestChangedInSell: Bool? = false
     @State var isInterestChangedInBuy: Bool? = false
+    
+    //상태 관리
+    @State var onAppearState = true
 
     let width = (UIScreen.main.bounds.width - 55) / 2
     
@@ -129,14 +132,17 @@ struct SearchView: View {
                 .ignoresSafeArea(.keyboard)
             }
             .onAppear() {
-                Task {
-                    if searchResultText.isEmpty {
-                        await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
-                        await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
-                    } else {
-                        await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
-                        await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                if onAppearState {
+                    Task {
+                        if searchResultText.isEmpty {
+                            await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+                            await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
+                        } else {
+                            await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                            await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        }
                     }
+                    onAppearState = false
                 }
             }
             .onChange(of: appState.isProductRegistered) { _ in
