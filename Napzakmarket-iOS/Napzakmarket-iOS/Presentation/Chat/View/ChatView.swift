@@ -16,12 +16,6 @@ struct ChatView: View {
     @State private var chatInfo: ChatInfoData?
     
     let productId: Int
-    let productService: ProductServiceProtocol
-    
-    init(productId: Int, productService: ProductServiceProtocol = ProductService()) {
-        self.productId = productId
-        self.productService = productService
-    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -46,7 +40,7 @@ struct ChatView: View {
     }
     
     private func fetchChatInfo() {
-        productService.getChatInfo(productId: productId) { result in
+        NetworkService.shared.productService.getChatInfo(productId: productId) { result in
             switch result {
             case .success(let response):
                 DispatchQueue.main.async {
