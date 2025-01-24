@@ -16,9 +16,11 @@ struct ProductDetailView: View {
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
 
+    @StateObject var product = ProductDetailModel()
+
     @State private var currentPage = 0
     @State var showToast = false
-    @ObservedObject var product = ProductDetailModel()
+    
         
     //MARK: - Properties
     
