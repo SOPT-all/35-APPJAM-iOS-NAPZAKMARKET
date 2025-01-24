@@ -30,8 +30,6 @@ protocol ProductServiceProtocol {
     func getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
     func getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool, completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
     func getBuyProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, completion: @escaping (NetworkResult<BuyProductResponseDTO>) -> ())
-    func postInterest(productId: Int, completion: @escaping (NetworkResult<Any>) -> ())
-    func deleteInterest(productId: Int, completion: @escaping (NetworkResult<Any>) -> ())
     func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ())
     func getStoreOwnerSellProduct(storeOwnerId: Int, option: ProductFetchOption,
                                   completion: @escaping (NetworkResult<SellProductResponseDTO>) -> ())
@@ -93,15 +91,7 @@ final class ProductService: BaseService, ProductServiceProtocol {
     func getProductDetail(productId: Int, completion: @escaping (NetworkResult<ProductDetailResponseDTO>) -> ()) {
         request(.getProductDetail(productId: productId), completion: completion)
     }
-    
-    func postInterest(productId: Int, completion: @escaping (NetworkResult<Any>) -> ()) {
-        request(.postInterest(productId: productId), completion: completion)
-    }
-    
-    func deleteInterest(productId: Int, completion: @escaping (NetworkResult<Any>) -> ()) {
-        request(.deleteInterest(productId: productId), completion: completion)
-    }
-    
+        
     func getChatInfo(productId: Int, completion: @escaping (NetworkResult<ChatInfoResponseDTO>) -> ()) {
         request(.getChatInfo(productId: productId), completion: completion)
     }
@@ -132,24 +122,6 @@ final class ProductService: BaseService, ProductServiceProtocol {
                 let networkResult: NetworkResult<T> = self.fetchNetworkResult(
                     statusCode: response.statusCode,
                     data: response.data
-                )
-                completion(networkResult)
-                
-            case .failure(let err):
-                print(err)
-            }
-        }
-    }
-    
-    private func request(_ target: ProductAPI, completion: @escaping (NetworkResult<Any>) -> ()) {
-        provider.request(target) { [weak self] result in
-            guard let self = self else { return }
-            
-            switch result {
-            case .success(let respone):
-                let networkResult: NetworkResult<Any> = self.fetchNetworkResult(
-                    statusCode: respone.statusCode,
-                    data: respone.data
                 )
                 completion(networkResult)
                 

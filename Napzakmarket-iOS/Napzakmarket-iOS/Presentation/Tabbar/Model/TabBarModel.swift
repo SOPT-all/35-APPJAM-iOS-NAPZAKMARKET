@@ -29,5 +29,5 @@ extension TabItem {
 
 // 상태 관리를 위한 환경 객체
 class TabBarStateModel: ObservableObject {
-    @State var isTabBarHidden: Bool = false
+    @Published var isTabBarHidden: Bool = false
 }

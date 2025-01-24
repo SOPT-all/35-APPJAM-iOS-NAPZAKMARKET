@@ -28,6 +28,7 @@ struct ReadyComponent: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.napzakGrayScale(.white))
     }
 }
 
@@ -40,14 +41,23 @@ struct ReadyView: View {
                 Button(action: {
                     dismiss()
                 }) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(Color.napzakGrayScale(.gray900))
+                    Image(.icBack)
+                        .resizable()
                         .frame(width: 48, height: 48)
+                        .padding(.top, 4)
                 }
                 Spacer()
             }
             ReadyComponent()
         }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 100 {
+                        dismiss()
+                    }
+                }
+        )
         .navigationBarHidden(true)
     }
 }

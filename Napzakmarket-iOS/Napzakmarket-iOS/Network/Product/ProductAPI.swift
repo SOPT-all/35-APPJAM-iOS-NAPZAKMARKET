@@ -27,8 +27,6 @@ enum ProductAPI {
     case getProductDetail(productId: Int)
     case getStoreOwnerSellProduct(Int, ProductFetchOption)
     case getStoreOwnerBuyProduct(Int, ProductFetchOption)
-    case postInterest(productId: Int)
-    case deleteInterest(productId: Int)
 }
 
 extension ProductAPI: BaseTargetType {
@@ -74,8 +72,6 @@ extension ProductAPI: BaseTargetType {
             return "products/sell/stores/\(storeOwnerId)"
         case .getStoreOwnerBuyProduct(let storeOwnerId, _):
             return "products/buy/stores/\(storeOwnerId)"
-        case .postInterest(let productId), .deleteInterest(let productId):
-            return "interest/\(productId)"
         case .getChatInfo(let prodeuctId):
             return "products/chat/\(prodeuctId)"
         case .putPresignedURL:
@@ -85,10 +81,6 @@ extension ProductAPI: BaseTargetType {
     
     var method: Moya.Method {
         switch self {
-        case .postInterest:
-            return .post
-        case .deleteInterest:
-            return .delete
         case .sellProductRequest, .buyProductRequest, .putPresignedURL:
             return .post
         default:
@@ -98,7 +90,7 @@ extension ProductAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .postInterest, .deleteInterest, .getProductDetail, .getChatInfo:
+        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .getProductDetail, .getChatInfo:
             return .requestPlain
         case .putPresignedURL(_, let imageData):
             return .requestData(imageData)

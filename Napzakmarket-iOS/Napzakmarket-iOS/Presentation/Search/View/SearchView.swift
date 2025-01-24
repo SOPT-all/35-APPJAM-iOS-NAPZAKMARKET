@@ -33,6 +33,7 @@ struct SearchView: View {
     
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
+    @EnvironmentObject private var appState: AppState
     
     //상품 모델
     @StateObject private var productSearchModel = ProductSearchModel()
@@ -57,6 +58,10 @@ struct SearchView: View {
     @State var isBackButtonHidden = true
     @State var searchResultText: String = ""
     
+    //좋아요
+    @State var isInterestChangedInSell: Bool? = false
+    @State var isInterestChangedInBuy: Bool? = false
+
     let width = (UIScreen.main.bounds.width - 55) / 2
     
     //MARK: - Properties
@@ -92,7 +97,6 @@ struct SearchView: View {
                                 .onTapGesture {
                                     sortModalViewIsPresented = false
                                 }
-                            
                             SortModalView(
                                 sortModalViewIsPresented: $sortModalViewIsPresented,
                                 selectedSortOption: $productFetchOption.sortOption
@@ -102,7 +106,6 @@ struct SearchView: View {
                                 .onTapGesture {
                                     filterModalViewIsPresented = false
                                 }
-                            
                             GenreFilterModalView(
                                 adaptedGenres: $adaptedGenres,
                                 filterModalViewIsPresented: $filterModalViewIsPresented
@@ -134,6 +137,22 @@ struct SearchView: View {
                         await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
                         await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
                     }
+                }
+            }
+            .onChange(of: appState.isProductRegistered) { _ in
+                Task {
+                    await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+                    await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
+                }
+            }
+            .onChange(of: isInterestChangedInSell) { _ in
+                Task {
+                    await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+                }
+            }
+            .onChange(of: isInterestChangedInBuy) { _ in
+                Task {
+                    await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
                 }
             }
             .onChange(of: adaptedGenres) { _ in
@@ -290,7 +309,7 @@ extension SearchView {
                     LazyVGrid(columns: columns, spacing: 20) {
                         if selectedTabIndex == 0 {
                             ForEach(productSearchModel.sellProducts) { product in
-                                NavigationLink(destination: ProductDetailView(productId: product.id)) {
+                                NavigationLink(destination: ProductDetailView(isChangedInterest: $isInterestChangedInSell, productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width
@@ -301,7 +320,7 @@ extension SearchView {
                         }
                         else if selectedTabIndex == 1 {
                             ForEach(productSearchModel.buyProducts) { product in
-                                NavigationLink(destination: ProductDetailView(productId: product.id)) {
+                                NavigationLink(destination: ProductDetailView(isChangedInterest: $isInterestChangedInBuy, productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width
