@@ -27,6 +27,8 @@ struct ProductDetailView: View {
     
     let productId: Int
     let screenWidth = UIScreen.main.bounds.width
+    
+    private let maxPrice: Int = 1_000_000
 
     //MARK: - Main Body
     
@@ -187,7 +189,7 @@ extension ProductDetailView {
                 if product.productDetail?.isPriceNegotiable == true {
                     Image(.imgTagPriceLg)
                 }
-                Text(product.productDetail?.tradeType == .sell ?  "\(String(product.productDetail?.price ?? 0).convertPrice(maxPrice: 1_000_000))원" : "\(String(product.productDetail?.price ?? 0).convertPrice(maxPrice: 1_000_000))원대")
+                Text(product.productDetail?.tradeType == .sell ?  "\(String(product.productDetail?.price ?? 0).convertPrice(maxPrice: maxPrice))원" : "\(String(product.productDetail?.price ?? 0).convertPrice(maxPrice: maxPrice))원대")
                     .font(.napzakFont(.title2Bold20))
                     .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -254,7 +256,7 @@ extension ProductDetailView {
                         .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                         .foregroundStyle(Color.napzakGrayScale(.gray700))
                         .padding(.trailing, 6)
-                    Text("\(String(product.productDetail?.standardDeliveryFee ?? 0).convertPrice(maxPrice: 1_000_000))원")
+                    Text("\(String(product.productDetail?.standardDeliveryFee ?? 0).convertPrice(maxPrice: maxPrice))원")
                         .font(.napzakFont(.body2SemiBold16))
                         .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                         .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -271,7 +273,7 @@ extension ProductDetailView {
                         .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                         .foregroundStyle(Color.napzakGrayScale(.gray700))
                         .padding(.trailing, 6)
-                    Text("\(String(product.productDetail?.halfDeliveryFee ?? 0).convertPrice(maxPrice: 1_000_000))원")
+                    Text("\(String(product.productDetail?.halfDeliveryFee ?? 0).convertPrice(maxPrice: maxPrice))원")
                         .font(.napzakFont(.body2SemiBold16))
                         .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                         .foregroundStyle(Color.napzakGrayScale(.gray900))
