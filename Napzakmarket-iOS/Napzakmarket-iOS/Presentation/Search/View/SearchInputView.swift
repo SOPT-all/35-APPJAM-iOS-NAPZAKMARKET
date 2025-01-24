@@ -29,26 +29,24 @@ struct SearchInputView: View {
     //MARK: - Main Body
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.napzakGrayScale(.white)
-                    .onTapGesture {
-                        isSearchBarFocused = false
-                    }
-                VStack(spacing: 0) {
-                    navigationSearchBar
-                    genreListView
+        ZStack {
+            Color.napzakGrayScale(.white)
+                .onTapGesture {
+                    isSearchBarFocused = false
                 }
+            VStack(spacing: 0) {
+                navigationSearchBar
+                genreListView
             }
-            .navigationBarHidden(true)
-            .onAppear() {
-                isSearchBarFocused = true
-                tabBarState.isTabBarHidden = true
-                
-                Task {
-                    if !inputText.isEmpty {
-                        await getSearchGenreList(searchWord: inputText)
-                    }
+        }
+        .navigationBarHidden(true)
+        .onAppear() {
+            isSearchBarFocused = true
+            tabBarState.isTabBarHidden = true
+            
+            Task {
+                if !inputText.isEmpty {
+                    await getSearchGenreList(searchWord: inputText)
                 }
             }
         }

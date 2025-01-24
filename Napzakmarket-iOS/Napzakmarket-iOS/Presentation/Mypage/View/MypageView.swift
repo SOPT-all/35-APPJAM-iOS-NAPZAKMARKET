@@ -14,35 +14,32 @@ struct MyPageView: View {
     @State private var marketViewIsPresented = false
     
     var body: some View {
-        NavigationStack {
-            VStack(spacing: 0) {
-                titleSection
+        VStack(spacing: 0) {
+            titleSection
+            
+            ZStack(alignment: .top) {
+                backgroundSection
                 
-                ZStack(alignment: .top) {
-                    backgroundSection
+                VStack(spacing: 0) {
+                    Divider()
+                        .frame(height: 1)
+                        .overlay(Color.napzakGrayScale(.gray200))
                     
                     VStack(spacing: 0) {
-                        Divider()
-                            .frame(height: 1)
-                            .overlay(Color.napzakGrayScale(.gray200))
-                        
-                        VStack(spacing: 0) {
-                           profileSection
-                           menuSection
-                           Spacer()
-                        }
+                        profileSection
+                        menuSection
+                        Spacer()
                     }
                 }
             }
-            .background(Color.clear)
-            .navigationBarHidden(true)
-            .onAppear {
-                getMyPageInfo()
-            }
-            .navigationDestination(isPresented: $marketViewIsPresented) {
-                MarketView(storeId: myPageInfo?.storeId ?? Int(), marketViewIsPresented: $marketViewIsPresented)
-            }
-
+        }
+        .background(Color.clear)
+        .navigationBarHidden(true)
+        .onAppear {
+            getMyPageInfo()
+        }
+        .navigationDestination(isPresented: $marketViewIsPresented) {
+            MarketView(storeId: myPageInfo?.storeId ?? Int(), marketViewIsPresented: $marketViewIsPresented)
         }
     }
     
@@ -73,7 +70,7 @@ struct MyPageView: View {
             .frame(height: 342)
             .edgesIgnoringSafeArea(.horizontal)
     }
-        
+    
     private var profileSection: some View {
         VStack(alignment: .leading, spacing: 20) {
             HStack {
@@ -111,7 +108,7 @@ struct MyPageView: View {
         .padding(.top,20)
         .padding(.horizontal, 20)
     }
-        
+    
     private var marketButton: some View {
         Button {
             marketViewIsPresented = true

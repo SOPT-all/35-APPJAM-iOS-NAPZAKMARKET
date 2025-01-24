@@ -77,105 +77,103 @@ struct SearchView: View {
     //MARK: - Main Body
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                Color.napzakGrayScale(.white)
-                GeometryReader { geometry in
-                    VStack(spacing: 0) {
-                        searchButton
-                        NZSegmentedControl(
-                            selectedIndex: $selectedTabIndex,
-                            tabs: ["팔아요", "구해요"],
-                            spacing: 15
+        ZStack {
+            Color.napzakGrayScale(.white)
+            GeometryReader { geometry in
+                VStack(spacing: 0) {
+                    searchButton
+                    NZSegmentedControl(
+                        selectedIndex: $selectedTabIndex,
+                        tabs: ["팔아요", "구해요"],
+                        spacing: 15
+                    )
+                    filterButtons
+                    productScrollView
+                }
+                .ignoresSafeArea(edges: [.horizontal, .bottom])
+                .frame(width: geometry.size.width, height: geometry.size.height)
+                
+                ZStack(alignment: .bottom) {
+                    if sortModalViewIsPresented {
+                        Color.napzakTransparency(.black70)
+                            .onTapGesture {
+                                sortModalViewIsPresented = false
+                            }
+                        SortModalView(
+                            sortModalViewIsPresented: $sortModalViewIsPresented,
+                            selectedSortOption: $productFetchOption.sortOption
                         )
-                        filterButtons
-                        productScrollView
-                    }
-                    .ignoresSafeArea(edges: [.horizontal, .bottom])
-                    .frame(width: geometry.size.width, height: geometry.size.height)
-
-                    ZStack(alignment: .bottom) {
-                        if sortModalViewIsPresented {
-                            Color.napzakTransparency(.black70)
-                                .onTapGesture {
-                                    sortModalViewIsPresented = false
-                                }
-                            SortModalView(
-                                sortModalViewIsPresented: $sortModalViewIsPresented,
-                                selectedSortOption: $productFetchOption.sortOption
-                            )
-                        } else if filterModalViewIsPresented {
-                            Color.napzakTransparency(.black70)
-                                .onTapGesture {
-                                    filterModalViewIsPresented = false
-                                }
-                            GenreFilterModalView(
-                                adaptedGenres: $adaptedGenres,
-                                filterModalViewIsPresented: $filterModalViewIsPresented
-                            )
-                        }
-                    }
-                    .ignoresSafeArea(.all)
-                    .animation(.interactiveSpring(), value: sortModalViewIsPresented)
-                    .animation(.interactiveSpring(), value: filterModalViewIsPresented)
-                    .onChange(of: sortModalViewIsPresented) { _ in
-                        if sortModalViewIsPresented == false {
-                            tabBarState.isTabBarHidden = false
-                        }
-                    }
-                    .onChange(of: filterModalViewIsPresented) { _ in
-                        if filterModalViewIsPresented == false {
-                            tabBarState.isTabBarHidden = false
-                        }
+                    } else if filterModalViewIsPresented {
+                        Color.napzakTransparency(.black70)
+                            .onTapGesture {
+                                filterModalViewIsPresented = false
+                            }
+                        GenreFilterModalView(
+                            adaptedGenres: $adaptedGenres,
+                            filterModalViewIsPresented: $filterModalViewIsPresented
+                        )
                     }
                 }
-                .ignoresSafeArea(.keyboard)
-            }
-            .onAppear() {
-                if onAppearState {
-                    Task {
-                        if searchResultText.isEmpty {
-                            await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
-                            await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
-                        } else {
-                            await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
-                            await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
-                        }
+                .ignoresSafeArea(.all)
+                .animation(.interactiveSpring(), value: sortModalViewIsPresented)
+                .animation(.interactiveSpring(), value: filterModalViewIsPresented)
+                .onChange(of: sortModalViewIsPresented) { _ in
+                    if sortModalViewIsPresented == false {
+                        tabBarState.isTabBarHidden = false
                     }
-                    onAppearState = false
+                }
+                .onChange(of: filterModalViewIsPresented) { _ in
+                    if filterModalViewIsPresented == false {
+                        tabBarState.isTabBarHidden = false
+                    }
                 }
             }
-            .onChange(of: appState.isProductRegistered) { _ in
+            .ignoresSafeArea(.keyboard)
+        }
+        .onAppear() {
+            if onAppearState {
                 Task {
-                    await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
-                    await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
-                }
-            }
-            .onChange(of: isInterestChangedInSell) { _ in
-                Task {
-                    await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
-                }
-            }
-            .onChange(of: isInterestChangedInBuy) { _ in
-                Task {
-                    await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
-                }
-            }
-            .onChange(of: adaptedGenres) { _ in
-                productFetchOption.genreIDs = adaptedGenres.map { $0.id }
-            }
-            .gesture(
-                DragGesture()
-                    .onEnded { value in
-                        if value.translation.width > 100 {
-                            dismiss()
-                        }
+                    if searchResultText.isEmpty {
+                        await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+                        await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
+                    } else {
+                        await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
+                        await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
                     }
-            )
-            .navigationBarHidden(true)
-            .navigationDestination(isPresented: $searchInputViewIsPresented) {
-                SearchInputView()
+                }
+                onAppearState = false
             }
+        }
+        .onChange(of: appState.isProductRegistered) { _ in
+            Task {
+                await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+                await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
+            }
+        }
+        .onChange(of: isInterestChangedInSell) { _ in
+            Task {
+                await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+            }
+        }
+        .onChange(of: isInterestChangedInBuy) { _ in
+            Task {
+                await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
+            }
+        }
+        .onChange(of: adaptedGenres) { _ in
+            productFetchOption.genreIDs = adaptedGenres.map { $0.id }
+        }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 100 {
+                        dismiss()
+                    }
+                }
+        )
+        .navigationBarHidden(true)
+        .navigationDestination(isPresented: $searchInputViewIsPresented) {
+            SearchInputView()
         }
     }
 }

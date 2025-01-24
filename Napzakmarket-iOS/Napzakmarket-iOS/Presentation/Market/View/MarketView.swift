@@ -11,7 +11,7 @@ import Kingfisher
 
 struct MarketView: View {
     @Environment(\.dismiss) private var dismiss
-
+    
     @EnvironmentObject private var tabBarState: TabBarStateModel
     
     let storeId: Int
@@ -44,90 +44,88 @@ struct MarketView: View {
     // MARK: - Views
     
     var body: some View {
-        NavigationStack {
-            ZStack {
-                VStack(spacing: 0) {
-                    navigationSection
-                    profileSection
-                    
-                    NZSegmentedControl(
-                        selectedIndex: $selectedIndex,
-                        tabs: ["팔아요", "구해요", "후기"],
-                        spacing: 15
-                    )
-                    .padding(.top, 20)
-                    
-                    if selectedIndex == 2 {
-                        ReadyComponent()
-                            .navigationBarHidden(true)
-                    } else {
-                        filterButtons
-                        productScrollView
-                    }
-                }
-                .background(Color(.white))
+        ZStack {
+            VStack(spacing: 0) {
+                navigationSection
+                profileSection
                 
-                ZStack(alignment: .bottom) {
-                    if sortModalViewIsPresented {
-                        Color.napzakTransparency(.black70)
-                            .onTapGesture {
-                                sortModalViewIsPresented = false
-                            }
-                        
-                        SortModalView(
-                            sortModalViewIsPresented: $sortModalViewIsPresented,
-                            selectedSortOption: $productFetchOption.sortOption
-                        )
-                    } else if filterModalViewIsPresented {
-                        Color.napzakTransparency(.black70)
-                            .onTapGesture {
-                                filterModalViewIsPresented = false
-                            }
-                        
-                        GenreFilterModalView(
-                            adaptedGenres: $adaptedGenres,
-                            filterModalViewIsPresented: $filterModalViewIsPresented
-                        )
-                    }
-                }
-                .ignoresSafeArea(.all)
-                .animation(.interactiveSpring(), value: sortModalViewIsPresented)
-                .animation(.interactiveSpring(), value: filterModalViewIsPresented)
-                .onChange(of: sortModalViewIsPresented) { _ in
-                    if sortModalViewIsPresented == false {
-                        tabBarState.isTabBarHidden = false
-                    }
-                }
-                .onChange(of: filterModalViewIsPresented) { _ in
-                    if filterModalViewIsPresented == false {
-                        tabBarState.isTabBarHidden = false
-                    }
+                NZSegmentedControl(
+                    selectedIndex: $selectedIndex,
+                    tabs: ["팔아요", "구해요", "후기"],
+                    spacing: 15
+                )
+                .padding(.top, 20)
+                
+                if selectedIndex == 2 {
+                    ReadyComponent()
+                        .navigationBarHidden(true)
+                } else {
+                    filterButtons
+                    productScrollView
                 }
             }
             .background(Color(.white))
-            .navigationBarHidden(true)
-            .onAppear {
-                getStoreInfo()
-                tabBarState.isTabBarHidden = true
-                
-                Task {
-                    await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
-                    await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
+            
+            ZStack(alignment: .bottom) {
+                if sortModalViewIsPresented {
+                    Color.napzakTransparency(.black70)
+                        .onTapGesture {
+                            sortModalViewIsPresented = false
+                        }
+                    
+                    SortModalView(
+                        sortModalViewIsPresented: $sortModalViewIsPresented,
+                        selectedSortOption: $productFetchOption.sortOption
+                    )
+                } else if filterModalViewIsPresented {
+                    Color.napzakTransparency(.black70)
+                        .onTapGesture {
+                            filterModalViewIsPresented = false
+                        }
+                    
+                    GenreFilterModalView(
+                        adaptedGenres: $adaptedGenres,
+                        filterModalViewIsPresented: $filterModalViewIsPresented
+                    )
                 }
             }
-            .onChange(of: adaptedGenres) { _ in
-                productFetchOption.genreIDs = adaptedGenres.map { $0.id }
+            .ignoresSafeArea(.all)
+            .animation(.interactiveSpring(), value: sortModalViewIsPresented)
+            .animation(.interactiveSpring(), value: filterModalViewIsPresented)
+            .onChange(of: sortModalViewIsPresented) { _ in
+                if sortModalViewIsPresented == false {
+                    tabBarState.isTabBarHidden = false
+                }
             }
-            .gesture(
-                DragGesture()
-                    .onEnded { value in
-                        if value.translation.width > 100 {
-                            marketViewIsPresented = false
-                            tabBarState.isTabBarHidden = false
-                        }
-                    }
-            )
+            .onChange(of: filterModalViewIsPresented) { _ in
+                if filterModalViewIsPresented == false {
+                    tabBarState.isTabBarHidden = false
+                }
+            }
         }
+        .background(Color(.white))
+        .navigationBarHidden(true)
+        .onAppear {
+            getStoreInfo()
+            tabBarState.isTabBarHidden = true
+            
+            Task {
+                await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
+                await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
+            }
+        }
+        .onChange(of: adaptedGenres) { _ in
+            productFetchOption.genreIDs = adaptedGenres.map { $0.id }
+        }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 100 {
+                        marketViewIsPresented = false
+                        tabBarState.isTabBarHidden = false
+                    }
+                }
+        )
     }
     
     // MARK: - Private Views
