@@ -70,6 +70,7 @@ struct ProductDetailView: View {
                 .onEnded { value in
                     if value.translation.width > 100 {
                         dismiss()
+                        dismiss()
                         tabBarState.isTabBarHidden = false
                     }
                 }
@@ -84,6 +85,7 @@ extension ProductDetailView {
     private var navigationBar: some View {
         HStack {
             Button {
+                dismiss()
                 dismiss()
                 tabBarState.isTabBarHidden = false
             } label: {
@@ -235,7 +237,7 @@ extension ProductDetailView {
                 .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                 .foregroundStyle(Color.napzakGrayScale(.gray800))
             Spacer()
-            if ((product?.productDetail.isDeliveryIncluded) != nil) {
+            if ((product?.productDetail.isDeliveryIncluded) == true) {
                 Text("포함")
                     .font(.napzakFont(.body2SemiBold16))
                     .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)

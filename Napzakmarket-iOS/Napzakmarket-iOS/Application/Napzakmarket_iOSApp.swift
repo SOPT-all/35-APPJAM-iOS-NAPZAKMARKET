@@ -13,6 +13,7 @@ struct Napzakmarket_iOSApp: App {
     // MARK: - Properties
     
     @StateObject private var appState = AppState()
+    @StateObject private var tabBarState = TabBarStateModel()
     
     // MARK: - Main Body
     
@@ -20,6 +21,7 @@ struct Napzakmarket_iOSApp: App {
         WindowGroup {
             AppEntryView()
                 .environmentObject(appState)
+                .environmentObject(tabBarState)
         }
     }
     
