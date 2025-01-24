@@ -46,7 +46,9 @@ extension ProductItemView {
                         print("failure: \(error.localizedDescription)")
                     }
                     .resizable()
+                    .scaledToFill()
                     .frame(width: width, height: width)
+                    .clipped()
             } else {
                 Rectangle()
                     .fill(Color.napzakGrayScale(.gray300))

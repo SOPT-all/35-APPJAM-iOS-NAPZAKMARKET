@@ -11,6 +11,7 @@ import Kingfisher
 
 struct MyPageView: View {
     @State private var myPageInfo: MyPageInfoData?
+    @State private var marketViewIsPresented = false
     
     var body: some View {
         NavigationStack {
@@ -38,6 +39,10 @@ struct MyPageView: View {
             .onAppear {
                 getMyPageInfo()
             }
+            .navigationDestination(isPresented: $marketViewIsPresented) {
+                MarketView(storeId: myPageInfo?.storeId ?? Int(), marketViewIsPresented: $marketViewIsPresented)
+            }
+
         }
     }
     
@@ -84,15 +89,9 @@ struct MyPageView: View {
                         .scaledToFit()
                         .frame(width: 60, height: 60)
                         .clipShape(Circle())
-                } else {
-                    Image("img_profile_md")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 60, height: 60)
-                        .clipShape(Circle())
                 }
                 
-                Text(myPageInfo?.storeNickName ?? "사용자" + "님")
+                Text("\(myPageInfo?.storeNickName ?? "")님")
                     .font(.napzakFont(.title2Bold20))
                     .applyNapzakTextStyle(napzakFontStyle: .title2Bold20)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
@@ -114,7 +113,9 @@ struct MyPageView: View {
     }
         
     private var marketButton: some View {
-        NavigationLink(destination: MarketView(storeId: myPageInfo?.storeId ?? 0)) {
+        Button {
+            marketViewIsPresented = true
+        } label: {
             Text("내 마켓 보기")
                 .font(.napzakFont(.body1Bold16))
                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)

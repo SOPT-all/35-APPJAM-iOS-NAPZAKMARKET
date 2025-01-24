@@ -204,11 +204,11 @@ extension HomeView {
                                 (index == (currentPage - 1) % banneres.count) ? Color.napzakPurple(.purple30) : Color.napzakGrayScale(.gray400)
                             )
                             .frame(width: 7, height: 7)
-                            .onTapGesture {
-                                withAnimation(.easeInOut) {
-                                    currentPage = index
-                                }
-                            }
+//                            .onTapGesture {
+//                                withAnimation(.easeInOut) {
+//                                    currentPage = index
+//                                }
+//                            }
                     }
                 }
                 

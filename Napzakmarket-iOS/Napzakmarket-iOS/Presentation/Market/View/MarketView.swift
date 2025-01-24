@@ -33,16 +33,13 @@ struct MarketView: View {
     //화면 전환
     @State var sortModalViewIsPresented = false
     @State var filterModalViewIsPresented = false
+    @Binding var marketViewIsPresented: Bool
     
     private let width = (UIScreen.main.bounds.width - 55) / 2
     private let columns = [
         GridItem(.flexible(), spacing: 15),
         GridItem(.flexible())
     ]
-    
-    init(storeId: Int) {
-        self.storeId = storeId
-    }
     
     // MARK: - Views
     
@@ -125,7 +122,7 @@ struct MarketView: View {
                 DragGesture()
                     .onEnded { value in
                         if value.translation.width > 100 {
-                            dismiss()
+                            marketViewIsPresented = false
                             tabBarState.isTabBarHidden = false
                         }
                     }
@@ -151,7 +148,7 @@ struct MarketView: View {
             
             HStack {
                 Button(action: {
-                    dismiss()
+                    marketViewIsPresented = false
                     tabBarState.isTabBarHidden = false
                 }) {
                     Image(systemName: "chevron.backward")
