@@ -34,6 +34,10 @@ struct MarketView: View {
     @State var sortModalViewIsPresented = false
     @State var filterModalViewIsPresented = false
     
+    //좋아요
+    @State var isInterestChangedInSell: Bool? = false
+    @State var isInterestChangedInBuy: Bool? = false
+    
     private let width = (UIScreen.main.bounds.width - 55) / 2
     private let columns = [
         GridItem(.flexible(), spacing: 15),
@@ -114,6 +118,16 @@ struct MarketView: View {
             Task {
                 await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
                 await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
+            }
+        }
+        .onChange(of: isInterestChangedInSell) { _ in
+            Task {
+                await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
+            }
+        }
+        .onChange(of: isInterestChangedInBuy) { _ in
+            Task {
+                await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
             }
         }
         .onChange(of: adaptedGenres) { _ in
@@ -304,7 +318,7 @@ struct MarketView: View {
                     LazyVGrid(columns: columns, spacing: 20) {
                         if selectedIndex == 0 {
                             ForEach(productModel.sellProducts) { product in
-                                NavigationLink(destination: ProductDetailView(isChangedInterest: .constant(nil), productId: product.id)) {
+                                NavigationLink(destination: ProductDetailView(isChangedInterest: $isInterestChangedInSell, productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width
@@ -315,7 +329,7 @@ struct MarketView: View {
                         }
                         else if selectedIndex == 1 {
                             ForEach(productModel.buyProducts) { product in
-                                NavigationLink(destination: ProductDetailView(isChangedInterest: .constant(nil), productId: product.id)) {
+                                NavigationLink(destination: ProductDetailView(isChangedInterest: $isInterestChangedInBuy, productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width
