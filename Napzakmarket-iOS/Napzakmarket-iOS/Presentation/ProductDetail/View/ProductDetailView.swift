@@ -15,10 +15,12 @@ struct ProductDetailView: View {
     
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
+    @EnvironmentObject var appState: AppState
     
     @StateObject var product = ProductDetailModel()
     
     @State private var currentPage = 0
+    @State private var dismissingTwice = false
     @State var marketViewIsPresented = false
     @State var showToast = false
     
@@ -67,8 +69,12 @@ struct ProductDetailView: View {
         }
         .navigationBarHidden(true)
         .ignoresSafeArea(edges: [.bottom])
-        .navigationDestination(isPresented: $marketViewIsPresented) {
-            MarketView(storeId: product.storeInfo?.userId ?? Int(), marketViewIsPresented: $marketViewIsPresented)
+        .fullScreenCover(isPresented: $marketViewIsPresented) {
+            MarketView(storeId: product.storeInfo?.userId ?? Int())
+                .presentationDragIndicator(.hidden)
+        }
+        .transaction { transaction in
+            transaction.disablesAnimations = true
         }
         .onAppear {
             tabBarState.isTabBarHidden = true
@@ -76,11 +82,17 @@ struct ProductDetailView: View {
                 await product.getProductDetail(productId: productId)
             }
         }
+        .onChange(of: appState.isProductRegistered) { _ in
+            dismissingTwice = true
+        }
         .gesture(
             DragGesture()
                 .onEnded { value in
                     if value.translation.width > 100 {
-                        dismiss()
+                        if dismissingTwice {
+                            dismiss()
+                            dismissingTwice = false
+                        }
                         dismiss()
                         tabBarState.isTabBarHidden = false
                     }
@@ -96,7 +108,10 @@ extension ProductDetailView {
     private var navigationBar: some View {
         HStack {
             Button {
-                dismiss()
+                if dismissingTwice {
+                    dismiss()
+                    dismissingTwice = false
+                }
                 dismiss()
                 tabBarState.isTabBarHidden = false
             } label: {
@@ -333,9 +348,7 @@ extension ProductDetailView {
             }
             .background(Color.napzakGrayScale(.white))
             .onTapGesture {
-                if product.productDetail?.isOwnedByCurrentUser == false {
-                    marketViewIsPresented = true
-                }
+                marketViewIsPresented = true
             }
         }
         .padding(.top, 31)

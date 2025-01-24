@@ -39,7 +39,7 @@ struct MyPageView: View {
             getMyPageInfo()
         }
         .navigationDestination(isPresented: $marketViewIsPresented) {
-            MarketView(storeId: myPageInfo?.storeId ?? Int(), marketViewIsPresented: $marketViewIsPresented)
+            MarketView(storeId: myPageInfo?.storeId ?? Int())
         }
     }
     

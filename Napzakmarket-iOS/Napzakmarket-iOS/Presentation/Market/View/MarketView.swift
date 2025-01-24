@@ -10,8 +10,8 @@ import SwiftUI
 import Kingfisher
 
 struct MarketView: View {
-    @Environment(\.dismiss) private var dismiss
     
+    @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
     
     let storeId: Int
@@ -33,7 +33,6 @@ struct MarketView: View {
     //화면 전환
     @State var sortModalViewIsPresented = false
     @State var filterModalViewIsPresented = false
-    @Binding var marketViewIsPresented: Bool
     
     private let width = (UIScreen.main.bounds.width - 55) / 2
     private let columns = [
@@ -44,68 +43,70 @@ struct MarketView: View {
     // MARK: - Views
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
-                navigationSection
-                profileSection
+        NavigationStack {
+            ZStack {
+                VStack(spacing: 0) {
+                    navigationSection
+                    profileSection
+                    
+                    NZSegmentedControl(
+                        selectedIndex: $selectedIndex,
+                        tabs: ["팔아요", "구해요", "후기"],
+                        spacing: 15
+                    )
+                    .frame(height: 48)
+                    .padding(.top, 20)
+                    
+                    if selectedIndex == 2 {
+                        ReadyComponent()
+                            .navigationBarHidden(true)
+                    } else {
+                        filterButtons
+                        productScrollView
+                    }
+                }
+                .background(Color(.white))
                 
-                NZSegmentedControl(
-                    selectedIndex: $selectedIndex,
-                    tabs: ["팔아요", "구해요", "후기"],
-                    spacing: 15
-                )
-                .frame(height: 48)
-                .padding(.top, 20)
-                
-                if selectedIndex == 2 {
-                    ReadyComponent()
-                        .navigationBarHidden(true)
-                } else {
-                    filterButtons
-                    productScrollView
+                ZStack(alignment: .bottom) {
+                    if sortModalViewIsPresented {
+                        Color.napzakTransparency(.black70)
+                            .onTapGesture {
+                                sortModalViewIsPresented = false
+                            }
+                        
+                        SortModalView(
+                            sortModalViewIsPresented: $sortModalViewIsPresented,
+                            selectedSortOption: $productFetchOption.sortOption
+                        )
+                    } else if filterModalViewIsPresented {
+                        Color.napzakTransparency(.black70)
+                            .onTapGesture {
+                                filterModalViewIsPresented = false
+                            }
+                        
+                        GenreFilterModalView(
+                            adaptedGenres: $adaptedGenres,
+                            filterModalViewIsPresented: $filterModalViewIsPresented
+                        )
+                    }
+                }
+                .ignoresSafeArea(.all)
+                .animation(.interactiveSpring(), value: sortModalViewIsPresented)
+                .animation(.interactiveSpring(), value: filterModalViewIsPresented)
+                .onChange(of: sortModalViewIsPresented) { _ in
+                    if sortModalViewIsPresented == false {
+                        tabBarState.isTabBarHidden = false
+                    }
+                }
+                .onChange(of: filterModalViewIsPresented) { _ in
+                    if filterModalViewIsPresented == false {
+                        tabBarState.isTabBarHidden = false
+                    }
                 }
             }
             .background(Color(.white))
-            
-            ZStack(alignment: .bottom) {
-                if sortModalViewIsPresented {
-                    Color.napzakTransparency(.black70)
-                        .onTapGesture {
-                            sortModalViewIsPresented = false
-                        }
-                    
-                    SortModalView(
-                        sortModalViewIsPresented: $sortModalViewIsPresented,
-                        selectedSortOption: $productFetchOption.sortOption
-                    )
-                } else if filterModalViewIsPresented {
-                    Color.napzakTransparency(.black70)
-                        .onTapGesture {
-                            filterModalViewIsPresented = false
-                        }
-                    
-                    GenreFilterModalView(
-                        adaptedGenres: $adaptedGenres,
-                        filterModalViewIsPresented: $filterModalViewIsPresented
-                    )
-                }
-            }
-            .ignoresSafeArea(.all)
-            .animation(.interactiveSpring(), value: sortModalViewIsPresented)
-            .animation(.interactiveSpring(), value: filterModalViewIsPresented)
-            .onChange(of: sortModalViewIsPresented) { _ in
-                if sortModalViewIsPresented == false {
-                    tabBarState.isTabBarHidden = false
-                }
-            }
-            .onChange(of: filterModalViewIsPresented) { _ in
-                if filterModalViewIsPresented == false {
-                    tabBarState.isTabBarHidden = false
-                }
-            }
+            .navigationBarHidden(true)
         }
-        .background(Color(.white))
-        .navigationBarHidden(true)
         .onAppear {
             getStoreInfo()
             tabBarState.isTabBarHidden = true
@@ -122,7 +123,7 @@ struct MarketView: View {
             DragGesture()
                 .onEnded { value in
                     if value.translation.width > 100 {
-                        marketViewIsPresented = false
+                        dismiss()
                         tabBarState.isTabBarHidden = false
                     }
                 }
@@ -147,7 +148,7 @@ struct MarketView: View {
             
             HStack {
                 Button(action: {
-                    marketViewIsPresented = false
+                    dismiss()
                     tabBarState.isTabBarHidden = false
                 }) {
                     Image(systemName: "chevron.backward")
