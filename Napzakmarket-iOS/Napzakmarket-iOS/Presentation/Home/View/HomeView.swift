@@ -72,7 +72,7 @@ struct HomeView: View {
                             .padding(.trailing, 20)
                             
                             CommonTitleView(
-                                title: "다른 유저들은 뭐 찾고 있을까요?",
+                                title: "다른 유저들은 뭘 찾고 있을까요?",
                                 subTitle: "덕심 가득한 리스트에서 취향을 나눠보세요.",
                                 alignment: .left
                             )
