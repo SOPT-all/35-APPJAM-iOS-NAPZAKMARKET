@@ -33,6 +33,7 @@ struct SearchView: View {
     
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
+    @EnvironmentObject private var appState: AppState
     
     //상품 모델
     @StateObject private var productSearchModel = ProductSearchModel()
@@ -136,6 +137,12 @@ struct SearchView: View {
                         await productSearchModel.getSellProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
                         await productSearchModel.getBuyProductsForSearch(searchWord: searchResultText, productFetchOption: productFetchOption)
                     }
+                }
+            }
+            .onChange(of: appState.isProductRegistered) { _ in
+                Task {
+                    await productSearchModel.getSellProducts(productFetchOption: productFetchOption)
+                    await productSearchModel.getBuyProducts(productFetchOption: productFetchOption)
                 }
             }
             .onChange(of: isInterestChangedInSell) { _ in

@@ -18,7 +18,8 @@ class AppState: ObservableObject {
     // MARK: - Properties
     
     @Published private(set) var currentScreen: AppScreen = .splash
-    
+    @Published var isProductRegistered: Bool = false
+
     // TODO: - 추후에 앱 전역으로 사용되는 로그인 정보 (장르선택했는가?)에 따라 온보딩일지, 탭바뷰일지 나타낸다.
     
     func moveToSplash() {

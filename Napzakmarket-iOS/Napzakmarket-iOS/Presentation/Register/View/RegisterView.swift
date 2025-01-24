@@ -23,7 +23,8 @@ struct RegisterView: View {
     @Environment(\.dismiss) private var dismiss
     @StateObject var registerModel: RegisterModel = RegisterModel()
     @EnvironmentObject private var tabBarState: TabBarStateModel
-    
+    @EnvironmentObject private var appState: AppState
+
     var registerType: RegisterType
     
     @State private var isLoading: Bool = false
@@ -53,6 +54,9 @@ struct RegisterView: View {
                         .cornerRadius(12)
                         .shadow(radius: 10)
                 }
+            }
+            .onChange(of: registerModel.completeUploading) { _ in
+                appState.isProductRegistered.toggle()
             }
             .navigationDestination(isPresented: $registerModel.completeUploading) {
                 ProductDetailView(isChangedInterest: .constant(nil), productId: registerModel.productId ?? 1)
