@@ -186,7 +186,8 @@ struct MarketView: View {
                 HStack(spacing: 6) {
                     ForEach(storeInfo.genrePreferences, id: \.id) { genre in
                         Text(genre.genreName)
-                            .font(.system(size: 12))
+                            .font(.napzakFont(.caption3Medium12))
+                            .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
                             .foregroundColor(Color.napzakGrayScale(.gray800))
                             .padding(.horizontal, 8)
                             .padding(.vertical, 4)
