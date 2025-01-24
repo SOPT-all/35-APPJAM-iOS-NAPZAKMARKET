@@ -96,7 +96,6 @@ struct SearchView: View {
                                 .onTapGesture {
                                     sortModalViewIsPresented = false
                                 }
-                            
                             SortModalView(
                                 sortModalViewIsPresented: $sortModalViewIsPresented,
                                 selectedSortOption: $productFetchOption.sortOption
@@ -106,7 +105,6 @@ struct SearchView: View {
                                 .onTapGesture {
                                     filterModalViewIsPresented = false
                                 }
-                            
                             GenreFilterModalView(
                                 adaptedGenres: $adaptedGenres,
                                 filterModalViewIsPresented: $filterModalViewIsPresented

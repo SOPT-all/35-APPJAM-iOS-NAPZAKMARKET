@@ -55,7 +55,7 @@ struct RegisterView: View {
                 }
             }
             .navigationDestination(isPresented: $registerModel.completeUploading) {
-                ProductDetailView(productId: registerModel.productId ?? 1)
+                ProductDetailView(isChangedInterest: .constant(nil), productId: registerModel.productId ?? 1)
             }
         }
         .scrollIndicators(.hidden)
