@@ -167,7 +167,7 @@ struct SearchView: View {
         .gesture(
             DragGesture()
                 .onEnded { value in
-                    if value.translation.width > 100 {
+                    if value.translation.width > 60 {
                         dismiss()
                     }
                 }
