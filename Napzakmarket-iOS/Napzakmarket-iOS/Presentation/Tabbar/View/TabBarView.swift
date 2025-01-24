@@ -11,33 +11,36 @@ struct TabBarView: View {
     
     // MARK: - Properties
     
+    @EnvironmentObject private var tabBarState: TabBarStateModel
     @State private var selectedTab: Int = 0
     @State private var isRegisterTabActive: Bool = false
     @State private var lastSelectedTab: Int = 0
     @State private var isBottomSheetVisible = false
-    @State private var isTabBarHidden: Bool = false
     @State private var modalRegister = false
     @State var registerType: RegisterType? = nil
-
+    
     private let tabs: [TabItem] = TabItem.getDefaultTabs()
     
     // MARK: - Body
     
     var body: some View {
-        ZStack {
-            mainContent
-            if !isTabBarHidden {
-                tabBarStack
+        NavigationStack{
+            ZStack {
+                mainContent
+                
+                if !tabBarState.isTabBarHidden {
+                    tabBarStack
+                }
+                if isBottomSheetVisible {
+                    bottomSheetOverlay
+                    bottomSheetContent
+                }
             }
-            if isBottomSheetVisible {
-                bottomSheetOverlay
-                bottomSheetContent
-            }
-        }
-        .edgesIgnoringSafeArea(.bottom)
-        .fullScreenCover(isPresented: $modalRegister) {
-            if let registerType = registerType {
-                RegisterView(registerType: registerType)
+            .edgesIgnoringSafeArea(.bottom)
+            .fullScreenCover(isPresented: $modalRegister) {
+                if let registerType = registerType {
+                    RegisterView(registerType: registerType)
+                }
             }
         }
     }
@@ -45,11 +48,11 @@ struct TabBarView: View {
     private var mainContent: some View {
         tabs[selectedTab].view
             .safeAreaInset(edge: .bottom) {
-                if !isTabBarHidden {
+                if !tabBarState.isTabBarHidden {
                     Color.clear.frame(height: 90)
                 }
             }
-            .environmentObject(TabBarStateModel(isTabBarHidden: $isTabBarHidden))
+            
     }
     
     private var tabBarStack: some View {

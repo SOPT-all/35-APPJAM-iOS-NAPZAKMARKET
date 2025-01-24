@@ -82,11 +82,12 @@ extension RegisterImage {
                 
                 HStack(spacing: 0) {
                     Text(selectedImages.count.description)
+                        .foregroundStyle(selectedImages.count != 0 ? Color.napzakGrayScale(.gray900) : Color.napzakGrayScale(.gray500))
                     Text("/10")
+                        .foregroundStyle(Color.napzakGrayScale(.gray500))
                 }
                 .font(.napzakFont(.caption3Medium12))
                 .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                .foregroundStyle(Color.napzakGrayScale(.gray500))
             }
             .frame(width: 80, height: 80)
             .background(Color.napzakGrayScale(.gray100))
@@ -184,6 +185,7 @@ extension RegisterImage {
     
     private func moveImageToFront(at index: Int) {
         let movedImage = selectedImages.remove(at: index)
+        imageNameList.remove(at: index)
         selectedImages.insert(movedImage, at: 0)
         imageNameList.insert(UUID().uuidString, at: 0)
     }
