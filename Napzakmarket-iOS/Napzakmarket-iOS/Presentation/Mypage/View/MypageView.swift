@@ -11,6 +11,7 @@ import Kingfisher
 
 struct MyPageView: View {
     @State private var myPageInfo: MyPageInfoData?
+    @State private var marketViewIsPresented = false
     
     var body: some View {
         NavigationStack {
@@ -38,6 +39,10 @@ struct MyPageView: View {
             .onAppear {
                 getMyPageInfo()
             }
+            .navigationDestination(isPresented: $marketViewIsPresented) {
+                MarketView(storeId: myPageInfo?.storeId ?? Int(), marketViewIsPresented: $marketViewIsPresented)
+            }
+
         }
     }
     
@@ -114,7 +119,9 @@ struct MyPageView: View {
     }
         
     private var marketButton: some View {
-        NavigationLink(destination: MarketView(storeId: myPageInfo?.storeId ?? 0)) {
+        Button {
+            marketViewIsPresented = true
+        } label: {
             Text("내 마켓 보기")
                 .font(.napzakFont(.body1Bold16))
                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)

@@ -19,6 +19,7 @@ struct ProductDetailView: View {
     @StateObject var product = ProductDetailModel()
 
     @State private var currentPage = 0
+    @State var marketViewIsPresented = false
     @State var showToast = false
     
     @Binding var isChangedInterest: Bool?
@@ -33,39 +34,44 @@ struct ProductDetailView: View {
     //MARK: - Main Body
     
     var body: some View {
-        ZStack(alignment: .bottom) {
-            VStack(spacing: 0) {
-                navigationBar
-                ScrollView(showsIndicators: false) {
-                    VStack(alignment: .leading, spacing: 0) {
-                        productImagePageView
-                        productInfo
-                        divider
-                        productDescription
-                        if product.productDetail?.tradeType == .sell {
-                            productConditions
+        NavigationStack {
+            ZStack(alignment: .bottom) {
+                VStack(spacing: 0) {
+                    navigationBar
+                    ScrollView(showsIndicators: false) {
+                        VStack(alignment: .leading, spacing: 0) {
+                            productImagePageView
+                            productInfo
                             divider
-                            productDeliveryFee
+                            productDescription
+                            if product.productDetail?.tradeType == .sell {
+                                productConditions
+                                divider
+                                productDeliveryFee
+                            }
+                            Divider()
+                                .frame(height: 8)
+                                .overlay(Color.napzakGrayScale(.gray50))
+                            marketInfo
                         }
-                        Divider()
-                            .frame(height: 8)
-                            .overlay(Color.napzakGrayScale(.gray50))
-                        marketInfo
+                    }
+                    if showToast {
+                        toastView
+                            .transition(.move(edge: .bottom).combined(with: .opacity))
+                            .zIndex(1)
+                            .animation(.spring(), value: showToast)
                     }
                 }
-                if showToast {
-                    toastView
-                        .transition(.move(edge: .bottom).combined(with: .opacity))
-                        .zIndex(1)
-                        .animation(.spring(), value: showToast)
+                if !(product.productDetail?.isOwnedByCurrentUser ?? false) {
+                    bottomView
                 }
-            }
-            if !(product.productDetail?.isOwnedByCurrentUser ?? false) {
-                bottomView
             }
         }
         .navigationBarHidden(true)
         .ignoresSafeArea(edges: [.bottom])
+        .navigationDestination(isPresented: $marketViewIsPresented) {
+            MarketView(storeId: product.storeInfo?.userId ?? Int(), marketViewIsPresented: $marketViewIsPresented)
+        }
         .onAppear {
             tabBarState.isTabBarHidden = true
             Task {
@@ -290,41 +296,45 @@ extension ProductDetailView {
                 .font(.napzakFont(.body2SemiBold16))
                 .applyNapzakTextStyle(napzakFontStyle: .body2SemiBold16)
                 .foregroundStyle(Color.napzakGrayScale(.gray800))
-            NavigationLink(destination: MarketView(storeId: product.storeInfo?.userId ?? Int())){
-                HStack(alignment: .center) {
-                    Image(.imgProfileSm)
-                        .resizable()
-                        .frame(width: 50, height: 50)
-                    VStack(alignment: .leading) {
-                        Text("\(product.storeInfo?.nickname ?? "")")
-                            .font(.napzakFont(.body1Bold16))
-                            .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
-                            .foregroundStyle(Color.napzakGrayScale(.gray900))
-                        HStack(alignment: .center, spacing: 0) {
-                            Text("상품")
-                                .font(.napzakFont(.caption3Medium12))
-                                .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                                .foregroundStyle(Color.napzakGrayScale(.gray700))
-                                .padding(.trailing, 2)
-                            Text("\(product.storeInfo?.totalProducts ?? Int())개")
-                                .font(.napzakFont(.caption3Medium12))
-                                .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                                .foregroundStyle(Color.napzakPurple(.purple30))
-                            Circle()
-                                .fill(Color.napzakGrayScale(.gray700))
-                                .frame(width: 2, height: 2)
-                                .padding(.horizontal, 4)
-                            Text("거래내역")
-                                .font(.napzakFont(.caption3Medium12))
-                                .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                                .foregroundStyle(Color.napzakGrayScale(.gray700))
-                                .padding(.trailing, 2)
-                            Text("\(product.storeInfo?.totalTransactions ?? Int())건")
-                                .font(.napzakFont(.caption3Medium12))
-                                .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
-                                .foregroundStyle(Color.napzakPurple(.purple30))
-                        }
+            HStack(alignment: .center) {
+                Image(.imgProfileSm)
+                    .resizable()
+                    .frame(width: 50, height: 50)
+                VStack(alignment: .leading) {
+                    Text("\(product.storeInfo?.nickname ?? "")")
+                        .font(.napzakFont(.body1Bold16))
+                        .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                        .foregroundStyle(Color.napzakGrayScale(.gray900))
+                    HStack(alignment: .center, spacing: 0) {
+                        Text("상품")
+                            .font(.napzakFont(.caption3Medium12))
+                            .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                            .foregroundStyle(Color.napzakGrayScale(.gray700))
+                            .padding(.trailing, 2)
+                        Text("\(product.storeInfo?.totalProducts ?? Int())개")
+                            .font(.napzakFont(.caption3Medium12))
+                            .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                            .foregroundStyle(Color.napzakPurple(.purple30))
+                        Circle()
+                            .fill(Color.napzakGrayScale(.gray700))
+                            .frame(width: 2, height: 2)
+                            .padding(.horizontal, 4)
+                        Text("거래내역")
+                            .font(.napzakFont(.caption3Medium12))
+                            .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                            .foregroundStyle(Color.napzakGrayScale(.gray700))
+                            .padding(.trailing, 2)
+                        Text("\(product.storeInfo?.totalTransactions ?? Int())건")
+                            .font(.napzakFont(.caption3Medium12))
+                            .applyNapzakTextStyle(napzakFontStyle: .caption3Medium12)
+                            .foregroundStyle(Color.napzakPurple(.purple30))
                     }
+                }
+            }
+            .background(Color.napzakGrayScale(.white))
+            .onTapGesture {
+                if product.productDetail?.isOwnedByCurrentUser == false {
+                    marketViewIsPresented = true
                 }
             }
         }
