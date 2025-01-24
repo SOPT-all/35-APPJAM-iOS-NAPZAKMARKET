@@ -124,7 +124,9 @@ extension ProductDetailView {
                                 print("failure: \(error.localizedDescription)")
                             }
                             .resizable()
+                            .scaledToFill()
                             .frame(width: screenWidth, height: screenWidth)
+                            .clipped()
                     } else {
                         Rectangle()
                             .fill(Color.napzakGrayScale(.gray300))

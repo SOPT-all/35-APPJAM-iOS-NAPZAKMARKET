@@ -70,11 +70,6 @@ struct OnboardingView: View {
                     selectedGenres: $genreModel.selectedGenres
                 )
                 .animation(.easeInOut(duration: 0.3), value: genreModel.selectedGenres)
-                .onTapGesture {
-                    if isSearchBarFocused {
-                        isSearchBarFocused = false
-                    }
-                }
                 .padding(.top, 30)
                 .padding(.horizontal, 20)
                 
@@ -83,6 +78,12 @@ struct OnboardingView: View {
                     genreModel: genreModel,
                     selectedGenres: $genreModel.selectedGenres
                 )
+            }
+            .contentShape(Rectangle())
+            .onTapGesture {
+                if isSearchBarFocused {
+                    isSearchBarFocused = false
+                }
             }
         }
         .padding(.top, 40)
