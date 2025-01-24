@@ -102,7 +102,6 @@ struct MyPageView: View {
             marketButton
         }
         .padding(20)
-        .frame(width: 360)
         .background(Color.napzakGrayScale(.white))
         .clipShape(RoundedRectangle(cornerRadius: 12))
         .overlay(
@@ -110,7 +109,8 @@ struct MyPageView: View {
                 .inset(by: 0.5)
                 .stroke(Color.napzakGrayScale(.gray200), lineWidth: 1)
         )
-        .padding(.top, 20)
+        .padding(.top,20)
+        .padding(.horizontal, 20)
     }
         
     private var marketButton: some View {
