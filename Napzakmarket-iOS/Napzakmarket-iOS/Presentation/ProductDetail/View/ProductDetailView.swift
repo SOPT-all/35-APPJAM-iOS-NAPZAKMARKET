@@ -20,7 +20,6 @@ struct ProductDetailView: View {
     @StateObject var product = ProductDetailModel()
     
     @State private var currentPage = 0
-    @State private var dismissingTwice = false
     @State var marketViewIsPresented = false
     @State var showToast = false
     
@@ -82,18 +81,17 @@ struct ProductDetailView: View {
                 await product.getProductDetail(productId: productId)
             }
         }
-        .onChange(of: appState.isProductRegistered) { _ in
-            dismissingTwice = true
-        }
         .gesture(
             DragGesture()
                 .onEnded { value in
-                    if value.translation.width > 100 {
-                        if dismissingTwice {
+                    if value.translation.width > 60 {
+                        if appState.isProductRegistered {
+                            appState.isProductRegistered = false
                             dismiss()
-                            dismissingTwice = false
+                            dismiss()
+                        } else {
+                            dismiss()
                         }
-                        dismiss()
                         tabBarState.isTabBarHidden = false
                     }
                 }
@@ -108,11 +106,13 @@ extension ProductDetailView {
     private var navigationBar: some View {
         HStack {
             Button {
-                if dismissingTwice {
+                if appState.isProductRegistered {
+                    appState.isProductRegistered = false
                     dismiss()
-                    dismissingTwice = false
+                    dismiss()
+                } else {
+                    dismiss()
                 }
-                dismiss()
                 tabBarState.isTabBarHidden = false
             } label: {
                 Image(.icBack)

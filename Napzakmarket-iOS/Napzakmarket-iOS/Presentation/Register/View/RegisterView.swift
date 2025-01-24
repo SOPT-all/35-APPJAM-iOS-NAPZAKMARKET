@@ -55,7 +55,7 @@ struct RegisterView: View {
                 }
             }
             .onChange(of: registerModel.completeUploading) { _ in
-                appState.isProductRegistered.toggle()
+                appState.isProductRegistered = true
             }
             .navigationDestination(isPresented: $registerModel.completeUploading) {
                 ProductDetailView(isChangedInterest: .constant(nil), productId: registerModel.productId ?? 1)
