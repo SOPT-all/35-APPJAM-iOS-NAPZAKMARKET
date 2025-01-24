@@ -48,36 +48,37 @@ extension RegisterDeliveryCharge {
                 deliveryChargeFree = true
             } label: {
                 Text("포함")
-                    .frame(maxWidth: .infinity, minHeight: 40)
-                    .background(deliveryChargeFree ? .white : .clear)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .font(.napzakFont(.body5SemiBold14))
-                    .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                    .foregroundStyle(
-                        deliveryChargeFree ? Color
-                            .napzakGrayScale(.gray900) : Color
-                            .napzakGrayScale(.gray600)
-                    )
             }
+            .frame(maxWidth: .infinity, minHeight: 40)
+            .background(deliveryChargeFree ? .white : .clear)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .font(.napzakFont(.body5SemiBold14))
+            .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+            .foregroundStyle(
+                deliveryChargeFree ? Color
+                    .napzakGrayScale(.gray900) : Color
+                    .napzakGrayScale(.gray600)
+            )
             
             Button {
                 deliveryChargeFree = false
             } label: {
                 Text("별도")
-                    .frame(maxWidth: .infinity, minHeight: 40)
-                    .background(deliveryChargeFree ? .clear : .white)
-                    .clipShape(RoundedRectangle(cornerRadius: 12))
-                    .font(.napzakFont(.body5SemiBold14))
-                    .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
-                    .foregroundStyle(
-                        deliveryChargeFree ? Color
-                            .napzakGrayScale(.gray600) : Color
-                            .napzakGrayScale(.gray900)
-                    )
             }
+            .frame(maxWidth: .infinity, minHeight: 40)
+            .background(deliveryChargeFree ? .clear : .white)
+            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .font(.napzakFont(.body5SemiBold14))
+            .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
+            .foregroundStyle(
+                deliveryChargeFree ? Color
+                    .napzakGrayScale(.gray600) : Color
+                    .napzakGrayScale(.gray900)
+            )
             
         }
         .padding(3)
+        .padding(.horizontal, 1)
         .background(Color.napzakGrayScale(.gray100))
         .clipShape(RoundedRectangle(cornerRadius: 12))
     }
@@ -183,4 +184,8 @@ extension RegisterDeliveryCharge {
                 .stroke(Color.napzakGrayScale(.gray200), lineWidth: 1)
         }
     }
+}
+
+#Preview {
+    TabBarView()
 }
