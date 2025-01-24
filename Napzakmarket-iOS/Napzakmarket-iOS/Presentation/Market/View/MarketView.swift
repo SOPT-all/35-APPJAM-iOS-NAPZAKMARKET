@@ -151,9 +151,10 @@ struct MarketView: View {
                     dismiss()
                     tabBarState.isTabBarHidden = false
                 }) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(Color.napzakGrayScale(.gray900))
+                    Image(.icBack)
+                        .resizable()
                         .frame(width: 48, height: 48)
+                        .padding(.top, 4)
                 }
                 Spacer()
             }
