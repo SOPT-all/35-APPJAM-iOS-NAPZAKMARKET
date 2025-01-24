@@ -48,6 +48,14 @@ struct ReadyView: View {
             }
             ReadyComponent()
         }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 100 {
+                        dismiss()
+                    }
+                }
+        )
         .navigationBarHidden(true)
     }
 }
