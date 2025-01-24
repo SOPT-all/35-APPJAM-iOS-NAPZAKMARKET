@@ -6,13 +6,22 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct ChatView: View {
-    
     @EnvironmentObject private var tabBarState: TabBarStateModel
     @Environment(\.dismiss) private var dismiss
     @State private var messageText: String = ""
-    let isSelling: Bool // true for 팔아요, false for 구해요!
+    
+    @State private var chatInfo: ChatInfoData?
+    
+    let productId: Int
+    let productService: ProductServiceProtocol
+    
+    init(productId: Int, productService: ProductServiceProtocol = ProductService()) {
+        self.productId = productId
+        self.productService = productService
+    }
     
     var body: some View {
         VStack(spacing: 0) {
@@ -24,6 +33,7 @@ struct ChatView: View {
         .navigationBarHidden(true)
         .onAppear {
             tabBarState.isTabBarHidden = true
+            fetchChatInfo()
         }
         .gesture(
             DragGesture()
@@ -34,10 +44,22 @@ struct ChatView: View {
                 }
         )
     }
+    
+    private func fetchChatInfo() {
+        productService.getChatInfo(productId: productId) { result in
+            switch result {
+            case .success(let response):
+                DispatchQueue.main.async {
+                    chatInfo = response?.data
+                }
+            default:
+                break
+            }
+        }
+    }
 }
 
-// MARK: - 네비게이션바
-
+// MARK: - Navigation Bar
 private extension ChatView {
     var navigationBar: some View {
         VStack(spacing: 0) {
@@ -51,7 +73,7 @@ private extension ChatView {
                         .padding(.top, 4)
                 }
                 
-                Text("납작한 아요들")
+                Text(chatInfo?.nickname ?? "")
                     .font(.napzakFont(.title5SemiBold18))
                     .applyNapzakTextStyle(napzakFontStyle: .title5SemiBold18)
                     .foregroundColor(Color.napzakGrayScale(.gray900))
@@ -67,51 +89,66 @@ private extension ChatView {
     }
 }
 
-// MARK: - 상품정보
-
+// MARK: - Product Info
 private extension ChatView {
     var productInfoHeader: some View {
         VStack(spacing: 0) {
-            HStack(spacing: 14) {
-                RoundedRectangle(cornerRadius: 4)
-                    .fill(Color.napzakGrayScale(.gray300))
-                    .frame(width: 54, height: 54)
+            HStack {
+                if let url = URL(string: chatInfo?.firstPhoto ?? "") {
+                    KFImage(url)
+                        .placeholder {
+                            ProgressView()
+                                .frame(width: 54, height: 54)
+                        }
+                        .retry(maxCount: 3, interval: .seconds(1))
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 54, height: 54)
+                } else {
+                    Image(.imgProfileMd)
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 54, height: 54)
+                }
                 
                 VStack(alignment: .leading, spacing: 4) {
                     HStack {
-                        if !isSelling {
+                        switch chatInfo?.tradeType {
+                        case .buy:
                             Text("구해요")
                                 .font(.napzakFont(.body4Bold14))
                                 .applyNapzakTextStyle(napzakFontStyle: .body4Bold14)
                                 .foregroundColor(Color.napzakGrayScale(.gray900))
-                        }
-                        else {
+                            
+                        default:
                             Text("팔아요")
                                 .font(.napzakFont(.body4Bold14))
                                 .applyNapzakTextStyle(napzakFontStyle: .body4Bold14)
                                 .foregroundColor(Color.napzakPurple(.purple30))
                         }
-                        Text("꿈에 나올까 무서운 빼꼼인형 ㅜㅜ")
+                        
+                        Text(chatInfo?.title ?? "")
                             .font(.napzakFont(.body6Medium14))
                             .applyNapzakTextStyle(napzakFontStyle: .body6Medium14)
                             .foregroundColor(Color.napzakGrayScale(.gray900))
+                            .lineLimit(1)
                     }
                     
                     HStack(spacing: 4) {
-                        if !isSelling {
+                        switch chatInfo?.tradeType {
+                        case .buy:
                             Image("img_tag_price_sm")
                                 .frame(width: 51, height: 23)
-                            Text("333원")
+                            Text("\(chatInfo?.price ?? 0)원대")
+                                .font(.napzakFont(.body1Bold16))
+                                .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                                .foregroundColor(Color.napzakGrayScale(.gray900))
+                        default:
+                            Text("\(chatInfo?.price ?? 0)원")
                                 .font(.napzakFont(.body1Bold16))
                                 .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
                                 .foregroundColor(Color.napzakGrayScale(.gray900))
                         }
-                        else{
-                           Text("100,000원대")
-                               .font(.napzakFont(.body1Bold16))
-                               .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
-                               .foregroundColor(Color.napzakGrayScale(.gray900))
-                       }
                     }
                 }
                 Spacer()
@@ -124,8 +161,7 @@ private extension ChatView {
     }
 }
 
-// MARK: - 채팅들어갈 부분
-
+// MARK: - Chat Content
 private extension ChatView {
     var chatContent: some View {
         ZStack {
@@ -144,8 +180,7 @@ private extension ChatView {
     }
 }
 
-// MARK: - 메시지 input바
-
+// MARK: - Message Input
 private extension ChatView {
     var messageInputView: some View {
         VStack(spacing: 0) {

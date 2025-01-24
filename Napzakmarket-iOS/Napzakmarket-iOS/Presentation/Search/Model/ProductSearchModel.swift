@@ -18,6 +18,7 @@ struct ProductFetchOption: Equatable {
     }
 }
 
+@MainActor
 final class ProductSearchModel: ObservableObject {
 
     //MARK: - Property Wrappers

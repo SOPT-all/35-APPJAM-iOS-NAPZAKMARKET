@@ -18,6 +18,8 @@ enum ProductAPI {
     case buyProductRequest(registerItem: RegisterBuyProductRequestDTO)
     case sellProductResponse(productId: Int)
     case buyProductResponse(productId: Int)
+    case putPresignedURL(url: String, imageData: Data)
+    case getChatInfo(productId: Int)
     case getSellProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
     case getBuyProduct(sortOption: String, genreIDs: [Int]?, isOnSale: Bool)
     case getSellProductForSearch(searchWord: String, sortOption: String, genreIDs: [Int]?, isOnSale: Bool, isUnopened: Bool)
@@ -25,6 +27,8 @@ enum ProductAPI {
     case getProductDetail(productId: Int)
     case getStoreOwnerSellProduct(Int, ProductFetchOption)
     case getStoreOwnerBuyProduct(Int, ProductFetchOption)
+    case postInterest(productId: Int)
+    case deleteInterest(productId: Int)
 }
 
 extension ProductAPI: BaseTargetType {
@@ -70,12 +74,22 @@ extension ProductAPI: BaseTargetType {
             return "products/sell/stores/\(storeOwnerId)"
         case .getStoreOwnerBuyProduct(let storeOwnerId, _):
             return "products/buy/stores/\(storeOwnerId)"
+        case .postInterest(let productId), .deleteInterest(let productId):
+            return "interest/\(productId)"
+        case .getChatInfo(let prodeuctId):
+            return "products/chat/\(prodeuctId)"
+        case .putPresignedURL:
+            return ""
         }
     }
     
     var method: Moya.Method {
         switch self {
-        case .sellProductRequest, .buyProductRequest:
+        case .postInterest:
+            return .post
+        case .deleteInterest:
+            return .delete
+        case .sellProductRequest, .buyProductRequest, .putPresignedURL:
             return .post
         default:
             return .get
@@ -84,8 +98,10 @@ extension ProductAPI: BaseTargetType {
     
     var task: Moya.Task {
         switch self {
-        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .getProductDetail:
+        case .getBanners, .getPersonalProducts, .getPopularSellProducts, .getRecommandedBuyProducts, .postInterest, .deleteInterest, .getProductDetail, .getChatInfo:
             return .requestPlain
+        case .putPresignedURL(_, let imageData):
+            return .requestData(imageData)
         case .sellProductRequest(let registerItem):
             return .requestJSONEncodable(registerItem)
         case .buyProductRequest(let registerItem):

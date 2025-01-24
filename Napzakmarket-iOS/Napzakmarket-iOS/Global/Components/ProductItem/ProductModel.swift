@@ -7,6 +7,7 @@
 
 import Foundation
 
+@MainActor
 final class ProductModel: Identifiable, ObservableObject {
     
     let id: Int
@@ -15,7 +16,7 @@ final class ProductModel: Identifiable, ObservableObject {
     let photo: String
     let price: Int
     let uploadTime: String
-    let isInterested: Bool
+    @Published var isInterested: Bool
     let tradeType: ProductType
     let tradeStatus: String
     let isPriceNegotiable: Bool?
@@ -60,6 +61,32 @@ final class ProductModel: Identifiable, ObservableObject {
         self.tradeStatus = dto.tradeStatus
         self.isPriceNegotiable = dto.isPriceNegotiable
         self.isOwnedByCurrentUser = dto.isOwnedByCurrentUser
+    }
+    
+    func postInterestToggle() async {
+        await withCheckedContinuation { continuation in
+            if isInterested {
+                NetworkService.shared.productService.deleteInterest(productId: id) { [weak self] result in
+                    switch result {
+                    case .success:
+                        self?.isInterested = false
+                    default:
+                        break
+                    }
+                    continuation.resume()
+                }
+            } else {
+                NetworkService.shared.productService.postInterest(productId: id) { [weak self] result in
+                    switch result {
+                    case .success:
+                        self?.isInterested = true
+                    default:
+                        break
+                    }
+                    continuation.resume()
+                }
+            }
+        }
     }
     
 }
