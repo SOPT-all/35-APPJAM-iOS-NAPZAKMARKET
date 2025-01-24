@@ -46,16 +46,21 @@ struct SearchInputView: View {
                 tabBarState.isTabBarHidden = true
                 
                 Task {
-                    if inputText.isEmpty {
-                        await getAllGenreList()
-                    } else {
+                    if !inputText.isEmpty {
                         await getSearchGenreList(searchWord: inputText)
                     }
                 }
             }
         }
+        .onChange(of: isInputComplete) { _ in
+            if inputText.isEmpty {
+                isInputComplete = false
+            }
+        }
         .navigationDestination(isPresented: $isInputComplete) {
-            SearchView(isBackButtonHidden: false, searchResultText: inputText)
+            if !inputText.isEmpty {
+                SearchView(isBackButtonHidden: false, searchResultText: inputText)
+            }
         }
         .navigationDestination(isPresented: $isGenreSelected) {
             if let adaptedGenre {
@@ -107,7 +112,7 @@ extension SearchInputView {
             .onChange(of: inputText) { newValue in
                 Task {
                     if newValue.isEmpty {
-                        await getAllGenreList()
+                        genreList = []
                     } else {
                         await getSearchGenreList(searchWord: newValue)
                     }
@@ -177,7 +182,6 @@ extension SearchInputView {
                 guard let reponse else { return }
                 DispatchQueue.main.async {
                     genreList = reponse.data.genreList
-                    print(reponse.data.genreList)
                 }
             default:
                 break
