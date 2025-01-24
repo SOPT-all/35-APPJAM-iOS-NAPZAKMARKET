@@ -139,7 +139,8 @@ extension GenreFilterModalView {
         ScrollView(.vertical, showsIndicators: false) {
             LazyVGrid(columns: [GridItem(.flexible())], alignment: .leading, spacing: 0) {
                 ForEach(genreList, id: \.self) { genre in
-                    HStack(alignment: .center) {
+                    ZStack(alignment: .leading) {
+                        Color.napzakGrayScale(.white)
                         Text("\(genre.genreName)")
                             .font(.napzakFont(.body5SemiBold14))
                             .applyNapzakTextStyle(napzakFontStyle: .body5SemiBold14)
