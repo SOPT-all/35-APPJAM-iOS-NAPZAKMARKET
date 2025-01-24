@@ -45,8 +45,6 @@ extension RegisterGenre {
         .padding(.bottom, 20)
     }
     
-    // divider로 구현하니까 피그마랑 색상이 달라서 뷰로 구현을 했는데,
-    // hstack이 아니라 더 좋은 무언가가 있지 않았을까 하는 고민이 있습니다
     private var dividerSection: some View {
         Divider()
             .frame(height: 1)

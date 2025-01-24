@@ -20,7 +20,6 @@ enum RegisterType: String {
 }
 
 struct RegisterView: View {
-    @Environment(\.dismiss) private var dismiss
     @StateObject var registerModel: RegisterModel = RegisterModel()
     @EnvironmentObject private var tabBarState: TabBarStateModel
     @EnvironmentObject private var appState: AppState

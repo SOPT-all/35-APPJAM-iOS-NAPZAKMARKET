@@ -24,7 +24,7 @@ struct TabBarView: View {
     // MARK: - Body
     
     var body: some View {
-        NavigationStack{
+        NavigationStack {
             ZStack {
                 mainContent
                 
@@ -52,7 +52,6 @@ struct TabBarView: View {
                     Color.clear.frame(height: 90)
                 }
             }
-            
     }
     
     private var tabBarStack: some View {

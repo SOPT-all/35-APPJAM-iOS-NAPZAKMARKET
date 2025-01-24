@@ -53,7 +53,7 @@ struct SearchView: View {
     @State var sortModalViewIsPresented = false
     @State var filterModalViewIsPresented = false
     @State var searchInputViewIsPresented = false
-
+    
     //검색 결과
     @State var isBackButtonHidden = true
     @State var searchResultText: String = ""
@@ -64,7 +64,7 @@ struct SearchView: View {
     
     //상태 관리
     @State var onAppearState = true
-
+    
     let width = (UIScreen.main.bounds.width - 55) / 2
     
     //MARK: - Properties
