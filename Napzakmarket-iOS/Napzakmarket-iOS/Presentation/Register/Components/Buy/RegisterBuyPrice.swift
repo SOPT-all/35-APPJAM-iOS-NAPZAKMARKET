@@ -53,6 +53,11 @@ extension RegisterBuyPrice {
                     .font(.napzakFont(.body3Medium16))
                     .applyNapzakTextStyle(napzakFontStyle: .body3Medium16)
                     .foregroundStyle(Color.napzakGrayScale(.gray900))
+                    .onChange(of: price) { newValue in
+                        if price == "0" {
+                            price = ""
+                        }
+                    }
                 
                 Spacer()
                 
