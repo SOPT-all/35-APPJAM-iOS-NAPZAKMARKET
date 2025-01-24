@@ -36,6 +36,15 @@ extension PresignedAPI: BaseTargetType {
             return .noneHeader
         }
     }
+    
+    var headers: [String : String]? {
+        switch self {
+        case .putPresignedURL:
+            return ["Content-Type": "image/jpeg"]
+        default:
+            return nil
+        }
+    }
 
     var path: String {
         switch self {
