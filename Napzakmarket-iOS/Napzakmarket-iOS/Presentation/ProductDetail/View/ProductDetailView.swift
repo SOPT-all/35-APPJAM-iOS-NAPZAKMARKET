@@ -70,6 +70,7 @@ struct ProductDetailView: View {
                 .onEnded { value in
                     if value.translation.width > 100 {
                         dismiss()
+                        dismiss()
                         tabBarState.isTabBarHidden = false
                     }
                 }
