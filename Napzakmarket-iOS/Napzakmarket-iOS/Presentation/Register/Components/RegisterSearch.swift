@@ -36,6 +36,7 @@ struct RegisterSearch: View {
             listSection
             
         }
+        .background(Color.napzakGrayScale(.white))
         .navigationTitle("장르")
         .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
@@ -57,7 +58,14 @@ struct RegisterSearch: View {
                 fetchAllGenre()
             }
         }
-        
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 60 {
+                        dismiss()
+                    }
+                }
+        )
     }
 }
 

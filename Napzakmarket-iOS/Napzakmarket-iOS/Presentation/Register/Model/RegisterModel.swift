@@ -45,7 +45,7 @@ final class RegisterModel: ObservableObject {
         !registerInfo.title.trimmingCharacters(in: .whitespaces).isEmpty &&
         !registerInfo.description.trimmingCharacters(in: .whitespaces).isEmpty &&
         !registerInfo.genre.trimmingCharacters(in: .whitespaces).isEmpty &&
-        !registerInfo.price.trimmingCharacters(in: .whitespaces).isEmpty
+        !registerInfo.price.trimmingCharacters(in: .whitespaces).isEmpty && Int(registerInfo.price) != 0
     }
     
     // 팔아요 등록 과정의 검증

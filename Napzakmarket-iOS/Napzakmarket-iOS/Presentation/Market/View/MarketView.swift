@@ -10,8 +10,8 @@ import SwiftUI
 import Kingfisher
 
 struct MarketView: View {
+    
     @Environment(\.dismiss) private var dismiss
-
     @EnvironmentObject private var tabBarState: TabBarStateModel
     
     let storeId: Int
@@ -33,7 +33,10 @@ struct MarketView: View {
     //화면 전환
     @State var sortModalViewIsPresented = false
     @State var filterModalViewIsPresented = false
-    @Binding var marketViewIsPresented: Bool
+    
+    //좋아요
+    @State var isInterestChangedInSell: Bool? = false
+    @State var isInterestChangedInBuy: Bool? = false
     
     private let width = (UIScreen.main.bounds.width - 55) / 2
     private let columns = [
@@ -55,6 +58,7 @@ struct MarketView: View {
                         tabs: ["팔아요", "구해요", "후기"],
                         spacing: 15
                     )
+                    .frame(height: 48)
                     .padding(.top, 20)
                     
                     if selectedIndex == 2 {
@@ -106,28 +110,38 @@ struct MarketView: View {
             }
             .background(Color(.white))
             .navigationBarHidden(true)
-            .onAppear {
-                getStoreInfo()
-                tabBarState.isTabBarHidden = true
-                
-                Task {
-                    await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
-                    await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
-                }
-            }
-            .onChange(of: adaptedGenres) { _ in
-                productFetchOption.genreIDs = adaptedGenres.map { $0.id }
-            }
-            .gesture(
-                DragGesture()
-                    .onEnded { value in
-                        if value.translation.width > 100 {
-                            marketViewIsPresented = false
-                            tabBarState.isTabBarHidden = false
-                        }
-                    }
-            )
         }
+        .onAppear {
+            getStoreInfo()
+            tabBarState.isTabBarHidden = true
+            
+            Task {
+                await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
+                await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
+            }
+        }
+        .onChange(of: isInterestChangedInSell) { _ in
+            Task {
+                await productModel.getStoreOwnerSellProducts(storeId: storeId, productFetchOption: productFetchOption)
+            }
+        }
+        .onChange(of: isInterestChangedInBuy) { _ in
+            Task {
+                await productModel.getStoreOwnerBuyProducts(storeId: storeId, productFetchOption: productFetchOption)
+            }
+        }
+        .onChange(of: adaptedGenres) { _ in
+            productFetchOption.genreIDs = adaptedGenres.map { $0.id }
+        }
+        .gesture(
+            DragGesture()
+                .onEnded { value in
+                    if value.translation.width > 60 {
+                        dismiss()
+                        tabBarState.isTabBarHidden = false
+                    }
+                }
+        )
     }
     
     // MARK: - Private Views
@@ -148,12 +162,13 @@ struct MarketView: View {
             
             HStack {
                 Button(action: {
-                    marketViewIsPresented = false
+                    dismiss()
                     tabBarState.isTabBarHidden = false
                 }) {
-                    Image(systemName: "chevron.backward")
-                        .foregroundColor(Color.napzakGrayScale(.gray900))
+                    Image(.icBack)
+                        .resizable()
                         .frame(width: 48, height: 48)
+                        .padding(.top, 4)
                 }
                 Spacer()
             }
@@ -303,7 +318,7 @@ struct MarketView: View {
                     LazyVGrid(columns: columns, spacing: 20) {
                         if selectedIndex == 0 {
                             ForEach(productModel.sellProducts) { product in
-                                NavigationLink(destination: ProductDetailView(isChangedInterest: .constant(nil), productId: product.id)) {
+                                NavigationLink(destination: ProductDetailView(isChangedInterest: $isInterestChangedInSell, productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width
@@ -314,7 +329,7 @@ struct MarketView: View {
                         }
                         else if selectedIndex == 1 {
                             ForEach(productModel.buyProducts) { product in
-                                NavigationLink(destination: ProductDetailView(isChangedInterest: .constant(nil), productId: product.id)) {
+                                NavigationLink(destination: ProductDetailView(isChangedInterest: $isInterestChangedInBuy, productId: product.id)) {
                                     ProductItemView(
                                         product: product,
                                         width: width

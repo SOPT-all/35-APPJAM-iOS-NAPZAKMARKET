@@ -25,66 +25,64 @@ struct HomeView: View {
     
     var body: some View {
         
-        NavigationStack {
-            ScrollView(showsIndicators: false) {
-                VStack(spacing: 0) {
-                    LogoView()
-                    NoticeCarouselView(currentPage: $currentPage, banneres: $homeModel.banners)
-                    
-                    // 첫번째 섹션
-                    VStack(spacing: 16) {
-                        RecommendedItemsTitleView()
-                        ProductScrollView(width: width - 10, products: $homeModel.personalProducts, isInterestChanged: $isInterestChanged)
-                    }
-                    .padding(.leading, 20)
-                    
-                    // 두번째 섹션
-                    VStack(spacing: 16) {
-                        ZStack(alignment: .bottom) {
-                            HStack {
-                                Image(.imgHome2)
-                                Spacer()
-                            }
-                            
-                            CommonTitleView(
-                                title: "지금 가장 많이 찜한 납작템",
-                                subTitle: "놓치면 아쉬운 인기아이템들을 구경해볼까요?",
-                                alignment: .right
-                            )
-                            .padding(.trailing, 20)
-                        }
-                        
-                        MostLikedProductsView(width: width, products: $homeModel.popularSellProducts, isInterestChangedInPopularSection: $isInterestChangedInPopularSection)
-                            .padding(.horizontal, 20)
-                    }
-                    .padding(.top, 20)
-                    .padding(.bottom, 40)
-                    .background(Color.napzakGrayScale(.gray50))
-                    .padding(.top, 30)
-                    
-                    // 세번째 섹션
-                    VStack(spacing: 16) {
-                        ZStack(alignment: .bottom) {
-                            HStack {
-                                Spacer()
-                                Image(.imgHome3)
-                            }
-                            .padding(.trailing, 20)
-                            
-                            CommonTitleView(
-                                title: "다른 유저들은 뭘 찾고 있을까요?",
-                                subTitle: "덕심 가득한 리스트에서 취향을 나눠보세요.",
-                                alignment: .left
-                            )
-                            .padding(.leading, 20)
-                        }
-                        
-                        ProductScrollView(width: width - 10, products: $homeModel.recommendedBuyProducts, isInterestChanged: $isInterestChanged)
-                            .padding(.leading, 20)
-                    }
-                    .padding(.top, 26)
-                    .padding(.bottom, 75)
+        ScrollView(showsIndicators: false) {
+            VStack(spacing: 0) {
+                LogoView()
+                NoticeCarouselView(currentPage: $currentPage, banneres: $homeModel.banners)
+                
+                // 첫번째 섹션
+                VStack(spacing: 16) {
+                    RecommendedItemsTitleView()
+                    ProductScrollView(width: width - 10, products: $homeModel.personalProducts, isInterestChanged: $isInterestChanged)
                 }
+                .padding(.leading, 20)
+                
+                // 두번째 섹션
+                VStack(spacing: 16) {
+                    ZStack(alignment: .bottom) {
+                        HStack {
+                            Image(.imgHome2)
+                            Spacer()
+                        }
+                        
+                        CommonTitleView(
+                            title: "지금 가장 많이 찜한 납작템",
+                            subTitle: "놓치면 아쉬운 인기아이템들을 구경해볼까요?",
+                            alignment: .right
+                        )
+                        .padding(.trailing, 20)
+                    }
+                    
+                    MostLikedProductsView(width: width, products: $homeModel.popularSellProducts, isInterestChangedInPopularSection: $isInterestChangedInPopularSection)
+                        .padding(.horizontal, 20)
+                }
+                .padding(.top, 20)
+                .padding(.bottom, 40)
+                .background(Color.napzakGrayScale(.gray50))
+                .padding(.top, 30)
+                
+                // 세번째 섹션
+                VStack(spacing: 16) {
+                    ZStack(alignment: .bottom) {
+                        HStack {
+                            Spacer()
+                            Image(.imgHome3)
+                        }
+                        .padding(.trailing, 20)
+                        
+                        CommonTitleView(
+                            title: "다른 유저들은 뭘 찾고 있을까요?",
+                            subTitle: "덕심 가득한 리스트에서 취향을 나눠보세요.",
+                            alignment: .left
+                        )
+                        .padding(.leading, 20)
+                    }
+                    
+                    ProductScrollView(width: width - 10, products: $homeModel.recommendedBuyProducts, isInterestChanged: $isInterestChanged)
+                        .padding(.leading, 20)
+                }
+                .padding(.top, 26)
+                .padding(.bottom, 75)
             }
         }
         .onAppear {
@@ -107,10 +105,7 @@ struct HomeView: View {
             }
         }
     }
-    
 }
-
-
 
 extension HomeView {
     
@@ -204,11 +199,11 @@ extension HomeView {
                                 (index == (currentPage - 1) % banneres.count) ? Color.napzakPurple(.purple30) : Color.napzakGrayScale(.gray400)
                             )
                             .frame(width: 7, height: 7)
-//                            .onTapGesture {
-//                                withAnimation(.easeInOut) {
-//                                    currentPage = index
-//                                }
-//                            }
+                        //                            .onTapGesture {
+                        //                                withAnimation(.easeInOut) {
+                        //                                    currentPage = index
+                        //                                }
+                        //                            }
                     }
                 }
                 
@@ -268,7 +263,7 @@ extension HomeView {
         
         @Binding var products: [ProductModel]
         @Binding var isInterestChanged: Bool?
-
+        
         private let column = [
             GridItem(.flexible())
         ]
@@ -345,7 +340,7 @@ extension HomeView {
         
         @Binding var products: [ProductModel]
         @Binding var isInterestChangedInPopularSection: Bool?
-
+        
         private let columns = [
             GridItem(.flexible(), spacing: 15),
             GridItem(.flexible())

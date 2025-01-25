@@ -20,7 +20,6 @@ enum RegisterType: String {
 }
 
 struct RegisterView: View {
-    @Environment(\.dismiss) private var dismiss
     @StateObject var registerModel: RegisterModel = RegisterModel()
     @EnvironmentObject private var tabBarState: TabBarStateModel
     @EnvironmentObject private var appState: AppState
@@ -56,7 +55,7 @@ struct RegisterView: View {
                 }
             }
             .onChange(of: registerModel.completeUploading) { _ in
-                appState.isProductRegistered.toggle()
+                appState.isProductRegistered = true
             }
             .navigationDestination(isPresented: $registerModel.completeUploading) {
                 ProductDetailView(isChangedInterest: .constant(nil), productId: registerModel.productId ?? 1)

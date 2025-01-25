@@ -15,9 +15,10 @@ struct ProductDetailView: View {
     
     @Environment(\.dismiss) private var dismiss
     @EnvironmentObject private var tabBarState: TabBarStateModel
-
+    @EnvironmentObject var appState: AppState
+    
     @StateObject var product = ProductDetailModel()
-
+    
     @State private var currentPage = 0
     @State var marketViewIsPresented = false
     @State var showToast = false
@@ -30,47 +31,49 @@ struct ProductDetailView: View {
     let screenWidth = UIScreen.main.bounds.width
     
     private let maxPrice: Int = 1_000_000
-
+    
     //MARK: - Main Body
     
     var body: some View {
-        NavigationStack {
-            ZStack(alignment: .bottom) {
-                VStack(spacing: 0) {
-                    navigationBar
-                    ScrollView(showsIndicators: false) {
-                        VStack(alignment: .leading, spacing: 0) {
-                            productImagePageView
-                            productInfo
+        ZStack(alignment: .bottom) {
+            VStack(spacing: 0) {
+                navigationBar
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 0) {
+                        productImagePageView
+                        productInfo
+                        divider
+                        productDescription
+                        if product.productDetail?.tradeType == .sell {
+                            productConditions
                             divider
-                            productDescription
-                            if product.productDetail?.tradeType == .sell {
-                                productConditions
-                                divider
-                                productDeliveryFee
-                            }
-                            Divider()
-                                .frame(height: 8)
-                                .overlay(Color.napzakGrayScale(.gray50))
-                            marketInfo
+                            productDeliveryFee
                         }
-                    }
-                    if showToast {
-                        toastView
-                            .transition(.move(edge: .bottom).combined(with: .opacity))
-                            .zIndex(1)
-                            .animation(.spring(), value: showToast)
+                        Divider()
+                            .frame(height: 8)
+                            .overlay(Color.napzakGrayScale(.gray50))
+                        marketInfo
                     }
                 }
-                if !(product.productDetail?.isOwnedByCurrentUser ?? false) {
-                    bottomView
+                if showToast {
+                    toastView
+                        .transition(.move(edge: .bottom).combined(with: .opacity))
+                        .zIndex(1)
+                        .animation(.spring(), value: showToast)
                 }
+            }
+            if !(product.productDetail?.isOwnedByCurrentUser ?? false) {
+                bottomView
             }
         }
         .navigationBarHidden(true)
         .ignoresSafeArea(edges: [.bottom])
-        .navigationDestination(isPresented: $marketViewIsPresented) {
-            MarketView(storeId: product.storeInfo?.userId ?? Int(), marketViewIsPresented: $marketViewIsPresented)
+        .fullScreenCover(isPresented: $marketViewIsPresented) {
+            MarketView(storeId: product.storeInfo?.userId ?? Int())
+                .presentationDragIndicator(.hidden)
+        }
+        .transaction { transaction in
+            transaction.disablesAnimations = true
         }
         .onAppear {
             tabBarState.isTabBarHidden = true
@@ -81,9 +84,14 @@ struct ProductDetailView: View {
         .gesture(
             DragGesture()
                 .onEnded { value in
-                    if value.translation.width > 100 {
-                        dismiss()
-                        dismiss()
+                    if value.translation.width > 60 {
+                        if appState.isProductRegistered {
+                            appState.isProductRegistered = false
+                            dismiss()
+                            dismiss()
+                        } else {
+                            dismiss()
+                        }
                         tabBarState.isTabBarHidden = false
                     }
                 }
@@ -98,8 +106,13 @@ extension ProductDetailView {
     private var navigationBar: some View {
         HStack {
             Button {
-                dismiss()
-                dismiss()
+                if appState.isProductRegistered {
+                    appState.isProductRegistered = false
+                    dismiss()
+                    dismiss()
+                } else {
+                    dismiss()
+                }
                 tabBarState.isTabBarHidden = false
             } label: {
                 Image(.icBack)
@@ -335,9 +348,7 @@ extension ProductDetailView {
             }
             .background(Color.napzakGrayScale(.white))
             .onTapGesture {
-                if product.productDetail?.isOwnedByCurrentUser == false {
-                    marketViewIsPresented = true
-                }
+                marketViewIsPresented = true
             }
         }
         .padding(.top, 31)
@@ -364,19 +375,19 @@ extension ProductDetailView {
                     product.isInterested ? Image(.btnDetailLikeSelect) : Image(.btnDetailLike)
                 }
                 NavigationLink(destination: ChatView(productId: productId)) {
-                   HStack {
-                       Spacer()
-                       Text("채팅하기")
-                           .font(.napzakFont(.body1Bold16))
-                           .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
-                           .foregroundStyle(Color.napzakGrayScale(.white))
-                       Spacer()
-                   }
-                   .background(
-                       RoundedRectangle(cornerRadius: 12)
-                           .fill(Color.napzakGrayScale(.gray900))
-                           .frame(height: 52)
-                   )
+                    HStack {
+                        Spacer()
+                        Text("채팅하기")
+                            .font(.napzakFont(.body1Bold16))
+                            .applyNapzakTextStyle(napzakFontStyle: .body1Bold16)
+                            .foregroundStyle(Color.napzakGrayScale(.white))
+                        Spacer()
+                    }
+                    .background(
+                        RoundedRectangle(cornerRadius: 12)
+                            .fill(Color.napzakGrayScale(.gray900))
+                            .frame(height: 52)
+                    )
                 }
             }
             .padding(.top, 20)
